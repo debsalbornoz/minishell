@@ -12,26 +12,26 @@
 
 #include "minishell.h"
 
-int	main(int argc, char *argv[])
-{
-	char		*str;
-	t_tokens	*token;
-	t_tokens	*temp;
+int main(int argc, char *argv[]) {
+    char *str;
+    t_tokens *token;
+    t_tokens *temp;
 
-	token = NULL;
-	argv = NULL;
-	if (argc == 1)
-	{
-		while (1)
-		{
-			str = readline("$");
-			init_tokenization(&token, str);
-			temp = token;
-			while (temp != NULL)
-			{
-				printf("%s\n %s\n", token->type, token->option);
-				temp = temp->next;
-			}
-		}
-	}
+    token = NULL;
+    argv = NULL;
+
+    if (argc == 1 && argv == NULL) {
+        while (1) {
+            str = readline("$");
+            init_tokenization(&token, str);
+            temp = token;
+
+            while (temp != NULL) {
+                printf("%s\n %s\n", temp->type, temp->value);
+                temp = temp->next;
+            }
+        }
+    }
+
+    return 0;
 }

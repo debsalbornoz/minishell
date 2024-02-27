@@ -19,17 +19,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-enum				e_tokentype
-{
-	FILES,
-	COMMAND,
-	ARGUMENT,
-	STRING,
-	VARIABLE,
-	PIPE,
-	REDIRECT,
-};
-
 typedef struct s_tokens
 {
 	char			*str;
@@ -52,5 +41,8 @@ void				add_node(t_tokens **list, char *str);
 void				init_tokenization(t_tokens **list, char *str);
 int					find_redirect(char *str);
 void				add_redirect(t_tokens **list, char *str);
-
+t_tokens    		*create_node(char *str);
+t_tokens 			*append_node(t_tokens **list, char *str);
+void				add_pipe(t_tokens **list, char *str);
+void 				add_output_redirect(t_tokens **list, char *str);
 #endif
