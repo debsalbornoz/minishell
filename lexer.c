@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:21:25 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/02/27 19:54:31 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/02/27 19:56:29 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,6 @@ void	tokenize_input(t_tokens **list, char *str)
 		}
 		i++;
 	}
-}
-
-int	find_len(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == 32 || str[i] == '\t' || str[i] == '>' || str[i] == '|'
-			|| str[i] == '<')
-		{
-			break ;
-		}
-		i++;
-	}
-	return (i);
 }
 
 void	add_pipe(t_tokens **list, char *str)

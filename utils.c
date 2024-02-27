@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:20:14 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/02/27 19:22:31 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/02/27 19:56:27 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,21 @@ char	*ft_strcpy(char *dst, const char *src, int size)
 	}
 	dst[i] = '\0';
 	return (dst);
+}
+
+int	find_len(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == 32 || str[i] == '\t' || str[i] == '>' || str[i] == '|'
+			|| str[i] == '<')
+		{
+			break ;
+		}
+		i++;
+	}
+	return (i);
 }
