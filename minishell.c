@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:01:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/02/27 19:19:29 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:27:02 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char *argv[])
 		{
 			str = readline("$");
 			tokenize_input(&token, str);
+			enable_builtin(&token);
 			temp = token;
 			while (temp != NULL)
 			{

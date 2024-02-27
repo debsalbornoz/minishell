@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 19:19:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/02/27 19:19:23 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:26:49 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,20 @@ int	ft_strcmp(const char *s1, const char *s2, int n)
 		i++;
 	}
 	return (1);
+}
+
+void	enable_builtin(t_tokens **list)
+{
+	t_tokens	*token;
+
+	token = *list;
+	while (token != NULL)
+	{
+		if (is_builtin(token->value) > 0 && is_builtin(token->value) < 8)
+		{
+			token->option = "command";
+			token->builtin = "yes";
+		}
+		token = token->next;
+	}
 }

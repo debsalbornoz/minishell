@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 19:56:32 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/02/27 19:20:05 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:26:43 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_tokens
 	char			*option;
 	char			*value;
 	bool			enabled;
-	bool			*builtin;
+	char			*builtin;
 	struct s_tokens	*next;
 	struct s_tokens	*prev;
 }					t_tokens;
@@ -52,4 +52,5 @@ char				*ft_strcpy(char *dst, const char *src, int size);
 void				add_word(t_tokens **list, char *str, char *s, int len);
 int					is_builtin( char *s1);
 int					ft_strcmp(const char *s1, const char *s2, int n);
+void				enable_builtin(t_tokens **list);	
 #endif
