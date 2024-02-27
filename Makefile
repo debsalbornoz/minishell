@@ -1,5 +1,5 @@
 CFLAGS = -g3 -Wall -Wextra -Werror
-SRCS = minishell.c utils.c lexer.c
+SRCS = minishell.c utils.c lexer.c lexer2.c
 OBJ = $(SRCS:.c=.o)
 NAME = minishell
 LIBFT_DIR = ./libft
@@ -7,7 +7,7 @@ LIBFT_DIR = ./libft
 all: $(NAME)
 
 $(NAME): $(LIBFT_DIR)/libft.a $(OBJ)
-	cc -g3 -Wall -Wextra -Werror minishell.o utils.o lexer.o -L./libft -lft -o minishell -lreadline -lncurses -ltermcap
+	cc -g3 -Wall -Wextra -Werror minishell.o utils.o lexer.o lexer2.o -L./libft -lft -o minishell -lreadline -lncurses -ltermcap
 
 $(LIBFT_DIR)/libft.a:
 	$(MAKE) -C $(LIBFT_DIR)

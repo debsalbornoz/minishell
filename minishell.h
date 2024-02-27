@@ -50,4 +50,6 @@ void 				add_multi_redirect(t_tokens **list, char *str, char c);
 int					find_len(char *str);
 char 				*ft_strcpy(char *dst, const char *src, int size);
 void				add_word(t_tokens **list, char *str, char *s, int len);
+int 				is_builtin( char *s1);
+int					ft_strcmp(const char *s1, const char *s2, int n);
 #endif

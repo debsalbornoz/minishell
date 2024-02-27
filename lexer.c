@@ -44,7 +44,7 @@ void tokenize_input(t_tokens **list, char *str)
 					break;
 				i++;
 			}
-
+			
 		}
         i++;
     }
@@ -109,7 +109,6 @@ char 	*ft_strcpy(char *dst, const char *src, int size)
 
 	i = 0;
 
-	dst = ft_calloc((size + 1),sizeof(char));
 	if (dst == NULL || src == NULL)
 		return (NULL);
 	else if (size == 0)
@@ -127,9 +126,10 @@ void	add_word(t_tokens **list, char *str, char *s, int len)
 {
 	t_tokens *new_node;
 	char *temp;
-	
+
 	temp = NULL;
 	new_node = append_node(list, str);
+	temp = ft_calloc((len + 1),sizeof(char));
 	temp = ft_strcpy(temp,s,len);
 	new_node->type = "word";
     new_node->option = "none";
