@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
             temp = token;
 
             while (temp != NULL) {
-                printf("%s\n %s\n", temp->type, temp->value);
+                printf("%s\n %s\n %s\n", temp->type, temp->value, temp->option);
                 temp = temp->next;
             }
         }

@@ -45,4 +45,7 @@ t_tokens    		*create_node(char *str);
 t_tokens 			*append_node(t_tokens **list, char *str);
 void				add_pipe(t_tokens **list, char *str);
 void 				add_output_redirect(t_tokens **list, char *str);
+void 				add_input_redirect(t_tokens **list, char *str);
+void 				add_append_redirect(t_tokens **list, char *str);
+void 				add_heredoc(t_tokens **list, char *str);
 #endif
