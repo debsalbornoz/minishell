@@ -16,10 +16,13 @@ void tokenize_input(t_tokens **list, char *str)
 {
     int i;
 	int len;
+	int j;
 
 	i = 0;
-    while (str[i] != '\0')
+
+	while (str[i] != '\0')
 	{
+		j = 0;
         while (str[i] == 32 || str[i] == '\t')
             i++;
         if (str[i] == '|')
@@ -31,9 +34,17 @@ void tokenize_input(t_tokens **list, char *str)
 			add_multi_redirect(list,str, str[i]);
 			i++;
 		}
-		else( len = find_len(str + i))
+		else
 		{
+			len = find_len(str + i);
 			add_word(list,str, str + i, len);
+			while(j++ < len)
+			{
+				if(j == len)
+					break;
+				i++;
+			}
+
 		}
         i++;
     }
@@ -44,12 +55,13 @@ int	find_len(char *str)
 	int i = 0;
 	while(str[i] != '\0')
 	{
-		if(str[i] == 32 || str[i] == \t)
+		if(str[i] == 32 || str[i] == '\t' || str[i] == '>' || str[i] == '|' || str[i] == '<')
 		{
 			break;
 		}
 		i++;
 	}
+	return(i);
 }
 void add_pipe(t_tokens **list, char *str) {
     t_tokens *new_node = append_node(list, str);
@@ -96,24 +108,27 @@ char 	*ft_strcpy(char *dst, const char *src, int size)
 	int	i;
 
 	i = 0;
+
+	dst = ft_calloc((size + 1),sizeof(char));
 	if (dst == NULL || src == NULL)
 		return (NULL);
 	else if (size == 0)
 		return (NULL);
-	while (i < size - 1 && src[i] != '\0')
+	while (i < size && src[i] != '\0')
 	{
-		dest[i] = src[i];
+		dst[i] = src[i];
 		i++;
 	}
 	dst[i] = '\0';
-	return (dest);
+	return (dst);
 }
 
 void	add_word(t_tokens **list, char *str, char *s, int len)
 {
 	t_tokens *new_node;
 	char *temp;
-
+	
+	temp = NULL;
 	new_node = append_node(list, str);
 	temp = ft_strcpy(temp,s,len);
 	new_node->type = "word";

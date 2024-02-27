@@ -47,4 +47,7 @@ t_tokens 			*append_node(t_tokens **list, char *str);
 void				add_pipe(t_tokens **list, char *str);
 void 				add_redirect(t_tokens **list, char *str, char c);
 void 				add_multi_redirect(t_tokens **list, char *str, char c);
+int					find_len(char *str);
+char 				*ft_strcpy(char *dst, const char *src, int size);
+void				add_word(t_tokens **list, char *str, char *s, int len);
 #endif
