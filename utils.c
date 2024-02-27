@@ -7,6 +7,8 @@ t_tokens    *create_node(char *str)
 
     new_node = (t_tokens *)ft_calloc(1, sizeof(t_tokens));
     new_node->str = str;
+    new_node->builtin = 0;
+    new_node->enabled = 0;
     new_node->type = NULL;
     new_node->option = NULL;
     new_node->value = NULL;
@@ -15,7 +17,8 @@ t_tokens    *create_node(char *str)
     return(new_node); 
 }
 
-t_tokens *append_node(t_tokens **list, char *str) {
+t_tokens *append_node(t_tokens **list, char *str)
+{
     t_tokens *new_node = create_node(str);
 
     new_node->next = NULL;
@@ -33,5 +36,5 @@ t_tokens *append_node(t_tokens **list, char *str) {
         new_node->prev = current_node;
     }
 
-    return new_node;  // Retorna o nó recém-adicionado
+    return new_node;
 }

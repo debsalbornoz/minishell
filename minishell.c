@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     if (argc == 1 && argv == NULL) {
         while (1) {
             str = readline("$");
-            init_tokenization(&token, str);
+            tokenize_input(&token, str);
             temp = token;
 
             while (temp != NULL) {

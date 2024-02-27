@@ -18,6 +18,7 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 typedef struct s_tokens
 {
@@ -25,6 +26,8 @@ typedef struct s_tokens
 	char			*type;
 	char			*option;
 	char			*value;
+	bool			enabled;
+	bool			*builtin;
 	struct s_tokens	*next;
 	struct s_tokens	*prev;
 }					t_tokens;
@@ -38,12 +41,10 @@ typedef struct s_env
 
 t_tokens			*create_node(char *str);
 void				add_node(t_tokens **list, char *str);
-void				init_tokenization(t_tokens **list, char *str);
-int					find_redirect(char *str);
+void				tokenize_input(t_tokens **list, char *str);;
 t_tokens    		*create_node(char *str);
 t_tokens 			*append_node(t_tokens **list, char *str);
 void				add_pipe(t_tokens **list, char *str);
 void 				add_redirect(t_tokens **list, char *str, char c);
-void 				add_input_redirect(t_tokens **list, char *str);
-void 			add_append_and_heredoc(t_tokens **list, char *str, char c);
+void 				add_multi_redirect(t_tokens **list, char *str, char c);
 #endif
