@@ -28,13 +28,18 @@ char	process_quotes(int signal, char input)
 	return (signal);
 }
 
-void	process_delimiter(t_list *list, int signal, char *input, int i)
+int	process_delimiter(t_list *list, int signal, char *input, int i)
 {
 
 	if (!signal && is_delimiter(input[i]))
 	{
 		if (is_redirect(input[i]))
+		{
 			list = process_redirect(list, input, i);
+			if(is_append(input[i], input[i+ 1]) || is_heredoc(input[i], input[i + 1]))
+				return(1);
+		}
+			
 		else if (is_dollar(input[i]))
 		{
 			list = add_node(list, "$");
@@ -46,4 +51,5 @@ void	process_delimiter(t_list *list, int signal, char *input, int i)
 			list->node->pipe = YES;
 		}
 	}
+	return(0);
 }

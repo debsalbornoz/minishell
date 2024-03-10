@@ -12,81 +12,38 @@
 
 #include "../../include/minishell.h"
 
-char	*ft_strjoinchr(char *str, char chr)
-{
-	char	*temp_s1;
-	char	*temp_s2;
-	char	*res;
-
-	temp_s1 = 0;
-	temp_s2 = 0;
-	res = 0;
-	temp_s2 = ft_calloc(2, sizeof(char));
-	*temp_s2 = chr;
-	if (!str)
-	{
-		res = ft_strdup(temp_s2);
-		free(temp_s2);
-		return (res);
-	}
-	temp_s1 = ft_strdup(str);
-	res = ft_strjoin(temp_s1, temp_s2);
-	free(temp_s1);
-	free(temp_s2);
-	return (res);
-}
-
-// char	*form_word(t_list *list, int signal, char *input, char **temp, int i)
+//  int form_word(t_list *list, int signal, char *input, char *temp, int i)
 // {
-// 	if ((temp && !input[i + 1])
-// 		|| (temp && !signal && is_delimiter(input[i])))
+// 	int len;
+// 	len = find_len(&input[i], signal);
+// 	if(len != 0)
 // 	{
-// 		list = add_node(list, *temp);
-// 		temp = 0;
+// 		temp = ft_calloc((len + 1), sizeof(char));
+// 		ft_strlcpy(temp, &input[i], len + 1);
+// 		list = add_node(list, temp);
 // 	}
-// 	return (*temp);
+
+// 	return (len);
 // }
 
- int form_word(t_list *list, int signal, char *input, char *temp, int i)
+int form_word(t_list *list, int signal, char *input, int i)
 {
-	int len;
-	len = find_len(&input[i], signal);
-	if(len != 0)
+    int len;
+	char *temp;
+
+    len = find_len(&input[i], signal);
+    if (len != 0)
 	{
-		temp = ft_calloc((len + 1), sizeof(char));
-		ft_strlcpy(temp, &input[i], len + 1);
-		list = add_node(list, temp);
-		// free(temp);
-	}
+        temp = ft_calloc((len + 1), sizeof(char));
+        ft_strlcpy(temp, &input[i], len + 1);
+        list = add_node(list, temp);
+		free(temp);
+    } 
+	else
+        temp = NULL;
 
-	return (len);
+    return len;
 }
-
-
-
-// int  find_len(char *input, int signal)
-// {
-// 	int i;
-
-// 	i = 0;
-	
-// 	if(signal)
-// 	{
-// 		i = 1;
-// 		while(input[i] != '\0' && input[i] != signal)
-// 			i++;
-// 	}
-// 	if(input[i] == signal)
-// 		i++;
-// 	else
-// 	while(input[i] != '\0')
-// 	{
-// 		if(is_delimiter(input[i]))
-// 			break;
-// 		i++;
-// 	}
-// 	return(i);
-// }
 
 int find_len(char *input, int signal)
 {

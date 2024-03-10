@@ -94,7 +94,7 @@ void	free_list(t_list *list);
 // tokenization.c
 char	*trim_start_spaces(char *input);
 char	process_quotes(int signal, char input);
-void	process_delimiter(t_list *list, int signal, char *input, int i);
+int	process_delimiter(t_list *list, int signal, char *input, int i);
 
 // redirect.c
 t_list *process_redirect(t_list *list, char *input, int i);
@@ -103,7 +103,7 @@ t_list *process_redirect_output(t_list *list, char *input, int i);
 
 // forme_word.c
 char	*ft_strjoinchr(char *str, char chr);
-int form_word(t_list *list, int signal, char *input, char *temp, int i);
+int form_word(t_list *list, int signal, char *input, int i);
 
 /* --- source/utils/ --- */
 // utils_quote.c

@@ -34,7 +34,7 @@ t_list	*add_node(t_list *list, char *value)
 		list->node = list->node->next;
 	}
 	list->tail = list->node;
-	list->node->value = value;
+	list->node->value = ft_strdup(value);
 	return (list);
 }
 
@@ -61,9 +61,11 @@ void	free_list(t_list *list)
 		{
 			list->head = list->node->next;
 			list->node->prev = NULL;
+			free(list->node->value);
 			free(list->node);
 			list->node = list->head;
 		}
+		free(list->node->value);
 		free(list->node);
 	}
 }

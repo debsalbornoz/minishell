@@ -3,12 +3,6 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "clang build",
-            "command": "make",
-            "group": "build"
-        },
-        {
-            "type": "cppbuild",
             "label": "C/C++: gcc arquivo de build ativo",
             "command": "/usr/bin/gcc",
             "args": [
@@ -16,8 +10,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
-                ""
+                "${fileDirname}/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "${fileDirname}"
