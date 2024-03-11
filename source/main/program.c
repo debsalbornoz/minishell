@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/09 18:16:52 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:07:04 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		program(void)
+int	program(void)
 {
 	t_list	list;
 	char	*input;
@@ -28,33 +28,31 @@ int		program(void)
 	print_list(&list);
 	free(input);
 	free_list(&list);
-	return (FALSE);
+	return (TRUE);
 }
 
-t_list *tokenization(t_list *list, char *input)
+t_list	*tokenization(t_list *list, char *input)
 {
-    char signal;
-    int i;
-    int input_len;
-	int len;
+	char	signal;
+	int		i;
+	int		input_len;
+	int		len;
 
 	signal = 0;
 	i = 0;
-    input = trim_start_spaces(input);
+	input = trim_start_spaces(input);
 	input_len = ft_strlen(input);
-
-    while (input[i] != '\0')
+	while (i < input_len)
 	{
-        signal = process_quotes(signal, input[i]);
-        len = form_word(list, signal, input, i);
-        if (len >= 0 && i + len <= input_len)
-            i += len;
-        else
-            break;
-        if (i + 1 < input_len) {
-          i += process_delimiter(list, signal, input, i);
-        }
-        i++;
-    }
-    return list;
+		signal = process_quotes(signal, input[i]);
+		len = form_word(list, signal, input, i);
+		if (len >= 0 && i + len <= input_len)
+			i += len;
+		else
+			break ;
+		if (i + 1 < input_len)
+			i += process_delimiter(list, signal, input, i);
+		i++;
+	}
+	return (list);
 }

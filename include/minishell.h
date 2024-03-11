@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/09 17:31:38 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/11 15:55:41 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,16 @@ void	free_list(t_list *list);
 // tokenization.c
 char	*trim_start_spaces(char *input);
 char	process_quotes(int signal, char input);
-int	process_delimiter(t_list *list, int signal, char *input, int i);
+int		process_delimiter(t_list *list, int signal, char *input, int i);
 
 // redirect.c
-t_list *process_redirect(t_list *list, char *input, int i);
-t_list *process_redirect_input(t_list *list, char *input, int i);
-t_list *process_redirect_output(t_list *list, char *input, int i);
+t_list	*process_redirect(t_list *list, char *input, int i);
+t_list	*process_redirect_input(t_list *list, char *input, int i);
+t_list	*process_redirect_output(t_list *list, char *input, int i);
 
 // forme_word.c
 char	*ft_strjoinchr(char *str, char chr);
-int form_word(t_list *list, int signal, char *input, int i);
+int		form_word(t_list *list, int signal, char *input, int i);
 
 /* --- source/utils/ --- */
 // utils_quote.c
@@ -121,11 +121,11 @@ int		is_dollar(char chr);
 int		is_redirect(char chr);
 int		is_redirect_input(char chr);
 int		is_redirect_output(char chr);
-int 	is_heredoc(char chr , char next_chr);
-int 	is_append(char chr , char next_chr);
+int		is_heredoc(char chr, char next_chr);
+int		is_append(char chr, char next_chr);
 
 //teste
 
-int find_len(char *input, int signal);
+int		find_len(char *input, int signal);
 
 #endif

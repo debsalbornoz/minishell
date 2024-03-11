@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/09 17:31:33 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:07:23 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,15 @@ char	process_quotes(int signal, char input)
 
 int	process_delimiter(t_list *list, int signal, char *input, int i)
 {
-
 	if (!signal && is_delimiter(input[i]))
 	{
 		if (is_redirect(input[i]))
 		{
 			list = process_redirect(list, input, i);
-			if(is_append(input[i], input[i+ 1]) || is_heredoc(input[i], input[i + 1]))
-				return(1);
+			if (is_append(input[i], input[i + 1])
+				|| is_heredoc(input[i], input[i + 1]))
+				return (TRUE);
 		}
-			
 		else if (is_dollar(input[i]))
 		{
 			list = add_node(list, "$");
@@ -51,5 +50,5 @@ int	process_delimiter(t_list *list, int signal, char *input, int i)
 			list->node->pipe = YES;
 		}
 	}
-	return(0);
+	return (FALSE);
 }
