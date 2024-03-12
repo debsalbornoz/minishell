@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 16:07:23 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/11 21:25:27 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,10 @@ int	process_delimiter(t_list *list, int signal, char *input, int i)
 				|| is_heredoc(input[i], input[i + 1]))
 				return (TRUE);
 		}
-		else if (is_dollar(input[i]))
-		{
-			list = add_node(list, "$");
-			list->node->dollar = YES;
-		}
 		else if (is_pipe(input[i]))
 		{
 			list = add_node(list, "|");
-			list->node->pipe = YES;
+			list->node->type = PIPE;
 		}
 	}
 	return (FALSE);

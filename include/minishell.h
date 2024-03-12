@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 15:55:41 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/11 21:24:33 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,39 @@ enum	e_type_signal
 	TRUE
 };
 
-enum	e_type_status
+enum	e_type_type
 {
-	NO,
-	YES
-};
-
-enum	e_type_builtin
-{
-	ECHO = 1,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT,
-	OTHER
-};
-
-enum	e_type_redirects
-{
-	INPUT = 1,
-	OUTPUT,
-	APPEND,
-	HEREDOC
+	DELIMITER = 1000,
+	REDIRECT = 1100,
+	INPUT = 1110 ,
+	HEREDOC = 1120 ,
+	OUTPUT = 1130 ,
+	APPEND = 1140 ,
+	PIPE = 1200 ,
+	WORD = 2000 ,
+	COMMAND = 2100 ,
+	EXECUTABLE = 2110 ,
+	BUILTIN = 2120 ,
+	ECHO = 2121 ,
+	CD = 2122,
+	PWD = 2123 ,
+	EXPORT = 2124,
+	UNSET = 2125,
+	ENV = 2126 ,
+	EXIT = 2127 ,
+	ARGUMENT = 2200 ,
+	FILES = 2210 ,
+	INPUT_FILE = 2211 ,
+	OUTPUT_FILE = 2212,
+	FLAG = 2220 ,
+	HEREDOC_KEY = 2230 ,
+	VARIABLE = 2300
 };
 
 typedef struct s_node
 {
 	char			*value;
-	int				arg;
-	int				file;
-	int				pipe;
-	int				dollar;
-	int				command;
-	int				redirect;
+	int				type;
 	struct s_node	*next;
 	struct s_node	*prev;
 }t_node;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_delimiter.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:06 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/07 12:42:16 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/11 19:41:40 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_delimiter(char chr)
 {
 	return (is_space(chr) || is_redirect(chr)
-		|| is_pipe(chr) || is_dollar(chr));
+		|| is_pipe(chr));
 }
 
 int	is_space(char chr)

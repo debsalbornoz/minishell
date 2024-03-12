@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 16:14:17 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/11 21:25:12 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ t_list	*process_redirect_input(t_list *list, char *input, int i)
 	if (is_redirect_input(input[i + 1]))
 	{
 		list = add_node(list, "<<");
-		list->node->redirect = HEREDOC;
+		list->node->type = HEREDOC;
 	}
 	else
 	{
 		list = add_node(list, "<");
-		list->node->redirect = INPUT;
+		list->node->type = INPUT;
 	}
 	return (list);
 }
@@ -41,12 +41,12 @@ t_list	*process_redirect_output(t_list *list, char *input, int i)
 	if (is_redirect_output(input[i + 1]))
 	{
 		list = add_node(list, ">>");
-		list->node->redirect = APPEND;
+		list->node->type = APPEND;
 	}
 	else
 	{
 		list = add_node(list, ">");
-		list->node->redirect = OUTPUT;
+		list->node->type = OUTPUT;
 	}
 	return (list);
 }

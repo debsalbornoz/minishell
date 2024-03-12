@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 18:07:04 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/11 20:04:52 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	program(void)
 	print_list(&list);
 	free(input);
 	free_list(&list);
-	return (TRUE);
+	return (FALSE);
 }
 
 t_list	*tokenization(t_list *list, char *input)
@@ -46,11 +46,13 @@ t_list	*tokenization(t_list *list, char *input)
 	{
 		signal = process_quotes(signal, input[i]);
 		len = form_word(list, signal, input, i);
+		if (signal)
+			signal = '\0';
 		if (len >= 0 && i + len <= input_len)
 			i += len;
 		else
 			break ;
-		if (i + 1 < input_len)
+		if (i + 1 <= input_len)
 			i += process_delimiter(list, signal, input, i);
 		i++;
 	}
