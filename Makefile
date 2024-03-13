@@ -21,7 +21,8 @@ F_SOURCE	:=		\
 
 F_MAIN		:=		\
 	program			\
-	linked_list
+	linked_list		\
+	env_list
 
 F_LEXER		:=		\
 	tokenization	\

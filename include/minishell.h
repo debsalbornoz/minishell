@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 21:24:33 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:13:19 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,68 +62,87 @@ enum	e_type_type
 	VARIABLE = 2300
 };
 
-typedef struct s_node
+typedef struct s_node_token
 {
-	char			*value;
-	int				type;
-	struct s_node	*next;
-	struct s_node	*prev;
-}t_node;
+	char				*value;
+	int					type;
+	struct s_node_token	*next;
+	struct s_node_token	*prev;
+}t_node_token;
 
 typedef struct s_list
 {
-	t_node			*node;
-	struct s_node	*head;
-	struct s_node	*tail;
+	t_node_token			*node;
+	struct s_node_token		*head;
+	struct s_node_token		*tail;
 }t_list;
+
+typedef struct s_node_env
+{
+	char				*name;
+	char				*value;
+	struct s_node_env	*next;
+}t_node_env;
+
+typedef struct s_env_list
+{
+	t_node_env				*node;
+	struct s_node_env		*head;
+	struct s_node_env		*tail;
+}t_env_list;
 
 /* --- source/main --- */
 // program.c
-char	*receive_input(void);
-int		program(void);
-t_list	*tokenization(t_list *list, char *input);
+char		*receive_input(void);
+int			program(void);
+t_list		*tokenization(t_list *list, char *input);
 // linked_list.c
-t_list	*init_list(t_list *list);
-t_list	*add_node(t_list *list, char *value);
-void	print_list(t_list *list);
-void	free_list(t_list *list);
+t_list		*init_list(t_list *list);
+t_list		*add_node(t_list *list, char *value);
+void		print_list(t_list *list);
+void		free_list(t_list *list);
 
 /* --- source/lexer/ --- */
 // tokenization.c
-char	*trim_start_spaces(char *input);
-char	process_quotes(int signal, char input);
-int		process_delimiter(t_list *list, int signal, char *input, int i);
+char		*trim_start_spaces(char *input);
+char		process_quotes(int signal, char input);
+int			process_delimiter(t_list *list, int signal, char *input, int i);
 
 // redirect.c
-t_list	*process_redirect(t_list *list, char *input, int i);
-t_list	*process_redirect_input(t_list *list, char *input, int i);
-t_list	*process_redirect_output(t_list *list, char *input, int i);
+t_list		*process_redirect(t_list *list, char *input, int i);
+t_list		*process_redirect_input(t_list *list, char *input, int i);
+t_list		*process_redirect_output(t_list *list, char *input, int i);
 
 // forme_word.c
-char	*ft_strjoinchr(char *str, char chr);
-int		form_word(t_list *list, int signal, char *input, int i);
-
+char		*ft_strjoinchr(char *str, char chr);
+int			form_word(t_list *list, int signal, char *input, int i);
+int			find_len(char *input, int signal);
 /* --- source/utils/ --- */
 // utils_quote.c
-int		is_quote(char chr);
-int		is_single_quote(char chr);
-int		is_double_quote(char chr);
+int			is_quote(char chr);
+int			is_single_quote(char chr);
+int			is_double_quote(char chr);
 
 // utils_delimiter.c
-int		is_delimiter(char chr);
-int		is_space(char chr);
-int		is_pipe(char chr);
-int		is_dollar(char chr);
+int			is_delimiter(char chr);
+int			is_space(char chr);
+int			is_pipe(char chr);
+int			s_dollar(char chr);
 
 // utils_redirect.c
-int		is_redirect(char chr);
-int		is_redirect_input(char chr);
-int		is_redirect_output(char chr);
-int		is_heredoc(char chr, char next_chr);
-int		is_append(char chr, char next_chr);
+int			is_redirect(char chr);
+int			is_redirect_input(char chr);
+int			is_redirect_output(char chr);
+int			is_heredoc(char chr, char next_chr);
+int			is_append(char chr, char next_chr);
 
-//teste
+//env_list
 
-int		find_len(char *input, int signal);
+char		*find_name(char *envp);
+char		*find_value(char *envp);
+t_env_list	*init_env_list(t_env_list *list);
+t_env_list	*add_env_node(t_env_list *list, char *name, char *value);
+void		print_env_list(t_env_list *list);
+t_env_list	*make_env_list(char **envp, t_env_list *env_list);
 
 #endif
