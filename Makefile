@@ -27,7 +27,8 @@ F_MAIN		:=		\
 F_LEXER		:=		\
 	tokenization	\
 	redirect		\
-	form_word
+	form_word		\
+	type_assignment
 
 F_UTILS		:=		\
 	utils_quote		\

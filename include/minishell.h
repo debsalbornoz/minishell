@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/12 21:13:19 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:47:32 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,11 @@ t_env_list	*init_env_list(t_env_list *list);
 t_env_list	*add_env_node(t_env_list *list, char *name, char *value);
 void		print_env_list(t_env_list *list);
 t_env_list	*make_env_list(char **envp, t_env_list *env_list);
+
+//type assignment
+
+void		is_command(t_list *tokens);
+void		is_argument(t_list *tokens);
+void		type_assignment(t_list *tokens);
 
 #endif

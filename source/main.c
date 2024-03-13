@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:51:39 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/12 21:16:35 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:48:20 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 int	main(int argc, char **argv, char **envp)
 {
 	int			i;
-	t_env_list	list;
+	//t_env_list	list;
 
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	i = 0;
-	list = *init_env_list(&list);
-	list = *make_env_list(envp, &list);
-	print_env_list(&list);
-	// while (program())
-	// 	;
+	// list = *init_env_list(&list);
+	// list = *make_env_list(envp, &list);
+	// print_env_list(&list);
+	while (program())
+		;
 	return (EXIT_SUCCESS);
 }
 

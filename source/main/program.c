@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 20:04:52 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:48:38 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	program(void)
 	}
 	list = *init_list(&list);
 	list = *tokenization(&list, input);
+	type_assignment(&list);
 	print_list(&list);
 	free(input);
 	free_list(&list);

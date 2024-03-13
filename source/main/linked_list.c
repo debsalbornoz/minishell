@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/12 21:00:30 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:46:37 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	print_list(t_list *list)
 		while (list->node && list->node->next)
 		{
 			printf("%s\n", list->node->value);
+			printf("%i\n", list->node->type);
 			list->node = list->node->next;
 		}
 		printf("%s\n", list->node->value);
