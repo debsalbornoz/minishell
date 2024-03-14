@@ -46,7 +46,7 @@ void	print_list(t_list *list)
 		while (list->node && list->node->next)
 		{
 			printf("%s\n", list->node->value);
-			printf("%i\n", list->node->type);
+			//printf("%i\n", list->node->type);
 			list->node = list->node->next;
 		}
 		printf("%s\n", list->node->value);

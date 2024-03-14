@@ -14,13 +14,13 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	int			i;
+	//int			i;
 	//t_env_list	list;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	i = 0;
+	//i = 0;
 	// list = *init_env_list(&list);
 	// list = *make_env_list(envp, &list);
 	// print_env_list(&list);
@@ -32,12 +32,12 @@ int	main(int argc, char **argv, char **envp)
 t_env_list	*make_env_list(char **envp, t_env_list *env_list)
 {
 	int		i;
-	int		j;
+	//int		j;
 	char	*name;
 	char	*value;
 
 	i = 0;
-	j = 0;
+	//j = 0;
 	while (envp[i] != NULL)
 	{
 		name = find_name(envp[i]);

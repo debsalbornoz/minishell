@@ -105,7 +105,7 @@ void		free_list(t_list *list);
 /* --- source/lexer/ --- */
 // tokenization.c
 char		*trim_start_spaces(char *input);
-char		process_quotes(int signal, char input);
+char	process_quotes(char  signal, char input, char *str, int i);
 int			process_delimiter(t_list *list, int signal, char *input, int i);
 
 // redirect.c
@@ -150,5 +150,7 @@ t_env_list	*make_env_list(char **envp, t_env_list *env_list);
 void		is_command(t_list *tokens);
 void		is_argument(t_list *tokens);
 void		type_assignment(t_list *tokens);
-
+void 		is_builtin(t_list *tokens);
+int 		ft_strlcmp(char *s1, char *s2);
+int			is_closed(char signal, char *str, int i);
 #endif

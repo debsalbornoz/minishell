@@ -19,13 +19,30 @@ char	*trim_start_spaces(char *input)
 	return (input);
 }
 
-char	process_quotes(int signal, char input)
+char	process_quotes(char  signal, char input, char *str, int i)
 {
 	if (!signal && is_quote(input))
-		return (input);
+	{
+		if(is_closed(signal, str, i))
+			return (input);
+		else
+			exit(1);
+	}
 	else if (input == signal)
 		return (FALSE);
 	return (signal);
+}
+
+int is_closed(char signal, char *str, int i)
+{
+
+	while(str[i] != '\0')
+	{
+		if(str[i] == signal)
+			return(1);
+		i++;
+	}
+	return(0);
 }
 
 int	process_delimiter(t_list *list, int signal, char *input, int i)

@@ -25,10 +25,10 @@ int	program(void)
 	}
 	list = *init_list(&list);
 	list = *tokenization(&list, input);
-	type_assignment(&list);
+//	type_assignment(&list);
 	print_list(&list);
 	free(input);
-	free_list(&list);
+//	free_list(&list);
 	return (FALSE);
 }
 
@@ -45,7 +45,7 @@ t_list	*tokenization(t_list *list, char *input)
 	input_len = ft_strlen(input);
 	while (i < input_len)
 	{
-		signal = process_quotes(signal, input[i]);
+		signal = process_quotes(signal, input[i], input, i);
 		len = form_word(list, signal, input, i);
 		if (signal)
 			signal = '\0';
