@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	is_command(t_list *tokens)
+/*void	is_command(t_list *tokens)
 {
 	tokens->node = tokens->head;
 	if (tokens->node)
@@ -120,3 +120,4 @@ void	type_assignment(t_list *tokens)
 	is_command(tokens);
 	// is_argument(tokens);
 }
+*/

@@ -105,7 +105,7 @@ void		free_list(t_list *list);
 /* --- source/lexer/ --- */
 // tokenization.c
 char		*trim_start_spaces(char *input);
-char	process_quotes(char  signal, char input, char *str, int i);
+char	process_quotes(char  signal, char input);
 int			process_delimiter(t_list *list, int signal, char *input, int i);
 
 // redirect.c

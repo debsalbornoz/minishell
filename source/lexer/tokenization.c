@@ -19,42 +19,34 @@ char	*trim_start_spaces(char *input)
 	return (input);
 }
 
-char	process_quotes(char  signal, char input, char *str, int i)
+char	process_quotes(char  signal, char input)
 {
 	if (!signal && is_quote(input))
 	{
-		if(is_closed(signal, str, i))
-			return (input);
-		else
-			exit(1);
+		return(input);
 	}
 	else if (input == signal)
 		return (FALSE);
 	return (signal);
 }
 
-int is_closed(char signal, char *str, int i)
-{
-
-	while(str[i] != '\0')
-	{
-		if(str[i] == signal)
-			return(1);
-		i++;
-	}
-	return(0);
-}
-
 int	process_delimiter(t_list *list, int signal, char *input, int i)
 {
+	int j;
+
+	j = 0;
 	if (!signal && is_delimiter(input[i]))
 	{
+		j = 1;
 		if (is_redirect(input[i]))
 		{
 			list = process_redirect(list, input, i);
-			if (is_append(input[i], input[i + 1])
+			if(is_append(input[i], input[i + 1])
 				|| is_heredoc(input[i], input[i + 1]))
-				return (TRUE);
+			{
+				j = 2;
+				return (j);
+			}
 		}
 		else if (is_pipe(input[i]))
 		{
@@ -62,5 +54,5 @@ int	process_delimiter(t_list *list, int signal, char *input, int i)
 			list->node->type = PIPE;
 		}
 	}
-	return (FALSE);
+	return (j);
 }

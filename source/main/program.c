@@ -45,7 +45,7 @@ t_list	*tokenization(t_list *list, char *input)
 	input_len = ft_strlen(input);
 	while (i < input_len)
 	{
-		signal = process_quotes(signal, input[i], input, i);
+		signal = process_quotes(signal, input[i]);
 		len = form_word(list, signal, input, i);
 		if (signal)
 			signal = '\0';
@@ -55,7 +55,8 @@ t_list	*tokenization(t_list *list, char *input)
 			break ;
 		if (i + 1 <= input_len)
 			i += process_delimiter(list, signal, input, i);
-		i++;
+		if(input[i] == ' ')
+			i++;
 	}
 	return (list);
 }

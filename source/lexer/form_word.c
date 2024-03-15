@@ -58,12 +58,6 @@ int	find_len(char *input, int signal)
 		if (input[i] == signal)
 		{
 			i++;
-			if(input[i] == 32)
-				return(i);
-			while(input[i + 1] != '\0' && input[i + 1] != 32)
-			i++;
-			if(input[i] == signal && (input[i + 1] == 32 || input[i + 1] == '\0'))
-				return(i+ 1);
 		}
 	}
 	else
