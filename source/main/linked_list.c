@@ -46,14 +46,14 @@ void	print_list(t_list *list)
 		while (list->node && list->node->next)
 		{
 			printf("%s\n", list->node->value);
-			//printf("%i\n", list->node->type);
+			printf("%i\n", list->node->type);
 			list->node = list->node->next;
 		}
 		printf("%s\n", list->node->value);
 	}
 }
 
-void	free_list(t_list *list)
+/*void	free_list(t_list *list)
 {
 	if (list->node)
 	{
@@ -69,4 +69,23 @@ void	free_list(t_list *list)
 		free(list->node->value);
 		free(list->node);
 	}
+}
+*/
+
+void free_list(t_list *list)
+{
+	t_node_token *next_node;
+    if (list)
+	{
+        while (list->node) 
+		{
+            next_node = list->node->next;
+            if (list->node->value)
+                free(list->node->value);
+            free(list->node); 
+            list->node = next_node;
+        }
+        list->head = NULL;
+        list->node = NULL;
+    }
 }

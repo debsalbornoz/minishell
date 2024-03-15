@@ -25,10 +25,10 @@ int	program(void)
 	}
 	list = *init_list(&list);
 	list = *tokenization(&list, input);
-//	type_assignment(&list);
+	list = *type_assignment(&list);
 	print_list(&list);
+	free_list(&list);
 	free(input);
-//	free_list(&list);
 	return (FALSE);
 }
 

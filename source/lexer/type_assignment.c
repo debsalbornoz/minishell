@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-/*void	is_command(t_list *tokens)
+t_list	*is_command(t_list *tokens)
 {
 	tokens->node = tokens->head;
 	if (tokens->node)
@@ -20,15 +20,26 @@
 		while (tokens->node != NULL)
 		{
 			if (tokens->head->type == WORD)
-				tokens->head->type = COMMAND;
+				tokens->node->type = COMMAND;
 			if (tokens->node->type == PIPE)
 				if (tokens->node->next)
 					tokens->node->next->type = COMMAND;
 			tokens->node = tokens->node->next;
 		}
 	}
+	tokens->node = tokens->head;
+	return(tokens);
 }
 
+t_list 	*type_assignment(t_list *tokens)
+{
+	
+	tokens = is_command(tokens);
+	// is_argument(tokens);
+	return(tokens);
+}
+
+/*
 void is_builtin(t_list *tokens)
 {
 	char *builtins[] = {"echo", "pwd", "cd", "env", "exit", NULL};
@@ -115,9 +126,5 @@ int ft_strlcmp(char *s1, char *s2)
 // 	}
 // }
 
-void	type_assignment(t_list *tokens)
-{
-	is_command(tokens);
-	// is_argument(tokens);
-}
+
 */

@@ -147,9 +147,9 @@ t_env_list	*make_env_list(char **envp, t_env_list *env_list);
 
 //type assignment
 
-void		is_command(t_list *tokens);
+t_list		*is_command(t_list *tokens);
 void		is_argument(t_list *tokens);
-void		type_assignment(t_list *tokens);
+t_list		*type_assignment(t_list *tokens);
 void 		is_builtin(t_list *tokens);
 int 		ft_strlcmp(char *s1, char *s2);
 int			is_closed(char signal, char *str, int i);
