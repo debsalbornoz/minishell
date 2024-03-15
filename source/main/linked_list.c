@@ -50,6 +50,7 @@ void	print_list(t_list *list)
 			list->node = list->node->next;
 		}
 		printf("%s\n", list->node->value);
+		printf("%i\n", list->node->type);
 	}
 }
 

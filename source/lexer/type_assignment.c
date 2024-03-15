@@ -22,7 +22,7 @@ t_list	*is_command(t_list *tokens)
 			if (tokens->head->type == WORD)
 				tokens->node->type = COMMAND;
 			if (tokens->node->type == PIPE)
-				if (tokens->node->next)
+				if (tokens->node->next && tokens->node->next->type != PIPE && tokens->node->next->type != OUTPUT && tokens->node->next->type != INPUT && tokens->node->next->type != HEREDOC && tokens->node->next->type != APPEND )
 					tokens->node->next->type = COMMAND;
 			tokens->node = tokens->node->next;
 		}
