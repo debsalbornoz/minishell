@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/12 21:47:32 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:18:24 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,31 @@ enum	e_type_signal
 
 enum	e_type_type
 {
-	DELIMITER = 1000,
-	REDIRECT = 1100,
-	INPUT = 1110 ,
-	HEREDOC = 1120 ,
-	OUTPUT = 1130 ,
-	APPEND = 1140 ,
-	PIPE = 1200 ,
-	WORD = 2000 ,
-	COMMAND = 2100 ,
-	EXECUTABLE = 2110 ,
-	BUILTIN = 2120 ,
-	ECHO = 2121 ,
-	CD = 2122,
-	PWD = 2123 ,
-	EXPORT = 2124,
-	UNSET = 2125,
-	ENV = 2126 ,
-	EXIT = 2127 ,
-	ARGUMENT = 2200 ,
-	FILES = 2210 ,
-	INPUT_FILE = 2211 ,
-	OUTPUT_FILE = 2212,
-	FLAG = 2220 ,
-	HEREDOC_KEY = 2230 ,
-	VARIABLE = 2300
+	DELIMITER	= 1000,
+	REDIRECT	= 1100,
+	INPUT		= 1110,
+	HEREDOC		= 1120,
+	OUTPUT		= 1130,
+	APPEND		= 1140,
+	PIPE		= 1200,
+	WORD		= 2000,
+	COMMAND		= 2100,
+	EXECUTABLE	= 2110,
+	BUILTIN		= 2120,
+	ECHO		= 2121,
+	CD			= 2122,
+	PWD			= 2123,
+	EXPORT		= 2124,
+	UNSET		= 2125,
+	ENV			= 2126,
+	EXIT		= 2127,
+	ARGUMENT	= 2200,
+	FILES		= 2210,
+	INPUT_FILE	= 2211,
+	OUTPUT_FILE	= 2212,
+	FLAG		= 2220,
+	HEREDOC_KEY	= 2230,
+	VARIABLE	= 2300
 };
 
 typedef struct s_node_token
@@ -72,9 +72,9 @@ typedef struct s_node_token
 
 typedef struct s_list
 {
-	t_node_token			*node;
-	struct s_node_token		*head;
-	struct s_node_token		*tail;
+	t_node_token		*node;
+	struct s_node_token	*head;
+	struct s_node_token	*tail;
 }t_list;
 
 typedef struct s_node_env
@@ -86,9 +86,9 @@ typedef struct s_node_env
 
 typedef struct s_env_list
 {
-	t_node_env				*node;
-	struct s_node_env		*head;
-	struct s_node_env		*tail;
+	t_node_env			*node;
+	struct s_node_env	*head;
+	struct s_node_env	*tail;
 }t_env_list;
 
 /* --- source/main --- */
@@ -105,7 +105,7 @@ void		free_list(t_list *list);
 /* --- source/lexer/ --- */
 // tokenization.c
 char		*trim_start_spaces(char *input);
-char	process_quotes(char  signal, char input);
+char		process_quotes(char signal, char input);
 int			process_delimiter(t_list *list, int signal, char *input, int i);
 
 // redirect.c
@@ -137,7 +137,6 @@ int			is_heredoc(char chr, char next_chr);
 int			is_append(char chr, char next_chr);
 
 //env_list
-
 char		*find_name(char *envp);
 char		*find_value(char *envp);
 t_env_list	*init_env_list(t_env_list *list);
@@ -145,12 +144,11 @@ t_env_list	*add_env_node(t_env_list *list, char *name, char *value);
 void		print_env_list(t_env_list *list);
 t_env_list	*make_env_list(char **envp, t_env_list *env_list);
 
-//type assignment
-
+//type assignment.C
 t_list		*is_command(t_list *tokens);
 void		is_argument(t_list *tokens);
 t_list		*type_assignment(t_list *tokens);
-void 		is_builtin(t_list *tokens);
-int 		ft_strlcmp(char *s1, char *s2);
+void		is_builtin(t_list *tokens);
+int			ft_strlcmp(char *s1, char *s2);
 int			is_closed(char signal, char *str, int i);
 #endif
