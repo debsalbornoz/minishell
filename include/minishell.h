@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 18:50:51 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:08:23 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,5 @@ int			is_closed(char signal, char *str, int i);
 int			is_redirect_or_pipe(int type);
 int			compare_quoted_strings(char *s1, char *s2);
 t_list		*is_file(t_list *tokens);
-
+t_list		*is_heredoc_key(t_list *tokens);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 17:23:32 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/16 18:56:05 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:06:54 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,25 @@ t_list	*is_file(t_list *tokens)
 			{
 				if (tokens->node->next)
 					tokens->node->next->type = APPEND_FILE;
+			}
+			tokens->node = tokens->node->next;
+		}
+		tokens->node = tokens->head;
+	}
+	return (tokens);
+}
+
+t_list	*is_heredoc_key(t_list *tokens)
+{
+	tokens->node = tokens->head;
+	if (tokens->node)
+	{
+		while (tokens->node != NULL)
+		{
+			if (tokens->node->type == HEREDOC)
+			{
+				if (tokens->node->next)
+					tokens->node->next->type = HEREDOC_KEY;
 			}
 			tokens->node = tokens->node->next;
 		}
