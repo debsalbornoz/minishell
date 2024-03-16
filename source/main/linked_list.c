@@ -75,12 +75,13 @@ void	print_list(t_list *list)
 }
 */
 
-void free_list(t_list *list)
+void	free_list(t_list *list)
 {
-	t_node_token *next_node;
-    if (list)
+	t_node_token	*next_node;
+
+	if (list)
 	{
-        while (list->node) 
+		while (list->node)
 		{
             next_node = list->node->next;
             if (list->node->value)

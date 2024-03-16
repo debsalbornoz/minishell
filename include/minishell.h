@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
 /*   Updated: 2024/03/16 14:12:32 by jraupp           ###   ########.fr       */
@@ -149,7 +149,11 @@ t_env_list	*make_env_list(char **envp, t_env_list *env_list);
 t_list		*is_command(t_list *tokens);
 void		is_argument(t_list *tokens);
 t_list		*type_assignment(t_list *tokens);
-void		is_builtin(t_list *tokens);
-int			ft_strlcmp(char *s1, char *s2);
+t_list		*is_builtin(t_list *tokens);
+int			ft_strlcmp(char *s1, char *s2, int len);
 int			is_closed(char signal, char *str, int i);
+int			is_redirect_or_pipe(int type);
+int			compare_quoted_strings(char *s1, char *s2);
+
+
 #endif

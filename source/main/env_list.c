@@ -5,69 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 20:59:28 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/12 21:13:31 by dlamark-         ###   ########.fr       */
+/*   Created: 2024/03/16 14:21:12 by dlamark-          #+#    #+#             */
+/*   Updated: 2024/03/16 14:21:36 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_env_list	*init_env_list(t_env_list *list)
+t_env_list	*make_env_list(char **envp, t_env_list *env_list)
 {
-	list->node = 0;
-	list->head = list->node;
-	list->tail = list->node;
-	return (list);
+	int		i;
+	char	*name;
+	char	*value;
+
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		name = find_name(envp[i]);
+		value = find_value(envp[i]);
+		add_env_node(env_list, name, value);
+		free(name);
+		free(value);
+		i++;
+	}
+	return (env_list);
 }
 
-t_env_list	*add_env_node(t_env_list *list, char *name, char *value)
+char	*find_name(char *envp)
 {
-	if (!list->node)
-	{
-		list->node = ft_calloc (1, sizeof(t_node_env));
-		list->head = list->node;
-	}
-	else
-	{
-		list->node = list->tail;
-		list->node->next = ft_calloc (1, sizeof(t_node_env));
-		list->node = list->node->next;
-	}
-	list->tail = list->node;
-	list->node->name = ft_strdup(name);
-	list->node->value = ft_strdup(value);
-	return (list);
+	char	*temp;
+	int		i;
+
+	i = 0;
+	while (envp[i] != '=')
+		i++;
+	temp = ft_calloc((i + 1), sizeof(char));
+	ft_strlcpy(temp, envp, i + 1);
+	return (temp);
 }
 
-void	print_env_list(t_env_list *list)
+char	*find_value(char *envp)
 {
-	if (list->node)
-	{
-		list->node = list->head;
-		while (list->node && list->node->next)
-		{
-			printf("%s = %s\n", list->node->name, list->node->value);
-			list->node = list->node->next;
-		}
-		printf("%s\n", list->node->value);
-	}
-}
+	char	*temp;
+	int		i;
+	int		j;
 
-void	free_env_list(t_env_list *list)
-{
-	if (list->node)
-	{
-		list->node = list->head;
-		while (list->node && list->node->next)
-		{
-			list->head = list->node->next;
-			free(list->node->value);
-			free(list ->node->name);
-			free(list->node);
-			list->node = list->head;
-		}
-		free(list->node->value);
-		free(list->node->name);
-		free(list->node);
-	}
+	i = 0;
+	while (envp[i] != '=')
+		i++;
+	if (envp[i] == '=')
+		i++;
+	j = i;
+	while (envp[i] != '\0')
+		i++;
+	temp = ft_calloc((i - j + 1), sizeof(char));
+	ft_strlcpy(temp, &envp[j], i - j + 1);
+	return (temp);
 }

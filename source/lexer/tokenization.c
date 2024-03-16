@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 21:25:27 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:19:32 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*trim_start_spaces(char *input)
 	return (input);
 }
 
-char	process_quotes(char  signal, char input)
+char	process_quotes(char signal, char input)
 {
 	if (!signal && is_quote(input))
 	{
-		return(input);
+		return (input);
 	}
 	else if (input == signal)
 		return (FALSE);
@@ -32,7 +32,7 @@ char	process_quotes(char  signal, char input)
 
 int	process_delimiter(t_list *list, int signal, char *input, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (!signal && is_delimiter(input[i]))
@@ -41,7 +41,7 @@ int	process_delimiter(t_list *list, int signal, char *input, int i)
 		if (is_redirect(input[i]))
 		{
 			list = process_redirect(list, input, i);
-			if(is_append(input[i], input[i + 1])
+			if (is_append(input[i], input[i + 1])
 				|| is_heredoc(input[i], input[i + 1]))
 			{
 				j = 2;

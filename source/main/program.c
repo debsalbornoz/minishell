@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/12 21:48:38 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/16 13:31:32 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_list	*tokenization(t_list *list, char *input)
 			break ;
 		if (i + 1 <= input_len)
 			i += process_delimiter(list, signal, input, i);
-		if(input[i] == ' ')
+		if (input[i] == ' ')
 			i++;
 	}
 	return (list);
