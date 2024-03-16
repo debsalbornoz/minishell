@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 16:58:36 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/16 18:50:51 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ enum	e_type_type
 	FILES		= 2210,
 	INPUT_FILE	= 2211,
 	OUTPUT_FILE	= 2212,
+	APPEND_FILE = 2213,
 	FLAG		= 2220,
 	HEREDOC_KEY	= 2230,
 	VARIABLE	= 2300,
@@ -154,5 +155,6 @@ int			ft_strlcmp(char *s1, char *s2, int len);
 int			is_closed(char signal, char *str, int i);
 int			is_redirect_or_pipe(int type);
 int			compare_quoted_strings(char *s1, char *s2);
+t_list		*is_file(t_list *tokens);
 
 #endif
