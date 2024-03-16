@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 17:14:27 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/16 17:37:15 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,14 @@ void	print_list(t_list *list)
 	}
 }
 
-/*void	free_list(t_list *list)
+void	free_list(t_list *list)
 {
 	if (list->node)
 	{
 		list->node = list->head;
-		while (list->node && list->node->next)
+		while (list->node->next)
 		{
 			list->head = list->node->next;
-			list->node->prev = NULL;
 			free(list->node->value);
 			free(list->node);
 			list->node = list->head;
@@ -73,26 +72,7 @@ void	print_list(t_list *list)
 		free(list->node);
 	}
 }
-*/
 
-void	free_list(t_list *list)
-{
-	t_node_token	*next_node;
-
-	if (list)
-	{
-		while (list->node)
-		{
-			next_node = list->node->next;
-			if (list->node->value)
-				free(list->node->value);
-			free(list->node);
-			list->node = next_node;
-		}
-		list->head = NULL;
-		list->node = NULL;
-	}
-}
 
 static void	aux_print_list(int type)
 {
