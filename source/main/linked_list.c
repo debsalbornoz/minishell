@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 18:55:51 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/16 19:05:28 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,9 @@ static void	aux_print_list(int type)
 		break ;
 		case OUTPUT_FILE:
 			printf("type: output_file,	value: ");
+		break ;
+		case APPEND_FILE:
+			printf("type: append_file,	value: ");
 		break ;
 		case FLAG:
 			printf("type: flag,	value: ");
