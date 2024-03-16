@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 17:05:32 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/16 17:14:27 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,82 +99,82 @@ static void	aux_print_list(int type)
 	switch (type)
 	{
 		case DELIMITER:
-			printf("type: delimiter, value: ");
+			printf("type: delimiter,	value: ");
 		break ;
 		case REDIRECT:
-			printf("type: redirect, value: ");
+			printf("type: redirect,	value: ");
 		break ;
 		case INPUT:
-			printf("type: input, value: ");
+			printf("type: input,	value: ");
 		break ;
 		case HEREDOC:
-			printf("type: heredoc, value: ");
+			printf("type: heredoc,	value: ");
 		break ;
 		case OUTPUT:
-			printf("type: output, value: ");
+			printf("type: output,	value: ");
 		break ;
 		case APPEND:
-			printf("type: append, value: ");
+			printf("type: append,	value: ");
 		break ;
 		case PIPE:
-			printf("type: pipe, value: ");
+			printf("type: pipe,	value: ");
 		break ;
 		case WORD:
-			printf("type: word, value: ");
+			printf("type: word,	value: ");
 		break ;
 		case COMMAND:
-			printf("type: command, value: ");
+			printf("type: command,	value: ");
 		break ;
 		case EXECUTABLE:
-			printf("type: executable, value: ");
+			printf("type: executable,	value: ");
 		break ;
 		case BUILTIN:
-			printf("type: builtin, value: ");
+			printf("type: builtin,	value: ");
 		break ;
 		case ECHO:
-			printf("type: echo, value: ");
+			printf("type: echo,	value: ");
 		break ;
 		case CD:
-			printf("type: cd, value: ");
+			printf("type: cd,	value: ");
 		break ;
 		case PWD:
-			printf("type: pwd, value: ");
+			printf("type: pwd,	value: ");
 		break ;
 		case EXPORT:
-			printf("type: export, value: ");
+			printf("type: export,	value: ");
 		break ;
 		case UNSET:
-			printf("type: unset, value: ");
+			printf("type: unset,	value: ");
 		break ;
 		case ENV:
-			printf("type: env, value: ");
+			printf("type: env,	value: ");
 		break ;
 		case EXIT:
-			printf("type: exit, value: ");
+			printf("type: exit,	value: ");
 		break ;
 		case ARGUMENT:
-			printf("type: argument, value: ");
+			printf("type: argument,	value: ");
 		break ;
 		case FILES:
-			printf("type: files - value: ");
+			printf("type: files -	value: ");
 		break ;
 		case INPUT_FILE:
-			printf("type: input_file - value: ");
+			printf("type: input_file -	value: ");
 		break ;
 		case OUTPUT_FILE:
-			printf("type: output_file - value: ");
+			printf("type: output_file -	value: ");
 		break ;
 		case FLAG:
-			printf("type: flag - value: ");
+			printf("type: flag -	value: ");
 		break ;
 		case HEREDOC_KEY:
-			printf("type: heredoc_key - value: ");
+			printf("type: heredoc_key -	value: ");
 		break ;
 		case VARIABLE:
-			printf("type: variable - value: ");
+			printf("type: variable -	value: ");
 		break ;
 		case ERROR:
-			printf("type: error - value: ");
+			printf("type: error -	value: ");
 		break ;
 	}
 }
