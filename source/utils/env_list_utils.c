@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linked_list.c                                      :+:      :+:    :+:   */
+/*   env_list_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 14:18:04 by dlamark-         ###   ########.fr       */
+/*   Created: 2024/03/12 20:59:28 by dlamark-          #+#    #+#             */
+/*   Updated: 2024/03/16 14:21:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_list	*init_list(t_list *list)
+t_env_list	*init_env_list(t_env_list *list)
 {
 	list->node = 0;
 	list->head = list->node;
@@ -20,7 +20,7 @@ t_list	*init_list(t_list *list)
 	return (list);
 }
 
-t_list	*add_node(t_list *list, char *value)
+t_env_list	*add_env_node(t_env_list *list, char *name, char *value)
 {
 	if (!list->node)
 	{
@@ -34,27 +34,26 @@ t_list	*add_node(t_list *list, char *value)
 		list->node = list->node->next;
 	}
 	list->tail = list->node;
+	list->node->name = ft_strdup(name);
 	list->node->value = ft_strdup(value);
 	return (list);
 }
 
-void	print_list(t_list *list)
+void	print_env_list(t_env_list *list)
 {
 	if (list->node)
 	{
 		list->node = list->head;
 		while (list->node && list->node->next)
 		{
-			printf("%s\n", list->node->value);
-			printf("%i\n", list->node->type);
+			printf("%s = %s\n", list->node->name, list->node->value);
 			list->node = list->node->next;
 		}
 		printf("%s\n", list->node->value);
-		printf("%i\n", list->node->type);
 	}
 }
 
-/*void	free_list(t_list *list)
+void	free_env_list(t_env_list *list)
 {
 	if (list->node)
 	{
@@ -62,32 +61,13 @@ void	print_list(t_list *list)
 		while (list->node && list->node->next)
 		{
 			list->head = list->node->next;
-			list->node->prev = NULL;
 			free(list->node->value);
+			free(list ->node->name);
 			free(list->node);
 			list->node = list->head;
 		}
 		free(list->node->value);
+		free(list->node->name);
 		free(list->node);
-	}
-}
-*/
-
-void	free_list(t_list *list)
-{
-	t_node_token	*next_node;
-
-	if (list)
-	{
-		while (list->node)
-		{
-			next_node = list->node->next;
-			if (list->node->value)
-				free(list->node->value);
-			free(list->node);
-			list->node = next_node;
-		}
-		list->head = NULL;
-		list->node = NULL;
 	}
 }

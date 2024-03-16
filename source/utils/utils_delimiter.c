@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:06 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 19:41:40 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:43:10 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,10 @@ int	is_pipe(char chr)
 int	is_dollar(char chr)
 {
 	return (chr == '$');
+}
+
+int	is_redirect_or_pipe(int type)
+{
+	return (type == PIPE || type == OUTPUT
+		|| type == INPUT || type == HEREDOC || type == APPEND);
 }

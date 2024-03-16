@@ -28,12 +28,15 @@ F_LEXER		:=		\
 	tokenization	\
 	redirect		\
 	form_word		\
-	type_assignment
+	type_assignment \
+	commands
 
 F_UTILS		:=		\
 	utils_quote		\
 	utils_delimiter	\
-	utils_redirect
+	utils_redirect \
+	env_list_utils
+
 
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))
