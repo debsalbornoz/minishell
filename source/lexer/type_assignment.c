@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 21:26:00 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/16 18:50:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/16 19:08:00 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_list	*type_assignment(t_list *tokens)
 	tokens = is_command(tokens);
 	tokens = is_builtin(tokens);
 	tokens = is_file(tokens);
+	tokens = is_heredoc_key(tokens);
 	return (tokens);
 }
 
