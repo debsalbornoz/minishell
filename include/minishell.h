@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 12:18:24 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/16 14:12:32 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ enum	e_type_type
 	OUTPUT_FILE	= 2212,
 	FLAG		= 2220,
 	HEREDOC_KEY	= 2230,
-	VARIABLE	= 2300
+	VARIABLE	= 2300,
+	ERROR		= 9999
 };
 
 typedef struct s_node_token
