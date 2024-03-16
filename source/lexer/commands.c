@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:23:30 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/16 15:54:13 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/16 17:04:31 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,15 @@ t_list	*is_builtin(t_list *tokens)
 	builtins[5] = "env";
 	builtins[6] = "exit";
 	builtins[7] = NULL;
-	i = 0;
 	while (tokens->node != NULL)
 	{
 		i = 0;
 		while (builtins[i] != NULL)
 		{
-			if (ft_strlcmp(tokens->node->value, builtins[i],
+			if (ft_strlcmp(tokens->node->value, builtins[i++],
 					ft_strlen(tokens->node->value))
 				&& tokens->node->type == COMMAND)
 				tokens->node->type = BUILTIN;
-			i++;
 		}
 		tokens->node = tokens->node->next;
 	}

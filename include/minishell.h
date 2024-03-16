@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 14:12:32 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/16 16:58:36 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,5 @@ int			ft_strlcmp(char *s1, char *s2, int len);
 int			is_closed(char signal, char *str, int i);
 int			is_redirect_or_pipe(int type);
 int			compare_quoted_strings(char *s1, char *s2);
-
 
 #endif
