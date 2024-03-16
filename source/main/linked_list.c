@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 18:49:56 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/16 18:55:51 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,25 +135,25 @@ static void	aux_print_list(int type)
 			printf("type: argument,	value: ");
 		break ;
 		case FILES:
-			printf("type: files -	value: ");
+			printf("type: files,	value: ");
 		break ;
 		case INPUT_FILE:
-			printf("type: input_file -	value: ");
+			printf("type: input_file,	value: ");
 		break ;
 		case OUTPUT_FILE:
-			printf("type: output_file -	value: ");
+			printf("type: output_file,	value: ");
 		break ;
 		case FLAG:
-			printf("type: flag -	value: ");
+			printf("type: flag,	value: ");
 		break ;
 		case HEREDOC_KEY:
-			printf("type: heredoc_key -	value: ");
+			printf("type: heredoc_key,	value: ");
 		break ;
 		case VARIABLE:
-			printf("type: variable -	value: ");
+			printf("type: variable,	value: ");
 		break ;
 		case ERROR:
-			printf("type: error -	value: ");
+			printf("type: error,	value: ");
 		break ;
 	}
 }
