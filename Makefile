@@ -29,7 +29,8 @@ F_LEXER		:=		\
 	redirect		\
 	form_word		\
 	type_assignment \
-	commands
+	commands		\
+	files
 
 F_UTILS		:=		\
 	utils_quote		\

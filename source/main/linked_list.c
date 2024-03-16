@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
 /*   Updated: 2024/03/16 18:55:51 by jraupp           ###   ########.fr       */
@@ -72,7 +72,6 @@ void	free_list(t_list *list)
 		free(list->node);
 	}
 }
-
 
 static void	aux_print_list(int type)
 {
