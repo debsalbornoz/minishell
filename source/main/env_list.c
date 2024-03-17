@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:21:12 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/16 14:21:36 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/17 13:32:38 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_env_list	*make_env_list(char **envp, t_env_list *env_list)
+t_list	*make_env_list(char **envp, t_list *env_list)
 {
 	int		i;
 	char	*name;
@@ -23,7 +23,9 @@ t_env_list	*make_env_list(char **envp, t_env_list *env_list)
 	{
 		name = find_name(envp[i]);
 		value = find_value(envp[i]);
-		add_env_node(env_list, name, value);
+		add_node(env_list);
+		env_list->node->data->name = ft_strdup(name);
+		env_list->node->value = ft_strdup(value);
 		free(name);
 		free(value);
 		i++;
@@ -61,4 +63,9 @@ char	*find_value(char *envp)
 	temp = ft_calloc((i - j + 1), sizeof(char));
 	ft_strlcpy(temp, &envp[j], i - j + 1);
 	return (temp);
+}
+
+void	print_env_list(t_node *variable)
+{
+	printf("%s = %s\n", variable->data->name, variable->value);
 }

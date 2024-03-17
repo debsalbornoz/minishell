@@ -35,8 +35,8 @@ F_LEXER		:=		\
 F_UTILS		:=		\
 	utils_quote		\
 	utils_delimiter	\
-	utils_redirect \
-	env_list_utils
+	utils_redirect	\
+	utils_tokens
 
 
 O_SOURCE	:=		\

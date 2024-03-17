@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   form_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 14:19:05 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/17 13:50:12 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	form_word(t_list *list, int signal, char *input, int i)
+int	form_word(t_list *tokens, int signal, char *input, int i)
 {
 	int		len;
 	char	*temp;
@@ -22,8 +22,9 @@ int	form_word(t_list *list, int signal, char *input, int i)
 	{
 		temp = ft_calloc((len + 1), sizeof(char));
 		ft_strlcpy(temp, &input[i], len + 1);
-		list = add_node(list, temp);
-		list->node->type = WORD;
+		tokens = add_node(tokens);
+		tokens->node->value = ft_strdup(temp);
+		tokens->node->data->type = WORD;
 		free(temp);
 	}
 	else

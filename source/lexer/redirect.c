@@ -3,50 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 21:25:12 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/17 13:06:36 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_list	*process_redirect(t_list *list, char *input, int i)
+t_list	*process_redirect(t_list *tokens, char *input, int i)
 {
 	if (is_redirect_input(input[i]))
-		list = process_redirect_input(list, input, i);
+		tokens = process_redirect_input(tokens, input, i);
 	else if (is_redirect_output(input[i]))
-		list = process_redirect_output(list, input, i);
-	return (list);
+		tokens = process_redirect_output(tokens, input, i);
+	return (tokens);
 }
 
-t_list	*process_redirect_input(t_list *list, char *input, int i)
+t_list	*process_redirect_input(t_list *tokens, char *input, int i)
 {
 	if (is_redirect_input(input[i + 1]))
 	{
-		list = add_node(list, "<<");
-		list->node->type = HEREDOC;
+		tokens = add_node(tokens);
+		tokens->node->value = ft_strdup("<<");
+		tokens->node->data->type = HEREDOC;
 	}
 	else
 	{
-		list = add_node(list, "<");
-		list->node->type = INPUT;
+		tokens = add_node(tokens);
+		tokens->node->value = ft_strdup("<");
+		tokens->node->data->type = INPUT;
 	}
-	return (list);
+	return (tokens);
 }
 
-t_list	*process_redirect_output(t_list *list, char *input, int i)
+t_list	*process_redirect_output(t_list *tokens, char *input, int i)
 {
 	if (is_redirect_output(input[i + 1]))
 	{
-		list = add_node(list, ">>");
-		list->node->type = APPEND;
+		tokens = add_node(tokens);
+		tokens->node->value = ft_strdup(">>");
+		tokens->node->data->type = APPEND;
 	}
 	else
 	{
-		list = add_node(list, ">");
-		list->node->type = OUTPUT;
+		tokens = add_node(tokens);
+		tokens->node->value = ft_strdup(">");
+		tokens->node->data->type = OUTPUT;
 	}
-	return (list);
+	return (tokens);
 }
