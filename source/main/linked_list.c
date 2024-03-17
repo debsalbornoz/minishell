@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 15:01:58 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/17 15:48:57 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ t_list	*add_node(t_list *list)
 	}
 	else
 	{
-		while (list->node->next)
-			list->node = list->node->next;
 		list->node->next = ft_calloc (1, sizeof(t_node));
 		list->node = list->node->next;
 	}
@@ -62,6 +60,7 @@ void	free_tokens(t_list *tokens)
 {
 	free(tokens->node->data);
 	free(tokens->node->value);
+	free(tokens->node);
 }
 
 void	free_env_list(t_list *env_list)
@@ -69,4 +68,5 @@ void	free_env_list(t_list *env_list)
 	free(env_list->node->data->name);
 	if (*env_list->node->value)
 		free(env_list->node->value);
+	free(env_list->node);
 }
