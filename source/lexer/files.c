@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 17:23:32 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/17 12:49:26 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/17 15:17:09 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,15 @@ t_list	*is_file(t_list *tokens)
 		{
 			if (tokens->node->data->type == INPUT)
 			{
-				if (tokens->node->next)
+				if (tokens->node->next
+					&& !is_redirect_or_pipe(tokens->node->next->data->type))
 					tokens->node->next->data->type = INPUT_FILE;
 			}
-			if (tokens->node->data->type == OUTPUT)
+			if (tokens->node->data->type == OUTPUT
+				&& !is_redirect_or_pipe(tokens->node->next->data->type))
 			{
 				if (tokens->node->next)
 					tokens->node->next->data->type = OUTPUT_FILE;
-			}
-			if (tokens->node->data->type == APPEND)
-			{
-				if (tokens->node->next)
-					tokens->node->next->data->type = APPEND_FILE;
 			}
 			tokens->node = tokens->node->next;
 		}
@@ -41,13 +38,19 @@ t_list	*is_file(t_list *tokens)
 	return (tokens);
 }
 
-t_list	*is_heredoc_key(t_list *tokens)
+t_list	*is_append_or_heredoc_key(t_list *tokens)
 {
 	tokens->node = tokens->head;
 	if (tokens->node)
 	{
 		while (tokens->node != NULL)
 		{
+			if (tokens->node->data->type == APPEND
+				&& !is_redirect_or_pipe(tokens->node->next->data->type))
+			{
+				if (tokens->node->next)
+					tokens->node->next->data->type = APPEND_FILE;
+			}
 			if (tokens->node->data->type == HEREDOC)
 			{
 				if (tokens->node->next)

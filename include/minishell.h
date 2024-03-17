@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
 /*   Updated: 2024/03/17 15:26:18 by jraupp           ###   ########.fr       */
@@ -123,9 +123,12 @@ int			ft_strlcmp(char *s1, char *s2, int len);
 int			compare_quoted_strings(char *s1, char *s2);
 t_list		*is_builtin(t_list *tokens);
 
-// files.c
+//arguments.c
+t_list		*is_argument(t_list *list);
+
+//files.c
 t_list		*is_file(t_list *tokens);
-t_list		*is_heredoc_key(t_list *tokens);
+t_list		*is_append_or_heredoc_key(t_list *tokens);
 
 /* --- source/utils/ --- */
 // utils_quote.c

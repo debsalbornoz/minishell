@@ -30,7 +30,8 @@ F_LEXER		:=		\
 	form_word		\
 	type_assignment \
 	commands		\
-	files
+	files			\
+	arguments
 
 F_UTILS		:=		\
 	utils_quote		\
