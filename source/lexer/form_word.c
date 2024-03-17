@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 13:50:12 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/17 14:40:41 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	form_word(t_list *tokens, int signal, char *input, int i)
 		temp = ft_calloc((len + 1), sizeof(char));
 		ft_strlcpy(temp, &input[i], len + 1);
 		tokens = add_node(tokens);
+		tokens->node->data = ft_calloc(1, sizeof(int));
 		tokens->node->value = ft_strdup(temp);
 		tokens->node->data->type = WORD;
 		free(temp);

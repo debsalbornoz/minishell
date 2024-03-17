@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 13:49:28 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/17 15:01:58 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	free_list(t_list *list, void (f)(t_list *))
 
 void	free_tokens(t_list *tokens)
 {
-	if (*tokens->node->value)
-		free(tokens->node->value);
+	free(tokens->node->data);
+	free(tokens->node->value);
 }
 
 void	free_env_list(t_list *env_list)

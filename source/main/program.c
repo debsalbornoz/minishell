@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 13:27:33 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/17 14:14:20 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	program(void)
 	print_list(&tokens, print_tokens);
 	free_list(&tokens, free_tokens);
 	free(input);
-	return (FALSE);
+	return (TRUE);
 }
 
 t_list	*tokenization(t_list *list, char *input)
