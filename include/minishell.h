@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 19:08:23 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:26:18 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../library/libft/include/libft.h"
-
-enum	e_type_exit
-{
-	CONTINUE,
-	STOP
-};
 
 enum	e_type_signal
 {
@@ -64,61 +58,75 @@ enum	e_type_type
 	ERROR		= 9999
 };
 
-typedef struct s_node_token
-{
-	char				*value;
-	int					type;
-	struct s_node_token	*next;
-	struct s_node_token	*prev;
-}t_node_token;
+typedef struct s_list	t_list;
+typedef struct s_node	t_node;
+union					u_data;
 
-typedef struct s_list
+struct s_list
 {
-	t_node_token		*node;
-	struct s_node_token	*head;
-	struct s_node_token	*tail;
-}t_list;
+	t_node			*node;
+	struct s_node	*head;
+};
 
-typedef struct s_node_env
+struct s_node
 {
-	char				*name;
-	char				*value;
-	struct s_node_env	*next;
-}t_node_env;
+	char			*value;
+	union u_data	*data;
+	struct s_node	*next;
+};
 
-typedef struct s_env_list
+union u_data
 {
-	t_node_env			*node;
-	struct s_node_env	*head;
-	struct s_node_env	*tail;
-}t_env_list;
+	int				type;
+	char			*name;
+};
 
 /* --- source/main --- */
 // program.c
-char		*receive_input(void);
 int			program(void);
 t_list		*tokenization(t_list *list, char *input);
+
 // linked_list.c
-t_list		*init_list(t_list *list);
-t_list		*add_node(t_list *list, char *value);
-void		print_list(t_list *list);
-void		free_list(t_list *list);
+t_list		*add_node(t_list *list);
+void		print_list(t_list *tokens, void (f)(t_node *));
+void		free_list(t_list *list, void (f)(t_list *));
+void		free_tokens(t_list *tokens);
+void		free_env_list(t_list *env_list);
+
+// env_list.c
+t_list		*make_env_list(char **envp, t_list *env_list);
+char		*find_name(char *envp);
+char		*find_value(char *envp);
+void		print_env_list(t_node *variable);
 
 /* --- source/lexer/ --- */
 // tokenization.c
 char		*trim_start_spaces(char *input);
 char		process_quotes(char signal, char input);
-int			process_delimiter(t_list *list, int signal, char *input, int i);
+int			process_delimiter(t_list *tokens, int signal, char *input, int i);
 
 // redirect.c
-t_list		*process_redirect(t_list *list, char *input, int i);
-t_list		*process_redirect_input(t_list *list, char *input, int i);
-t_list		*process_redirect_output(t_list *list, char *input, int i);
+t_list		*process_redirect(t_list *tokens, char *input, int i);
+t_list		*process_redirect_input(t_list *tokens, char *input, int i);
+t_list		*process_redirect_output(t_list *tokens, char *input, int i);
 
 // forme_word.c
-char		*ft_strjoinchr(char *str, char chr);
-int			form_word(t_list *list, int signal, char *input, int i);
+int			form_word(t_list *tokens, int signal, char *input, int i);
 int			find_len(char *input, int signal);
+
+// type assignment.C
+t_list		*type_assignment(t_list *tokens);
+
+// commands.c
+t_list		*is_command(t_list *tokens);
+int			ft_strlcmp(char *s1, char *s2, int len);
+int			compare_quoted_strings(char *s1, char *s2);
+t_list		*is_builtin(t_list *tokens);
+
+// files.c
+t_list		*is_file(t_list *tokens);
+t_list		*is_heredoc_key(t_list *tokens);
+
 /* --- source/utils/ --- */
 // utils_quote.c
 int			is_quote(char chr);
@@ -130,6 +138,7 @@ int			is_delimiter(char chr);
 int			is_space(char chr);
 int			is_pipe(char chr);
 int			s_dollar(char chr);
+int			is_redirect_or_pipe(int type);
 
 // utils_redirect.c
 int			is_redirect(char chr);
@@ -138,23 +147,7 @@ int			is_redirect_output(char chr);
 int			is_heredoc(char chr, char next_chr);
 int			is_append(char chr, char next_chr);
 
-//env_list
-char		*find_name(char *envp);
-char		*find_value(char *envp);
-t_env_list	*init_env_list(t_env_list *list);
-t_env_list	*add_env_node(t_env_list *list, char *name, char *value);
-void		print_env_list(t_env_list *list);
-t_env_list	*make_env_list(char **envp, t_env_list *env_list);
+// utils_tokens.c
+void		print_tokens(t_node *token);
 
-//type assignment.C
-t_list		*is_command(t_list *tokens);
-void		is_argument(t_list *tokens);
-t_list		*type_assignment(t_list *tokens);
-t_list		*is_builtin(t_list *tokens);
-int			ft_strlcmp(char *s1, char *s2, int len);
-int			is_closed(char signal, char *str, int i);
-int			is_redirect_or_pipe(int type);
-int			compare_quoted_strings(char *s1, char *s2);
-t_list		*is_file(t_list *tokens);
-t_list		*is_heredoc_key(t_list *tokens);
 #endif

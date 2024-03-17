@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 13:31:32 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/17 14:14:20 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	program(void)
 {
-	t_list	list;
+	t_list	tokens;
 	char	*input;
 
 	input = readline("¯\\_(ツ)_/¯: ");
@@ -23,13 +23,13 @@ int	program(void)
 		free(input);
 		return (FALSE);
 	}
-	list = *init_list(&list);
-	list = *tokenization(&list, input);
-	list = *type_assignment(&list);
-	print_list(&list);
-	free_list(&list);
+	tokens.node = 0;
+	tokens = *tokenization(&tokens, input);
+	tokens = *type_assignment(&tokens);
+	print_list(&tokens, print_tokens);
+	free_list(&tokens, free_tokens);
 	free(input);
-	return (FALSE);
+	return (TRUE);
 }
 
 t_list	*tokenization(t_list *list, char *input)

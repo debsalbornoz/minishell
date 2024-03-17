@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 17:23:32 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/16 19:06:54 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/17 12:49:26 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ t_list	*is_file(t_list *tokens)
 	{
 		while (tokens->node != NULL)
 		{
-			if (tokens->node->type == INPUT)
+			if (tokens->node->data->type == INPUT)
 			{
 				if (tokens->node->next)
-					tokens->node->next->type = INPUT_FILE;
+					tokens->node->next->data->type = INPUT_FILE;
 			}
-			if (tokens->node->type == OUTPUT)
+			if (tokens->node->data->type == OUTPUT)
 			{
 				if (tokens->node->next)
-					tokens->node->next->type = OUTPUT_FILE;
+					tokens->node->next->data->type = OUTPUT_FILE;
 			}
-			if (tokens->node->type == APPEND)
+			if (tokens->node->data->type == APPEND)
 			{
 				if (tokens->node->next)
-					tokens->node->next->type = APPEND_FILE;
+					tokens->node->next->data->type = APPEND_FILE;
 			}
 			tokens->node = tokens->node->next;
 		}
@@ -48,10 +48,10 @@ t_list	*is_heredoc_key(t_list *tokens)
 	{
 		while (tokens->node != NULL)
 		{
-			if (tokens->node->type == HEREDOC)
+			if (tokens->node->data->type == HEREDOC)
 			{
 				if (tokens->node->next)
-					tokens->node->next->type = HEREDOC_KEY;
+					tokens->node->next->data->type = HEREDOC_KEY;
 			}
 			tokens->node = tokens->node->next;
 		}

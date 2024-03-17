@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type_assignment.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 21:26:00 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/16 19:08:00 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/17 13:41:25 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,3 @@ t_list	*type_assignment(t_list *tokens)
 	tokens = is_heredoc_key(tokens);
 	return (tokens);
 }
-
-// void	is_argument(t_list *tokens)
-//{
-// 	tokens->node = tokens->head;
-// 	while (tokens->node != NULL)
-// 	{
-// 		if (tokens->node->type == COMMAND)
-// 		{
-// 			if (tokens->node->type)
-// 			{
-// 				while (tokens->node->next->type != PIPE
-// 					&& tokens->node->next->type != REDIRECT
-// 					&& tokens->node->next != NULL)
-// 				{
-// 						tokens->node->next->type = ARGUMENT;
-// 						tokens->node = tokens->node->next;
-// 				}
-// 			}
-// 		}
-// 		tokens->node = tokens->node->next;
-// 	}
-// }

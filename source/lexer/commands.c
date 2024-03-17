@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:23:30 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/16 17:04:31 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/17 12:48:40 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ t_list	*is_command(t_list *tokens)
 	{
 		while (tokens->node != NULL)
 		{
-			if (tokens->head->type == WORD)
-				tokens->node->type = COMMAND;
-			if (tokens->node->type == PIPE)
+			if (tokens->head->data->type == WORD)
+				tokens->node->data->type = COMMAND;
+			if (tokens->node->data->type == PIPE)
 				if (tokens->node->next
-					&& !is_redirect_or_pipe(tokens->node->next->type))
-					tokens->node->next->type = COMMAND;
+					&& !is_redirect_or_pipe(tokens->node->next->data->type))
+					tokens->node->next->data->type = COMMAND;
 			tokens->node = tokens->node->next;
 		}
 	}
@@ -107,8 +107,8 @@ t_list	*is_builtin(t_list *tokens)
 		{
 			if (ft_strlcmp(tokens->node->value, builtins[i++],
 					ft_strlen(tokens->node->value))
-				&& tokens->node->type == COMMAND)
-				tokens->node->type = BUILTIN;
+				&& tokens->node->data->type == COMMAND)
+				tokens->node->data->type = BUILTIN;
 		}
 		tokens->node = tokens->node->next;
 	}
