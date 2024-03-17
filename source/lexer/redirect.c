@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 13:06:36 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/17 15:08:38 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ t_list	*process_redirect_input(t_list *tokens, char *input, int i)
 	if (is_redirect_input(input[i + 1]))
 	{
 		tokens = add_node(tokens);
+		tokens->node->data = ft_calloc(1, sizeof(int));
 		tokens->node->value = ft_strdup("<<");
 		tokens->node->data->type = HEREDOC;
 	}
 	else
 	{
 		tokens = add_node(tokens);
+		tokens->node->data = ft_calloc(1, sizeof(int));
 		tokens->node->value = ft_strdup("<");
 		tokens->node->data->type = INPUT;
 	}
@@ -43,12 +45,14 @@ t_list	*process_redirect_output(t_list *tokens, char *input, int i)
 	if (is_redirect_output(input[i + 1]))
 	{
 		tokens = add_node(tokens);
+		tokens->node->data = ft_calloc(1, sizeof(int));
 		tokens->node->value = ft_strdup(">>");
 		tokens->node->data->type = APPEND;
 	}
 	else
 	{
 		tokens = add_node(tokens);
+		tokens->node->data = ft_calloc(1, sizeof(int));
 		tokens->node->value = ft_strdup(">");
 		tokens->node->data->type = OUTPUT;
 	}

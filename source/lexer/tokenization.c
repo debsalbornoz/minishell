@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 13:07:05 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/17 15:08:01 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	process_delimiter(t_list *tokens, int signal, char *input, int i)
 		{
 			tokens = add_node(tokens);
 			tokens->node->value = ft_strdup("|");
+			tokens->node->data = ft_calloc(1, sizeof(int));
 			tokens->node->data->type = PIPE;
 		}
 	}
