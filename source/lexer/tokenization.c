@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/18 20:43:08 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:20:46 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	process_quotes(char signal, char input)
 	return (signal);
 }
 
-int	process_delimiter(t_list *tokens, int signal, char *input, int i)
+int	process_delimiter(t_list *lst_tokens, int signal, char *input, int i)
 {
 	int	j;
 
@@ -40,17 +40,18 @@ int	process_delimiter(t_list *tokens, int signal, char *input, int i)
 		j = 1;
 		if (is_redirect(input[i]))
 		{
-			tokens = process_redirect(tokens, input, i);
+			lst_tokens = process_redirect(lst_tokens, input, i);
 			if (is_append(input[i], input[i + 1])
 				|| is_heredoc(input[i], input[i + 1]))
 				return (2);
 		}
 		else if (is_pipe(input[i]))
 		{
-			tokens = add_node(tokens);
-			tokens->node->data = ft_calloc(1, sizeof(int));
-			tokens->node->value = ft_strdup("|");
-			tokens->node->data->type = PIPE;
+			lst_tokens = add_node(lst_tokens);
+			lst_tokens->node->data = ft_calloc(1, sizeof(union u_data));
+			lst_tokens->node->data->token = ft_calloc(1, sizeof(t_token));
+			lst_tokens->node->data->token->value = ft_strdup("|");
+			lst_tokens->node->data->token->type = PIPE;
 		}
 	}
 	return (j);

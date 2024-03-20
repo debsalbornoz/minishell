@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_delimiter.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:06 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/16 15:43:10 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/20 14:55:35 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	is_dollar(char chr)
 
 int	is_redirect_or_pipe(int type)
 {
-	return (type == PIPE || type == OUTPUT
-		|| type == INPUT || type == HEREDOC || type == APPEND);
+	return (type == PIPE
+		|| type == INPUT || type == HEREDOC
+		|| type == OUTPUT || type == APPEND);
 }

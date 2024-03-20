@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 11:45:42 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:47:17 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,46 +27,17 @@ t_list	*add_node(t_list *list)
 	return (list);
 }
 
-void	print_list(t_list *tokens, void (f)(t_node *))
-{
-	if (tokens->node)
-	{
-		tokens->node = tokens->head;
-		while (tokens->node && tokens->node->next)
-		{
-			f(tokens->node);
-			tokens->node = tokens->node->next;
-		}
-		f(tokens->node);
-	}
-}
-
-void	free_list(t_list *list, void (f)(t_list *))
+t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *))
 {
 	if (list->node)
 	{
 		list->node = list->head;
-		while (list->node->next)
+		while (list->node && list->node->next)
 		{
-			list->head = list->node->next;
-			f(list);
-			list->node = list->head;
+			list->node = f(list->node);
+			list->node = list->node->next;
 		}
-		f(list);
+		list->node = f(list->node);
 	}
-}
-
-void	free_tokens(t_list *tokens)
-{
-	free(tokens->node->data);
-	free(tokens->node->value);
-	free(tokens->node);
-}
-
-void	free_env_list(t_list *env_list)
-{
-	free(env_list->node->data->name);
-	if (*env_list->node->value)
-		free(env_list->node->value);
-	free(env_list->node);
+	return (list);
 }

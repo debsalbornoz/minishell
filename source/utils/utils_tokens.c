@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:03:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 13:49:46 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:49:15 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static void	aux_print_tokens_delimiter(int type);
 static void	aux_print_tokens_builtin(int type);
 static void	aux_print_tokens_argument(int type);
 
-void	print_tokens(t_node *token)
+t_node	*print_lst_tokens(t_node *node)
 {
-	aux_print_tokens(token->data->type);
-	printf("%s\n", token->value);
+	aux_print_tokens(node->data->token->type);
+	printf("%s\n", node->data->token->value);
+	return (node);
 }
 
 static void	aux_print_tokens(int type)

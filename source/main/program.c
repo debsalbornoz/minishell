@@ -3,38 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/18 20:47:21 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:54:27 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	program(void)
+int	program(t_list *lst_env)
 {
-	t_list	tokens;
+	t_list	lst_tokens;
 	char	*input;
 
+	(void)lst_env;
 	input = readline("¯\\_(ツ)_/¯: ");
 	if (!*input)
 	{
 		free(input);
 		return (FALSE);
 	}
-	tokens.node = 0;
+	lst_tokens.node = 0;
 	if (!is_closed(input))
 		exit (1);
-	tokens = *tokenization(&tokens, input);
-	tokens = *type_assignment(&tokens);
-	print_list(&tokens, print_tokens);
-	free_list(&tokens, free_tokens);
+	lst_tokens = *tokenization(&lst_tokens, input);
+	lst_tokens = *type_assignment(&lst_tokens);
+	runs_on_list(&lst_tokens, print_lst_tokens);
+	free_list(&lst_tokens, free_lst_tokens);
 	free(input);
-	return (FALSE);
+	return (TRUE);
 }
 
-t_list	*tokenization(t_list *list, char *input)
+t_list	*tokenization(t_list *lst_tokens, char *input)
 {
 	char	signal;
 	int		i;
@@ -48,7 +49,7 @@ t_list	*tokenization(t_list *list, char *input)
 	while (i < input_len)
 	{
 		signal = process_quotes(signal, input[i]);
-		len = form_word(list, signal, input, i);
+		len = form_word(lst_tokens, signal, input, i);
 		if (signal)
 			signal = '\0';
 		if (len >= 0 && i + len <= input_len)
@@ -56,9 +57,9 @@ t_list	*tokenization(t_list *list, char *input)
 		else
 			break ;
 		if (i + 1 <= input_len)
-			i += process_delimiter(list, signal, input, i);
+			i += process_delimiter(lst_tokens, signal, input, i);
 		if (input[i] == ' ')
 			i++;
 	}
-	return (list);
+	return (lst_tokens);
 }

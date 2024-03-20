@@ -22,7 +22,8 @@ F_SOURCE	:=		\
 F_MAIN		:=		\
 	program			\
 	linked_list		\
-	env_list
+	env_list		\
+	free_list
 
 F_LEXER		:=		\
 	tokenization	\
@@ -30,6 +31,7 @@ F_LEXER		:=		\
 	form_word		\
 	type_assignment \
 	commands		\
+	builtins		\
 	files			\
 	arguments		\
 	quotes

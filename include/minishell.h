@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/18 20:50:18 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:54:01 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ enum	e_type_type
 typedef struct s_list	t_list;
 typedef struct s_node	t_node;
 union					u_data;
+typedef struct s_token	t_token;
+typedef struct s_env	t_env;
 
 struct s_list
 {
@@ -70,94 +72,109 @@ struct s_list
 
 struct s_node
 {
-	char			*value;
 	union u_data	*data;
 	struct s_node	*next;
-	char			next_chr;
 };
 
 union u_data
 {
+	t_token	*token;
+	t_env	*env;
+};
+
+struct s_token
+{
+	char			*value;
 	int				type;
+	char			next_chr;
+};
+
+struct s_env
+{
 	char			*name;
+	char			*value;
 };
 
 /* --- source/main --- */
 // program.c
-int			program(void);
-t_list		*tokenization(t_list *list, char *input);
+int		program(t_list *lst_env);
+t_list	*tokenization(t_list *lst_tokens, char *input);
 
 // linked_list.c
-t_list		*add_node(t_list *list);
-void		print_list(t_list *tokens, void (f)(t_node *));
-void		free_list(t_list *list, void (f)(t_list *));
-void		free_tokens(t_list *tokens);
-void		free_env_list(t_list *env_list);
+t_list	*add_node(t_list *list);
+t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
 
 // env_list.c
-t_list		*make_env_list(char **envp, t_list *env_list);
-char		*find_name(char *envp);
-char		*find_value(char *envp);
-void		print_env_list(t_node *variable);
+t_list	*make_lst_env(char **envp, t_list *lst_env);
+char	*find_name(char *envp);
+char	*find_value(char *envp);
+t_node	*print_lst_env(t_node *node);
+
+// free_list.c
+void	free_list(t_list *list, void (f)(t_list *));
+void	free_lst_tokens(t_list *tokens);
+void	free_lst_env(t_list *env_list);
 
 /* --- source/lexer/ --- */
 // tokenization.c
-char		*trim_start_spaces(char *input);
-char		process_quotes(char signal, char input);
-int			process_delimiter(t_list *tokens, int signal, char *input, int i);
+char	*trim_start_spaces(char *input);
+char	process_quotes(char signal, char input);
+int		process_delimiter(t_list *lst_tokens, int signal, char *input, int i);
 
 // redirect.c
-t_list		*process_redirect(t_list *tokens, char *input, int i);
-t_list		*process_redirect_input(t_list *tokens, char *input, int i);
-t_list		*process_redirect_output(t_list *tokens, char *input, int i);
+t_list	*process_redirect(t_list *lst_tokens, char *input, int i);
+t_list	*process_redirect_input(t_list *lst_tokens, char *input, int i);
+t_list	*process_redirect_output(t_list *lst_tokens, char *input, int i);
 
 // forme_word.c
-int			form_word(t_list *tokens, int signal, char *input, int i);
-int			find_len(char *input, int signal);
+int		form_word(t_list *lst_tokens, int signal, char *input, int i);
+int		find_len(char *input, int signal);
 
 // type assignment.C
-t_list		*type_assignment(t_list *tokens);
+t_list	*type_assignment(t_list *lst_tokens);
 
 // commands.c
-t_list		*is_command(t_list *tokens);
-int			ft_strlcmp(char *s1, char *s2, int len);
-int			compare_quoted_strings(char *s1, char *s2);
-t_list		*is_builtin(t_list *tokens);
+t_node	*is_command_part1(t_node *head);
+t_node	*is_command_part2(t_node *node);
 
-//arguments.c
-t_list		*is_argument(t_list *list);
+// arguments.c
+t_node	*is_argument(t_node *node);
 
-//files.c
-t_list		*is_file(t_list *tokens);
-t_list		*is_append_or_heredoc_key(t_list *tokens);
+// builtins.c
+int		ft_strlcmp(char *s1, char *s2, int len);
+int		compare_quoted_strings(char *s1, char *s2);
+t_node	*is_builtin(t_node *node);
 
-//quotes.c
+// files.c
+t_node	*is_file(t_node *node);
+t_node	*is_append_or_heredoc_key(t_node *node);
 
-int			single_quotes_closed(char *input);
-int			double_quotes_closed(char *input);
-int			is_closed(char *input);
+// quotes.c
+int		single_quotes_closed(char *input);
+int		double_quotes_closed(char *input);
+int		is_closed(char *input);
 
 /* --- source/utils/ --- */
 // utils_quote.c
-int			is_quote(char chr);
-int			is_single_quote(char chr);
-int			is_double_quote(char chr);
+int		is_quote(char chr);
+int		is_single_quote(char chr);
+int		is_double_quote(char chr);
 
 // utils_delimiter.c
-int			is_delimiter(char chr);
-int			is_space(char chr);
-int			is_pipe(char chr);
-int			s_dollar(char chr);
-int			is_redirect_or_pipe(int type);
+int		is_delimiter(char chr);
+int		is_space(char chr);
+int		is_pipe(char chr);
+int		s_dollar(char chr);
+int		is_redirect_or_pipe(int type);
 
 // utils_redirect.c
-int			is_redirect(char chr);
-int			is_redirect_input(char chr);
-int			is_redirect_output(char chr);
-int			is_heredoc(char chr, char next_chr);
-int			is_append(char chr, char next_chr);
+int		is_redirect(char chr);
+int		is_redirect_input(char chr);
+int		is_redirect_output(char chr);
+int		is_heredoc(char chr, char next_chr);
+int		is_append(char chr, char next_chr);
 
 // utils_tokens.c
-void		print_tokens(t_node *token);
+t_node	*print_lst_tokens(t_node *node);
 
 #endif

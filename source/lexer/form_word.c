@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   form_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/18 20:55:03 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:14:43 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	form_word(t_list *tokens, int signal, char *input, int i)
+int	form_word(t_list *lst_tokens, int signal, char *input, int i)
 {
 	int		len;
 	char	*temp;
@@ -22,12 +22,13 @@ int	form_word(t_list *tokens, int signal, char *input, int i)
 	{
 		temp = ft_calloc((len + 1), sizeof(char));
 		ft_strlcpy(temp, &input[i], len + 1);
-		tokens = add_node(tokens);
-		tokens->node->data = ft_calloc(1, sizeof(int));
-		tokens->node->value = ft_strdup(temp);
-		tokens->node->data->type = WORD;
+		lst_tokens = add_node(lst_tokens);
+		lst_tokens->node->data = ft_calloc(1, sizeof(union u_data));
+		lst_tokens->node->data->token = ft_calloc(1, sizeof(t_token));
+		lst_tokens->node->data->token->value = ft_strdup(temp);
+		lst_tokens->node->data->token->type = WORD;
 		if (input[len + 1] != '\0')
-			tokens->node->next_chr = input[i];
+			lst_tokens->node->data->token->next_chr = input[i];
 		free(temp);
 	}
 	else

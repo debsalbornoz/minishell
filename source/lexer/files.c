@@ -3,62 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 17:23:32 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/17 15:17:09 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:40:56 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_list	*is_file(t_list *tokens)
+t_node	*is_file(t_node *node)
 {
-	tokens->node = tokens->head;
-	if (tokens->node)
+	if (node->next && !is_redirect_or_pipe(node->next->data->token->type))
 	{
-		while (tokens->node != NULL)
-		{
-			if (tokens->node->data->type == INPUT)
-			{
-				if (tokens->node->next
-					&& !is_redirect_or_pipe(tokens->node->next->data->type))
-					tokens->node->next->data->type = INPUT_FILE;
-			}
-			if (tokens->node->data->type == OUTPUT
-				&& !is_redirect_or_pipe(tokens->node->next->data->type))
-			{
-				if (tokens->node->next)
-					tokens->node->next->data->type = OUTPUT_FILE;
-			}
-			tokens->node = tokens->node->next;
-		}
-		tokens->node = tokens->head;
+		if (node->data->token->type == INPUT)
+			node->next->data->token->type = INPUT_FILE;
+		if (node->data->token->type == OUTPUT)
+			node->next->data->token->type = OUTPUT_FILE;
 	}
-	return (tokens);
+	return (node);
 }
 
-t_list	*is_append_or_heredoc_key(t_list *tokens)
+t_node	*is_append_or_heredoc_key(t_node *node)
 {
-	tokens->node = tokens->head;
-	if (tokens->node)
+	if (node->next && !is_redirect_or_pipe(node->next->data->token->type))
 	{
-		while (tokens->node != NULL)
-		{
-			if (tokens->node->data->type == APPEND
-				&& !is_redirect_or_pipe(tokens->node->next->data->type))
-			{
-				if (tokens->node->next)
-					tokens->node->next->data->type = APPEND_FILE;
-			}
-			if (tokens->node->data->type == HEREDOC)
-			{
-				if (tokens->node->next)
-					tokens->node->next->data->type = HEREDOC_KEY;
-			}
-			tokens->node = tokens->node->next;
-		}
-		tokens->node = tokens->head;
+		if (node->data->token->type == APPEND)
+			node->next->data->token->type = APPEND_FILE;
+		if (node->data->token->type == HEREDOC)
+			node->next->data->token->type = HEREDOC_KEY;
 	}
-	return (tokens);
+	return (node);
 }
