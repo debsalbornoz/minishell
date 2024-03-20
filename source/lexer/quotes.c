@@ -12,31 +12,29 @@
 
 #include "../../include/minishell.h"
 
-int	is_closed(char *input)
+int is_closed(char *input)
 {
-	char		signal;
-	int			i;
+    char signal;
+    int i;
 
-	signal = 0;
-	i = -1;
-	while (input[i++] != '\0')
-	{
-		if (input[i] == '\'' || input[i] == '"')
-		{
-			signal = input[i];
-			if (input[i + 1] != '\0')
-				i++;
-		}
-		while (input[i] != signal && input[i] != '\0')
-			i++;
-		if (input[i] == signal)
-		{
-			signal = 0;
-			if (input[i + 1] != '\0')
-				i++;
-		}
-	}
-	if (signal)
-		return (0);
-	return (1);
+    signal = 0;
+    i = 0;
+    while (input[i] != '\0')
+    {
+        if (input[i] == '\'' || input[i] == '"')
+        {
+            signal = input[i];
+            if (input[i + 1] != '\0')
+                i++;
+        }
+        while (input[i] != '\0' && input[i] != signal)
+            i++;
+        if (input[i] == signal)
+            signal = 0;
+        if (input[i] != '\0')
+            i++;
+    }
+    if (signal)
+        return 0;
+    return 1;
 }

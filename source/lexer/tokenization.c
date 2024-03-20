@@ -51,8 +51,6 @@ int	process_delimiter(t_list *tokens, int signal, char *input, int i)
 			tokens->node->data = ft_calloc(1, sizeof(int));
 			tokens->node->value = ft_strdup("|");
 			tokens->node->data->type = PIPE;
-			if (input[i + 1] != '\0')
-				tokens->node->next_chr = ft_strdup(&input[i + 1]);
 		}
 	}
 	return (j);
