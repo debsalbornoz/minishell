@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   form_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 14:40:41 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/18 20:55:03 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	form_word(t_list *tokens, int signal, char *input, int i)
 		tokens->node->data = ft_calloc(1, sizeof(int));
 		tokens->node->value = ft_strdup(temp);
 		tokens->node->data->type = WORD;
+		if (input[len + 1] != '\0')
+			tokens->node->next_chr = input[i];
 		free(temp);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 15:26:18 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/18 20:50:18 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ struct s_node
 	char			*value;
 	union u_data	*data;
 	struct s_node	*next;
+	char			next_chr;
 };
 
 union u_data
@@ -129,6 +130,12 @@ t_list		*is_argument(t_list *list);
 //files.c
 t_list		*is_file(t_list *tokens);
 t_list		*is_append_or_heredoc_key(t_list *tokens);
+
+//quotes.c
+
+int			single_quotes_closed(char *input);
+int			double_quotes_closed(char *input);
+int			is_closed(char *input);
 
 /* --- source/utils/ --- */
 // utils_quote.c

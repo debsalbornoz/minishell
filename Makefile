@@ -31,7 +31,8 @@ F_LEXER		:=		\
 	type_assignment \
 	commands		\
 	files			\
-	arguments
+	arguments		\
+	quotes
 
 F_UTILS		:=		\
 	utils_quote		\

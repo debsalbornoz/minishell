@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/17 14:14:20 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/18 20:47:21 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int	program(void)
 		return (FALSE);
 	}
 	tokens.node = 0;
+	if (!is_closed(input))
+		exit (1);
 	tokens = *tokenization(&tokens, input);
 	tokens = *type_assignment(&tokens);
 	print_list(&tokens, print_tokens);
 	free_list(&tokens, free_tokens);
 	free(input);
-	return (TRUE);
+	return (FALSE);
 }
 
 t_list	*tokenization(t_list *list, char *input)
