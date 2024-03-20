@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/18 20:50:34 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:45:42 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	free_tokens(t_list *tokens)
 {
 	free(tokens->node->data);
 	free(tokens->node->value);
-	//free(tokens->node->next_chr);
 	free(tokens->node);
 }
 
