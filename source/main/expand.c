@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type_assignment.c                                  :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 21:26:00 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/20 15:40:40 by jraupp           ###   ########.fr       */
+/*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
+/*   Updated: 2024/03/20 21:10:30 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_list	*type_assignment(t_list *lst_tokens)
+char  *expand(t_list *lst_env, char *input)
 {
-	lst_tokens->head = is_command_part1(lst_tokens->head);
-	lst_tokens = runs_on_list(lst_tokens, is_command_part2);
-	lst_tokens = runs_on_list(lst_tokens, is_argument);
-	lst_tokens = runs_on_list(lst_tokens, is_builtin);
-	lst_tokens = runs_on_list(lst_tokens, is_file);
-	lst_tokens = runs_on_list(lst_tokens, is_append_or_heredoc_key);
-	return (lst_tokens);
+	char	signal;
+	char	*temp;
+	char	*varible;
+
+	signal = 0;
+	temp = input;
+	while (*temp)
+	{
+		signal = process_quotes(signal, *temp);
+		if (*temp == '$' && !is_single_quote(signal) && *(temp + 1))
+		temp++;
+	}
+	temp = 0;
+	return (input);
 }

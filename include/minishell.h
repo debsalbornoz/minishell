@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 15:54:01 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/20 21:12:39 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,17 @@ union u_data
 	t_env	*env;
 };
 
+struct s_env
+{
+	char			*name;
+	char			*value;
+};
+
 struct s_token
 {
 	char			*value;
 	int				type;
 	char			next_chr;
-};
-
-struct s_env
-{
-	char			*name;
-	char			*value;
 };
 
 /* --- source/main --- */
@@ -147,7 +147,7 @@ t_node	*is_builtin(t_node *node);
 
 // files.c
 t_node	*is_file(t_node *node);
-t_node	*is_append_or_heredoc_key(t_node *node);
+t_node	*is_heredoc_key(t_node *node);
 
 // quotes.c
 int		single_quotes_closed(char *input);
