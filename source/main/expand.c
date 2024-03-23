@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/22 18:52:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/23 14:01:26 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 char	*process_heredoc(char signal, char *input);
 char	*find_variable_name(t_list *lst_env, char *input, char *position);
-char	*concatenation_chr(char *dest, char src);
+char	*chrjoin(char *dest, char src);
+char	*find_variable_value(t_list *lst_env, char *name);
+int		ft_strcmp(char	*str1, char *str2);
+char	*variable_expand(char *input, char *position, char *name, char *value);
 
 char  *find_varible(t_list *lst_env, char *input)
 {
@@ -61,21 +64,26 @@ char	*find_variable_name(t_list *lst_env, char *input, char *position)
 {
 	char	*temp;
 	char	*variable_name;
+	char	*variable_value;
 
-	variable_name = 0;
 	temp = position;
+	variable_name = 0;
+	variable_value = 0;
 	if (*temp == '$')
 	{
 		temp++;
 		while (*temp && (ft_isalnum(*temp) || *temp == '_'))
-			variable_name = concatenation_chr(variable_name, *temp++);
+			variable_name = chrjoin(variable_name, *temp++);
+		if (variable_name)
+			variable_value = find_variable_value(lst_env, variable_name);
+		temp = variable_expand(input, position, variable_name, variable_value);
 	}
 	if (variable_name)
 		free(variable_name);
 	return (input);
 }
 
-char	*concatenation_chr(char *dest, char src)
+char	*chrjoin(char *dest, char src)
 {
 	char	*temp;
 
@@ -93,7 +101,49 @@ char	*concatenation_chr(char *dest, char src)
 	return (temp);
 }
 
-char	*expand(t_list *lst_env, char *name, char *input)
+char	*find_variable_value(t_list *lst_env, char *name)
 {
-	return (input);
+	if (lst_env->node)
+	{
+		lst_env->node = lst_env->head;
+		while (lst_env->node && lst_env->node->next)
+		{
+			if (!ft_strcmp(lst_env->node->data->env->name, name))
+				return (lst_env->node->data->env->value);
+			lst_env->node = lst_env->node->next;
+		}
+		if (!ft_strcmp(lst_env->node->data->env->name, name))
+			return (lst_env->node->data->env->value);
+	}
+	return (0);
+}
+
+int	ft_strcmp(char	*str1, char *str2)
+{
+	while (*str1 && *str2)
+	{
+		if (*str1++ != *str2++)
+			return ((unsigned char)*str1 - (unsigned char)*str2);
+	}
+	return (0);
+}
+
+char	*variable_expand(char *input, char *position, char *name, char *value)
+{
+	char	*res;
+	char	*temp;
+
+	res = ft_calloc(1, ft_strlen(input) - ft_strlen(name) + ft_strlen(value));
+	temp = res;
+	while (*(input + 1) != *position)
+		*temp++ = *input++;
+	while (*value)
+		*temp++ = *value++;
+	input++;
+	while (*input == *name)
+		input++;
+	while (*input)
+		*temp++ = *input++;
+	temp = 0;
+	return (res);	
 }
