@@ -1,0 +1,13 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"preLaunchTask": "clang build",
+			"name": "Launch",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceFolder}/minishell",
+			"args": []
+		}
+	]
+}

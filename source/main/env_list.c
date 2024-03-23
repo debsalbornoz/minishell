@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:21:12 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/20 15:49:39 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/23 14:59:03 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ char	*find_name(char *envp)
 	int		i;
 
 	i = 0;
-	while (envp[i] != '=')
+	temp = NULL;
+	if (envp)
+	{
+		while (envp[i] != '=' && envp[i] != '\0')
 		i++;
 	temp = ft_calloc((i + 1), sizeof(char));
-	ft_strlcpy(temp, envp, i + 1);
+		ft_strlcpy(temp, envp, i + 1);
+	}
 	return (temp);
 }
 
@@ -46,15 +50,19 @@ char	*find_value(char *envp)
 	int		j;
 
 	i = 0;
-	while (envp[i] != '=')
-		i++;
-	if (envp[i] == '=')
-		i++;
-	j = i;
-	while (envp[i] != '\0')
-		i++;
-	temp = ft_calloc((i - j + 1), sizeof(char));
-	ft_strlcpy(temp, &envp[j], i - j + 1);
+	temp = NULL;
+	if (*envp)
+	{
+		while (envp[i] != '=' && envp[i] != '\0')
+			i++;
+		if (envp[i] == '=')
+			i++;
+		j = i;
+		while (envp[i] != '\0')
+			i++;
+		temp = ft_calloc((i - j + 1), sizeof(char));
+		ft_strlcpy(temp, &envp[j], i - j + 1);
+	}
 	return (temp);
 }
 

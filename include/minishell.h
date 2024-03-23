@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 21:12:39 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/23 18:17:34 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ enum	e_type_type
 	VARIABLE	= 2300,
 	ERROR		= 9999
 };
-
+extern int				g_signal;
 typedef struct s_list	t_list;
 typedef struct s_node	t_node;
 union					u_data;
@@ -115,6 +115,11 @@ void	free_list(t_list *list, void (f)(t_list *));
 void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *env_list);
 
+//signals.c
+
+void	handle_sigint(int signal);
+void	handle_signal(t_list *lst_env);
+void	set_error(t_list *lst_env);
 /* --- source/lexer/ --- */
 // tokenization.c
 char	*trim_start_spaces(char *input);
@@ -176,5 +181,10 @@ int		is_append(char chr, char next_chr);
 
 // utils_tokens.c
 t_node	*print_lst_tokens(t_node *node);
+
+//env_list_utils.c
+
+void	update_env_list(t_list *lst_env, char *name, char *value);
+
 
 #endif

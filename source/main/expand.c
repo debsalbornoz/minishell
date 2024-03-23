@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/23 14:01:26 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/23 14:35:30 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*find_variable_value(t_list *lst_env, char *name);
 int		ft_strcmp(char	*str1, char *str2);
 char	*variable_expand(char *input, char *position, char *name, char *value);
 
-char  *find_varible(t_list *lst_env, char *input)
+char	*find_varible(t_list *lst_env, char *input)
 {
 	char	*temp;
 	char	signal_quote;
@@ -95,7 +95,7 @@ char	*chrjoin(char *dest, char src)
 		return (temp);
 	}
 	temp = ft_calloc(1, ft_strlen(dest) + 2);
-	while(*dest)
+	while (*dest)
 		*temp++ = *dest++;
 	*temp = src;
 	return (temp);

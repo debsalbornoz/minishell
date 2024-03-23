@@ -24,7 +24,8 @@ F_MAIN		:=		\
 	expand			\
 	program			\
 	linked_list		\
-	free_list
+	free_list		\
+	signals
 
 F_LEXER		:=		\
 	tokenization	\
@@ -44,6 +45,7 @@ F_UTILS		:=		\
 	utils_delimiter	\
 	utils_redirect	\
 	utils_tokens	\
+	utils_env_list
 
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))
