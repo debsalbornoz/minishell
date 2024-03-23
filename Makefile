@@ -44,6 +44,7 @@ F_UTILS		:=		\
 	utils_delimiter	\
 	utils_redirect	\
 	utils_tokens	\
+	utils_ft
 
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))

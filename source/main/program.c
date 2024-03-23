@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 15:54:27 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/23 15:58:12 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	program(t_list *lst_env)
 	t_list	lst_tokens;
 	char	*input;
 
-	(void)lst_env;
+	// (void)lst_env;
 	input = readline("¯\\_(ツ)_/¯: ");
+	input = find_varible(lst_env, input);
 	if (!*input)
 	{
 		free(input);

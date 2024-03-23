@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 21:12:39 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/23 15:01:34 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,15 @@ struct s_token
 };
 
 /* --- source/main --- */
+// env_list.c
+t_list	*make_lst_env(char **envp, t_list *lst_env);
+char	*find_name(char *envp);
+char	*find_value(char *envp);
+t_node	*print_lst_env(t_node *node);
+
+// expand.c
+char	*find_varible(t_list *lst_env, char *input);
+
 // program.c
 int		program(t_list *lst_env);
 t_list	*tokenization(t_list *lst_tokens, char *input);
@@ -103,12 +112,6 @@ t_list	*tokenization(t_list *lst_tokens, char *input);
 // linked_list.c
 t_list	*add_node(t_list *list);
 t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
-
-// env_list.c
-t_list	*make_lst_env(char **envp, t_list *lst_env);
-char	*find_name(char *envp);
-char	*find_value(char *envp);
-t_node	*print_lst_env(t_node *node);
 
 // free_list.c
 void	free_list(t_list *list, void (f)(t_list *));
@@ -176,5 +179,9 @@ int		is_append(char chr, char next_chr);
 
 // utils_tokens.c
 t_node	*print_lst_tokens(t_node *node);
+
+// utils_ft.c
+int		ft_strcmp(char	*str1, char *str2);
+char	*ft_chrjoin(char *dest, char src);
 
 #endif
