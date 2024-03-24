@@ -16,15 +16,20 @@ int	g_signal;
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_list	lst_env;
+	t_list	*lst_env;
 
+	lst_env = NULL;
 	(void)argv;
 	if (argc > 1)
 		return (0);
-	lst_env.node = 0;
-	lst_env = *make_lst_env(envp, &lst_env);
-	while (program(&lst_env))
+	//lst_env->node = 0;
+	init_data_env_addr(envp);
+	lst_env = *data_env_addr();
+	update_env_list(lst_env, "?", "130");
+	handle_signal(lst_env);
+	runs_on_list(lst_env, print_lst_env);
+	while (program(lst_env))
 		;
-	free_list(&lst_env, free_lst_env);
+	free_list(lst_env, free_lst_env);
 	return (EXIT_SUCCESS);
 }

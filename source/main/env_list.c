@@ -12,8 +12,12 @@
 
 #include "../../include/minishell.h"
 
-t_list	*make_lst_env(char **envp, t_list *lst_env)
+t_list	*make_lst_env(char **envp)
 {
+	t_list	*lst_env;
+
+	lst_env = ft_calloc(1, sizeof(t_list));
+	lst_env->node = NULL;
 	while (*envp)
 	{
 		lst_env = add_node(lst_env);

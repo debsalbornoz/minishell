@@ -14,11 +14,9 @@
 
 int	program(t_list *lst_env)
 {
+	(void)lst_env;
 	t_list		lst_tokens;
 	char		*input;
-
-	handle_signal(lst_env);
-	set_error(lst_env);
 	input = readline("¯\\_(ツ)_/¯: ");
 	if (!input)
 	{

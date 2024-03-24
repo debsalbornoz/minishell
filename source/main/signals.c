@@ -14,36 +14,32 @@
 
 void	handle_sigint(int signal)
 {
-	extern int	g_signal;
+	t_list *lst_env;
 
+	lst_env = *data_env_addr();
 	(void)signal;
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	printf("\n");
 	rl_redisplay();
-	g_signal = 1;
+	set_error(lst_env);
 }
 
 void	handle_signal(t_list *lst_env)
 {
-	extern int	g_signal;
 
 	(void)lst_env;
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
-	set_error(lst_env);
 }
 
 void	set_error(t_list *lst_env)
 {
-	extern int	g_signal;
 
-	if (lst_env && g_signal == 1)
+	if (lst_env)
 	{
-		printf("???");
-		update_env_list(lst_env, "$", "130");
-		runs_on_list(lst_env, print_lst_env);
-		g_signal = 0;
+		//update_env_list(lst_env, "?", "130");
+		//runs_on_list(lst_env, print_lst_env);
 	}
 }
 

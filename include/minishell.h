@@ -105,7 +105,7 @@ t_list	*add_node(t_list *list);
 t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
 
 // env_list.c
-t_list	*make_lst_env(char **envp, t_list *lst_env);
+t_list	*make_lst_env(char **envp);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);
@@ -186,5 +186,9 @@ t_node	*print_lst_tokens(t_node *node);
 
 void	update_env_list(t_list *lst_env, char *name, char *value);
 
+//
+
+t_list **data_env_addr(void);
+void init_data_env_addr(char **envp);
 
 #endif
