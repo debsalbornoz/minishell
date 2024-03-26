@@ -6,16 +6,16 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/23 16:07:13 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 11:31:54 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static char	*process_heredoc(char signal, char *input);
-static char	*find_variable_name(t_list *lst_env, char *input, char *position);
-static char	*find_variable_value(t_list *lst_env, char *name);
-static char	*variable_expand(char *input, char *position, char *name, char *value);
+static char	*find_var_name(t_list *lst_env, char *input, char *position);
+static char	*find_var_value(t_list *lst_env, char *name);
+static char	*var_expand(char *input, char *position, char *name, char *value);
 
 char	*find_varible(t_list *lst_env, char *input)
 {
@@ -32,11 +32,11 @@ char	*find_varible(t_list *lst_env, char *input)
 		if (!is_single_quote(signal_quote))
 		{
 			if (is_double_quote(signal_quote))
-				temp = find_variable_name(lst_env, input, temp);
+				temp = find_var_name(lst_env, input, temp);
 			else
 			{
 				temp = process_heredoc(signal_quote, temp);
-				return (find_variable_name(lst_env, input, temp));
+				return (find_var_name(lst_env, input, temp));
 			}
 		}
 		temp++;
@@ -58,30 +58,30 @@ static char	*process_heredoc(char signal, char *input)
 	return (input);
 }
 
-static char	*find_variable_name(t_list *lst_env, char *input, char *position)
+static char	*find_var_name(t_list *lst_env, char *input, char *position)
 {
 	char	*temp;
-	char	*variable_name;
-	char	*variable_value;
+	char	*var_name;
+	char	*var_value;
 
 	temp = position;
-	variable_name = 0;
-	variable_value = 0;
+	var_name = 0;
+	var_value = 0;
 	if (*temp == '$')
 	{
 		temp++;
 		while (*temp && (ft_isalnum(*temp) || *temp == '_'))
-			variable_name = ft_chrjoin(variable_name, *temp++);
-		if (variable_name)
-			variable_value = find_variable_value(lst_env, variable_name);
-		temp = variable_expand(input, position, variable_name, variable_value);
+			var_name = ft_chrjoin(var_name, *temp++);
+		if (var_name)
+			var_value = find_var_value(lst_env, var_name);
+		temp = var_expand(input, position, var_name, var_value);
 	}
-	if (variable_name)
-		free(variable_name);
+	if (var_name)
+		free(var_name);
 	return (temp);
 }
 
-static char	*find_variable_value(t_list *lst_env, char *name)
+static char	*find_var_value(t_list *lst_env, char *name)
 {
 	if (lst_env->node)
 	{
@@ -98,7 +98,7 @@ static char	*find_variable_value(t_list *lst_env, char *name)
 	return (0);
 }
 
-static char	*variable_expand(char *input, char *position, char *name, char *value)
+static char	*var_expand(char *input, char *position, char *name, char *value)
 {
 	char	*res;
 	char	*temp;
