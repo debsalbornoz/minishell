@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:51:48 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 13:12:29 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 17:12:05 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ int	ft_strcmp(char	*str1, char *str2)
 char	*ft_chrjoin(char *dest, char src)
 {
 	char	*res;
-	char	*temp;
+	char	*temp1;
+	char	*temp2;
 
 	res = 0;
-	temp = 0;
+	temp1 = 0;
+	temp2 = 0;
 	if (!dest)
 	{
 		res = ft_calloc(2, sizeof(char));
@@ -38,9 +40,11 @@ char	*ft_chrjoin(char *dest, char src)
 		return (res);
 	}
 	res = ft_calloc(1, ft_strlen(dest) + 2);
-	temp = res;
-	while (*dest)
-		*temp++ = *dest++;
-	*temp = src;
+	temp1 = res;
+	temp2 = dest;
+	while (*temp2)
+		*temp1++ = *temp2++;
+	*temp1 = src;
+	free(dest);
 	return (res);
 }

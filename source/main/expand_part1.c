@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   expand_part1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 14:13:03 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 17:23:26 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,33 @@
 static char	*process_heredoc(char signal, char *input);
 static char	*find_var_name(t_list *lst_env, char *input, char *position);
 static char	*find_var_value(t_list *lst_env, char *name);
-static char	*var_expand(char *input, char *position, char *name, char *value);
+static char	*update_expand(char *temp1, char *temp2, char *input);
 
-char	*find_varible(t_list *lst_env, char *input)
+char	*expand(t_list *lst_env, char *input)
 {
-	char	*temp;
+	char	*temp1;
 	char	*temp2;
-	char	signal_quote;
-	int		signal_heredoc;
+	char	sig_quote;
 
-	temp = input;
-	signal_quote = 0;
-	signal_heredoc = 0;
-	while (*temp)
+	temp1 = input;
+	sig_quote = 0;
+	while (*temp1)
 	{
-		temp2 = temp;
-		signal_quote = process_quotes(signal_quote, *temp);
-		if (!is_single_quote(signal_quote))
+		temp2 = temp1;
+		sig_quote = process_quotes(sig_quote, *temp1);
+		if (!is_single_quote(sig_quote))
 		{
-			if (is_double_quote(signal_quote))
-				temp = find_var_name(lst_env, input, temp);
+			if (is_double_quote(sig_quote))
+				temp1 = find_var_name(lst_env, input, temp1);
 			else
 			{
-				temp = process_heredoc(signal_quote, temp);
-				temp = find_var_name(lst_env, input, temp);
+				temp1 = process_heredoc(sig_quote, temp1);
+				temp1 = find_var_name(lst_env, input, temp1);
 			}
 		}
-		if (ft_strcmp(temp, temp2))
-			input = temp;
-		temp++;
+		input = update_expand(temp1, temp2, input);
+		temp1++;
 	}
-	temp = 0;
-	temp2 = 0;
 	return (input);
 }
 
@@ -103,54 +98,12 @@ static char	*find_var_value(t_list *lst_env, char *name)
 	return (0);
 }
 
-static char	*var_expand(char *input, char *position, char *name, char *value)
+char	*update_expand(char *temp1, char *temp2, char *input)
 {
-	char	*res;
-	char	*temp;
-
-	if (!name)
+	if (ft_strcmp(temp1, temp2))
 	{
-		res = ft_calloc(1, ft_strlen(input));
-		temp = res;
-		while (*input != *position)
-			*temp++ = *input++;
-		input++;
-		while (*input)
-			*temp++ = *input++;
-		temp = 0;
-		return (res);
+		free(input);
+		input = temp1;
 	}
-	else if (!value)
-	{
-		res = ft_calloc(1, ft_strlen(input) - ft_strlen(name));
-		temp = res;
-		while (*input != *position)
-			*temp++ = *input++;
-		input++;
-		while (*input && *name && *input == *name)
-		{
-			input++;
-			name++;
-		}
-		while (*input)
-			*temp++ = *input++;
-		temp = 0;
-		return (res);
-	}
-	res = ft_calloc(1, ft_strlen(input) - ft_strlen(name) + ft_strlen(value));
-	temp = res;
-	while (*input != *position)
-		*temp++ = *input++;
-	while (*value)
-		*temp++ = *value++;
-	input++;
-	while (*input && *name && *input == *name)
-	{
-		input++;
-		name++;
-	}
-	while (*input)
-		*temp++ = *input++;
-	temp = 0;
-	return (res);
+	return (input);
 }

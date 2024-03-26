@@ -21,7 +21,8 @@ F_SOURCE	:=		\
 
 F_MAIN		:=		\
 	env_list		\
-	expand			\
+	expand_part1	\
+	expand_part2	\
 	program			\
 	linked_list		\
 	free_list

@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/23 15:01:34 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 17:10:29 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,11 @@ char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);
 
-// expand.c
-char	*find_varible(t_list *lst_env, char *input);
+// expand_part1.c
+char	*expand(t_list *lst_env, char *input);
+
+// expand_part2.c
+char	*var_expand(char *input, char *position, char *name, char *value);
 
 // program.c
 int		program(t_list *lst_env);
