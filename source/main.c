@@ -28,5 +28,6 @@ int	main(int argc, char **argv, char **envp)
 	while (program(lst_env))
 		;
 	free_list(lst_env, free_lst_env);
+	free(lst_env);
 	return (EXIT_SUCCESS);
 }

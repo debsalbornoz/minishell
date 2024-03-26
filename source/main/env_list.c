@@ -17,6 +17,8 @@ t_list	*make_lst_env(char **envp)
 	t_list	*lst_env;
 
 	lst_env = ft_calloc(1, sizeof(t_list));
+	if(!lst_env)
+		return(NULL);
 	lst_env->node = NULL;
 	while (*envp)
 	{
