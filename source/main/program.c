@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 11:31:12 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 13:20:12 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	program(t_list *lst_env)
 	if (!*input)
 	{
 		free(input);
-		return (FALSE);
+		return (TRUE);
 	}
 	lst_tokens.node = 0;
 	if (!is_closed(input))

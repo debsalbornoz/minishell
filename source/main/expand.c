@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 11:31:54 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 14:13:03 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static char	*var_expand(char *input, char *position, char *name, char *value);
 char	*find_varible(t_list *lst_env, char *input)
 {
 	char	*temp;
+	char	*temp2;
 	char	signal_quote;
 	int		signal_heredoc;
 
@@ -28,6 +29,7 @@ char	*find_varible(t_list *lst_env, char *input)
 	signal_heredoc = 0;
 	while (*temp)
 	{
+		temp2 = temp;
 		signal_quote = process_quotes(signal_quote, *temp);
 		if (!is_single_quote(signal_quote))
 		{
@@ -36,12 +38,15 @@ char	*find_varible(t_list *lst_env, char *input)
 			else
 			{
 				temp = process_heredoc(signal_quote, temp);
-				return (find_var_name(lst_env, input, temp));
+				temp = find_var_name(lst_env, input, temp);
 			}
 		}
+		if (ft_strcmp(temp, temp2))
+			input = temp;
 		temp++;
 	}
 	temp = 0;
+	temp2 = 0;
 	return (input);
 }
 
@@ -103,6 +108,35 @@ static char	*var_expand(char *input, char *position, char *name, char *value)
 	char	*res;
 	char	*temp;
 
+	if (!name)
+	{
+		res = ft_calloc(1, ft_strlen(input));
+		temp = res;
+		while (*input != *position)
+			*temp++ = *input++;
+		input++;
+		while (*input)
+			*temp++ = *input++;
+		temp = 0;
+		return (res);
+	}
+	else if (!value)
+	{
+		res = ft_calloc(1, ft_strlen(input) - ft_strlen(name));
+		temp = res;
+		while (*input != *position)
+			*temp++ = *input++;
+		input++;
+		while (*input && *name && *input == *name)
+		{
+			input++;
+			name++;
+		}
+		while (*input)
+			*temp++ = *input++;
+		temp = 0;
+		return (res);
+	}
 	res = ft_calloc(1, ft_strlen(input) - ft_strlen(name) + ft_strlen(value));
 	temp = res;
 	while (*input != *position)
@@ -110,7 +144,7 @@ static char	*var_expand(char *input, char *position, char *name, char *value)
 	while (*value)
 		*temp++ = *value++;
 	input++;
-	while (*input == *name)
+	while (*input && *name && *input == *name)
 	{
 		input++;
 		name++;

@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:51:48 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/23 15:49:29 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 13:12:29 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_strcmp(char	*str1, char *str2)
 {
+	if ((*str1 && !*str2) || (!*str1 && *str2))
+		return (1);
 	while (*str1 && *str2)
 	{
 		if (*str1++ != *str2++)
