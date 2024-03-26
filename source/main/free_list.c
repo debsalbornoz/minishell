@@ -38,8 +38,7 @@ void	free_lst_tokens(t_list *lst_tokens)
 void	free_lst_env(t_list *lst_env)
 {
 	free(lst_env->node->data->env->name);
-	if (*lst_env->node->data->env->value)
-		free(lst_env->node->data->env->value);
+	free(lst_env->node->data->env->value);
 	free(lst_env->node->data->env);
 	free(lst_env->node->data);
 	free(lst_env->node);

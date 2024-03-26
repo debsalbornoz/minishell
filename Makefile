@@ -104,7 +104,7 @@ play: re
 	clear && ./minishell
 
 valgrind: re
-	valgrind --suppressions=suppression.supp ./$(NAME)
+	valgrind --leak-check=full --suppressions=suppression.supp ./$(NAME)
 
 leak: re
 	clear && $(LFLAGS) ./minishell
