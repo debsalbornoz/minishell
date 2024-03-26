@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 20:06:23 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 20:11:31 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ struct s_token
 
 /* --- source/main --- */
 // env_list.c
-t_list	*make_lst_env(char **envp, t_list *lst_env);
+t_list	*make_lst_env(char **envp);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);

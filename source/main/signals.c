@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:36:13 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/25 21:02:40 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:17:38 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ void	handle_signal(t_list *lst_env)
 void	set_error(t_list *lst_env)
 {
 	if (lst_env)
-	{
 		update_env_list(lst_env, "?", "130");
-		runs_on_list(lst_env, print_lst_env);
-	}
 }
 
 // void	handle_signal(t_list	*lst_env)

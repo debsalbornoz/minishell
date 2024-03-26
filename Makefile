@@ -46,7 +46,7 @@ F_UTILS		:=		\
 	utils_delimiter	\
 	utils_redirect	\
 	utils_tokens	\
-	utils_env_list
+	utils_env_list	\
 	utils_ft
 
 O_SOURCE	:=		\
