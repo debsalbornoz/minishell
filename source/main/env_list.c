@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:21:12 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/23 14:59:03 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:22:30 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_list	*make_lst_env(char **envp)
 	t_list	*lst_env;
 
 	lst_env = ft_calloc(1, sizeof(t_list));
-	if(!lst_env)
-		return(NULL);
+	if (!lst_env)
+		return (NULL);
 	lst_env->node = NULL;
 	while (*envp)
 	{

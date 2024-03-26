@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 13:14:43 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 20:23:07 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	form_word(t_list *lst_tokens, int signal, char *input, int i)
 		lst_tokens->node->data->token = ft_calloc(1, sizeof(t_token));
 		lst_tokens->node->data->token->value = ft_strdup(temp);
 		lst_tokens->node->data->token->type = WORD;
-		if(input[len] != '\0')
+		if (input[len] != '\0')
 		{
 			if (input[len + 1] != '\0')
 				lst_tokens->node->data->token->next_chr = input[i];
