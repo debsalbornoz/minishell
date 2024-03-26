@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/25 19:06:18 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:06:23 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,18 @@ struct s_token
 };
 
 /* --- source/main --- */
+// env_list.c
+t_list	*make_lst_env(char **envp, t_list *lst_env);
+char	*find_name(char *envp);
+char	*find_value(char *envp);
+t_node	*print_lst_env(t_node *node);
+
+// expand_part1.c
+char	*expand(t_list *lst_env, char *input);
+
+// expand_part2.c
+char	*var_expand(char *input, char *position, char *name, char *value);
+
 // program.c
 int		program(t_list *lst_env);
 t_list	*tokenization(t_list *lst_tokens, char *input);
@@ -103,12 +115,6 @@ t_list	*tokenization(t_list *lst_tokens, char *input);
 // linked_list.c
 t_list	*add_node(t_list *list);
 t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
-
-// env_list.c
-t_list	*make_lst_env(char **envp);
-char	*find_name(char *envp);
-char	*find_value(char *envp);
-t_node	*print_lst_env(t_node *node);
 
 // free_list.c
 void	free_list(t_list *list, void (f)(t_list *));
@@ -190,5 +196,9 @@ void	update_env_list(t_list *lst_env, char *name, char *value);
 
 t_list	**data_env_addr(void);
 void	init_data_env_addr(char **envp);
+
+// utils_ft.c
+int		ft_strcmp(char	*str1, char *str2);
+char	*ft_chrjoin(char *dest, char src);
 
 #endif

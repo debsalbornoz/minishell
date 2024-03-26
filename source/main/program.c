@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/25 19:07:01 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:08:33 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	program(t_list *lst_env)
 	t_list		lst_tokens;
 	char		*input;
 
-	(void)lst_env;
 	input = readline("¯\\_(ツ)_/¯: ");
-	if (!input)
+	input = expand(lst_env, input);
+	if (!*input)
 	{
 		free(input);
 		return (FALSE);
