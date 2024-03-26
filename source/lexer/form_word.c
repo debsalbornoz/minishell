@@ -18,7 +18,7 @@ int	form_word(t_list *lst_tokens, int signal, char *input, int i)
 	char	*temp;
 
 	len = find_len(&input[i], signal);
-	if (len != 0)
+	if (len > 0)
 	{
 		temp = ft_calloc((len + 1), sizeof(char));
 		ft_strlcpy(temp, &input[i], len + 1);
@@ -27,8 +27,11 @@ int	form_word(t_list *lst_tokens, int signal, char *input, int i)
 		lst_tokens->node->data->token = ft_calloc(1, sizeof(t_token));
 		lst_tokens->node->data->token->value = ft_strdup(temp);
 		lst_tokens->node->data->token->type = WORD;
-		if (input[len + 1] != '\0')
-			lst_tokens->node->data->token->next_chr = input[i];
+		if(input[len] != '\0')
+		{
+			if (input[len + 1] != '\0')
+				lst_tokens->node->data->token->next_chr = input[i];
+		}
 		free(temp);
 	}
 	else

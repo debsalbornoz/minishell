@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 13:20:46 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/20 20:04:10 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ char	*trim_start_spaces(char *input)
 char	process_quotes(char signal, char input)
 {
 	if (!signal && is_quote(input))
-	{
 		return (input);
-	}
 	else if (input == signal)
 		return (FALSE);
 	return (signal);

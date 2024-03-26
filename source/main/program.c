@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 15:54:27 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/25 19:07:01 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	program(t_list *lst_env)
 {
-	t_list	lst_tokens;
-	char	*input;
+	t_list		lst_tokens;
+	char		*input;
 
 	(void)lst_env;
 	input = readline("¯\\_(ツ)_/¯: ");
-	if (!*input)
+	if (!input)
 	{
 		free(input);
 		return (FALSE);
@@ -53,12 +53,12 @@ t_list	*tokenization(t_list *lst_tokens, char *input)
 		if (signal)
 			signal = '\0';
 		if (len >= 0 && i + len <= input_len)
-			i += len;
+				i += len;
 		else
 			break ;
 		if (i + 1 <= input_len)
 			i += process_delimiter(lst_tokens, signal, input, i);
-		if (input[i] == ' ')
+		if (input[i] == ' ' && input[i] != '\0')
 			i++;
 	}
 	return (lst_tokens);

@@ -6,11 +6,11 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:12:07 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 15:18:53 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/20 19:13:06 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 int	ft_strlcmp(char *s1, char *s2, int len)
 {

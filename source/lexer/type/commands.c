@@ -6,11 +6,11 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:23:30 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/20 15:42:11 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/20 19:13:02 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 t_node	*is_command_part1(t_node *head)
 {

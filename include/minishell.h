@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 15:54:01 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/25 19:06:18 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ enum	e_type_type
 	VARIABLE	= 2300,
 	ERROR		= 9999
 };
-
+extern int				g_signal;
 typedef struct s_list	t_list;
 typedef struct s_node	t_node;
 union					u_data;
@@ -82,17 +82,17 @@ union u_data
 	t_env	*env;
 };
 
+struct s_env
+{
+	char			*name;
+	char			*value;
+};
+
 struct s_token
 {
 	char			*value;
 	int				type;
 	char			next_chr;
-};
-
-struct s_env
-{
-	char			*name;
-	char			*value;
 };
 
 /* --- source/main --- */
@@ -105,7 +105,7 @@ t_list	*add_node(t_list *list);
 t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
 
 // env_list.c
-t_list	*make_lst_env(char **envp, t_list *lst_env);
+t_list	*make_lst_env(char **envp);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);
@@ -115,6 +115,11 @@ void	free_list(t_list *list, void (f)(t_list *));
 void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *env_list);
 
+//signals.c
+
+void	handle_sigint(int signal);
+void	handle_signal(t_list *lst_env);
+void	set_error(t_list *lst_env);
 /* --- source/lexer/ --- */
 // tokenization.c
 char	*trim_start_spaces(char *input);
@@ -147,7 +152,7 @@ t_node	*is_builtin(t_node *node);
 
 // files.c
 t_node	*is_file(t_node *node);
-t_node	*is_append_or_heredoc_key(t_node *node);
+t_node	*is_heredoc_key(t_node *node);
 
 // quotes.c
 int		single_quotes_closed(char *input);
@@ -176,5 +181,14 @@ int		is_append(char chr, char next_chr);
 
 // utils_tokens.c
 t_node	*print_lst_tokens(t_node *node);
+
+//env_list_utils.c
+
+void	update_env_list(t_list *lst_env, char *name, char *value);
+
+//
+
+t_list	**data_env_addr(void);
+void	init_data_env_addr(char **envp);
 
 #endif

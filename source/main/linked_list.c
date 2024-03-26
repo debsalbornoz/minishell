@@ -29,6 +29,7 @@ t_list	*add_node(t_list *list)
 
 t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *))
 {
+	list->node = list->head;
 	if (list->node)
 	{
 		list->node = list->head;
