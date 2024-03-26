@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:51:39 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/23 18:18:22 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:02:50 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (argc > 1)
 		return (0);
-	//lst_env->node = 0;
 	init_data_env_addr(envp);
 	lst_env = *data_env_addr();
-	update_env_list(lst_env, "?", "130");
 	handle_signal(lst_env);
-	runs_on_list(lst_env, print_lst_env);
 	while (program(lst_env))
 		;
 	free_list(lst_env, free_lst_env);

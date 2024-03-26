@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:36:13 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/23 18:14:49 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:02:40 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handle_sigint(int signal)
 {
-	t_list *lst_env;
+	t_list	*lst_env;
 
 	lst_env = *data_env_addr();
 	(void)signal;
@@ -27,7 +27,6 @@ void	handle_sigint(int signal)
 
 void	handle_signal(t_list *lst_env)
 {
-
 	(void)lst_env;
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
@@ -35,11 +34,10 @@ void	handle_signal(t_list *lst_env)
 
 void	set_error(t_list *lst_env)
 {
-
 	if (lst_env)
 	{
-		//update_env_list(lst_env, "?", "130");
-		//runs_on_list(lst_env, print_lst_env);
+		update_env_list(lst_env, "?", "130");
+		runs_on_list(lst_env, print_lst_env);
 	}
 }
 

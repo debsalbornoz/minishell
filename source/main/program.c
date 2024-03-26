@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/23 18:20:49 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:07:01 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	program(t_list *lst_env)
 {
-	(void)lst_env;
 	t_list		lst_tokens;
 	char		*input;
+
+	(void)lst_env;
 	input = readline("¯\\_(ツ)_/¯: ");
 	if (!input)
 	{

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/23 18:17:34 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:06:18 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	update_env_list(t_list *lst_env, char *name, char *value);
 
 //
 
-t_list **data_env_addr(void);
-void init_data_env_addr(char **envp);
+t_list	**data_env_addr(void);
+void	init_data_env_addr(char **envp);
 
 #endif
