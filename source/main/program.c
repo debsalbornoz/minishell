@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 20:08:33 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 20:43:38 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	program(t_list *lst_env)
 
 	input = readline("¯\\_(ツ)_/¯: ");
 	input = expand(lst_env, input);
-	if (!*input)
+	if (!input)
 	{
 		free(input);
 		return (FALSE);

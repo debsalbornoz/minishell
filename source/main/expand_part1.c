@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 17:23:26 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 20:44:48 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*expand(t_list *lst_env, char *input)
 	char	*temp2;
 	char	sig_quote;
 
+	if(!input)
+		return (NULL);
 	temp1 = input;
 	sig_quote = 0;
 	while (*temp1)
