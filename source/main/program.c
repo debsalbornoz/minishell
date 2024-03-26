@@ -53,12 +53,12 @@ t_list	*tokenization(t_list *lst_tokens, char *input)
 		if (signal)
 			signal = '\0';
 		if (len >= 0 && i + len <= input_len)
-			i += len;
+				i += len;
 		else
 			break ;
 		if (i + 1 <= input_len)
 			i += process_delimiter(lst_tokens, signal, input, i);
-		if (input[i] == ' ')
+		if (input[i] == ' ' && input[i] != '\0')
 			i++;
 	}
 	return (lst_tokens);
