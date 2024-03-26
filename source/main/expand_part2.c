@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 15:23:33 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 18:15:15 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ char	*expand_no_name(char *input, char *position)
 	char	*res;
 	char	*temp;
 
-	res = ft_calloc(1, ft_strlen(input));
+	res = ft_calloc(1, ft_strlen(input) + 3);
 	temp = res;
-	while (*input != *position)
+	while (*&input != *&position)
 		*temp++ = *input++;
-	input++;
+	*temp++ = '\'';
+	*temp++ = *input++;
+	*temp++ = '\'';
 	while (*input)
 		*temp++ = *input++;
 	temp = 0;
@@ -48,7 +50,7 @@ char	*expand_no_value(char *input, char *position, char *name)
 
 	res = ft_calloc(1, ft_strlen(input) - ft_strlen(name));
 	temp = res;
-	while (*input != *position)
+	while (*&input != *&position)
 		*temp++ = *input++;
 	input++;
 	while (*input && *name && *input == *name)
@@ -69,7 +71,7 @@ char	*expand_full(char *input, char *position, char *name, char *value)
 
 	res = ft_calloc(1, ft_strlen(input) - ft_strlen(name) + ft_strlen(value));
 	temp = res;
-	while (*input != *position)
+	while (*&input != *&position)
 		*temp++ = *input++;
 	input++;
 	while (*value)
