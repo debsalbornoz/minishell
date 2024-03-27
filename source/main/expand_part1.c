@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 20:44:48 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/26 21:08:54 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*expand(t_list *lst_env, char *input)
 	char	*temp2;
 	char	sig_quote;
 
-	if(!input)
+	if (!input)
 		return (NULL);
 	temp1 = input;
 	sig_quote = 0;
@@ -41,8 +41,7 @@ char	*expand(t_list *lst_env, char *input)
 				temp1 = find_var_name(lst_env, input, temp1);
 			}
 		}
-		input = update_expand(temp1, temp2, input);
-		temp1++;
+		input = update_expand(temp1++, temp2, input);
 	}
 	return (input);
 }
