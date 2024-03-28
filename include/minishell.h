@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 20:11:31 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/27 21:46:45 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,5 +200,14 @@ void	init_data_env_addr(char **envp);
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
 char	*ft_chrjoin(char *dest, char src);
+
+/* --- parser --- */
+
+//syntax_error.c
+
+void	pipe_error(t_list	*lst_tokens, t_list	*lst_env);
+void	syntax_error(t_list *lst_tokens, t_list	*lst_env);
+int		is_redirect_2(int type);
+void	output_error(t_list	*lst_tokens, t_list	*lst_env);
 
 #endif
