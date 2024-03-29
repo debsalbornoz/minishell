@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 20:43:38 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/29 17:28:53 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,21 @@ int	program(t_list *lst_env)
 	input = expand(lst_env, input);
 	if (!input)
 	{
-		free(input);
+		printf("\n");
 		return (FALSE);
 	}
+	if (!*input)
+		return (TRUE);
 	lst_tokens.node = 0;
 	if (!is_closed(input))
-		exit (1);
+	{
+		printf("Fatal error: unclosed quotes\n");
+		return (FALSE);
+	}
 	lst_tokens = *tokenization(&lst_tokens, input);
 	lst_tokens = *type_assignment(&lst_tokens);
 	runs_on_list(&lst_tokens, print_lst_tokens);
+	//lst_tokens = *syntax_error(&lst_tokens, lst_env);
 	free_list(&lst_tokens, free_lst_tokens);
 	free(input);
 	return (TRUE);

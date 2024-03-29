@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_part1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 21:08:54 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/29 11:50:33 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	*find_var_name(t_list *lst_env, char *input, char *position)
 	if (*temp == '$')
 	{
 		temp++;
-		while (*temp && (ft_isalnum(*temp) || *temp == '_'))
+		while (*temp && (ft_isalnum(*temp) || *temp == '_' || *temp == '?'))
 			var_name = ft_chrjoin(var_name, *temp++);
 		if (var_name)
 			var_value = find_var_value(lst_env, var_name);
