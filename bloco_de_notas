@@ -5,3 +5,8 @@ ctrl c + ctrl \ + ctrl d
 echo + ctrl d
 
 ctrl d
+
+><<
+> >>
+><>
+| teste

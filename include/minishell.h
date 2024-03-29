@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/29 17:39:15 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/29 18:47:09 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,8 @@ char	*ft_chrjoin(char *dest, char src);
 
 t_list	*pipe_error(t_list	*lst_tokens, t_list	*lst_env);
 int		is_redirect_2(int type);
-t_list	*output_error(t_list	*lst_tokens, t_list	*lst_env);
+int		output_error(t_list	*lst_tokens);
 t_list	*syntax_error(t_list *lst_tokens, t_list	*lst_env);
-
+int		input_error(t_list	*lst_tokens);
+t_list	*redirect_error(t_list	*lst_tokens, t_list	*lst_env);
 #endif
