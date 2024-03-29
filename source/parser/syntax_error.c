@@ -6,19 +6,20 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 19:40:56 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/27 21:47:13 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:22:54 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	syntax_error(t_list *lst_tokens, t_list	*lst_env)
+t_list	*syntax_error(t_list *lst_tokens, t_list	*lst_env)
 {
-	pipe_error(lst_tokens, lst_env);
-	output_error(lst_tokens, lst_env);
+	lst_tokens = pipe_error(lst_tokens, lst_env);
+	lst_tokens = output_error(lst_tokens, lst_env);
+	return (lst_tokens);
 }
 
-void	pipe_error(t_list	*lst_tokens, t_list	*lst_env)
+t_list	*pipe_error(t_list	*lst_tokens, t_list	*lst_env)
 {
 	if (lst_tokens->head->data->token->type == PIPE)
 	{
@@ -26,9 +27,10 @@ void	pipe_error(t_list	*lst_tokens, t_list	*lst_env)
 		update_env_list(lst_env, "?", "2: command not found");
 		printf("\n");
 	}	
+	return (lst_tokens);
 }
 
-void	output_error(t_list	*lst_tokens, t_list	*lst_env)
+t_list	*output_error(t_list	*lst_tokens, t_list	*lst_env)
 {
 	if (lst_tokens)
 		lst_tokens->node = lst_tokens->head;
@@ -47,9 +49,13 @@ void	output_error(t_list	*lst_tokens, t_list	*lst_env)
 				if (lst_tokens->node->next->data->token->type == HEREDOC)
 					printf("bash: syntax error near unexpected token `<<'");
 				if (is_redirect_2(lst_tokens->node->next->data->token->type))
-					update_env_list (lst_env,"?", "2: command not found");
+				{
+					update_env_list (lst_env, "?", "2: command not found");
+					printf("\n");
+				}
 			}
 		}
 			lst_tokens->node = lst_tokens->node->next;
 	}
+	return (lst_tokens);
 }
