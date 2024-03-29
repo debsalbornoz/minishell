@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/29 17:21:51 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:39:15 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ enum	e_type_type
 	APPEND_FILE = 2213,
 	FLAG		= 2220,
 	HEREDOC_KEY	= 2230,
-	VARIABLE	= 2300,
 	ERROR		= 9999
 };
 extern int				g_signal;
@@ -97,7 +96,7 @@ struct s_token
 
 /* --- source/main --- */
 // env_list.c
-t_list	*make_lst_env(char **envp);
+t_list	*make_lst_env(char **envp, t_list *lst_env);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);
@@ -122,10 +121,10 @@ void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *env_list);
 
 //signals.c
-
 void	handle_sigint(int signal);
-void	handle_signal(t_list *lst_env);
+void	handle_signal(void);
 void	set_error(t_list *lst_env);
+
 /* --- source/lexer/ --- */
 // tokenization.c
 char	*trim_start_spaces(char *input);
@@ -189,20 +188,14 @@ int		is_append(char chr, char next_chr);
 t_node	*print_lst_tokens(t_node *node);
 
 //env_list_utils.c
-
 void	update_env_list(t_list *lst_env, char *name, char *value);
-
-//
-
-t_list	**data_env_addr(void);
-void	init_data_env_addr(char **envp);
+t_list	*data_env_addr(void);
 
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
 char	*ft_chrjoin(char *dest, char src);
 
 /* --- parser --- */
-
 //syntax_error.c
 
 t_list	*pipe_error(t_list	*lst_tokens, t_list	*lst_env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/25 21:00:03 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:37:45 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,10 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 	}
 }
 
-t_list	**data_env_addr(void)
+t_list	*data_env_addr(void)
 {
-	static t_list	*lst_env = NULL;
+	static t_list	lst_env;
 
+	lst_env.node = 0;
 	return (&lst_env);
-}
-
-void	init_data_env_addr(char **envp)
-{
-	t_list	**addr;
-
-	addr = data_env_addr();
-	*addr = make_lst_env(envp);
 }

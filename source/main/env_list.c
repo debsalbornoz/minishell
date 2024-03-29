@@ -3,23 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:21:12 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/29 15:08:17 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:36:42 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_list	*make_lst_env(char **envp)
+t_list	*make_lst_env(char **envp, t_list *lst_env)
 {
-	t_list	*lst_env;
-
-	lst_env = ft_calloc(1, sizeof(t_list));
-	if (!lst_env)
-		return (NULL);
-	lst_env->node = NULL;
 	while (*envp)
 	{
 		lst_env = add_node(lst_env);
