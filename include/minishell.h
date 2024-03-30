@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/29 18:47:09 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/30 12:57:50 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,10 +198,20 @@ char	*ft_chrjoin(char *dest, char src);
 /* --- parser --- */
 //syntax_error.c
 
-t_list	*pipe_error(t_list	*lst_tokens, t_list	*lst_env);
-int		is_redirect_2(int type);
-int		output_error(t_list	*lst_tokens);
 t_list	*syntax_error(t_list *lst_tokens, t_list	*lst_env);
+int		redirect_error(t_list	*lst_tokens);
+int		pipe_error(t_list	*lst_tokens);
+
+//redirect_error.c
+int		append_error(t_list	*lst_tokens);
+int		find_redirect(int type);
+int		output_error(t_list	*lst_tokens);
 int		input_error(t_list	*lst_tokens);
-t_list	*redirect_error(t_list	*lst_tokens, t_list	*lst_env);
+
+//pipe_error.c
+
+int		check_last_pipe(t_list	*lst_tokens);
+int		check_first_pipe(t_list	*lst_tokens);
+int		check_redirect_after_pipe(t_list	*lst_tokens);
+
 #endif

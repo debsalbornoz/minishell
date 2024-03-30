@@ -50,7 +50,9 @@ F_UTILS		:=		\
 	utils_ft
 
 F_PARSER		:=	\
-	syntax_error
+	syntax_error	\
+	pipe_error		\
+	redirect_error
 
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))

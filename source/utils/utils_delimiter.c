@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:06 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/27 21:46:33 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/30 11:44:03 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,5 @@ int	is_redirect_or_pipe(int type)
 {
 	return (type == PIPE
 		|| type == INPUT || type == HEREDOC
-		|| type == OUTPUT || type == APPEND);
-}
-
-int	is_redirect_2(int type)
-{
-	return (type == INPUT || type == HEREDOC
 		|| type == OUTPUT || type == APPEND);
 }
