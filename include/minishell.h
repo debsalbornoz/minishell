@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/30 12:57:50 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:42:09 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ enum	e_type_type
 	HEREDOC_KEY	= 2230,
 	ERROR		= 9999
 };
-extern int				g_signal;
+
 typedef struct s_list	t_list;
 typedef struct s_node	t_node;
 union					u_data;
