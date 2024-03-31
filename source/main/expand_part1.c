@@ -6,14 +6,14 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/30 18:13:27 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/31 00:48:06 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static char	*process_single_quote(char	*input, char sig_quote);
-static char	*process_heredoc(char signal, char *input);
+static char	*process_heredoc(char *input);
 // static char	*find_var_name(t_list *lst_env, char *input, char *position);
 // static char	*find_var_value(t_list *lst_env, char *name);
 // static char	*update_expand(char *temp1, char *temp2, char *input);
@@ -31,7 +31,7 @@ char	*expand(t_list *lst_env, char *input)
 		if (is_single_quote(sig_quote))
 			temp = process_single_quote(temp, sig_quote);
 		else if (!is_double_quote(sig_quote))
-			temp = process_heredoc(sig_quote, temp);
+			temp = process_heredoc(temp);
 		else
 		 	temp++;
 	}
@@ -48,17 +48,27 @@ static char	*process_single_quote(char	*input, char sig_quote)
 	return (temp);
 }
 
-static char	*process_heredoc(char signal, char *input)
+static char	*process_heredoc(char *input)
 {
-	if (*input == '<' && *(input + 1) == '<')
+	char	*temp;
+	char	sig_quote;
+
+	temp = input;
+	if (*temp == '$' && is_quote(*(temp + 1)))
+		return (ft_rmchr(input, temp));
+	else if (*temp == '<' && *(temp + 1) == '<')
 	{
-		input++;
-		input++;
-		input = trim_start_spaces(input);
-		while (!signal && *input && !is_space(*input))
-			input++;
+		temp++;
+		temp++;
+		temp = trim_start_spaces(temp);
+		if (*temp == '$' && is_quote(*(temp + 1)))
+			return (ft_rmchr(input, temp));
+		while (*temp && !(is_space(*temp) && !sig_quote))
+			sig_quote = process_quotes(sig_quote, *temp++);
 	}
-	return (input);
+	else
+		temp++;
+	return (temp);
 }
 
 // char	*expand(t_list *lst_env, char *input)

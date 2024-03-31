@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/30 14:42:09 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/30 23:42:38 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ t_list	*data_env_addr(void);
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
 char	*ft_chrjoin(char *dest, char src);
+char	*ft_rmchr(char *input, char *position);
 
 /* --- parser --- */
 //syntax_error.c
