@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   form_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 20:23:07 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/01 20:53:07 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,21 @@ int	find_len(char *input, int signal)
 	int	i;
 
 	i = 0;
-	if (signal)
+	while (input[i] != '\0')
 	{
-		i = 1;
-		while (input[i] != '\0' && input[i] != signal)
+		if (signal)
+		{
+			i = 1;
+			while (input[i] != '\0' && input[i] != signal)
+				i++;
+			if (input[i] == signal)
 			i++;
-		if (input[i] == signal)
-			i++;
-	}
-	else
-	{
-		while (input[i] != '\0' && !is_delimiter(input[i]))
-			i++;
+		}
+		else
+		{
+			while (input[i] != '\0' && !is_delimiter(input[i]))
+				i++;
+		}
 	}
 	return (i);
 }

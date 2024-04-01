@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 20:11:31 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/01 20:08:04 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,10 @@ char	*trim_start_spaces(char *input);
 char	process_quotes(char signal, char input);
 int		process_delimiter(t_list *lst_tokens, int signal, char *input, int i);
 
+//lexycal_analysis.c
+
+t_list	*lexical_analysis(char *input, t_list *lst_tokens);
+int		check_input(char *input);
 // redirect.c
 t_list	*process_redirect(t_list *lst_tokens, char *input, int i);
 t_list	*process_redirect_input(t_list *lst_tokens, char *input, int i);
@@ -200,5 +204,29 @@ void	init_data_env_addr(char **envp);
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
 char	*ft_chrjoin(char *dest, char src);
+
+/* --- parser --- */
+
+//pipe_error.c
+
+int		check_first_pipe(t_list	*lst_tokens);
+int		check_last_pipe(t_list	*lst_tokens);
+int		check_redirect_after_pipe(t_list	*lst_tokens);
+
+//redirect_error.c
+
+int		find_redirect(int type);
+int		output_error(t_list	*lst_tokens);
+int		input_error(t_list	*lst_tokens);
+int		append_error(t_list	*lst_tokens);
+
+//syntax_error.c
+t_list	*syntax_error(t_list *lst_tokens, t_list	*lst_env);
+int		redirect_error(t_list	*lst_tokens);
+int		pipe_error(t_list	*lst_tokens);
+
+//parser.c
+
+t_list	*parsing(t_list *lst_tokens, t_list	*lst_env);
 
 #endif
