@@ -6,151 +6,131 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/31 00:48:06 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/01 18:52:41 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*process_single_quote(char	*input, char sig_quote);
-static char	*process_heredoc(char *input);
-// static char	*find_var_name(t_list *lst_env, char *input, char *position);
-// static char	*find_var_value(t_list *lst_env, char *name);
-// static char	*update_expand(char *temp1, char *temp2, char *input);
+static char	*process_single_quote(t_exp *exp);
+static char	*process_dollar(t_exp *exp);
+static char	*process_default(t_list *lst_env, t_exp *exp);
+static char	*process_heredoc(t_exp *exp);
+static char	*process_doble_quote(t_list *lst_env, t_exp *exp);
+static char	*search_name(t_list *lst_env, t_exp *exp);
+static char	*search_value(t_list *lst_env, char *name);
 
 char	*expand(t_list *lst_env, char *input)
 {
-	char	*temp;
-	char	sig_quote;
+	t_exp	exp;
 
-	(void)lst_env;
-	temp = input;
-	while (*temp)
+	exp.input = input;
+	exp.temp = exp.input;
+	while (*exp.temp)
 	{
-		sig_quote = process_quotes(sig_quote, *temp);
-		if (is_single_quote(sig_quote))
-			temp = process_single_quote(temp, sig_quote);
-		else if (!is_double_quote(sig_quote))
-			temp = process_heredoc(temp);
+		exp.sig_quote = process_quotes(exp.sig_quote, *exp.temp);
+		if (is_single_quote(exp.sig_quote))
+			exp.temp = process_single_quote(&exp);
+		else if (!is_double_quote(exp.sig_quote))
+			exp.temp = process_default(lst_env, &exp);
+		else if (*exp.temp == '$')
+			exp.temp = process_doble_quote(lst_env, &exp);
 		else
-		 	temp++;
+			exp.temp++;
 	}
-	return (input);
+	return (exp.input);
 }
 
-static char	*process_single_quote(char	*input, char sig_quote)
+static char	*process_single_quote(t_exp *exp)
 {
-	char	*temp;
-
-	temp = input;
-	while (*temp++ && is_single_quote(sig_quote))
-		sig_quote = process_quotes(sig_quote, *(temp + 1));
-	return (temp);
+	while (*exp->temp++ && is_single_quote(exp->sig_quote))
+		exp->sig_quote = process_quotes(exp->sig_quote, *exp->temp);
+	return (exp->temp);
 }
 
-static char	*process_heredoc(char *input)
+static char	*process_default(t_list *lst_env, t_exp *exp)
 {
-	char	*temp;
-	char	sig_quote;
+	if (*exp->temp == '$' && is_quote(*(exp->temp + 1)))
+		return (process_dollar(exp));
+	else if (*exp->temp == '<' && *(exp->temp + 1) == '<')
+		return (process_heredoc(exp));
+	else if (*exp->temp == '$')
+		exp->temp = search_name(lst_env, exp);
+	else
+		exp->temp++;
+	return (exp->temp);
+}
 
-	temp = input;
-	if (*temp == '$' && is_quote(*(temp + 1)))
-		return (ft_rmchr(input, temp));
-	else if (*temp == '<' && *(temp + 1) == '<')
+static char	*process_dollar(t_exp *exp)
+{
+	exp->input = ft_rmchr(exp->input, exp->temp);	
+	exp->temp = exp->input;
+	return (exp->temp);
+}
+
+static char	*process_heredoc(t_exp *exp)
+{
+	exp->temp++;
+	exp->temp++;
+	exp->temp = trim_start_spaces(exp->temp);
+	if (*exp->temp == '$' && is_quote(*(exp->temp + 1)))
+		exp->temp = process_dollar(exp);
+	else
 	{
-		temp++;
-		temp++;
-		temp = trim_start_spaces(temp);
-		if (*temp == '$' && is_quote(*(temp + 1)))
-			return (ft_rmchr(input, temp));
-		while (*temp && !(is_space(*temp) && !sig_quote))
-			sig_quote = process_quotes(sig_quote, *temp++);
+		while (*exp->temp && !(is_space(*exp->temp) && !exp->sig_quote))
+			exp->sig_quote = process_quotes(exp->sig_quote, *exp->temp++);
+	}
+	return (exp->temp);
+}
+
+static char	*process_doble_quote(t_list *lst_env, t_exp *exp)
+{
+	exp->temp = search_name(lst_env, exp);
+	return (exp->temp);
+}
+
+static char	*search_name(t_list *lst_env, t_exp *exp)
+{
+	t_env	var;
+	char	*temp;
+
+	var.name = 0;
+	var.value = 0;
+	temp = exp->temp;
+	temp++;
+	if (*temp && (*temp == '?' || *temp == '$'))
+		var.name = ft_chrjoin(var.name, *temp++);
+	else
+	{
+		while (*temp && (ft_isalnum(*temp) || *temp == '_'))
+			var.name = ft_chrjoin(var.name, *temp++);
+	}
+	if (var.name || (!var.name && !exp->sig_quote))
+	{
+		var.value = search_value(lst_env, var.name);
+		exp->input = var_expand(exp->input, exp->temp, &var);
+		exp->temp = exp->input;
+		exp->sig_quote = 0;
+		free(var.name);
 	}
 	else
-		temp++;
-	return (temp);
+		exp->temp++;
+	return (exp->temp);
 }
 
-// char	*expand(t_list *lst_env, char *input)
-// {
-// 	char	*temp1;
-// 	char	*temp2;
-// 	char	sig_quote;
-
-// 	if (!input)
-// 		return (NULL);
-// 	temp1 = input;
-// 	sig_quote = 0;
-// 	while (*temp1)
-// 	{
-// 		temp2 = temp1;
-// 		sig_quote = process_quotes(sig_quote, *temp1);
-// 		if (!is_single_quote(sig_quote))
-// 		{
-// 			if (is_double_quote(sig_quote))
-// 				temp1 = find_var_name(lst_env, input, temp1);
-// 			else
-// 			{
-// 				temp1 = process_heredoc(sig_quote, temp1);
-// 				if (ft_strcmp(temp1, temp2))
-// 					temp2 = temp1;
-// 				temp1 = find_var_name(lst_env, input, temp1);
-// 			}
-// 		}
-// 		temp1 = update_expand(temp1, temp2, input);
-// 	}
-// 	return (input);
-// }
-
-
-// static char	*find_var_name(t_list *lst_env, char *input, char *position)
-// {
-// 	char	*temp;
-// 	char	*var_name;
-// 	char	*var_value;
-
-// 	temp = position;
-// 	var_name = 0;
-// 	var_value = 0;
-// 	if (*temp == '$')
-// 	{
-// 		temp++;
-// 		while (*temp && (ft_isalnum(*temp) || *temp == '_' || *temp == '?'))
-// 			var_name = ft_chrjoin(var_name, *temp++);
-// 		if (var_name)
-// 			var_value = find_var_value(lst_env, var_name);
-// 		temp = var_expand(input, position, var_name, var_value);
-// 	}
-// 	if (var_name)
-// 		free(var_name);
-// 	return (temp);
-// }
-
-// static char	*find_var_value(t_list *lst_env, char *name)
-// {
-// 	if (lst_env->node)
-// 	{
-// 		lst_env->node = lst_env->head;
-// 		while (lst_env->node && lst_env->node->next)
-// 		{
-// 			if (!ft_strcmp(lst_env->node->data->env->name, name))
-// 				return (lst_env->node->data->env->value);
-// 			lst_env->node = lst_env->node->next;
-// 		}
-// 		if (!ft_strcmp(lst_env->node->data->env->name, name))
-// 			return (lst_env->node->data->env->value);
-// 	}
-// 	return (0);
-// }
-
-// char	*update_expand(char *temp1, char *temp2, char *input)
-// {
-// 	if (ft_strcmp(temp1, temp2))
-// 	{
-// 		free(input);
-// 		input = temp1;
-// 	}
-// 	else
-// 		return (++temp1);
-// 	return (input);
-// }
+static char	*search_value(t_list *lst_env, char *name)
+{
+	if (lst_env->node)
+	{
+		lst_env->node = lst_env->head;
+		while (lst_env->node && lst_env->node->next)
+		{
+			if (!ft_strcmp(lst_env->node->data->env->name, name))
+				return (lst_env->node->data->env->value);
+			lst_env->node = lst_env->node->next;
+		}
+		if (!ft_strcmp(lst_env->node->data->env->name, name))
+			return (lst_env->node->data->env->value);
+	}
+	return (0);
+}

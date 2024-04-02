@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/30 23:42:38 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/01 16:11:25 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_node	t_node;
 union					u_data;
 typedef struct s_token	t_token;
 typedef struct s_env	t_env;
+typedef struct s_exp	t_exp;
 
 struct s_list
 {
@@ -77,8 +78,8 @@ struct s_node
 
 union u_data
 {
-	t_token	*token;
-	t_env	*env;
+	t_token			*token;
+	t_env			*env;
 };
 
 struct s_env
@@ -94,6 +95,13 @@ struct s_token
 	char			next_chr;
 };
 
+struct s_exp
+{
+	char			*input;
+	char			*temp;
+	char			sig_quote;
+};
+
 /* --- source/main --- */
 // env_list.c
 t_list	*make_lst_env(char **envp, t_list *lst_env);
@@ -105,7 +113,7 @@ t_node	*print_lst_env(t_node *node);
 char	*expand(t_list *lst_env, char *input);
 
 // expand_part2.c
-char	*var_expand(char *input, char *position, char *name, char *value);
+char	*var_expand(char *input, char *position, t_env *var);
 
 // program.c
 int		program(t_list *lst_env);

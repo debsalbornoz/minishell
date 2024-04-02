@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:51:48 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/30 23:41:48 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/01 21:05:38 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ char	*ft_rmchr(char *input, char *position)
 	temp_input++;
 	while (*temp_input)
 		*temp_result++ = *temp_input++;
+	ft_bzero(input, ft_strlen(input));
+	free(input);
 	return (result);
 }
