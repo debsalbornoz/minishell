@@ -12,7 +12,67 @@
 
 #include "../../include/minishell.h"
 
-int find_new_len(t_node *node) {
+t_node  *new_str(t_node *node)
+{
+    char *temp;
+    char *str;
+    int len;
+
+
+    temp = NULL;
+    str = node->data->token->value;
+    len = find_new_len(node);
+    temp = ft_calloc(len + 1, sizeof(char));
+    temp = create_str(str, temp);
+    free(node->data->token->value);
+    node->data->token->value = ft_strdup(temp);
+    free(temp);
+    return (node);
+}
+
+char *create_str(char *str, char *temp)
+{
+    char signal;
+    int i;
+    int j;
+    int inside_quotes;
+
+    signal = '\0';
+    i = 0;
+    j = 0;
+    inside_quotes = 0;
+    while (str[i] != '\0')
+    {
+        if (is_quote(str[i]))
+        {
+            signal = str[i];
+            inside_quotes = 1;
+            i++;
+        }
+        while(inside_quotes && str[i] != signal && str[i] != '\0')
+        {
+            temp[j] = str[i];
+            i++;
+            j++;
+        }
+        if(str[i] == signal)
+        {
+            signal = '\0';
+            inside_quotes = 0;
+            i++;
+        }
+        if(!signal && !inside_quotes && str[i] != '\0' && !is_quote(str[i]))
+        {
+           temp[j] = str[i];
+            i++;
+            j++;
+        }
+ }
+    return (temp);
+}
+
+int find_new_len(t_node *node)
+{
     char *str;
     int counter;
     char signal;
@@ -43,7 +103,7 @@ int find_new_len(t_node *node) {
             inside_quotes = 0;
             i++;
         }
-        if(!signal && !inside_quotes && str[i] != '\0')
+        if(!signal && !inside_quotes && str[i] != '\0' && !is_quote(str[i]))
         {
             counter++;
             i++;

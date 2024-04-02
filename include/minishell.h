@@ -231,4 +231,6 @@ t_list	*parsing(t_list *lst_tokens, t_list	*lst_env);
 
 //remove_quotes.c
 int 	find_new_len(t_node *node);
+t_node  *new_str(t_node *node);
+char 	*create_str(char *str, char *temp);
 #endif
