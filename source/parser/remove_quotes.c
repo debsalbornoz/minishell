@@ -12,9 +12,42 @@
 
 #include "../../include/minishell.h"
 
-t_list	*parsing(t_list *lst_tokens, t_list	*lst_env)
-{
-	lst_tokens = syntax_error(lst_tokens, lst_env);
-	printf("%i", find_new_len(lst_tokens->node));
-	return (lst_tokens);
+int find_new_len(t_node *node) {
+    char *str;
+    int counter;
+    char signal;
+    int  i;
+    int  inside_quotes;
+
+    str = node->data->token->value;
+    counter = 0;
+    signal = '\0';
+    i = 0;
+    inside_quotes = 0;
+    while (str[i] != '\0')
+    {
+        if (is_quote(str[i]))
+        {
+            signal = str[i];
+            inside_quotes = 1;
+            i++;
+        }
+        while(inside_quotes && str[i] != signal && str[i] != '\0')
+        {
+            i++;
+            counter++;
+        }
+        if(str[i] == signal)
+        {
+            signal = '\0';
+            inside_quotes = 0;
+            i++;
+        }
+        if(!signal && !inside_quotes && str[i] != '\0')
+        {
+            counter++;
+            i++;
+        }
+    }
+    return counter;
 }

@@ -54,7 +54,8 @@ F_PARSER	:=		\
 	pipe_error		\
 	redirect_error	\
 	syntax_error	\
-	parser
+	parser			\
+	remove_quotes
 
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))

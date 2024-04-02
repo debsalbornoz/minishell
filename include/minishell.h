@@ -229,4 +229,6 @@ int		pipe_error(t_list	*lst_tokens);
 
 t_list	*parsing(t_list *lst_tokens, t_list	*lst_env);
 
+//remove_quotes.c
+int 	find_new_len(t_node *node);
 #endif
