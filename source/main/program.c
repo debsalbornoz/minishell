@@ -15,11 +15,9 @@
 int	program(t_list *lst_env)
 {
 	t_list		lst_tokens;
-	t_list		new_tokens;
 	char		*input;
 
 	lst_tokens.node = 0;
-	new_tokens.node = 0;
 	input = readline("¯\\_(ツ)_/¯: ");
 	if (check_input(input) == 0)
 		return (FALSE);

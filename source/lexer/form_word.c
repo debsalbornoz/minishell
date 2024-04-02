@@ -39,26 +39,24 @@ int	form_word(t_list *lst_tokens, int signal, char *input, int i)
 	return (len);
 }
 
-int	find_len(char *input, int signal)
-{
-	int	i;
-
-	i = 0;
-	while (input[i] != '\0')
+int find_len(char *input, int signal) {
+    int i = 0;
+    int inside_quotes = 0;
+    while (input[i] != '\0')
 	{
-		if (signal)
+        if (is_quote(input[i]) && !signal)
 		{
-			i = 1;
-			while (input[i] != '\0' && input[i] != signal)
-				i++;
-			if (input[i] == signal)
-			i++;
-		}
-		else
+            signal = input[i];
+            inside_quotes = !inside_quotes;
+        }
+		else if (input[i] == signal)
 		{
-			while (input[i] != '\0' && !is_delimiter(input[i]))
-				i++;
-		}
-	}
-	return (i);
+            signal = 0;
+            inside_quotes = !inside_quotes;
+        }
+		else if (!inside_quotes && is_delimiter(input[i]))
+            break;
+        i++;
+    }
+    return i;
 }
