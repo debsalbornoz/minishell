@@ -111,3 +111,15 @@ int find_new_len(t_node *node)
     }
     return counter;
 }
+
+t_list  *remove_quotes(t_list *lst_tokens)
+{
+    while(lst_tokens->node)
+	{
+		lst_tokens->node = new_str(lst_tokens->node);
+		printf("%s\n", lst_tokens->node->data->token->value);
+		lst_tokens->node = lst_tokens->node->next;
+	}
+	lst_tokens->node = lst_tokens->head;
+    return (lst_tokens);
+}

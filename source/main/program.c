@@ -24,7 +24,8 @@ int	program(t_list *lst_env)
 	if (check_input(input) == 1)
 		return (TRUE);
 	lst_tokens = *lexical_analysis(input, &lst_tokens);
-	lst_tokens = *parsing(&lst_tokens, lst_env);
+	if (!parsing(&lst_tokens, lst_env,input))
+		return (TRUE);
 	free_list(&lst_tokens, free_lst_tokens);
 	free(input);
 	return (TRUE);

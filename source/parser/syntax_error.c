@@ -12,14 +12,18 @@
 
 #include "../../include/minishell.h"
 
-t_list	*syntax_error(t_list *lst_tokens, t_list	*lst_env)
+int syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input)
 {
 	if (redirect_error(lst_tokens) || pipe_error(lst_tokens))
 	{
 		printf("Syntax error\n");
 		update_env_list(lst_env, "?", "2: command not found");
+		free_list(lst_tokens, free_lst_tokens);
+		free(input);
+		return (1);
 	}
-	return (lst_tokens);
+	lst_tokens->node = lst_tokens->head;
+	return (0);
 }
 
 int	redirect_error(t_list	*lst_tokens)

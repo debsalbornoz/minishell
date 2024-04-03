@@ -221,16 +221,17 @@ int		input_error(t_list	*lst_tokens);
 int		append_error(t_list	*lst_tokens);
 
 //syntax_error.c
-t_list	*syntax_error(t_list *lst_tokens, t_list	*lst_env);
+int 	syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input);
 int		redirect_error(t_list	*lst_tokens);
 int		pipe_error(t_list	*lst_tokens);
 
 //parser.c
 
-t_list	*parsing(t_list *lst_tokens, t_list	*lst_env);
+int parsing(t_list *lst_tokens, t_list	*lst_env, char *input);
 
 //remove_quotes.c
 int 	find_new_len(t_node *node);
 t_node  *new_str(t_node *node);
 char 	*create_str(char *str, char *temp);
+t_list  *remove_quotes(t_list *lst_tokens);
 #endif
