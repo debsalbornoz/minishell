@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/01 20:53:07 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:40:24 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,28 @@ int	form_word(t_list *lst_tokens, int signal, char *input, int i)
 	return (len);
 }
 
-int find_len(char *input, int signal) {
-    int i = 0;
-    int inside_quotes = 0;
-    while (input[i] != '\0')
+int	find_len(char *input, int signal)
+{
+	int	i;
+	int	inside_quotes;
+
+	i = 0;
+	inside_quotes = 0;
+	while (input[i] != '\0')
 	{
-        if (is_quote(input[i]) && !signal)
+		if (is_quote(input[i]) && !signal)
 		{
-            signal = input[i];
-            inside_quotes = !inside_quotes;
-        }
+			signal = input[i];
+			inside_quotes = !inside_quotes;
+		}
 		else if (input[i] == signal)
 		{
-            signal = 0;
-            inside_quotes = !inside_quotes;
-        }
+			signal = 0;
+			inside_quotes = !inside_quotes;
+		}
 		else if (!inside_quotes && is_delimiter(input[i]))
-            break;
-        i++;
-    }
-    return i;
+			break ;
+		i++;
+	}
+	return (i);
 }

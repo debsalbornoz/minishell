@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/01 20:08:04 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:45:10 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,17 +221,17 @@ int		input_error(t_list	*lst_tokens);
 int		append_error(t_list	*lst_tokens);
 
 //syntax_error.c
-int 	syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input);
+int		syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input);
 int		redirect_error(t_list	*lst_tokens);
 int		pipe_error(t_list	*lst_tokens);
 
 //parser.c
 
-int parsing(t_list *lst_tokens, t_list	*lst_env, char *input);
+int		parsing(t_list *lst_tokens, t_list	*lst_env, char *input);
 
 //remove_quotes.c
-int 	find_new_len(t_node *node);
-t_node  *new_str(t_node *node);
-char 	*create_str(char *str, char *temp);
-t_list  *remove_quotes(t_list *lst_tokens);
+int		find_new_len(t_node *node);
+t_node	*new_str(t_node *node);
+char	*create_str(char *str, char *temp, int i, int j);
+t_list	*remove_quotes(t_list *lst_tokens);
 #endif
