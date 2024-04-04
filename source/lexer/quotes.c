@@ -21,18 +21,14 @@ int	is_closed(char *input)
 	i = 0;
 	while (input[i] != '\0')
 	{
-		if (input[i] == '\'' || input[i] == '"')
+		if (is_quote(input[i]))
 		{
 			signal = input[i];
-			if (input[i + 1] != '\0')
-				i++;
-		}
-		while (input[i] != '\0' && input[i] != signal)
 			i++;
+		}
 		if (input[i] == signal)
 			signal = 0;
-		if (input[i] != '\0')
-			i++;
+		i++;
 	}
 	if (signal)
 		return (0);

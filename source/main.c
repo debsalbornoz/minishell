@@ -12,8 +12,6 @@
 
 #include "../include/minishell.h"
 
-int	g_signal;
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst_env;

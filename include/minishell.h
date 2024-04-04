@@ -225,6 +225,7 @@ int		heredoc_error(t_list	*lst_tokens);
 int		syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input);
 int		redirect_error(t_list	*lst_tokens);
 int		pipe_error(t_list	*lst_tokens);
+int 	dot_error(t_list	*lst_tokens);
 
 //parser.c
 
