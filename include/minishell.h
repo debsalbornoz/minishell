@@ -219,6 +219,7 @@ int		find_redirect(int type);
 int		output_error(t_list	*lst_tokens);
 int		input_error(t_list	*lst_tokens);
 int		append_error(t_list	*lst_tokens);
+int		heredoc_error(t_list	*lst_tokens);
 
 //syntax_error.c
 int		syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input);
@@ -230,7 +231,7 @@ int		pipe_error(t_list	*lst_tokens);
 int		parsing(t_list *lst_tokens, t_list	*lst_env, char *input);
 
 //remove_quotes.c
-int		find_new_len(t_node *node);
+int	find_new_len(t_node *node, int i, int inside_quotes, int counter);
 t_node	*new_str(t_node *node);
 char	*create_str(char *str, char *temp, int i, int j);
 t_list	*remove_quotes(t_list *lst_tokens);

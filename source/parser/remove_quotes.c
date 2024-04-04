@@ -20,7 +20,7 @@ t_node	*new_str(t_node *node)
 
 	temp = NULL;
 	str = node->data->token->value;
-	len = find_new_len(node);
+	len = find_new_len(node, 0, 0, 0);
 	temp = ft_calloc(len + 1, sizeof(char));
 	temp = create_str(str, temp, 0, 0);
 	free(node->data->token->value);
@@ -58,43 +58,32 @@ char	*create_str(char *str, char *temp, int i, int j)
 	return (temp);
 }
 
-int	find_new_len(t_node *node)
+int	find_new_len(t_node *node, int i, int inside_quotes, int counter)
 {
-	char	*str;
-	int		counter;
 	char	signal;
-	int		i;
-	int		inside_quotes;
 
-	str = node->data->token->value;
-	counter = 0;
 	signal = '\0';
-	i = 0;
-	inside_quotes = 0;
-	while (str[i] != '\0')
+	while (node->data->token->value[i] != '\0')
 	{
-		if (is_quote(str[i]))
+		if (is_quote(node->data->token->value[i]))
 		{
-			signal = str[i];
+			signal = node->data->token->value[i];
 			inside_quotes = 1;
 			i++;
 		}
-		while (inside_quotes && str[i] != signal && str[i] != '\0')
+		while (inside_quotes && node->data->token->value[i] != signal &&  node->data->token->value[i] != '\0')
 		{
 			i++;
 			counter++;
 		}
-		if (str[i] == signal)
+		if (node->data->token->value[i] == signal)
 		{
 			signal = '\0';
 			inside_quotes = 0;
-			i++;
 		}
-		if (!signal && !inside_quotes && str[i] != '\0' && !is_quote(str[i]))
-		{
+		if (!signal && !inside_quotes && node->data->token->value[i] != '\0' && !is_quote(node->data->token->value[i]))
 			counter++;
-			i++;
-		}
+		i++;
 	}
 	return (counter);
 }

@@ -29,7 +29,7 @@ int syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input)
 int	redirect_error(t_list	*lst_tokens)
 {
 	if (output_error(lst_tokens) || input_error(lst_tokens)
-		|| append_error(lst_tokens))
+		|| append_error(lst_tokens) || heredoc_error(lst_tokens))
 		return (1);
 	return (0);
 }

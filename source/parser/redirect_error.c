@@ -86,3 +86,26 @@ int	append_error(t_list	*lst_tokens)
 	lst_tokens->node = lst_tokens->head;
 	return (flag);
 }
+
+int	heredoc_error(t_list	*lst_tokens)
+{
+	int	flag;
+
+	flag = 0;
+	if (lst_tokens)
+		lst_tokens->node = lst_tokens->head;
+	while (lst_tokens->node)
+	{
+		if (lst_tokens->node->data->token->type == HEREDOC)
+		{
+			if (lst_tokens->node->next)
+			{
+				if (find_redirect(lst_tokens->node->next->data->token->type))
+					flag = 1;
+			}
+		}
+			lst_tokens->node = lst_tokens->node->next;
+	}
+	lst_tokens->node = lst_tokens->head;
+	return (flag);
+}
