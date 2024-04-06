@@ -6,15 +6,16 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:57:17 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/01 19:57:19 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:46:06 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input)
+int	syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input)
 {
-	if (redirect_error(lst_tokens) || pipe_error(lst_tokens) || dot_error(lst_tokens) == 1)
+	if (redirect_error(lst_tokens) || pipe_error(lst_tokens)
+		|| dot_error(lst_tokens))
 	{
 		printf("Syntax error\n");
 		update_env_list(lst_env, "?", "2: command not found");
@@ -49,16 +50,20 @@ int	pipe_error(t_list	*lst_tokens)
 	return (0);
 }
 
-int dot_error(t_list	*lst_tokens)
+int	dot_error(t_list	*lst_tokens)
 {
-	char *str;
+	char	*str;
 
 	str = lst_tokens->head->data->token->value;
-
-	if ((ft_strncmp(str, ".", ft_strlen(str)) ||ft_strncmp(str, "\'.\'" , ft_strlen(str)) ||ft_strncmp(str, "\".\"" , ft_strlen(str))) && lst_tokens->head->next == NULL)
-		return (1); 
-	if ((ft_strncmp(str, "..", ft_strlen(str)) ||ft_strncmp(str, "\'..\'" , ft_strlen(str)) ||ft_strncmp(str, "\"..\"" , ft_strlen(str))) && lst_tokens->head->next == NULL)
+	if ((!ft_strncmp(str, ".", ft_strlen(str))
+			|| !ft_strncmp(str, "\'.\'", ft_strlen(str))
+			|| !ft_strncmp(str, "\".\"", ft_strlen(str)))
+		&& lst_tokens->head->next == NULL)
+		return (1);
+	if ((!ft_strncmp(str, "..", ft_strlen(str))
+			|| !ft_strncmp(str, "\'..\'", ft_strlen(str))
+			|| !ft_strncmp(str, "\"..\"", ft_strlen(str)))
+		&& lst_tokens->head->next == NULL)
 		return (2);
 	return (0);
-	
 }

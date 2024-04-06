@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/01 20:08:30 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:47:22 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	program(t_list *lst_env)
 	if (check_input(input) == 1)
 		return (TRUE);
 	lst_tokens = *lexical_analysis(input, &lst_tokens);
-	if (!parsing(&lst_tokens, lst_env,input))
+	if (!parsing(&lst_tokens, lst_env, input))
 		return (TRUE);
 	free_list(&lst_tokens, free_lst_tokens);
 	free(input);
