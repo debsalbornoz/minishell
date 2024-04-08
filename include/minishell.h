@@ -80,6 +80,7 @@ union u_data
 {
 	t_token	*token;
 	t_env	*env;
+	//t_exec	*execution
 };
 
 struct s_env
@@ -94,6 +95,14 @@ struct s_token
 	int				type;
 	char			next_chr;
 };
+
+/*struct s_exec
+{
+	char			**path;
+	int				type;
+	char			next_chr;
+};
+*/
 
 /* --- source/main --- */
 // env_list.c
@@ -242,4 +251,12 @@ int		count_characters_outside_quotes(const char *value, int *i,
 			int inside_quotes);
 int		find_new_len(const char *value, int len, int i, int counter);
 
+//path.c
+
+char	**split_path(t_list *lst_env);
+int		count_paths(const char *value);
+char	*return_value(t_list *lst_env, char *name);
+char 	*get_path(char *value);
+int 	get_len(char *value);
+void 	free_path(char **path);
 #endif

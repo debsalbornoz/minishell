@@ -14,6 +14,8 @@
 
 t_list	*remove_quotes(t_list *lst_tokens)
 {
+	if(!lst_tokens || !lst_tokens->node)
+		return (NULL);
 	while (lst_tokens->node)
 	{
 		lst_tokens->node = new_str(lst_tokens->node);
@@ -35,6 +37,8 @@ t_node	*new_str(t_node *node)
 	len = find_new_len(node->data->token->value,
 			ft_strlen(node->data->token->value), 0, 0);
 	temp = ft_calloc(len + 1, sizeof(char));
+	if(!temp)
+		return (NULL);
 	temp = create_str(str, temp, 0, 0);
 	free(node->data->token->value);
 	node->data->token->value = ft_strdup(temp);
@@ -48,6 +52,7 @@ char	*create_str(char *str, char *temp, int i, int j)
 	int		inside_quotes;
 
 	signal = '\0';
+	inside_quotes = 0;
 	while (str[i] != '\0')
 	{
 		if (is_quote(str[i]))
