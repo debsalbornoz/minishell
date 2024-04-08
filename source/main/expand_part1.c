@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/01 18:52:41 by jraupp           ###   ########.fr       */
+/*   Created: 2024/04/07 08:30:03 by jraupp            #+#    #+#             */
+/*   Updated: 2024/04/07 20:49:04 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ char	*expand(t_list *lst_env, char *input)
 
 	exp.input = input;
 	exp.temp = exp.input;
+	exp.sig_quote = 0;
 	while (*exp.temp)
 	{
 		exp.sig_quote = process_quotes(exp.sig_quote, *exp.temp);
-		if (is_single_quote(exp.sig_quote))
+		if (*exp.temp == '$' && (is_space(*(exp.temp + 1)) || !*(exp.temp + 1)))
+			exp.temp++;
+		else if (is_single_quote(exp.sig_quote))
 			exp.temp = process_single_quote(&exp);
 		else if (!is_double_quote(exp.sig_quote))
 			exp.temp = process_default(lst_env, &exp);
