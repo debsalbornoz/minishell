@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/04 09:28:06 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/07 21:16:57 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_list	*tokenization(t_list *lst_tokens, char *input)
 		if (signal)
 			signal = '\0';
 		if (len >= 0 && i + len <= input_len)
-				i += len;
+			i += len;
 		else
 			break ;
 		if (i + 1 <= input_len)

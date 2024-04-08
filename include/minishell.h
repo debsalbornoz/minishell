@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/01 16:11:25 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/07 21:29:30 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,14 @@ t_node	*print_lst_env(t_node *node);
 
 // expand_part1.c
 char	*expand(t_list *lst_env, char *input);
+char	*search_name(t_list *lst_env, t_exp *exp);
 
 // expand_part2.c
+char	*process_dollar(t_exp *exp);
+char	*process_heredoc(t_exp *exp);
+char	*process_doble_quote(t_list *lst_env, t_exp *exp);
+
+// expand_part3.c
 char	*var_expand(char *input, char *position, t_env *var);
 
 // program.c

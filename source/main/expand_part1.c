@@ -6,18 +6,14 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 08:30:03 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/07 20:49:04 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/07 21:29:40 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 static char	*process_single_quote(t_exp *exp);
-static char	*process_dollar(t_exp *exp);
 static char	*process_default(t_list *lst_env, t_exp *exp);
-static char	*process_heredoc(t_exp *exp);
-static char	*process_doble_quote(t_list *lst_env, t_exp *exp);
-static char	*search_name(t_list *lst_env, t_exp *exp);
 static char	*search_value(t_list *lst_env, char *name);
 
 char	*expand(t_list *lst_env, char *input)
@@ -64,35 +60,7 @@ static char	*process_default(t_list *lst_env, t_exp *exp)
 	return (exp->temp);
 }
 
-static char	*process_dollar(t_exp *exp)
-{
-	exp->input = ft_rmchr(exp->input, exp->temp);	
-	exp->temp = exp->input;
-	return (exp->temp);
-}
-
-static char	*process_heredoc(t_exp *exp)
-{
-	exp->temp++;
-	exp->temp++;
-	exp->temp = trim_start_spaces(exp->temp);
-	if (*exp->temp == '$' && is_quote(*(exp->temp + 1)))
-		exp->temp = process_dollar(exp);
-	else
-	{
-		while (*exp->temp && !(is_space(*exp->temp) && !exp->sig_quote))
-			exp->sig_quote = process_quotes(exp->sig_quote, *exp->temp++);
-	}
-	return (exp->temp);
-}
-
-static char	*process_doble_quote(t_list *lst_env, t_exp *exp)
-{
-	exp->temp = search_name(lst_env, exp);
-	return (exp->temp);
-}
-
-static char	*search_name(t_list *lst_env, t_exp *exp)
+char	*search_name(t_list *lst_env, t_exp *exp)
 {
 	t_env	var;
 	char	*temp;
