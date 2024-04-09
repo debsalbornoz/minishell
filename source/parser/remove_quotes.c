@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:07:44 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/06 17:13:25 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:27:41 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*remove_quotes(t_list *lst_tokens)
 {
-	if(!lst_tokens || !lst_tokens->node)
+	if (!lst_tokens || !lst_tokens->node)
 		return (NULL);
 	while (lst_tokens->node)
 	{
@@ -37,7 +37,7 @@ t_node	*new_str(t_node *node)
 	len = find_new_len(node->data->token->value,
 			ft_strlen(node->data->token->value), 0, 0);
 	temp = ft_calloc(len + 1, sizeof(char));
-	if(!temp)
+	if (!temp)
 		return (NULL);
 	temp = create_str(str, temp, 0, 0);
 	free(node->data->token->value);
@@ -53,7 +53,7 @@ char	*create_str(char *str, char *temp, int i, int j)
 
 	signal = '\0';
 	inside_quotes = 0;
-	if(!str)
+	if (!str)
 		return (NULL);
 	while (str[i] != '\0')
 	{

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_part1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 21:08:54 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/09 19:24:18 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*update_expand(char *temp1, char *temp2, char *input);
+char		*update_expand(char *temp1, char *temp2, char *input);
 static char	*find_var_value(t_list *lst_env, char *name);
 static char	*find_var_name(t_list *lst_env, char *input, char *position);
 static char	*process_heredoc(char signal, char *input);

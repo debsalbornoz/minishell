@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:56:20 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/01 19:56:24 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:27:08 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	check_first_pipe(t_list	*lst_tokens)
 		return (0);
 	if (lst_tokens->head->data->token->type == PIPE)
 			flag = 1;
-		while (lst_tokens->node)
-		{
-			if (lst_tokens->node->next == NULL
-				&& lst_tokens->node->data->token->type == PIPE)
-				flag = 1;
-			lst_tokens->node = lst_tokens->node->next;
-		}
+	while (lst_tokens->node)
+	{
+		if (lst_tokens->node->next == NULL
+			&& lst_tokens->node->data->token->type == PIPE)
+			flag = 1;
+		lst_tokens->node = lst_tokens->node->next;
+	}
 	lst_tokens->node = lst_tokens->head;
 	return (flag);
 }
@@ -37,7 +37,7 @@ int	check_last_pipe(t_list	*lst_tokens)
 	int	flag;
 
 	flag = 0;
-	if(!lst_tokens)
+	if (!lst_tokens)
 		return (0);
 	while (lst_tokens->node)
 	{
