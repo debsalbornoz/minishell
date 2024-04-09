@@ -23,6 +23,8 @@ int	output_error(t_list	*lst_tokens)
 	int	flag;
 
 	flag = 0;
+	if (!lst_tokens)
+		return (0);
 	if (lst_tokens)
 		lst_tokens->node = lst_tokens->head;
 	while (lst_tokens->node)
@@ -46,6 +48,8 @@ int	input_error(t_list	*lst_tokens)
 	int	flag;
 
 	flag = 0;
+	if(!lst_tokens)
+		return (0);
 	if (lst_tokens)
 		lst_tokens->node = lst_tokens->head;
 	while (lst_tokens->node)
@@ -69,6 +73,8 @@ int	append_error(t_list	*lst_tokens)
 	int	flag;
 
 	flag = 0;
+	if(!lst_tokens)
+		return (0);
 	if (lst_tokens)
 		lst_tokens->node = lst_tokens->head;
 	while (lst_tokens->node)
@@ -92,6 +98,8 @@ int	heredoc_error(t_list	*lst_tokens)
 	int	flag;
 
 	flag = 0;
+	if(lst_tokens)
+		return (0);
 	if (lst_tokens)
 		lst_tokens->node = lst_tokens->head;
 	while (lst_tokens->node)

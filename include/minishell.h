@@ -110,6 +110,10 @@ t_list	*make_lst_env(char **envp);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);
+char	**list_to_matrix(t_list *lst_env);
+int 	count_nodes(t_list *lst_env);
+char 	*concatenate(char *s1, char *s2);
+void 	free_matrix(char **envp);
 
 // expand_part1.c
 char	*expand(t_list *lst_env, char *input);
@@ -259,4 +263,5 @@ char	*return_value(t_list *lst_env, char *name);
 char 	*get_path(char *value);
 int 	get_len(char *value);
 void 	free_path(char **path);
+
 #endif

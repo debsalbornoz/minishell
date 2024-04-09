@@ -28,7 +28,7 @@ int	program(t_list *lst_env)
 		return (TRUE);
 	free_list(&lst_tokens, free_lst_tokens);
 	free(input);
-	return (TRUE);
+	return (FALSE);
 }
 
 t_list	*tokenization(t_list *lst_tokens, char *input)

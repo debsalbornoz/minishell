@@ -53,6 +53,8 @@ char	*create_str(char *str, char *temp, int i, int j)
 
 	signal = '\0';
 	inside_quotes = 0;
+	if(!str)
+		return (NULL);
 	while (str[i] != '\0')
 	{
 		if (is_quote(str[i]))

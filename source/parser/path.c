@@ -22,6 +22,8 @@ char	**split_path(t_list *lst_env)
 
 	i = 0;
 	j = 0;
+	if(!lst_env)
+		return (NULL);
 	value = return_value(lst_env, "PATH");
 	size = count_paths(value);
 	path = ft_calloc((size + 1), sizeof(char *));
@@ -44,6 +46,8 @@ int	count_paths(const char *value)
 
 	i = 0;
 	counter = 1;
+	if(!value)
+		return (0);
 	while (value[i] != '\0')
 	{
 		if (value[i] == ':')
@@ -56,15 +60,13 @@ int	count_paths(const char *value)
 char	*return_value(t_list *lst_env, char *name)
 {
 	char *temp;
-
+	if(!lst_env)
+		return (NULL);
 	lst_env->node = lst_env->head;
 	while(lst_env->node)
 	{
 		if(!ft_strncmp(lst_env->node->data->env->name, name, ft_strlen(lst_env->node->data->env->name)))
-		{
-			//precisa dar free;
 			temp = ft_strdup(lst_env->node->data->env->value);
-		}
 		lst_env->node = lst_env->node->next;
 	}
 	return (temp);
@@ -80,6 +82,8 @@ char *get_path(char *value)
 	i = 0;
 	len = 0;
 	j = 0;
+	if(!value)
+		return (NULL);
 	while(value[j] != '\0')
 	{
 		if(value[j] != ':' && value[j] != '\0')
@@ -128,6 +132,8 @@ void free_path(char **path)
 	int i;
 
 	i = 0;
+	if(!path || !*path)
+		return;
 	while(path[i] != NULL)
 	{
 		free(path[i]);

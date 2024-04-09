@@ -12,10 +12,10 @@
 
 #include "../../include/minishell.h"
 
-static char	*process_heredoc(char signal, char *input);
-static char	*find_var_name(t_list *lst_env, char *input, char *position);
+char	*update_expand(char *temp1, char *temp2, char *input);
 static char	*find_var_value(t_list *lst_env, char *name);
-static char	*update_expand(char *temp1, char *temp2, char *input);
+static char	*find_var_name(t_list *lst_env, char *input, char *position);
+static char	*process_heredoc(char signal, char *input);
 
 char	*expand(t_list *lst_env, char *input)
 {
