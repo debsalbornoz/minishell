@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:07:44 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/09 19:27:41 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:27:30 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,12 @@ char	*create_str(char *str, char *temp, int i, int j)
 
 	signal = '\0';
 	inside_quotes = 0;
-	if (!str)
-		return (NULL);
 	while (str[i] != '\0')
 	{
 		if (is_quote(str[i]))
 		{
 			signal = str[i];
 			inside_quotes = 1;
-			if (str[i + 1] != '\0')
 			i++;
 		}
 		while (inside_quotes && str[i] != signal && str[i] != '\0')

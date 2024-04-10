@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/06 17:10:41 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:37:13 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,15 +105,24 @@ struct s_token
 */
 
 /* --- source/main --- */
+
+//init_env_addr.c
+
+t_list	**data_env_addr(void);
+void	init_data_env_addr(char **envp);
+
+//signals.c
+
+void	handle_sigint(int signal);
+void	handle_signal(t_list *lst_env);
+void	set_error(t_list *lst_env);
+
 // env_list.c
 t_list	*make_lst_env(char **envp);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);
-char	**list_to_matrix(t_list *lst_env);
-int 	count_nodes(t_list *lst_env);
-char 	*concatenate(char *s1, char *s2);
-void 	free_matrix(char **envp);
+
 
 // expand_part1.c
 char	*expand(t_list *lst_env, char *input);
@@ -123,7 +132,6 @@ char	*var_expand(char *input, char *position, char *name, char *value);
 
 // program.c
 int		program(t_list *lst_env);
-t_list	*tokenization(t_list *lst_tokens, char *input);
 
 // linked_list.c
 t_list	*add_node(t_list *list);
@@ -134,13 +142,9 @@ void	free_list(t_list *list, void (f)(t_list *));
 void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *env_list);
 
-//signals.c
-
-void	handle_sigint(int signal);
-void	handle_signal(t_list *lst_env);
-void	set_error(t_list *lst_env);
 /* --- source/lexer/ --- */
 // tokenization.c
+t_list	*tokenization(t_list *lst_tokens, char *input);
 char	*trim_start_spaces(char *input);
 char	process_quotes(char signal, char input);
 int		process_delimiter(t_list *lst_tokens, int signal, char *input, int i);
@@ -209,11 +213,6 @@ t_node	*print_lst_tokens(t_node *node);
 
 void	update_env_list(t_list *lst_env, char *name, char *value);
 
-//
-
-t_list	**data_env_addr(void);
-void	init_data_env_addr(char **envp);
-
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
 char	*ft_chrjoin(char *dest, char src);
@@ -260,8 +259,14 @@ int		find_new_len(const char *value, int len, int i, int counter);
 char	**split_path(t_list *lst_env);
 int		count_paths(const char *value);
 char	*return_value(t_list *lst_env, char *name);
-char 	*get_path(char *value);
-int 	get_len(char *value);
-void 	free_path(char **path);
+char	*get_path(char *value, int i, int len, int j);
+int		get_len(char *value);
+void	free_path(char **path);
 
+//list_to_matrix.c
+
+char	**list_to_matrix(t_list *lst_env, int counter, int i);
+int		count_nodes(t_list *lst_env);
+char	*concatenate(char *s1, char *s2);
+void	free_matrix(char **envp);
 #endif

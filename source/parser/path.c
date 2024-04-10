@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:16:13 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/09 19:26:44 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:20:04 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**split_path(t_list *lst_env)
 	path = ft_calloc((size + 1), sizeof(char *));
 	while (i < size)
 	{
-		path[i] = get_path(&value[j]);
+		path[i] = get_path(&value[j], 0, 0, 0);
 		j += get_len(&value[j]) + 1 ;
 		printf("%s\n", path[i]);
 		i++;
@@ -74,23 +74,14 @@ char	*return_value(t_list *lst_env, char *name)
 	return (temp);
 }
 
-char	*get_path(char *value)
+char	*get_path(char *value, int i, int len, int j)
 {
 	char	*temp;
-	int		i;
-	int		len;
-	int		j;
 
-	i = 0;
-	len = 0;
-	j = 0;
-	if (!value)
-		return (NULL);
 	while (value[j] != '\0')
 	{
 		if (value[j] != ':' && value[j] != '\0')
 		{
-			//precisa dar free
 			len = get_len(value);
 			temp = ft_calloc(len + 1, sizeof(char));
 			while (i < len && value[j])

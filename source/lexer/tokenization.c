@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 20:04:10 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/10 20:02:41 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+t_list	*tokenization(t_list *lst_tokens, char *input)
+{
+	char	signal;
+	int		i;
+	int		input_len;
+	int		len;
+
+	signal = 0;
+	i = 0;
+	input = trim_start_spaces(input);
+	input_len = ft_strlen(input);
+	while (i < input_len)
+	{
+		signal = process_quotes(signal, input[i]);
+		len = form_word(lst_tokens, signal, input, i);
+		if (signal)
+			signal = '\0';
+		if (len >= 0 && i + len <= input_len)
+				i += len;
+		else
+			break ;
+		if (i + 1 <= input_len)
+			i += process_delimiter(lst_tokens, signal, input, i);
+		if (input[i] == ' ' && input[i] != '\0')
+			i++;
+	}
+	return (lst_tokens);
+}
 
 char	*trim_start_spaces(char *input)
 {

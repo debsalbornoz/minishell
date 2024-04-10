@@ -20,6 +20,7 @@ F_SOURCE	:=		\
 	main			\
 
 F_MAIN		:=		\
+	init_env_addr	\
 	env_list		\
 	expand_part1	\
 	expand_part2	\
@@ -56,7 +57,8 @@ F_PARSER	:=		\
 	syntax_error	\
 	parser			\
 	remove_quotes	\
-	path
+	path			\
+	list_to_matrix	\
 
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))

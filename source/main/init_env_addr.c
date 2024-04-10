@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init_end_addr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 11:51:39 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/10 20:38:26 by dlamark-         ###   ########.fr       */
+/*   Created: 2024/04/10 19:52:19 by dlamark-          #+#    #+#             */
+/*   Updated: 2024/04/10 19:52:44 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+t_list	**data_env_addr(void)
 {
-	t_list	*lst_env;
-	int		i;
+	static t_list	*lst_env = NULL;
 
-	lst_env = NULL;
-	i = 0;
-	(void)argv;
-	if (argc > 1)
-		return (0);
-	init_data_env_addr(envp);
-	lst_env = *data_env_addr();
-	handle_signal(lst_env);
-	while (program(lst_env))
-		;
-	lst_env->node = lst_env->head;
-	free_list(lst_env, free_lst_env);
-	free(lst_env);
-	return (EXIT_SUCCESS);
+	return (&lst_env);
+}
+
+void	init_data_env_addr(char **envp)
+{
+	t_list	**addr;
+
+	addr = data_env_addr();
+	*addr = make_lst_env(envp);
 }

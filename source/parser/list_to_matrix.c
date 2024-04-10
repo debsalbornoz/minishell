@@ -6,22 +6,16 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 19:30:16 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/09 19:33:25 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/10 20:37:01 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	**list_to_matrix(t_list *lst_env)
+char	**list_to_matrix(t_list *lst_env, int counter, int i)
 {
-	int		counter;
 	char	**env;
-	int		i;
-	int		len;
 
-	i = 0;
-	counter = 0;
-	len = 0;
 	if (!lst_env)
 		return (NULL);
 	counter = count_nodes(lst_env);
@@ -31,11 +25,6 @@ char	**list_to_matrix(t_list *lst_env)
 		return (NULL);
 	while (lst_env->node)
 	{
-		len = ft_strlen(lst_env->node->data->env->name)
-			+ ft_strlen(lst_env->node->data->env->value) + 2;
-		env[i] = ft_calloc(len, sizeof(char));
-		if (!env[i])
-			return (NULL);
 		env[i] = concatenate(lst_env->node->data->env->name,
 				lst_env->node->data->env->value);
 		i++;

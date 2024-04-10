@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:12:07 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 19:13:06 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/10 20:05:58 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	compare_quoted_strings(char *s1, char *s2)
 	j = 1;
 	len = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
-	if (is_quote(s1[0]) && is_quote(s1[len - 1]))
+	if (is_quote(s1[0]) && is_quote(s1[len - 1]) && s1[0] == s1[len - 1])
 	{
 		len -= 2;
 		if (len == len_s2)
