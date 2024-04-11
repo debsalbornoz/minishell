@@ -15,10 +15,9 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst_env;
-	int		i;
+	char	**matrix;
 
 	lst_env = NULL;
-	i = 0;
 	(void)argv;
 	if (argc > 1)
 		return (0);
@@ -28,7 +27,10 @@ int	main(int argc, char **argv, char **envp)
 	while (program(lst_env))
 		;
 	lst_env->node = lst_env->head;
+	matrix = list_to_matrix(lst_env, 0 , 0);
+	lst_env->node = lst_env->head;
 	free_list(lst_env, free_lst_env);
 	free(lst_env);
+	free_matrix(matrix);
 	return (EXIT_SUCCESS);
 }

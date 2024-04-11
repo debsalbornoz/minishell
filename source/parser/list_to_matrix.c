@@ -30,6 +30,7 @@ char	**list_to_matrix(t_list *lst_env, int counter, int i)
 		i++;
 		lst_env->node = lst_env->node->next;
 	}
+	env[i] = NULL;
 	lst_env->node = lst_env->head;
 	return (env);
 }

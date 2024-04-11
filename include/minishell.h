@@ -80,7 +80,7 @@ union u_data
 {
 	t_token	*token;
 	t_env	*env;
-	//t_exec	*execution
+	t_exec	*execution
 };
 
 struct s_env
@@ -96,13 +96,14 @@ struct s_token
 	char			next_chr;
 };
 
-/*struct s_exec
+struct s_exec
 {
-	char			**path;
-	int				type;
-	char			next_chr;
+	char			*path;
+	char			**command_table;
+	int				simple;
+	char			**envp;
+
 };
-*/
 
 /* --- source/main --- */
 
