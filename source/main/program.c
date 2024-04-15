@@ -16,8 +16,10 @@ int	program(t_list *lst_env)
 {
 	t_list		lst_tokens;
 	char		*input;
+	t_list		exec_list;
 
 	lst_tokens.node = 0;
+	exec_list.node = 0;
 	input = readline("¯\\_(ツ)_/¯: ");
 	if (check_input(input) == 0)
 		return (FALSE);
@@ -26,6 +28,7 @@ int	program(t_list *lst_env)
 	lst_tokens = *lexical_analysis(input, &lst_tokens);
 	if (!parsing(&lst_tokens, lst_env, input))
 		return (TRUE);
+	exec_list = *create_execution_list(&lst_tokens, &exec_list , lst_env);
 	free_list(&lst_tokens, free_lst_tokens);
 	free(input);
 	return (FALSE);

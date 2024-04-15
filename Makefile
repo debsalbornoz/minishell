@@ -60,6 +60,9 @@ F_PARSER	:=		\
 	path			\
 	list_to_matrix	\
 
+F_EXECUTION		:=	\
+	execute_simple_command \
+
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))
 
@@ -78,6 +81,8 @@ O_UTILS		:=		\
 O_PARSER	:=		\
 	$(addprefix objects/parser/, $(addsuffix .o, $(F_PARSER)))
 
+O_EXECUTION	:=		\
+	$(addprefix objects/execution/, $(addsuffix .o, $(F_EXECUTION)))
 
 all: make_libft $(NAME)
 
@@ -101,9 +106,11 @@ objects/utils/%.o: source/utils/%.c | objects/utils
 
 objects/parser/%.o: source/parser/%.c | objects/parser
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+objects/execution/%.o: source/parser/%.c | objects/execution
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
-$(NAME): $(O_SOURCE) $(O_MAIN) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(O_PARSER)
-	$(CC) $(O_SOURCE) $(O_MAIN) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(O_PARSER) $(LIBS) $(HEADERS) -o $(NAME)
+$(NAME): $(O_SOURCE) $(O_MAIN) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(O_PARSER) $(O_EXECUTION)
+	$(CC) $(O_SOURCE) $(O_MAIN) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(O_PARSER) $(O_EXECUTION) $(LIBS) $(HEADERS) -o $(NAME)
 
 objects:
 	mkdir -p objects
@@ -123,6 +130,8 @@ objects/utils:
 objects/parser:
 	mkdir -p objects/parser
 
+objects/execution:
+	mkdir -p objects/execution
 play: re
 	clear && ./minishell
 
@@ -155,6 +164,7 @@ re: fclean all
 	objects/lexer		\
 	objects/lexer/type	\
 	objects/utils		\
-	objects/parser
+	objects/parser		\
+	objects/execution
 
 .SILENT:

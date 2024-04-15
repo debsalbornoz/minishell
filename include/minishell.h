@@ -63,6 +63,7 @@ typedef struct s_node	t_node;
 union					u_data;
 typedef struct s_token	t_token;
 typedef struct s_env	t_env;
+typedef struct s_exec	t_exec;
 
 struct s_list
 {
@@ -80,7 +81,7 @@ union u_data
 {
 	t_token	*token;
 	t_env	*env;
-	t_exec	*execution
+	t_exec	*execution;
 };
 
 struct s_env
@@ -271,3 +272,11 @@ int		count_nodes(t_list *lst_env);
 char	*concatenate(char *s1, char *s2);
 void	free_matrix(char **envp);
 #endif
+
+/* --- execution --- */
+
+//execute_simple_command.c
+
+int    is_simple_command(t_list *lst_tokens);
+t_list *create_execution_list(t_list *lst_tokens, t_list *lst_execution, t_list *envp);
+char    **create_command_table(t_list *lst_tokens, t_list *lst_execution);
