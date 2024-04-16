@@ -59,6 +59,7 @@ F_PARSER	:=		\
 	remove_quotes	\
 	path			\
 	list_to_matrix	\
+	validate_path
 
 F_EXECUTION		:=	\
 	execute_simple_command

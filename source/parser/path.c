@@ -31,7 +31,6 @@ char	**split_path(t_list *lst_env)
 	{
 		path[i] = get_path(&value[j], 0, 0, 0);
 		j += get_len(&value[j]) + 1 ;
-		printf("%s\n", path[i]);
 		i++;
 	}
 	path[i] = NULL;

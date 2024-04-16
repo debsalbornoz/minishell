@@ -271,7 +271,13 @@ char	**list_to_matrix(t_list *lst_env, int counter, int i);
 int		count_nodes(t_list *lst_env);
 char	*concatenate(char *s1, char *s2);
 void	free_matrix(char **envp);
-#endif
+
+//validate_path.c
+
+int    validate_path(t_list *lst_exec, char *path, t_list *lst_env);
+char *create_path(char *path, t_list *lst_token);
+char *concatenate_path(char *s1, char *s2);
+int save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
 
 /* --- execution --- */
 
@@ -281,3 +287,5 @@ int    is_simple_command(t_list *lst_tokens);
 t_list *create_execution_list(t_list *lst_tokens, t_list *lst_execution, t_list *envp);
 char    **create_command_table(t_list *lst_tokens, t_list *lst_execution);
 void 	print_matrix(char **matrix);
+
+#endif

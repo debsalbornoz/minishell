@@ -25,25 +25,25 @@ int    is_simple_command(t_list *lst_tokens)
     return (1);
 }
 
-t_list *create_execution_list(t_list *lst_tokens, t_list *lst_execution, t_list *envp)
+t_list *create_execution_list(t_list *lst_tokens, t_list *lst_exec, t_list *envp)
 {
     char    **matrix;
     char    **command_table;
 
     if(is_simple_command(lst_tokens))
     {
-        lst_execution = add_node(lst_execution);
-        lst_execution->node->data = ft_calloc(1, sizeof(union u_data));
-		lst_execution->node->data->execution = ft_calloc(1, sizeof(t_exec));
+        lst_exec = add_node(lst_exec);
+        lst_exec->node->data = ft_calloc(1, sizeof(union u_data));
+		lst_exec->node->data->execution = ft_calloc(1, sizeof(t_exec));
         matrix = list_to_matrix(envp, 0 , 0);
-        //print_matrix(matrix);
-        lst_execution->node->data->execution->envp = matrix;
-        command_table = create_command_table(lst_tokens, lst_execution);
-        //print_matrix(command_table);
-        lst_execution->node->data->execution->command_table = command_table;
+        lst_exec->node->data->execution->envp = matrix;
+        command_table = create_command_table(lst_tokens, lst_exec);
+        lst_exec->node->data->execution->command_table = command_table;
+        save_path(lst_exec,lst_tokens, envp);
+
     }
-    lst_execution->node = lst_execution->head;
-    return (lst_execution);
+    lst_exec->node = lst_exec->head;
+    return (lst_exec);
 }
 
 char    **create_command_table(t_list *lst_tokens, t_list *lst_execution)
