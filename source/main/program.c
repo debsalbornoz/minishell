@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/07 21:16:57 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/16 20:05:19 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	program(t_list *lst_env)
 	char		*input;
 
 	input = readline("¯\\_(ツ)_/¯: ");
-	input = expand(lst_env, input);
 	if (!input)
 	{
 		printf("\n");
 		return (FALSE);
 	}
+	input = expand(lst_env, input);
 	if (!*input)
 		return (TRUE);
 	lst_tokens.node = 0;
