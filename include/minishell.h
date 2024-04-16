@@ -143,7 +143,7 @@ t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
 void	free_list(t_list *list, void (f)(t_list *));
 void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *env_list);
-
+void	free_lst_exec(t_list *lst_exec);
 /* --- source/lexer/ --- */
 // tokenization.c
 t_list	*tokenization(t_list *lst_tokens, char *input);
@@ -280,3 +280,4 @@ void	free_matrix(char **envp);
 int    is_simple_command(t_list *lst_tokens);
 t_list *create_execution_list(t_list *lst_tokens, t_list *lst_execution, t_list *envp);
 char    **create_command_table(t_list *lst_tokens, t_list *lst_execution);
+void 	print_matrix(char **matrix);

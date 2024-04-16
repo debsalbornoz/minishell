@@ -61,7 +61,7 @@ F_PARSER	:=		\
 	list_to_matrix	\
 
 F_EXECUTION		:=	\
-	execute_simple_command \
+	execute_simple_command
 
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))
@@ -106,7 +106,7 @@ objects/utils/%.o: source/utils/%.c | objects/utils
 
 objects/parser/%.o: source/parser/%.c | objects/parser
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
-objects/execution/%.o: source/parser/%.c | objects/execution
+objects/execution/%.o: source/execution/%.c | objects/execution
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
 $(NAME): $(O_SOURCE) $(O_MAIN) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(O_PARSER) $(O_EXECUTION)

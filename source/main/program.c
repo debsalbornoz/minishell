@@ -29,7 +29,9 @@ int	program(t_list *lst_env)
 	if (!parsing(&lst_tokens, lst_env, input))
 		return (TRUE);
 	exec_list = *create_execution_list(&lst_tokens, &exec_list , lst_env);
+	lst_tokens.node = lst_tokens.head;
 	free_list(&lst_tokens, free_lst_tokens);
+	free_list(&exec_list, free_lst_exec);
 	free(input);
 	return (FALSE);
 }

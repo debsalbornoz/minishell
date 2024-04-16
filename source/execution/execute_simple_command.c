@@ -36,8 +36,10 @@ t_list *create_execution_list(t_list *lst_tokens, t_list *lst_execution, t_list 
         lst_execution->node->data = ft_calloc(1, sizeof(union u_data));
 		lst_execution->node->data->execution = ft_calloc(1, sizeof(t_exec));
         matrix = list_to_matrix(envp, 0 , 0);
+        //print_matrix(matrix);
         lst_execution->node->data->execution->envp = matrix;
         command_table = create_command_table(lst_tokens, lst_execution);
+        //print_matrix(command_table);
         lst_execution->node->data->execution->command_table = command_table;
     }
     lst_execution->node = lst_execution->head;
@@ -91,4 +93,15 @@ char **duplicate_matrix(char **matrix)
         i++;
     }
     return(temp);
+}
+
+void print_matrix(char **matrix)
+{
+    int i;
+    i = 0;
+    while(matrix[i] != NULL)
+    {
+        printf("%s\n", matrix[i]);
+        i++;
+    }
 }
