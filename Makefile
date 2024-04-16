@@ -23,6 +23,7 @@ F_MAIN		:=		\
 	env_list		\
 	expand_part1	\
 	expand_part2	\
+	expand_part3	\
 	program			\
 	linked_list		\
 	free_list		\
@@ -49,6 +50,11 @@ F_UTILS		:=		\
 	utils_env_list	\
 	utils_ft
 
+F_PARSER		:=	\
+	syntax_error	\
+	pipe_error		\
+	redirect_error
+
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))
 
@@ -63,6 +69,9 @@ O_TYPE		:=		\
 
 O_UTILS		:=		\
 	$(addprefix objects/utils/, $(addsuffix .o, $(F_UTILS)))
+
+O_PARSER		:=		\
+	$(addprefix objects/parser/, $(addsuffix .o, $(F_PARSER)))
 
 all: make_libft $(NAME)
 
@@ -84,8 +93,12 @@ objects/lexer/type/%.o: source/lexer/type/%.c | objects/lexer/type
 objects/utils/%.o: source/utils/%.c | objects/utils
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
-$(NAME): $(O_SOURCE) $(O_MAIN) $(O_LEXER) $(O_TYPE) $(O_UTILS)
-	$(CC) $(O_SOURCE) $(O_MAIN) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(LIBS) $(HEADERS) -o $(NAME)
+objects/parser/%.o: source/parser/%.c | objects/parser
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+
+
+$(NAME): $(O_SOURCE) $(O_MAIN) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(O_PARSER)
+	$(CC) $(O_SOURCE) $(O_MAIN) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(O_PARSER) $(LIBS) $(HEADERS) -o $(NAME)
 
 objects:
 	mkdir -p objects
@@ -101,6 +114,9 @@ objects/lexer/type:
 
 objects/utils:
 	mkdir -p objects/utils
+
+objects/parser:
+	mkdir -p objects/parser
 
 play: re
 	clear && ./minishell
@@ -133,6 +149,7 @@ re: fclean all
 	objects/main		\
 	objects/lexer		\
 	objects/lexer/type	\
-	objects/utils
+	objects/utils		\
+	objects/parser
 
 .SILENT:

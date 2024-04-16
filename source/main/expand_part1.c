@@ -5,84 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 21:08:54 by jraupp           ###   ########.fr       */
+/*   Created: 2024/04/07 08:30:03 by jraupp            #+#    #+#             */
+/*   Updated: 2024/04/07 21:29:40 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*process_heredoc(char signal, char *input);
-static char	*find_var_name(t_list *lst_env, char *input, char *position);
-static char	*find_var_value(t_list *lst_env, char *name);
-static char	*update_expand(char *temp1, char *temp2, char *input);
+static char	*process_single_quote(t_exp *exp);
+static char	*process_default(t_list *lst_env, t_exp *exp);
+static char	*search_value(t_list *lst_env, char *name);
 
 char	*expand(t_list *lst_env, char *input)
 {
-	char	*temp1;
-	char	*temp2;
-	char	sig_quote;
+	t_exp	exp;
 
-	if (!input)
-		return (NULL);
-	temp1 = input;
-	sig_quote = 0;
-	while (*temp1)
+	exp.input = input;
+	exp.temp = exp.input;
+	exp.sig_quote = 0;
+	while (*exp.temp)
 	{
-		temp2 = temp1;
-		sig_quote = process_quotes(sig_quote, *temp1);
-		if (!is_single_quote(sig_quote))
-		{
-			if (is_double_quote(sig_quote))
-				temp1 = find_var_name(lst_env, input, temp1);
-			else
-			{
-				temp1 = process_heredoc(sig_quote, temp1);
-				temp1 = find_var_name(lst_env, input, temp1);
-			}
-		}
-		input = update_expand(temp1++, temp2, input);
+		exp.sig_quote = process_quotes(exp.sig_quote, *exp.temp);
+		if (*exp.temp == '$' && (is_space(*(exp.temp + 1)) || !*(exp.temp + 1)))
+			exp.temp++;
+		else if (is_single_quote(exp.sig_quote))
+			exp.temp = process_single_quote(&exp);
+		else if (!is_double_quote(exp.sig_quote))
+			exp.temp = process_default(lst_env, &exp);
+		else if (*exp.temp == '$')
+			exp.temp = process_doble_quote(lst_env, &exp);
+		else
+			exp.temp++;
 	}
-	return (input);
+	return (exp.input);
 }
 
-static char	*process_heredoc(char signal, char *input)
+static char	*process_single_quote(t_exp *exp)
 {
-	if (*input == '<' && *(input + 1) == '<')
-	{
-		input++;
-		input++;
-		input = trim_start_spaces(input);
-		while (!signal && *(input + 1) && !is_space(*(input + 1)))
-			input++;
-	}
-	return (input);
+	while (*exp->temp++ && is_single_quote(exp->sig_quote))
+		exp->sig_quote = process_quotes(exp->sig_quote, *exp->temp);
+	return (exp->temp);
 }
 
-static char	*find_var_name(t_list *lst_env, char *input, char *position)
+static char	*process_default(t_list *lst_env, t_exp *exp)
 {
+	if (*exp->temp == '$' && is_quote(*(exp->temp + 1)))
+		return (process_dollar(exp));
+	else if (*exp->temp == '<' && *(exp->temp + 1) == '<')
+		return (process_heredoc(exp));
+	else if (*exp->temp == '$')
+		exp->temp = search_name(lst_env, exp);
+	else
+		exp->temp++;
+	return (exp->temp);
+}
+
+char	*search_name(t_list *lst_env, t_exp *exp)
+{
+	t_env	var;
 	char	*temp;
-	char	*var_name;
-	char	*var_value;
 
-	temp = position;
-	var_name = 0;
-	var_value = 0;
-	if (*temp == '$')
+	var.name = 0;
+	var.value = 0;
+	temp = exp->temp;
+	temp++;
+	if (*temp && (*temp == '?' || *temp == '$'))
+		var.name = ft_chrjoin(var.name, *temp++);
+	else
 	{
-		temp++;
 		while (*temp && (ft_isalnum(*temp) || *temp == '_'))
-			var_name = ft_chrjoin(var_name, *temp++);
-		if (var_name)
-			var_value = find_var_value(lst_env, var_name);
-		temp = var_expand(input, position, var_name, var_value);
+			var.name = ft_chrjoin(var.name, *temp++);
 	}
-	if (var_name)
-		free(var_name);
-	return (temp);
+	if (var.name || (!var.name && !exp->sig_quote))
+	{
+		var.value = search_value(lst_env, var.name);
+		exp->input = var_expand(exp->input, exp->temp, &var);
+		exp->temp = exp->input;
+		exp->sig_quote = 0;
+		free(var.name);
+	}
+	else
+		exp->temp++;
+	return (exp->temp);
 }
 
-static char	*find_var_value(t_list *lst_env, char *name)
+static char	*search_value(t_list *lst_env, char *name)
 {
 	if (lst_env->node)
 	{
@@ -97,14 +104,4 @@ static char	*find_var_value(t_list *lst_env, char *name)
 			return (lst_env->node->data->env->value);
 	}
 	return (0);
-}
-
-char	*update_expand(char *temp1, char *temp2, char *input)
-{
-	if (ft_strcmp(temp1, temp2))
-	{
-		free(input);
-		input = temp1;
-	}
-	return (input);
 }
