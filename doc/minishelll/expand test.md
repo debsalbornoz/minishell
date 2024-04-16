@@ -97,7 +97,7 @@
 
 - [ ] `<< $"USER"`
 	```
-	<< "$USER"
+	<< $"USER"
 	```
 
 ---
@@ -253,7 +253,7 @@
 
 - [ ] `echo << $"USER"`
 	```
-	echo << "$USER"
+	echo << $"USER"
 	```
 
 ---
@@ -409,7 +409,7 @@
 
 - [ ] `<< $"USER" | cat $LANG`
 	```
-	<< "$USER"
+	<< $"USER"
 	```
 
 ---
@@ -565,7 +565,7 @@
 
 - [ ] `echo << $"USER" | cat $LANG`
 	```
-	echo << "$USER"
+	echo << $"USER"
 	```
 
 ---

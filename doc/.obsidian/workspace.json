@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "minishelll/expand test.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -148,7 +148,7 @@
   },
   "active": "c829ecdfe3a37bac",
   "lastOpenFiles": [
-    "minishelll/to do.md",
+    "minishelll/to do -> Jackson.md",
     "minishelll/expand test.md",
     "minishell.md",
     "minishelll",
