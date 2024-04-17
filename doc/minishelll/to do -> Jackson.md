@@ -1,4 +1,4 @@
-- [ ] Verificar quando expandir e retornar nulo se não estiver dentro de aspas, colocar dentro de aspas.
+- [x] Verificar quando expandir e retornar nulo se não estiver dentro de aspas, colocar dentro de aspas.
 - [ ] Verificar exemplo abaixo:
 	```
 	\_(ツ)_/¯: $? | $LANG
