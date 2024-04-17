@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:03:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 15:49:15 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/03/29 17:39:22 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ static void	aux_print_tokens_argument(int type)
 		printf("type: flag,	value: ");
 	else if (type == HEREDOC_KEY)
 		printf("type: heredoc_key,	value: ");
-	else if (type == VARIABLE)
-		printf("type: variable,	value: ");
 	else if (type == ERROR)
 		printf("type: error,	value: ");
 }

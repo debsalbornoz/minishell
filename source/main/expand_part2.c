@@ -6,83 +6,72 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/26 18:15:15 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/17 17:37:11 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static char	*expand_no_name(char *input, char *position);
-static char	*expand_no_value(char *input, char *position, char *name);
-static char	*expand_full(char *input, char *position, char *name, char *value);
-
-char	*var_expand(char *input, char *position, char *name, char *value)
+char	*process_dollar(t_exp *exp)
 {
-	if (!name)
-		return (expand_no_name(input, position));
-	else if (!value)
-		return (expand_no_value(input, position, name));
-	return (expand_full(input, position, name, value));
+	exp->input = ft_rmchr(exp->input, exp->temp);
+	exp->temp = exp->input;
+	return (exp->temp);
 }
 
-char	*expand_no_name(char *input, char *position)
+char	*process_heredoc(t_exp *exp)
 {
-	char	*res;
-	char	*temp;
-
-	res = ft_calloc(1, ft_strlen(input) + 3);
-	temp = res;
-	while (*&input != *&position)
-		*temp++ = *input++;
-	*temp++ = '\'';
-	*temp++ = *input++;
-	*temp++ = '\'';
-	while (*input)
-		*temp++ = *input++;
-	temp = 0;
-	return (res);
-}
-
-char	*expand_no_value(char *input, char *position, char *name)
-{
-	char	*res;
-	char	*temp;
-
-	res = ft_calloc(1, ft_strlen(input) - ft_strlen(name));
-	temp = res;
-	while (*&input != *&position)
-		*temp++ = *input++;
-	input++;
-	while (*input && *name && *input == *name)
+	exp->temp++;
+	exp->temp++;
+	exp->temp = trim_start_spaces(exp->temp);
+	if (*exp->temp == '$' && is_quote(*(exp->temp + 1)))
+		exp->temp = process_dollar(exp);
+	else
 	{
-		input++;
-		name++;
+		while (*exp->temp && !(is_space(*exp->temp) && !exp->sig_quote))
+			exp->sig_quote = process_quotes(exp->sig_quote, *exp->temp++);
 	}
-	while (*input)
-		*temp++ = *input++;
-	temp = 0;
+	return (exp->temp);
+}
+
+char	*process_doble_quote(t_list *lst_env, t_exp *exp)
+{
+	exp->temp = search_name(lst_env, exp);
+	return (exp->temp);
+}
+
+char	*var_expand(t_exp *cur, t_env *var)
+{
+	int		len;
+	char	*res;
+	t_exp	exp;
+	t_env	tmp;
+
+	tmp = *var;
+	exp = *cur;
+	len = ft_strlen(exp.input) - ft_strlen(tmp.name) + ft_strlen(tmp.value);
+	res = ft_calloc(1, len);
+	exp.temp = res;
+	while (*&exp.input != *&cur->temp)
+		*exp.temp++ = *exp.input++;
+	exp.input++;
+	while (tmp.value && *tmp.value)
+		*exp.temp++ = *tmp.value++;
+	while (*exp.input && *tmp.name && *exp.input == *tmp.name)
+	{
+		exp.input++;
+		tmp.name++;
+	}
+	while (*exp.input)
+		*exp.temp++ = *exp.input++;
+	exp.temp = 0;
+	free(cur->input);
 	return (res);
 }
 
-char	*expand_full(char *input, char *position, char *name, char *value)
+char	*var_is_null(char *value, char sig)
 {
-	char	*res;
-	char	*temp;
-
-	res = ft_calloc(1, ft_strlen(input) - ft_strlen(name) + ft_strlen(value));
-	temp = res;
-	while (*&input != *&position)
-		*temp++ = *input++;
-	input++;
-	while (*value)
-		*temp++ = *value++;
-	while (*input && *name && *input == *name)
-	{
-		input++;
-		name++;
-	}
-	while (*input)
-		*temp++ = *input++;
-	temp = 0;
-	return (res);
+	if (!value && !is_double_quote(sig))
+		value = "\"\"";
+	return (value);
 }

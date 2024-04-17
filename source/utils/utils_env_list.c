@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/25 21:00:03 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:58:44 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 	{
 		if (ft_strncmp(lst_env->node->data->env->name, name, 100) == 0)
 		{
+			free(lst_env->node->data->env->value);
 			lst_env->node->data->env->value = ft_strdup(value);
 			return ;
 		}
@@ -40,17 +41,10 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 	}
 }
 
-t_list	**data_env_addr(void)
+t_list	*data_env_addr(void)
 {
-	static t_list	*lst_env = NULL;
+	static t_list	lst_env;
 
+	lst_env.node = 0;
 	return (&lst_env);
-}
-
-void	init_data_env_addr(char **envp)
-{
-	t_list	**addr;
-
-	addr = data_env_addr();
-	*addr = make_lst_env(envp);
 }
