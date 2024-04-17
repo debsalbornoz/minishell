@@ -40,6 +40,7 @@ t_list *create_execution_list(t_list *lst_tokens, t_list *lst_exec, t_list *envp
         command_table = create_command_table(lst_tokens, lst_exec);
         lst_exec->node->data->execution->command_table = command_table;
         save_path(lst_exec,lst_tokens, envp);
+ 
 
     }
     lst_exec->node = lst_exec->head;
