@@ -58,34 +58,4 @@ char *concatenate_path(char *s1, char *s2)
     return (temp);
 }
 
-int save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
-{
-    int i;
-    char *path;
-    char **path_array;
-    (void) lst_token;
-    (void)lst_exec;
-    int validate;
 
-    i = 0;
-    path_array = split_path(lst_env);
-
-    while(path_array[i] != NULL)
-    {
-        path = create_path(path_array[i],lst_token);
-        validate = validate_path(lst_exec, path, lst_env);
-        if (validate)
-        {
-            free_path(path_array);
-           return (1);
-        }
-        i++;
-    }
-    if (!validate)
-    {
-        update_env_list(lst_env, "?", " 127: command not found");
-        printf("%s\n", "comando nao encontrado");
-    }
-    free_path(path_array);
-    return (0);
-}

@@ -12,42 +12,6 @@
 
 #include "../../include/minishell.h"
 
-char	**list_to_matrix(t_list *lst_env, int counter, int i)
-{
-	char	**env;
-
-	if (!lst_env)
-		return (NULL);
-	counter = count_nodes(lst_env);
-	lst_env->node = lst_env->head;
-	env = ft_calloc(counter + 1, sizeof(char *));
-	if (!env)
-		return (NULL);
-	while (lst_env->node)
-	{
-		env[i] = concatenate(lst_env->node->data->env->name,
-				lst_env->node->data->env->value);
-		i++;
-		lst_env->node = lst_env->node->next;
-	}
-	env[i] = NULL;
-	lst_env->node = lst_env->head;
-	return (env);
-}
-
-int	count_nodes(t_list *lst_env)
-{
-	int	i;
-
-	i = 0;
-	lst_env->node = lst_env->head;
-	while (lst_env->node)
-	{
-		i++;
-		lst_env->node = lst_env->node->next;
-	}
-	return (i);
-}
 
 char	*concatenate(char *s1, char *s2)
 {
@@ -77,17 +41,17 @@ char	*concatenate(char *s1, char *s2)
 	return (temp);
 }
 
-void	free_matrix(char **envp)
+void	free_matrix(char **matrix)
 {
 	int	i;
 
 	i = 0;
-	if (!envp || !*envp)
+	if (!matrix || !*matrix)
 		return ;
-	while (envp[i] != NULL)
+	while (matrix[i] != NULL)
 	{
-		free(envp[i]);
+		free(matrix[i]);
 		i++;
 	}
-	free(envp);
+	free(matrix);
 }

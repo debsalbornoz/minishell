@@ -42,3 +42,16 @@ t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *))
 	}
 	return (list);
 }
+int	count_nodes(t_list *lst)
+{
+	int	i;
+
+	i = 0;
+	lst->node = lst->head;
+	while (lst->node)
+	{
+		i++;
+		lst->node = lst->node->next;
+	}
+	return (i);
+}

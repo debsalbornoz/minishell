@@ -267,7 +267,7 @@ void	free_path(char **path);
 
 //list_to_matrix.c
 
-char	**list_to_matrix(t_list *lst_env, int counter, int i);
+char	**env_list_to_str_array(t_list *lst_env);
 int		count_nodes(t_list *lst_env);
 char	*concatenate(char *s1, char *s2);
 void	free_matrix(char **envp);
@@ -277,7 +277,7 @@ void	free_matrix(char **envp);
 int    validate_path(t_list *lst_exec, char *path, t_list *lst_env);
 char *create_path(char *path, t_list *lst_token);
 char *concatenate_path(char *s1, char *s2);
-int save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
+char  *save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
 
 /* --- execution --- */
 
