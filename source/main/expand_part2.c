@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/07 21:30:21 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/17 17:37:11 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,40 @@ char	*process_doble_quote(t_list *lst_env, t_exp *exp)
 {
 	exp->temp = search_name(lst_env, exp);
 	return (exp->temp);
+}
+
+char	*var_expand(t_exp *cur, t_env *var)
+{
+	int		len;
+	char	*res;
+	t_exp	exp;
+	t_env	tmp;
+
+	tmp = *var;
+	exp = *cur;
+	len = ft_strlen(exp.input) - ft_strlen(tmp.name) + ft_strlen(tmp.value);
+	res = ft_calloc(1, len);
+	exp.temp = res;
+	while (*&exp.input != *&cur->temp)
+		*exp.temp++ = *exp.input++;
+	exp.input++;
+	while (tmp.value && *tmp.value)
+		*exp.temp++ = *tmp.value++;
+	while (*exp.input && *tmp.name && *exp.input == *tmp.name)
+	{
+		exp.input++;
+		tmp.name++;
+	}
+	while (*exp.input)
+		*exp.temp++ = *exp.input++;
+	exp.temp = 0;
+	free(cur->input);
+	return (res);
+}
+
+char	*var_is_null(char *value, char sig)
+{
+	if (!value && !is_double_quote(sig))
+		value = "\"\"";
+	return (value);
 }

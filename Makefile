@@ -23,7 +23,6 @@ F_MAIN		:=		\
 	env_list		\
 	expand_part1	\
 	expand_part2	\
-	expand_part3	\
 	program			\
 	linked_list		\
 	free_list		\

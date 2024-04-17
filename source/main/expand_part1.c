@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 08:30:03 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/17 11:11:24 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/17 17:40:49 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,7 @@ char	*search_name(t_list *lst_env, t_exp *exp)
 	var.name = 0;
 	var.value = 0;
 	temp = exp->temp;
-	temp++;
-	if (*temp && (*temp == '?' || *temp == '$'))
+	if (*++temp && (*temp == '?' || *temp == '$'))
 		var.name = ft_chrjoin(var.name, *temp++);
 	else
 	{
@@ -79,9 +78,8 @@ char	*search_name(t_list *lst_env, t_exp *exp)
 	if (var.name || (!var.name && !exp->sig_quote))
 	{
 		var.value = search_value(lst_env, var.name);
-		if (!var.value && !is_double_quote(exp->sig_quote))
-			var.value = ft_strdup("\"\"");
-		exp->input = var_expand(exp->input, exp->temp, &var);
+		var.value = var_is_null(var.value, exp->sig_quote);
+		exp->input = var_expand(exp, &var);
 		exp->temp = exp->input;
 		exp->sig_quote = 0;
 		free(var.name);
