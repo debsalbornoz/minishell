@@ -10,5 +10,5 @@
 	type: command,  value: en_US.UTF-8
 	```
 - [ ] Verificar leaks.
-- [ ] Verificar Falha de Segmentação quando pressionado ctrl+D.
+- [x] Verificar Falha de Segmentação quando pressionado ctrl+D.
 - [ ] Criar função para transformar operador dentro da variável de ambiente em texto.
