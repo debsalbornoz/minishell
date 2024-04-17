@@ -6,7 +6,7 @@
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 08:30:03 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/07 21:29:40 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/17 11:11:24 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char	*search_name(t_list *lst_env, t_exp *exp)
 	if (var.name || (!var.name && !exp->sig_quote))
 	{
 		var.value = search_value(lst_env, var.name);
+		if (!var.value && !is_double_quote(exp->sig_quote))
+			var.value = ft_strdup("\"\"");
 		exp->input = var_expand(exp->input, exp->temp, &var);
 		exp->temp = exp->input;
 		exp->sig_quote = 0;
