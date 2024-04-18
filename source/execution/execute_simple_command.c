@@ -14,6 +14,7 @@
 
 t_list *create_execution_list(t_list *lst_tokens, t_list *lst_exec, t_list *lst_env)
 {
+
     if (is_simple_command(lst_tokens))
     {
         lst_exec = add_node(lst_exec);
@@ -26,8 +27,9 @@ t_list *create_execution_list(t_list *lst_tokens, t_list *lst_exec, t_list *lst_
         lst_exec->node->data->execution->envp = env_list_to_str_array(lst_env);
         lst_exec->node->data->execution->command_table = create_command_table(lst_tokens, lst_exec);
         lst_exec->node->data->execution->path = save_path(lst_exec,lst_tokens, lst_env);
+        lst_exec->node = lst_exec->head;
+        lst_env->node = lst_env->head;
     }
-    lst_exec->node = lst_exec->head;
     return (lst_exec);
 }
 int    is_simple_command(t_list *lst_tokens)
@@ -47,12 +49,15 @@ char	**env_list_to_str_array(t_list *lst_env)
 {
 	char	**envp;
 	int		i;
+    int nodes;
 
 	if (!lst_env)
 		return (NULL);
 	i = 0;
 	lst_env->node = lst_env->head;
-	envp = ft_calloc((count_nodes(lst_env) + 1), sizeof(char *));
+	nodes = count_nodes(lst_env);
+    lst_env->node = lst_env->head;
+    envp = ft_calloc(nodes + 1, sizeof(char *));
 	if (!envp)
 		return (NULL);
 	while (lst_env->node)
@@ -106,32 +111,26 @@ char *save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
 
     path_array = split_path(lst_env);
     if (!path_array)
-        return NULL; // Verifica se a alocação de path_array foi bem-sucedida
-
+        return NULL;
     while (path_array[i] != NULL)
     {
         path = create_path(path_array[i], lst_token);
         if (!path)
         {
-            // Se a alocação falhar, libere a memória de path_array e retorne NULL
             free_path(path_array);
             return NULL;
         }
-        
+      
         validate = validate_path(lst_exec, path);
         if (validate)
         {
             free_path(path_array);
-            return path; // Retorna o caminho encontrado
+            return path;
         }
-        free(path); // Libera o caminho atual
+        free(path);
         i++;
     }
-
-    // Libera a memória para path_array antes de retornar
     free_path(path_array);
-
-    // Nenhum caminho válido encontrado, então atualiza a lista de ambiente e retorna NULL
     update_env_list(lst_env, "?", " 127: command not found");
     printf("%s\n", "comando nao encontrado");
 

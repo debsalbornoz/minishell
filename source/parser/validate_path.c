@@ -6,8 +6,8 @@ int    validate_path(t_list *lst_exec, char *path)
         {
             if (lst_exec)
             {
-            lst_exec->node->data->execution->path = ft_strdup(path);
-            printf("%s\n", path);
+            lst_exec->node->data->execution->path = path;
+            printf("%s\n",lst_exec->node->data->execution->path);
             return (1);
             }
         }
