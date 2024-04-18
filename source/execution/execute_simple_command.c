@@ -93,33 +93,49 @@ char    **create_command_table(t_list *lst_tokens, t_list *lst_execution)
         lst_execution->node->data->execution->command_table = command_table;
     return(command_table);
 }
-char  *save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
+char *save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
 {
     int i;
     char *path;
     char **path_array;
     int validate;
 
-    i = -1;
+    i = 0;
+    if (!lst_exec || !lst_token || !lst_env)
+        return NULL;
+
     path_array = split_path(lst_env);
-    while(path_array[i++] != NULL)
+    if (!path_array)
+        return NULL; // Verifica se a alocação de path_array foi bem-sucedida
+
+    while (path_array[i] != NULL)
     {
-        path = create_path(path_array[i],lst_token);
-        validate = validate_path(lst_exec, path, lst_env);
-        free(path);
+        path = create_path(path_array[i], lst_token);
+        if (!path)
+        {
+            // Se a alocação falhar, libere a memória de path_array e retorne NULL
+            free_path(path_array);
+            return NULL;
+        }
+        
+        validate = validate_path(lst_exec, path);
         if (validate)
         {
             free_path(path_array);
-           return (path);
+            return path; // Retorna o caminho encontrado
         }
+        free(path); // Libera o caminho atual
+        i++;
     }
-    if (!validate)
-    {
-        update_env_list(lst_env, "?", " 127: command not found");
-        printf("%s\n", "comando nao encontrado");
-    }
+
+    // Libera a memória para path_array antes de retornar
     free_path(path_array);
-    return (path);
+
+    // Nenhum caminho válido encontrado, então atualiza a lista de ambiente e retorna NULL
+    update_env_list(lst_env, "?", " 127: command not found");
+    printf("%s\n", "comando nao encontrado");
+
+    return NULL;
 }
 
 

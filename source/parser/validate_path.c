@@ -1,13 +1,15 @@
 #include "../../include/minishell.h"
 
-int    validate_path(t_list *lst_exec, char *path, t_list *lst_env)
+int    validate_path(t_list *lst_exec, char *path)
 {
-    (void) lst_env;
         if(access(path, X_OK) == 0)
         {
+            if (lst_exec)
+            {
             lst_exec->node->data->execution->path = ft_strdup(path);
             printf("%s\n", path);
             return (1);
+            }
         }
     return (0);
 }
@@ -17,6 +19,8 @@ char *create_path(char *path, t_list *lst_token)
     char *temp;
     
     temp = NULL;
+    if(!lst_token)
+        return (NULL);
     lst_token->node = lst_token->head;
     while (lst_token->node)
     {
@@ -38,6 +42,8 @@ char *concatenate_path(char *s1, char *s2)
     int len;
     i = 0;
     j = 0;
+    if (!s1 || !s2)
+        return (NULL);
     len = ft_strlen(s1) + ft_strlen(s2) + 2;
     char *temp;
 

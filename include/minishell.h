@@ -274,7 +274,7 @@ void	free_matrix(char **envp);
 
 //validate_path.c
 
-int    validate_path(t_list *lst_exec, char *path, t_list *lst_env);
+int    validate_path(t_list *lst_exec, char *path);
 char *create_path(char *path, t_list *lst_token);
 char *concatenate_path(char *s1, char *s2);
 char  *save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
