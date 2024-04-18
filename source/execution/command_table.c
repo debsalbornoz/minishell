@@ -12,23 +12,29 @@
 
 #include "../../include/minishell.h"
 
-t_list *create_execution_list(t_list *lst_tokens, t_list *lst_exec, t_list *lst_env)
+char    **create_command_table(t_list *lst_tokens, t_list *lst_execution)
 {
+    int i;
+    char **command_table;
+    int nodes;
 
-    if (is_simple_command(lst_tokens))
+    i = 0;
+    command_table = NULL;
+    if(!lst_tokens)
+        return (NULL);
+    nodes = count_nodes(lst_tokens);
+    command_table = ft_calloc(nodes + 1, sizeof(char *));
+    if(!command_table)
+        return (NULL);
+    lst_tokens->node = lst_tokens->head;
+    while(lst_tokens && i < nodes)
     {
-        lst_exec = add_node(lst_exec);
-        lst_exec->node->data = ft_calloc(1, sizeof(union u_data));
-        if(!lst_exec->node->data)
-            return (NULL);
-		lst_exec->node->data->execution = ft_calloc(1, sizeof(t_exec));
-        if (!lst_exec->node->data->execution)
-            return (NULL);
-        lst_exec->node->data->execution->envp = env_list_to_str_array(lst_env);
-        lst_exec->node->data->execution->command_table = create_command_table(lst_tokens, lst_exec);
-        lst_exec->node->data->execution->path = save_path(lst_exec,lst_tokens, lst_env);
-        lst_exec->node = lst_exec->head;
-
+        command_table[i] = ft_strdup(lst_tokens->node->data->token->value);
+        lst_tokens->node = lst_tokens->node->next;
+        i++;
     }
-    return (lst_exec);
+    command_table[i] = NULL;
+    if(lst_execution)
+        lst_execution->node->data->execution->command_table = command_table;
+    return(command_table);
 }

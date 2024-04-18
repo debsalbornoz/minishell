@@ -27,9 +27,9 @@ char *create_path(char *path, t_list *lst_token)
         if (lst_token->node->data->token->type == COMMAND)
         {
             temp = concatenate_path(path, lst_token->node->data->token->value);
-            lst_token->node = lst_token->node->next;
             return (temp);
         }
+        lst_token->node = lst_token->node->next;
     }
     return (temp);
 }

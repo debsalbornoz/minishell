@@ -26,7 +26,7 @@ F_MAIN		:=		\
 	expand_part2	\
 	program			\
 	linked_list		\
-	free_list		\
+	free			\
 	signals
 
 F_LEXER		:=		\
@@ -62,7 +62,10 @@ F_PARSER	:=		\
 	validate_path
 
 F_EXECUTION		:=	\
-	execute_simple_command
+	execute_simple_command \
+	execution		\
+	command_table	\
+	env_list_to_str_array
 
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))

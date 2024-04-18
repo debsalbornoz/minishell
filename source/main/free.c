@@ -53,3 +53,18 @@ void	free_lst_exec(t_list *lst_exec)
 	free(lst_exec->node->data);
 	free(lst_exec->node);
 }
+
+void	free_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	if (!matrix || !*matrix)
+		return ;
+	while (matrix[i] != NULL)
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
+}
