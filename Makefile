@@ -57,15 +57,14 @@ F_PARSER	:=		\
 	syntax_error	\
 	parser			\
 	remove_quotes	\
-	path			\
-	list_to_matrix	\
-	validate_path
+	split_path			\
 
 F_EXECUTION		:=	\
 	execute_simple_command \
 	execution		\
 	command_table	\
-	env_list_to_str_array
+	env_list_to_str_array	\
+	save_path		\
 
 O_SOURCE	:=		\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))

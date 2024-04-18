@@ -25,41 +25,6 @@ int    is_simple_command(t_list *lst_tokens)
     return (1);
 }
 
-
-char *save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
-{
-    int i;
-    char *path;
-    char **path_array;
-    int validate;
-
-    i = 0;
-    if (!lst_exec || !lst_token || !lst_env)
-        return NULL;
-
-    path_array = split_path(lst_env);
-    if (!path_array)
-        return NULL;
-    while (path_array[i] != NULL)
-    {
-        path = create_path(path_array[i], lst_token);
-        validate = validate_path(lst_exec, path);
-        if (validate)
-        {
-            free_path(path_array);
-            return path;
-        }
-        free(path);
-        i++;
-    }
-    free_path(path_array);
-    update_env_list(lst_env, "?", " 127: command not found");
-    printf("%s\n", "comando nao encontrado");
-
-    return NULL;
-}
-
-
 char **duplicate_matrix(char **matrix)
 {
     int i;
