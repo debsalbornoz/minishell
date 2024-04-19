@@ -4,6 +4,7 @@
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:11:04 by dlamark-          #+#    #+#             */
 /*   Updated: 2024/04/06 14:33:05 by dlamark-         ###   ########.fr       */

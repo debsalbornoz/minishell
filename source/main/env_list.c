@@ -14,6 +14,8 @@
 
 t_list	*make_lst_env(char **envp, t_list *lst_env)
 {
+t_list	*make_lst_env(char **envp, t_list *lst_env)
+{
 	while (*envp)
 	{
 		lst_env = add_node(lst_env);

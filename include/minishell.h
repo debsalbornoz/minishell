@@ -55,7 +55,7 @@ enum	e_type_type
 	HEREDOC_KEY	= 2230,
 	ERROR		= 9999
 };
-extern int				g_signal;
+
 typedef struct s_list	t_list;
 typedef struct s_node	t_node;
 union					u_data;
@@ -127,6 +127,7 @@ void	set_error(t_list *lst_env);
 
 // env_list.c
 t_list	*make_lst_env(char **envp, t_list *lst_env);
+t_list	*make_lst_env(char **envp, t_list *lst_env);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);
@@ -134,8 +135,14 @@ t_node	*print_lst_env(t_node *node);
 // expand_part1.c
 char	*expand(t_list *lst_env, char *input);
 char	*search_name(t_list *lst_env, t_exp *exp);
+char	*search_name(t_list *lst_env, t_exp *exp);
 
 // expand_part2.c
+char	*process_dollar(t_exp *exp);
+char	*process_heredoc(t_exp *exp);
+char	*process_doble_quote(t_list *lst_env, t_exp *exp);
+char	*var_expand(t_exp *cur, t_env *var);
+char	*var_is_null(char *value, char sig);
 char	*process_dollar(t_exp *exp);
 char	*process_heredoc(t_exp *exp);
 char	*process_doble_quote(t_list *lst_env, t_exp *exp);
@@ -158,7 +165,9 @@ void	free_lst_exec(t_list *lst_exec);
 //signals.c
 void	handle_sigint(int signal);
 void	handle_signal(void);
+void	handle_signal(void);
 void	set_error(t_list *lst_env);
+
 
 /* --- source/lexer/ --- */
 // tokenization.c
@@ -229,6 +238,7 @@ t_node	*print_lst_tokens(t_node *node);
 
 //env_list_utils.c
 void	update_env_list(t_list *lst_env, char *name, char *value);
+t_list	*data_env_addr(void);
 t_list	*data_env_addr(void);
 
 // utils_ft.c

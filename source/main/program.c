@@ -24,8 +24,12 @@ int	program(t_list *lst_env)
 	if (!input)
 	{
 		printf("\n");
+		printf("\n");
 		return (FALSE);
 	}
+	input = expand(lst_env, input);
+	if (!*input)
+		return (TRUE);
 	input = expand(lst_env, input);
 	if (!*input)
 		return (TRUE);
