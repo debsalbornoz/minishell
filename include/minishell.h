@@ -6,7 +6,6 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/10 20:37:13 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +53,15 @@ enum	e_type_type
 	APPEND_FILE = 2213,
 	FLAG		= 2220,
 	HEREDOC_KEY	= 2230,
-	VARIABLE	= 2300,
 	ERROR		= 9999
 };
+extern int				g_signal;
 typedef struct s_list	t_list;
 typedef struct s_node	t_node;
 union					u_data;
 typedef struct s_token	t_token;
 typedef struct s_env	t_env;
+typedef struct s_exp	t_exp;
 typedef struct s_exec	t_exec;
 
 struct s_list
@@ -96,6 +96,13 @@ struct s_token
 	char			next_chr;
 };
 
+struct s_exp
+{
+	char			*input;
+	char			*temp;
+	char			sig_quote;
+};
+
 struct s_exec
 {
 	char			*path;
@@ -119,16 +126,21 @@ void	handle_signal(t_list *lst_env);
 void	set_error(t_list *lst_env);
 
 // env_list.c
-t_list	*make_lst_env(char **envp);
+t_list	*make_lst_env(char **envp, t_list *lst_env);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);
 
 // expand_part1.c
 char	*expand(t_list *lst_env, char *input);
+char	*search_name(t_list *lst_env, t_exp *exp);
 
 // expand_part2.c
-char	*var_expand(char *input, char *position, char *name, char *value);
+char	*process_dollar(t_exp *exp);
+char	*process_heredoc(t_exp *exp);
+char	*process_doble_quote(t_list *lst_env, t_exp *exp);
+char	*var_expand(t_exp *cur, t_env *var);
+char	*var_is_null(char *value, char sig);
 
 // program.c
 int		program(t_list *lst_env);
@@ -142,6 +154,12 @@ void	free_list(t_list *list, void (f)(t_list *));
 void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *env_list);
 void	free_lst_exec(t_list *lst_exec);
+
+//signals.c
+void	handle_sigint(int signal);
+void	handle_signal(void);
+void	set_error(t_list *lst_env);
+
 /* --- source/lexer/ --- */
 // tokenization.c
 t_list	*tokenization(t_list *lst_tokens, char *input);
@@ -210,12 +228,13 @@ int		is_append(char chr, char next_chr);
 t_node	*print_lst_tokens(t_node *node);
 
 //env_list_utils.c
-
 void	update_env_list(t_list *lst_env, char *name, char *value);
+t_list	*data_env_addr(void);
 
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
 char	*ft_chrjoin(char *dest, char src);
+char	*ft_rmchr(char *input, char *position);
 
 /* --- parser --- */
 

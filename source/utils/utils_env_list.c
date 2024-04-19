@@ -29,6 +29,7 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 	{
 		if (ft_strncmp(lst_env->node->data->env->name, name, 100) == 0)
 		{
+			free(lst_env->node->data->env->value);
 			lst_env->node->data->env->value = ft_strdup(value);
 			return ;
 		}

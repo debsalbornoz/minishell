@@ -12,14 +12,8 @@
 
 #include "../../include/minishell.h"
 
-t_list	*make_lst_env(char **envp)
+t_list	*make_lst_env(char **envp, t_list *lst_env)
 {
-	t_list	*lst_env;
-
-	lst_env = ft_calloc(1, sizeof(t_list));
-	if (!lst_env)
-		return (NULL);
-	lst_env->node = NULL;
 	while (*envp)
 	{
 		lst_env = add_node(lst_env);
@@ -44,6 +38,8 @@ char	*find_name(char *envp)
 	if (envp)
 	{
 		while (envp[i] != '=' && envp[i] != '\0')
+			i++;
+		temp = ft_calloc((i + 1), sizeof(char));
 			i++;
 		temp = ft_calloc((i + 1), sizeof(char));
 		ft_strlcpy(temp, envp, i + 1);

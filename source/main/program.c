@@ -21,10 +21,20 @@ int	program(t_list *lst_env)
 	lst_tokens.node = 0;
 	exec_list.node = 0;
 	input = readline("¯\\_(ツ)_/¯: ");
-	if (check_input(input) == 0)
+	if (!input)
+	{
+		printf("\n");
 		return (FALSE);
-	if (check_input(input) == 1)
+	}
+	input = expand(lst_env, input);
+	if (!*input)
 		return (TRUE);
+	lst_tokens.node = 0;
+	if (!is_closed(input))
+	{
+		printf("Fatal error: unclosed quotes\n");
+		return (FALSE);
+	}
 	lst_tokens = *lexical_analysis(input, &lst_tokens);
 	if (!parsing(&lst_tokens, lst_env, input))
 		return (TRUE);
@@ -33,5 +43,5 @@ int	program(t_list *lst_env)
 	free_list(&lst_tokens, free_lst_tokens);
 	free_list(&exec_list, free_lst_exec);
 	free(input);
-	return (FALSE);
+	return (TRUE);
 }
