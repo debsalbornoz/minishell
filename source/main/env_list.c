@@ -44,8 +44,8 @@ char	*find_name(char *envp)
 	if (envp)
 	{
 		while (envp[i] != '=' && envp[i] != '\0')
-		i++;
-	temp = ft_calloc((i + 1), sizeof(char));
+			i++;
+		temp = ft_calloc((i + 1), sizeof(char));
 		ft_strlcpy(temp, envp, i + 1);
 	}
 	return (temp);

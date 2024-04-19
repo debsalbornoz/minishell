@@ -15,6 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_list	*lst_env;
+
 	lst_env = NULL;
 	(void)argv;
 	if (argc > 1)

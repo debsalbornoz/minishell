@@ -39,7 +39,7 @@ char signal, int inside_quotes)
 		counter++;
 	}
 	return (counter);
-}	
+}
 
 int	count_characters_outside_quotes(const char *value, int *i,
 int inside_quotes)

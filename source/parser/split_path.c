@@ -118,18 +118,3 @@ int	get_len(char *value)
 	}
 	return (counter);
 }
-
-void	free_path(char **path)
-{
-	int	i;
-
-	i = 0;
-	if (!path || !*path)
-		return ;
-	while (path[i] != NULL)
-	{
-		free(path[i]);
-		i++;
-	}
-	free(path);
-}

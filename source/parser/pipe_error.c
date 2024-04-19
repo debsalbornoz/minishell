@@ -20,7 +20,7 @@ int	check_first_pipe(t_list	*lst_tokens)
 	if (!lst_tokens)
 		return (0);
 	if (lst_tokens->head->data->token->type == PIPE)
-			flag = 1;
+		flag = 1;
 	while (lst_tokens->node)
 	{
 		if (lst_tokens->node->next == NULL

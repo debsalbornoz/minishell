@@ -57,7 +57,6 @@ enum	e_type_type
 	VARIABLE	= 2300,
 	ERROR		= 9999
 };
-extern int				g_signal;
 typedef struct s_list	t_list;
 typedef struct s_node	t_node;
 union					u_data;
@@ -124,7 +123,6 @@ t_list	*make_lst_env(char **envp);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
 t_node	*print_lst_env(t_node *node);
-
 
 // expand_part1.c
 char	*expand(t_list *lst_env, char *input);
@@ -274,18 +272,19 @@ void	free_matrix(char **envp);
 
 //validate_path.c
 
-int    validate_path(t_list *lst_exec, char *path);
-char *create_path(char *path, t_list *lst_token);
-char *concatenate_path(char *s1, char *s2);
-char  *save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
+int		validate_path(t_list *lst_exec, char *path);
+char	*create_path(char *path, t_list *lst_token);
+char	*concatenate_path(char *s1, char *s2);
+char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
 
 /* --- execution --- */
 
 //execute_simple_command.c
 
-int    is_simple_command(t_list *lst_tokens);
-t_list *create_execution_list(t_list *lst_tokens, t_list *lst_execution, t_list *envp);
-char    **create_command_table(t_list *lst_tokens, t_list *lst_execution);
-void 	print_matrix(char **matrix);
+int		is_simple_command(t_list *lst_tokens);
+t_list	*create_execution_list(t_list *lst_tokens,
+			t_list *lst_execution, t_list *envp);
+char	**create_command_table(t_list *lst_tokens, t_list *lst_execution);
+void	print_matrix(char **matrix);
 
 #endif

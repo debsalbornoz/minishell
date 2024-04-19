@@ -30,7 +30,7 @@ t_list	*tokenization(t_list *lst_tokens, char *input)
 		if (signal)
 			signal = '\0';
 		if (len >= 0 && i + len <= input_len)
-				i += len;
+			i += len;
 		else
 			break ;
 		if (i + 1 <= input_len)

@@ -37,7 +37,7 @@ int	output_error(t_list	*lst_tokens)
 					flag = 1;
 			}
 		}
-			lst_tokens->node = lst_tokens->node->next;
+		lst_tokens->node = lst_tokens->node->next;
 	}
 	lst_tokens->node = lst_tokens->head;
 	return (flag);
@@ -62,7 +62,7 @@ int	input_error(t_list	*lst_tokens)
 					flag = 1;
 			}
 		}
-			lst_tokens->node = lst_tokens->node->next;
+		lst_tokens->node = lst_tokens->node->next;
 	}
 	lst_tokens->node = lst_tokens->head;
 	return (flag);
@@ -87,7 +87,7 @@ int	append_error(t_list	*lst_tokens)
 					flag = 1;
 			}
 		}
-			lst_tokens->node = lst_tokens->node->next;
+		lst_tokens->node = lst_tokens->node->next;
 	}
 	lst_tokens->node = lst_tokens->head;
 	return (flag);
@@ -112,7 +112,7 @@ int	heredoc_error(t_list	*lst_tokens)
 					flag = 1;
 			}
 		}
-			lst_tokens->node = lst_tokens->node->next;
+		lst_tokens->node = lst_tokens->node->next;
 	}
 	lst_tokens->node = lst_tokens->head;
 	return (flag);

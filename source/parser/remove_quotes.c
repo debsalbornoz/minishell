@@ -86,18 +86,19 @@ int	find_new_len(const char *value, int len, int i, int counter)
 	{
 		if (is_quote(value[i]))
 		{
-		signal = value[i];
-		inside_quotes = 1;
-		i++;
+			signal = value[i];
+			inside_quotes = 1;
+			i++;
 		}
-	counter += count_characters_inside_quotes(value, &i, signal, inside_quotes);
+		counter += count_characters_inside_quotes(value, &i,
+				signal, inside_quotes);
 		if (value[i] == signal)
 		{
-		signal = '\0';
-		inside_quotes = 0;
+			signal = '\0';
+			inside_quotes = 0;
 		}
-	counter += count_characters_outside_quotes(value, &i, inside_quotes);
-	i++;
+		counter += count_characters_outside_quotes(value, &i, inside_quotes);
+		i++;
 	}
 	return (counter);
 }

@@ -16,15 +16,15 @@ char	**env_list_to_str_array(t_list *lst_env)
 {
 	char	**envp;
 	int		i;
-    int nodes;
+	int		nodes;
 
 	if (!lst_env)
 		return (NULL);
 	i = 0;
 	lst_env->node = lst_env->head;
 	nodes = count_nodes(lst_env);
-    lst_env->node = lst_env->head;
-    envp = ft_calloc(nodes + 1, sizeof(char *));
+	lst_env->node = lst_env->head;
+	envp = ft_calloc(nodes + 1, sizeof(char *));
 	if (!envp)
 		return (NULL);
 	while (lst_env->node)
@@ -66,4 +66,3 @@ char	*concatenate(char *s1, char *s2)
 	temp[i] = '\0';
 	return (temp);
 }
-
