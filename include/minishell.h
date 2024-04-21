@@ -119,12 +119,6 @@ struct s_exec
 t_list	**data_env_addr(void);
 void	init_data_env_addr(char **envp);
 
-//signals.c
-
-void	handle_sigint(int signal);
-void	handle_signal(t_list *lst_env);
-void	set_error(t_list *lst_env);
-
 // env_list.c
 t_list	*make_lst_env(char **envp, t_list *lst_env);
 t_list	*make_lst_env(char **envp, t_list *lst_env);
@@ -164,9 +158,8 @@ void	free_lst_exec(t_list *lst_exec);
 
 //signals.c
 void	handle_sigint(int signal);
-void	handle_signal(void);
-void	handle_signal(void);
 void	set_error(t_list *lst_env);
+void	handle_signal(void);
 
 
 /* --- source/lexer/ --- */
