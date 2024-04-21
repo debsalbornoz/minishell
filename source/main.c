@@ -18,11 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*lst_env;
 
 	(void)argc;
-	(void)argc;
 	(void)argv;
-	lst_env = data_env_addr();
-	lst_env = make_lst_env(envp, lst_env);
-	handle_signal();
 	lst_env = data_env_addr();
 	lst_env = make_lst_env(envp, lst_env);
 	handle_signal();
