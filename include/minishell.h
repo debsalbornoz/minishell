@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/22 13:16:24 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/22 13:51:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	free_list(t_list *list, void (f)(t_list *));
 void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *env_list);
 void	free_lst_exec(t_list *lst_exec);
-void	free_matrix(char **matrix);
+void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input);
 
 //init_env_addr.c
 
@@ -317,5 +317,7 @@ int		validate_path(t_list *lst_exec, char *path);
 char	*create_path(char *path, t_list *lst_token);
 char	*concatenate_path(char *s1, char *s2);
 char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
+
+void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input);
 
 #endif

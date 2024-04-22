@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 19:11:04 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/06 14:33:05 by dlamark-         ###   ########.fr       */
-/*   Updated: 2024/03/29 17:28:32 by dlamark-         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/04/22 13:38:37 by codespace        ###   ########.fr       */
 /*                                                                            */
+/* ************************************************************************** */
+
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
@@ -33,6 +33,9 @@ int	is_closed(char *input)
 		i++;
 	}
 	if (signal)
+	{
+		printf("Fatal error: unclosed quotes\n");
 		return (0);
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/22 13:17:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/22 13:54:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,17 @@ int	program(t_list *lst_env)
 		printf("\n");
 		return (FALSE);
 	}
-	input = expand(lst_env, input);
 	if (!*input)
 		return (TRUE);
 	input = expand(lst_env, input);
-	if (!*input)
-		return (TRUE);
 	lst_tokens.node = 0;
 	if (!is_closed(input))
-	{
-		printf("Fatal error: unclosed quotes\n");
 		return (FALSE);
-	}
 	lst_tokens = *lexical_analysis(input, &lst_tokens);
 	if (!parsing(&lst_tokens, lst_env, input))
 		return (TRUE);
 	exec_list = *create_execution_list(&lst_tokens, &exec_list, lst_env);
-	lst_tokens.node = lst_tokens.head;
-	free_list(&lst_tokens, free_lst_tokens);
-	free_list(&exec_list, free_lst_exec);
-	free(input);
+	release_memory(&lst_tokens, &exec_list, input);
 	return (TRUE);
 }
+
