@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   save_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/06 17:16:04 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:30:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
 
 int	validate_path(t_list *lst_exec, char *path)
 {
+	if (*(lst_exec->node->data->execution->command_table[0]) == '\0')
+		return (0);
 	if (access(path, X_OK) == 0)
 	{
 		if (lst_exec)
