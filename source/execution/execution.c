@@ -33,3 +33,21 @@ t_list	*create_execution_list(t_list *lst_tokens, t_list *lst_exec,
 	}
 	return (lst_exec);
 }
+
+int	execute_simple_command(t_list *lst_exec)
+{
+	pid_t	pid;
+	int	status;
+
+	(void)lst_exec;
+
+	pid = fork();
+
+	if (pid == -1)
+		return -1;
+	else if (pid == 0)
+		execve(lst_exec->node->data->execution->path, lst_exec->node->data->execution->command_table, lst_exec->node->data->execution->envp);
+	else
+		wait(&status);
+	return status;
+}

@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../library/libft/include/libft.h"
+# include <sys/wait.h>
 
 enum	e_type_signal
 {
@@ -307,9 +308,7 @@ int		is_simple_command(t_list *lst_tokens);
 
 t_list	*create_execution_list(t_list *lst_tokens,
 			t_list *lst_execution, t_list *envp);
-char	**create_command_table(t_list *lst_tokens, t_list *lst_execution);
-void	print_matrix(char **matrix);
-
+int	execute_simple_command(t_list *lst_exec);
 //save_path.c
 
 int		validate_path(t_list *lst_exec, char *path);

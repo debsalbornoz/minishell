@@ -36,6 +36,7 @@ int	program(t_list *lst_env)
 	if (!parsing(&lst_tokens, lst_env, input))
 		return (TRUE);
 	exec_list = *create_execution_list(&lst_tokens, &exec_list, lst_env);
+	execute_simple_command(&exec_list);
 	release_memory(&lst_tokens, &exec_list, input);
 	return (TRUE);
 }
