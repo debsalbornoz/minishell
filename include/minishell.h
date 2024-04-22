@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
+/*   Updated: 2024/04/22 13:16:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +115,10 @@ struct s_exec
 
 /* --- source/main --- */
 
-//init_env_addr.c
-
-//t_list	**data_env_addr(void);
-//void	init_data_env_addr(char **envp);
-
 // env_list.c
 t_list	*make_lst_env(char **envp, t_list *lst_env);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
-t_node	*print_lst_env(t_node *node);
 
 // expand_part1.c
 char	*expand(t_list *lst_env, char *input);
@@ -142,51 +137,58 @@ char	*process_doble_quote(t_list *lst_env, t_exp *exp);
 char	*var_expand(t_exp *cur, t_env *var);
 char	*var_is_null(char *value, char sig);
 
-// program.c
-int		program(t_list *lst_env);
-
-// linked_list.c
-t_list	*add_node(t_list *list);
-t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
-
-// free_list.c
+// free.c
 void	free_list(t_list *list, void (f)(t_list *));
 void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *env_list);
 void	free_lst_exec(t_list *lst_exec);
+void	free_matrix(char **matrix);
+
+//init_env_addr.c
+
+t_list	*data_env_addr(void);
+
+// linked_list.c
+t_list	*add_node(t_list *list);
+t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
+int		count_nodes(t_list *lst);
 
 //signals.c
 void	handle_sigint(int signal);
 void	set_error(t_list *lst_env);
 void	handle_signal(void);
 
+// program.c
+int		program(t_list *lst_env);
 
 /* --- source/lexer/ --- */
+
+// form_word.c
+int		form_word(t_list *lst_tokens, int signal, char *input, int i);
+int		find_len(char *input, int signal);
+
+//lexycal_analysis.c
+
+t_list	*lexical_analysis(char *input, t_list *lst_tokens);
+int		check_input(char *input);
+
+// quotes.c
+int		single_quotes_closed(char *input);
+int		double_quotes_closed(char *input);
+int		is_closed(char *input);
+
+// redirect.c
+t_list	*process_redirect(t_list *lst_tokens, char *input, int i);
+t_list	*process_redirect_input(t_list *lst_tokens, char *input, int i);
+t_list	*process_redirect_output(t_list *lst_tokens, char *input, int i);
+
 // tokenization.c
 t_list	*tokenization(t_list *lst_tokens, char *input);
 char	*trim_start_spaces(char *input);
 char	process_quotes(char signal, char input);
 int		process_delimiter(t_list *lst_tokens, int signal, char *input, int i);
 
-//lexycal_analysis.c
-
-t_list	*lexical_analysis(char *input, t_list *lst_tokens);
-int		check_input(char *input);
-// redirect.c
-t_list	*process_redirect(t_list *lst_tokens, char *input, int i);
-t_list	*process_redirect_input(t_list *lst_tokens, char *input, int i);
-t_list	*process_redirect_output(t_list *lst_tokens, char *input, int i);
-
-// forme_word.c
-int		form_word(t_list *lst_tokens, int signal, char *input, int i);
-int		find_len(char *input, int signal);
-
-// type assignment.C
-t_list	*type_assignment(t_list *lst_tokens);
-
-// commands.c
-t_node	*is_command_part1(t_node *head);
-t_node	*is_command_part2(t_node *node);
+/* --- source/lexer/type --- */
 
 // arguments.c
 t_node	*is_argument(t_node *node);
@@ -196,20 +198,19 @@ int		ft_strlcmp(char *s1, char *s2, int len);
 int		compare_quoted_strings(char *s1, char *s2);
 t_node	*is_builtin(t_node *node);
 
+// commands.c
+t_node	*is_command_part1(t_node *head);
+t_node	*is_command_part2(t_node *node);
+
 // files.c
 t_node	*is_file(t_node *node);
 t_node	*is_heredoc_key(t_node *node);
 
-// quotes.c
-int		single_quotes_closed(char *input);
-int		double_quotes_closed(char *input);
-int		is_closed(char *input);
+// type assignment.C
+t_list	*type_assignment(t_list *lst_tokens);
+
 
 /* --- source/utils/ --- */
-// utils_quote.c
-int		is_quote(char chr);
-int		is_single_quote(char chr);
-int		is_double_quote(char chr);
 
 // utils_delimiter.c
 int		is_delimiter(char chr);
@@ -217,6 +218,19 @@ int		is_space(char chr);
 int		is_pipe(char chr);
 int		s_dollar(char chr);
 int		is_redirect_or_pipe(int type);
+
+//utils_env_list.c
+void	update_env_list(t_list *lst_env, char *name, char *value);
+
+// utils_ft.c
+int		ft_strcmp(char	*str1, char *str2);
+char	*ft_chrjoin(char *dest, char src);
+char	*ft_rmchr(char *input, char *position);
+
+// utils_quote.c
+int		is_quote(char chr);
+int		is_single_quote(char chr);
+int		is_double_quote(char chr);
 
 // utils_redirect.c
 int		is_redirect(char chr);
@@ -228,16 +242,11 @@ int		is_append(char chr, char next_chr);
 // utils_tokens.c
 t_node	*print_lst_tokens(t_node *node);
 
-//env_list_utils.c
-void	update_env_list(t_list *lst_env, char *name, char *value);
-t_list	*data_env_addr(void);
-
-// utils_ft.c
-int		ft_strcmp(char	*str1, char *str2);
-char	*ft_chrjoin(char *dest, char src);
-char	*ft_rmchr(char *input, char *position);
-
 /* --- parser --- */
+
+//parser.c
+
+int		parsing(t_list *lst_tokens, t_list	*lst_env, char *input);
 
 //pipe_error.c
 
@@ -253,16 +262,6 @@ int		input_error(t_list	*lst_tokens);
 int		append_error(t_list	*lst_tokens);
 int		heredoc_error(t_list	*lst_tokens);
 
-//syntax_error.c
-int		syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input);
-int		redirect_error(t_list	*lst_tokens);
-int		pipe_error(t_list	*lst_tokens);
-int		dot_error(t_list	*lst_tokens);
-
-//parser.c
-
-int		parsing(t_list *lst_tokens, t_list	*lst_env, char *input);
-
 //remove_quotes.c
 
 t_node	*new_str(t_node *node);
@@ -274,37 +273,49 @@ int		count_characters_outside_quotes(const char *value, int *i,
 			int inside_quotes);
 int		find_new_len(const char *value, int len, int i, int counter);
 
-//path.c
+//split_path.c
 
 char	**split_path(t_list *lst_env);
 int		count_paths(const char *value);
 char	*return_value(t_list *lst_env, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
-void	free_path(char **path);
 
-//list_to_matrix.c
+//syntax_error.c
+int		syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input);
+int		redirect_error(t_list	*lst_tokens);
+int		pipe_error(t_list	*lst_tokens);
+int		dot_error(t_list	*lst_tokens);
+
+/* --- execution --- */
+
+//command_table.c
+
+char	**create_command_table(t_list *lst_tokens, t_list *lst_execution);
+
+//env_list_to_str_array.c
 
 char	**env_list_to_str_array(t_list *lst_env);
 int		count_nodes(t_list *lst_env);
 char	*concatenate(char *s1, char *s2);
 void	free_matrix(char **envp);
 
-//validate_path.c
+//execute_simple_command.c
+
+int		is_simple_command(t_list *lst_tokens);
+
+//execution.c
+
+t_list	*create_execution_list(t_list *lst_tokens,
+			t_list *lst_execution, t_list *envp);
+char	**create_command_table(t_list *lst_tokens, t_list *lst_execution);
+void	print_matrix(char **matrix);
+
+//save_path.c
 
 int		validate_path(t_list *lst_exec, char *path);
 char	*create_path(char *path, t_list *lst_token);
 char	*concatenate_path(char *s1, char *s2);
 char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
-
-/* --- execution --- */
-
-//execute_simple_command.c
-
-int		is_simple_command(t_list *lst_tokens);
-t_list	*create_execution_list(t_list *lst_tokens,
-			t_list *lst_execution, t_list *envp);
-char	**create_command_table(t_list *lst_tokens, t_list *lst_execution);
-void	print_matrix(char **matrix);
 
 #endif

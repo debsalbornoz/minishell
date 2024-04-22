@@ -72,8 +72,3 @@ char	*find_value(char *envp)
 	return (temp);
 }
 
-t_node	*print_lst_env(t_node *node)
-{
-	printf("%s = %s\n", node->data->env->name, node->data->env->value);
-	return (node);
-}

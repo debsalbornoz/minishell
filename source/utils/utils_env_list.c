@@ -41,13 +41,6 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 	}
 }
 
-t_list	*data_env_addr(void)
-{
-	static t_list	lst_env;
-
-	lst_env.node = 0;
-	return (&lst_env);
-}
 
 /*void	init_data_env_addr(char **envp)
 {
