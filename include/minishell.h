@@ -116,11 +116,10 @@ struct s_exec
 
 //init_env_addr.c
 
-t_list	**data_env_addr(void);
-void	init_data_env_addr(char **envp);
+//t_list	**data_env_addr(void);
+//void	init_data_env_addr(char **envp);
 
 // env_list.c
-t_list	*make_lst_env(char **envp, t_list *lst_env);
 t_list	*make_lst_env(char **envp, t_list *lst_env);
 char	*find_name(char *envp);
 char	*find_value(char *envp);
@@ -231,7 +230,6 @@ t_node	*print_lst_tokens(t_node *node);
 
 //env_list_utils.c
 void	update_env_list(t_list *lst_env, char *name, char *value);
-t_list	*data_env_addr(void);
 t_list	*data_env_addr(void);
 
 // utils_ft.c

@@ -66,7 +66,7 @@ char	*return_value(t_list *lst_env, char *name)
 	while (lst_env->node)
 	{
 		if (!ft_strncmp(lst_env->node->data->env->name, name,
-				ft_strlen(lst_env->node->data->env->name)))
+				ft_strlen(lst_env->node->data->env->name) - 1))
 			temp = ft_strdup(lst_env->node->data->env->value);
 		lst_env->node = lst_env->node->next;
 	}
