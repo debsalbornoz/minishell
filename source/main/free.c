@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:28:36 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/22 13:54:04 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/22 14:51:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	free_lst_tokens(t_list *lst_tokens)
 
 void	free_lst_env(t_list *lst_env)
 {
-	//lst_env->node = lst_env->head;
 	free(lst_env->node->data->env->name);
 	free(lst_env->node->data->env->value);
 	free(lst_env->node->data->env);
@@ -55,6 +54,7 @@ void	free_lst_exec(t_list *lst_exec)
 	free(lst_exec->node->data);
 	free(lst_exec->node);
 }
+
 void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input)
 {
 	free_list(lst_tokens, free_lst_tokens);

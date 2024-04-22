@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/03/25 21:00:03 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:48:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 		lst_env->node->data->env->value = ft_strdup(value);
 	}
 }
-
 
 /*void	init_data_env_addr(char **envp)
 {

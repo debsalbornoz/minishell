@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/22 14:30:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/22 14:48:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,6 @@ t_node	*is_heredoc_key(t_node *node);
 
 // type assignment.C
 t_list	*type_assignment(t_list *lst_tokens);
-
 
 /* --- source/utils/ --- */
 

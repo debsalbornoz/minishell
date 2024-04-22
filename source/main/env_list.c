@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:21:12 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/22 13:24:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/22 14:52:19 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,3 @@ char	*find_value(char *envp)
 	}
 	return (temp);
 }
-

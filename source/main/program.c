@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/22 13:54:41 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/22 14:51:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ int	program(t_list *lst_env)
 	release_memory(&lst_tokens, &exec_list, input);
 	return (TRUE);
 }
-
