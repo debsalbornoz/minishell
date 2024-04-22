@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   split_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:16:13 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/10 20:20:04 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/22 13:25:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*return_value(t_list *lst_env, char *name)
 	while (lst_env->node)
 	{
 		if (!ft_strncmp(lst_env->node->data->env->name, name,
-				ft_strlen(lst_env->node->data->env->name) - 1))
+				ft_strlen(lst_env->node->data->env->name)))
 			temp = ft_strdup(lst_env->node->data->env->value);
 		lst_env->node = lst_env->node->next;
 	}

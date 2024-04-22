@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:21:12 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/09 19:29:46 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/22 13:24:48 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ char	*find_name(char *envp)
 	if (envp)
 	{
 		while (envp[i] != '=' && envp[i] != '\0')
-			i++;
-		temp = ft_calloc((i + 1), sizeof(char));
 			i++;
 		temp = ft_calloc((i + 1), sizeof(char));
 		ft_strlcpy(temp, envp, i + 1);
