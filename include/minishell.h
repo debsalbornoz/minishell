@@ -303,7 +303,7 @@ void	free_matrix(char **envp);
 //execute_simple_command.c
 
 int		is_simple_command(t_list *lst_tokens);
-
+int		execute_simple_command(t_list *lst_exec);
 //execution.c
 
 t_list	*create_execution_list(t_list *lst_tokens,
@@ -317,5 +317,7 @@ char	*concatenate_path(char *s1, char *s2);
 char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
 
 void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input);
+
+int		find_builtin(t_list *lst_tokens);
 
 #endif

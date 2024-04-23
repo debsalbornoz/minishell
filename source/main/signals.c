@@ -36,3 +36,4 @@ void	set_error(t_list *lst_env)
 	if (lst_env)
 		update_env_list(lst_env, "?", "130");
 }
+

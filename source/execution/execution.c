@@ -15,7 +15,7 @@
 t_list	*create_execution_list(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env)
 {
-	if (is_simple_command(lst_tokens))
+	if (is_simple_command(lst_tokens) && !find_builtin(lst_tokens))
 	{
 		lst_exec = add_node(lst_exec);
 		lst_exec->node->data = ft_calloc(1, sizeof(union u_data));
@@ -30,24 +30,19 @@ t_list	*create_execution_list(t_list *lst_tokens, t_list *lst_exec,
 		lst_exec->node->data->execution
 			->path = save_path(lst_exec, lst_tokens, lst_env);
 		lst_exec->node = lst_exec->head;
+		execute_simple_command(lst_exec);
 	}
 	return (lst_exec);
 }
 
-int	execute_simple_command(t_list *lst_exec)
+int	find_builtin(t_list *lst_tokens)
 {
-	pid_t	pid;
-	int	status;
-
-	(void)lst_exec;
-
-	pid = fork();
-
-	if (pid == -1)
-		return -1;
-	else if (pid == 0)
-		execve(lst_exec->node->data->execution->path, lst_exec->node->data->execution->command_table, lst_exec->node->data->execution->envp);
-	else
-		wait(&status);
-	return status;
+	lst_tokens->node = lst_tokens->head;
+	while(lst_tokens->node)
+	{
+		if(lst_tokens->node->data->token->type == BUILTIN)
+			return (1);
+		lst_tokens->node = lst_tokens->node->next;
+	}
+	return (0);
 }

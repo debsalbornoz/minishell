@@ -25,36 +25,20 @@ int	is_simple_command(t_list *lst_tokens)
 	return (1);
 }
 
-char	**duplicate_matrix(char **matrix)
+int	execute_simple_command(t_list *lst_exec)
 {
-	int		i;
-	char	**temp;
-	int		len;
+	pid_t	pid;
+	int	status;
 
-	i = 0;
-	len = 0;
-	while (matrix[i] != NULL)
-		i++;
-	temp = ft_calloc((i + 1), sizeof(char *));
-	i = 0;
-	while (matrix[i] != NULL)
-	{
-		len = ft_strlen(matrix[i]);
-		temp[i] = ft_calloc(len + 1, sizeof(char ));
-		ft_strlcpy(temp[i], matrix[i], ft_strlen(matrix[i]));
-		i++;
-	}
-	return (temp);
-}
+	(void)lst_exec;
 
-void	print_matrix(char **matrix)
-{
-	int	i;
+	pid = fork();
 
-	i = 0;
-	while (matrix[i] != NULL)
-	{
-		printf("%s\n", matrix[i]);
-		i++;
-	}
+	if (pid == -1)
+		return -1;
+	else if (pid == 0)
+		execve(lst_exec->node->data->execution->path, lst_exec->node->data->execution->command_table, lst_exec->node->data->execution->envp);
+	else
+		wait(&status);
+	return status;
 }
