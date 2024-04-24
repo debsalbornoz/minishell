@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:03:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/29 17:39:22 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/04/24 15:00:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,6 @@ static void	aux_print_tokens_argument(int type)
 		printf("type: heredoc_key,	value: ");
 	else if (type == ERROR)
 		printf("type: error,	value: ");
+	else if (type == PATH)
+		printf("type: path,	value: ");
 }

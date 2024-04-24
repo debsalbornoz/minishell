@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/22 14:48:14 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/24 14:15:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ enum	e_type_type
 	APPEND_FILE = 2213,
 	FLAG		= 2220,
 	HEREDOC_KEY	= 2230,
-	ERROR		= 9999
+	PATH		= 3000,
+	ERROR		= 9999,
 };
 
 typedef struct s_list	t_list;
@@ -319,5 +320,6 @@ char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
 void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input);
 
 int		find_builtin(t_list *lst_tokens);
+t_node *is_path(t_node *node);
 
 #endif
