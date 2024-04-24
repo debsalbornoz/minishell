@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/22 14:30:41 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/24 16:38:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*create_path(char *path, t_list *lst_token)
 	lst_token->node = lst_token->head;
 	while (lst_token->node)
 	{
+		if (lst_token->node->data->token->type == PATH)
+			temp = ft_strdup(lst_token->node->data->token->value);
 		if (lst_token->node->data->token->type == COMMAND)
 		{
 			temp = concatenate_path(path, lst_token->node->data->token->value);
