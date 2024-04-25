@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/24 14:15:33 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 16:49:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,7 +307,7 @@ int		is_simple_command(t_list *lst_tokens);
 int		execute_simple_command(t_list *lst_exec);
 //execution.c
 
-t_list	*create_execution_list(t_list *lst_tokens,
+t_list	*execution(t_list *lst_tokens,
 			t_list *lst_execution, t_list *envp);
 int	execute_simple_command(t_list *lst_exec);
 //save_path.c
@@ -321,5 +321,9 @@ void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input);
 
 int		find_builtin(t_list *lst_tokens);
 t_node *is_path(t_node *node);
+t_list *prepare_for_execution(t_list *lst_tokens, t_list *lst_exec,
+	t_list *lst_env);
+
+int redirect_at_end(t_list *lst_tokens);
 
 #endif

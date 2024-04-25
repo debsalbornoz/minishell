@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:56:46 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/09 19:27:22 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:00:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,16 @@ int	heredoc_error(t_list	*lst_tokens)
 	}
 	lst_tokens->node = lst_tokens->head;
 	return (flag);
+}
+int redirect_at_end(t_list *lst_tokens)
+{
+	lst_tokens->node = lst_tokens->head;
+
+	while (lst_tokens->node)
+	{
+		if (lst_tokens->node->next == NULL && find_redirect(lst_tokens->node->data->token->type))
+			return (1);
+		lst_tokens->node = lst_tokens->node->next;
+	}
+	return (0);
 }

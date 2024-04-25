@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:57:17 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/06 14:46:06 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:49:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input)
 int	redirect_error(t_list	*lst_tokens)
 {
 	if (output_error(lst_tokens) || input_error(lst_tokens)
-		|| append_error(lst_tokens) || heredoc_error(lst_tokens))
+		|| append_error(lst_tokens) || heredoc_error(lst_tokens) || redirect_at_end(lst_tokens))
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/24 16:44:30 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 14:09:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	program(t_list *lst_env)
 	lst_tokens = *lexical_analysis(input, &lst_tokens);
 	if (!parsing(&lst_tokens, lst_env, input))
 		return (TRUE);
-	exec_list = *create_execution_list(&lst_tokens, &exec_list, lst_env);
+	exec_list = *execution(&lst_tokens, &exec_list, lst_env);
 	release_memory(&lst_tokens, &exec_list, input);
 	return (TRUE);
 }
