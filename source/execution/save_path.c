@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/24 16:38:09 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/25 12:00:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	validate_path(t_list *lst_exec, char *path)
 {
 	if (*(lst_exec->node->data->execution->command_table[0]) == '\0')
 		return (0);
-	if (access(path, X_OK) == 0)
+	if (access(path, X_OK) == 0 && access(path, F_OK) == 0)
 	{
 		if (lst_exec)
 		{
