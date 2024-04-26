@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/25 16:49:26 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/26 17:39:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include "../library/libft/include/libft.h"
 # include <sys/wait.h>
+# include <fcntl.h>
 
 enum	e_type_signal
 {
@@ -254,7 +255,7 @@ int		parsing(t_list *lst_tokens, t_list	*lst_env, char *input);
 int		check_first_pipe(t_list	*lst_tokens);
 int		check_last_pipe(t_list	*lst_tokens);
 int		check_redirect_after_pipe(t_list	*lst_tokens);
-
+int	check_pipe_after_redirect(t_list	*lst_tokens);
 //redirect_error.c
 
 int		find_redirect(int type);
@@ -262,6 +263,7 @@ int		output_error(t_list	*lst_tokens);
 int		input_error(t_list	*lst_tokens);
 int		append_error(t_list	*lst_tokens);
 int		heredoc_error(t_list	*lst_tokens);
+int redirect_at_end(t_list *lst_tokens);
 
 //remove_quotes.c
 
@@ -324,6 +326,15 @@ t_node *is_path(t_node *node);
 t_list *prepare_for_execution(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env);
 
-int redirect_at_end(t_list *lst_tokens);
+//handle_output_redirect.c
 
+int count_outputs(t_list *lst_tokens);
+t_list *handle_single_output(t_list *lst_exec, t_list *lst_tokens);
+int has_command(t_list *lst_tokens);
+int has_pipe(t_list *lst_tokens);
+
+//handle_redirect.c
+
+int return_flag(t_node *node);
+int open_file(t_list *lst_tokens);
 #endif

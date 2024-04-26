@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:56:20 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/09 19:27:08 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:26:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_last_pipe(t_list	*lst_tokens)
 	return (flag);
 }
 
-int	check_redirect_after_pipe(t_list	*lst_tokens)
+int	check_pipe_after_redirect(t_list	*lst_tokens)
 {
 	int	flag;
 
@@ -59,10 +59,10 @@ int	check_redirect_after_pipe(t_list	*lst_tokens)
 		return (0);
 	while (lst_tokens->node)
 	{
-		if (lst_tokens->node->data->token->type == PIPE)
+		if (find_redirect(lst_tokens->node->data->token->type))
 		{
 			if (lst_tokens->node->next
-				&& find_redirect(lst_tokens->node->next->data->token->type))
+				&& lst_tokens->node->next->data->token->type == PIPE)
 				flag = 1;
 		}
 		lst_tokens->node = lst_tokens->node->next;
