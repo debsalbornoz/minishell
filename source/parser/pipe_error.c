@@ -15,58 +15,61 @@
 int	check_first_pipe(t_list	*lst_tokens)
 {
 	int	flag;
+	t_node	*aux;
 
 	flag = 0;
 	if (!lst_tokens)
 		return (0);
+	aux = lst_tokens->head;
 	if (lst_tokens->head->data->token->type == PIPE)
 		flag = 1;
-	while (lst_tokens->node)
+	while (aux)
 	{
-		if (lst_tokens->node->next == NULL
-			&& lst_tokens->node->data->token->type == PIPE)
+		if (aux->next == NULL
+			&& aux->data->token->type == PIPE)
 			flag = 1;
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
-	lst_tokens->node = lst_tokens->head;
 	return (flag);
 }
 
 int	check_last_pipe(t_list	*lst_tokens)
 {
 	int	flag;
+	t_node	*aux;
 
 	flag = 0;
 	if (!lst_tokens)
 		return (0);
-	while (lst_tokens->node)
+	aux = lst_tokens->head;
+	while (aux)
 	{
-		if (lst_tokens->node->next == NULL
-			&& lst_tokens->node->data->token->type == PIPE)
+		if (aux->next == NULL
+			&& aux->data->token->type == PIPE)
 			flag = 1;
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
-	lst_tokens->node = lst_tokens->head;
 	return (flag);
 }
 
 int	check_pipe_after_redirect(t_list	*lst_tokens)
 {
 	int	flag;
+	t_node	*aux;
 
 	flag = 0;
 	if (!lst_tokens)
 		return (0);
-	while (lst_tokens->node)
+	aux = lst_tokens->head;
+	while (aux)
 	{
-		if (find_redirect(lst_tokens->node->data->token->type))
+		if (find_redirect(aux->data->token->type))
 		{
-			if (lst_tokens->node->next
-				&& lst_tokens->node->next->data->token->type == PIPE)
+			if (aux->next
+				&& aux->next->data->token->type == PIPE)
 				flag = 1;
 		}
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
-	lst_tokens->node = lst_tokens->head;
 	return (flag);
 }

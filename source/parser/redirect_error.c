@@ -21,111 +21,114 @@ int	find_redirect(int type)
 int	output_error(t_list	*lst_tokens)
 {
 	int	flag;
+	t_node *aux;
 
 	flag = 0;
 	if (!lst_tokens)
 		return (0);
 	if (lst_tokens)
-		lst_tokens->node = lst_tokens->head;
-	while (lst_tokens->node)
+		aux = lst_tokens->head;
+	while (aux)
 	{
-		if (lst_tokens->node->data->token->type == OUTPUT)
+		if (aux->data->token->type == OUTPUT)
 		{
-			if (lst_tokens->node->next)
+			if (aux->next)
 			{
-				if (find_redirect(lst_tokens->node->next->data->token->type))
+				if (find_redirect(aux->next->data->token->type))
 					flag = 1;
 			}
 		}
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
-	lst_tokens->node = lst_tokens->head;
+	aux = lst_tokens->head;
 	return (flag);
 }
 
 int	input_error(t_list	*lst_tokens)
 {
 	int	flag;
+	t_node	*aux;
 
 	flag = 0;
 	if (!lst_tokens)
 		return (0);
 	if (lst_tokens)
-		lst_tokens->node = lst_tokens->head;
-	while (lst_tokens->node)
+		aux = lst_tokens->head;
+	while (aux)
 	{
-		if (lst_tokens->node->data->token->type == INPUT)
+		if (aux->data->token->type == INPUT)
 		{
-			if (lst_tokens->node->next)
+			if (aux->next)
 			{
-				if (find_redirect(lst_tokens->node->next->data->token->type))
+				if (find_redirect(aux->next->data->token->type))
 					flag = 1;
 			}
 		}
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
-	lst_tokens->node = lst_tokens->head;
 	return (flag);
 }
 
 int	append_error(t_list	*lst_tokens)
 {
 	int	flag;
+	t_node *aux;
 
 	flag = 0;
 	if (!lst_tokens)
 		return (0);
 	if (lst_tokens)
-		lst_tokens->node = lst_tokens->head;
-	while (lst_tokens->node)
+		aux = lst_tokens->head;
+	while (aux)
 	{
-		if (lst_tokens->node->data->token->type == APPEND)
+		if (aux->data->token->type == APPEND)
 		{
-			if (lst_tokens->node->next)
+			if (aux->next)
 			{
-				if (find_redirect(lst_tokens->node->next->data->token->type))
+				if (find_redirect(aux->next->data->token->type))
 					flag = 1;
 			}
 		}
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
-	lst_tokens->node = lst_tokens->head;
 	return (flag);
 }
 
 int	heredoc_error(t_list	*lst_tokens)
 {
 	int	flag;
+	t_node *aux;
 
 	flag = 0;
 	if (lst_tokens)
 		return (0);
 	if (lst_tokens)
-		lst_tokens->node = lst_tokens->head;
-	while (lst_tokens->node)
+		aux = lst_tokens->head;
+	while (aux)
 	{
-		if (lst_tokens->node->data->token->type == HEREDOC)
+		if (aux->data->token->type == HEREDOC)
 		{
-			if (lst_tokens->node->next)
+			if (aux->next)
 			{
-				if (find_redirect(lst_tokens->node->next->data->token->type))
+				if (find_redirect(aux->next->data->token->type))
 					flag = 1;
 			}
 		}
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
-	lst_tokens->node = lst_tokens->head;
 	return (flag);
 }
 int redirect_at_end(t_list *lst_tokens)
 {
-	lst_tokens->node = lst_tokens->head;
+	t_node	*aux;
 
-	while (lst_tokens->node)
+	aux = lst_tokens->head;
+
+	while (aux)
 	{
-		if (lst_tokens->node->next == NULL && find_redirect(lst_tokens->node->data->token->type))
+		if (aux->next == NULL && find_redirect(aux->data->token->type))
 			return (1);
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
 	return (0);
 }

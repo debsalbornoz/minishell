@@ -12,33 +12,31 @@
 
 #include "../../include/minishell.h"
 
-int return_flag(t_node *node)
+int set_flag(t_node *node)
 {
 	int flag;
 
 	flag = 0;
 	if (node->data->token->type == OUTPUT)
 		flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
+	if (node->data->token->type == APPEND)
+		flag = flag | O_WRONLY | O_CREAT | O_APPEND;
+	if (node->data->token->type == HEREDOC || node->data->token->type == INPUT)
+		flag = flag | O_RDONLY;
 	return (flag);
 }
 
 int open_file(t_list *lst_tokens)
 {
 	int		fd;
-	int		flag;
+	t_node *aux;
 
-	lst_tokens->node = lst_tokens->head;
-	while(lst_tokens->node)
+	aux = lst_tokens->head;
+	while(aux)
 	{
-		if(lst_tokens->node->data->token->type == OUTPUT)
-		{
-			if (lst_tokens->node->next)
-			{
-				flag = return_flag(lst_tokens->node);
-				fd = open(lst_tokens->node->next->data->token->value, flag, 0644);
-			}
-		}
-		lst_tokens->node = lst_tokens->node->next;
+		if(find_redirect(aux->data->token->type))
+				fd = open(aux->next->data->token->value, set_flag(aux), 0644);
+		aux = aux->next;
 	}
 	return (fd);
 }
