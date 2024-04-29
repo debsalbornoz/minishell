@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/29 12:16:31 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/29 14:25:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,10 @@
 t_list	*execution(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env)
 {
-	if (is_simple_command(lst_tokens) && !find_builtin(lst_tokens))
-	{
-		lst_exec = prepare_for_execution(lst_tokens, lst_exec, lst_env);
-		if (lst_exec->node->data->execution
-			->path != NULL)
-			execute_simple_command(lst_exec);
-	}
-	handle_redirect(lst_tokens, lst_exec);
+	lst_tokens = handle_redirect(lst_tokens, lst_exec);
+	lst_exec = prepare_for_execution(lst_tokens, lst_exec, lst_env);
+	if (lst_exec->node->data->execution ->path != NULL)
+		execute_simple_command(lst_exec);
 	return (lst_exec);
 }
 

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:25:27 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/29 12:21:47 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/29 12:58:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@ int count_outputs(t_list *lst_tokens)
 	return (i);
 }
 
-t_list *handle_redirect(t_list *lst_tokens, t_list *lst_exec)
-{
-	(void)lst_exec;
-
-	if(find_redirect(lst_tokens->node->data->token->type))
-	{
-		open_file(lst_tokens);
-	}
-	return (lst_exec);
-}
 int has_command(t_list *lst_tokens)
 {
 	t_node	*aux;

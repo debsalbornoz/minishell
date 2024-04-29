@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/26 19:13:19 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/29 14:00:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,7 +336,8 @@ int has_pipe(t_list *lst_tokens);
 //handle_redirect.c
 
 int return_flag(t_node *node);
-int open_file(t_list *lst_tokens);
+t_list  *open_file(t_list *lst_tokens);
 int type_redirect(int type);
+t_list  *remove_redirect_and_next(t_list *lst_tokens);
 
 #endif

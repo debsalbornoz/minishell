@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/29 12:19:27 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/29 14:19:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_simple_command(t_list *lst_tokens)
 	t_node	*aux;
 
 	aux = lst_tokens->head;
-	while (aux)
+	while (aux != NULL)
 	{
 		if (is_redirect_or_pipe(aux->data->token->type))
 			return (0);
