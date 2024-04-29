@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/29 14:33:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/29 16:54:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	program(t_list *lst_env)
 	if (!parsing(&lst_tokens, lst_env, input))
 		return (TRUE);
 	exec_list = *execution(&lst_tokens, &exec_list, lst_env);
-	exec_list.node = exec_list.head;
 	release_memory(&lst_tokens, &exec_list, input);
 	return (TRUE);
 }

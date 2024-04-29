@@ -1,0 +1,13 @@
+/usr/bin/ls
+total 288
+-rw-rw-rw-  1 codespace root        3482 Apr 26 17:35 Makefile
+-rw-rw-rw-  1 codespace root          92 Apr 22 16:06 bloco_de_notas.txt
+drwxrwxrwx+ 3 codespace root        4096 Apr 22 16:06 doc
+drwxrwxrwx+ 2 codespace root        4096 Apr 22 16:08 include
+drwxrwxrwx+ 3 codespace root        4096 Apr 22 16:06 library
+-rwxrwxrwx  1 codespace codespace 251880 Apr 29 16:54 minishell
+drwxrwxrwx+ 7 codespace codespace   4096 Apr 29 16:26 objects
+drwxrwxrwx+ 7 codespace root        4096 Apr 22 16:08 source
+-rw-rw-rw-  1 codespace codespace     74 Apr 26 17:43 supression.supp
+-rw-r--r--  1 codespace codespace    657 Apr 29 16:50 teste
+-rw-r--r--  1 codespace codespace     12 Apr 29 16:54 teste1

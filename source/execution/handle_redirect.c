@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/29 14:13:16 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/29 16:36:04 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,24 @@ int set_flag(t_node *node)
 t_list  *open_file(t_list *lst_tokens)
 {
 	t_node 	*aux;
+	int		fd;
 
 	aux = lst_tokens->head;
+	fd = 0;
 	while (aux)
 	{
 		if(find_redirect(aux->data->token->type))
 		{
 			if (aux->next)
-				open(aux->next->data->token->value, set_flag(aux), 0644);
+			{
+				fd = open(aux->next->data->token->value, set_flag(aux), 0644);
+				if (fd == -1)
+					return (NULL);
+				if (aux->data->token->type == OUTPUT || APPEND)
+					fd = dup2(fd, 1);
+				if ((aux->data->token->type == INPUT || HEREDOC))
+					fd =dup2(fd, 0);
+			}
 		}
 		aux = aux->next;
 	}
