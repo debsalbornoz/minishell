@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/26 17:39:38 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/26 19:13:19 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,7 +329,7 @@ t_list *prepare_for_execution(t_list *lst_tokens, t_list *lst_exec,
 //handle_output_redirect.c
 
 int count_outputs(t_list *lst_tokens);
-t_list *handle_single_output(t_list *lst_exec, t_list *lst_tokens);
+t_list *handle_redirect(t_list *lst_exec, t_list *lst_tokens);
 int has_command(t_list *lst_tokens);
 int has_pipe(t_list *lst_tokens);
 
@@ -337,4 +337,6 @@ int has_pipe(t_list *lst_tokens);
 
 int return_flag(t_node *node);
 int open_file(t_list *lst_tokens);
+int type_redirect(int type);
+
 #endif

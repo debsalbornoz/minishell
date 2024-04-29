@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/26 17:48:55 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/29 12:16:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,20 @@ t_list	*execution(t_list *lst_tokens, t_list *lst_exec,
 			->path != NULL)
 			execute_simple_command(lst_exec);
 	}
-	handle_single_output(lst_tokens, lst_exec);
+	handle_redirect(lst_tokens, lst_exec);
 	return (lst_exec);
 }
 
 int	find_builtin(t_list *lst_tokens)
 {
-	lst_tokens->node = lst_tokens->head;
-	while(lst_tokens->node)
+	t_node	*aux;
+
+	aux = lst_tokens->head;
+	while(aux)
 	{
-		if(lst_tokens->node->data->token->type == BUILTIN)
+		if(aux->data->token->type == BUILTIN)
 			return (1);
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
 	return (0);
 }

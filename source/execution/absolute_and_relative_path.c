@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:16:14 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/24 14:04:04 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/29 12:17:30 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 t_list *is_path(t_list *lst_tokens)
 {
-	lst_tokens->node = lst_tokens->head;
+	t_node	*aux;
 
-	while (lst_tokens->node)
+	aux = lst_tokens->head;
+
+	while (aux)
 	{
-		if (lst_tokens->node->data->tokens->type == COMMAND)
+		if (aux->data->tokens->type == COMMAND)
 		{
-			if (!ft_strncmp(lst_tokens->node->data->tokens->value, "\\", 1) || !ft_strncmp(lst_tokens->node->data->tokens->value, ".\\", 2))
-				lst_tokens->node->data->tokens->type = PATH;
+			if (!ft_strncmp(aux->data->tokens->value, "\\", 1) || !ft_strncmp(aux->data->tokens->value, ".\\", 2))
+				aux->data->tokens->type = PATH;
 		}
-		if (lst_tokens->node->data->tokens->type == PIPE)
+		if (aux->data->tokens->type == PIPE)
 
-		lst_tokens->node = lst_tokens->node->next;
+		aux = aux->next;
 	}
 }

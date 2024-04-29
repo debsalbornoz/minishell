@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/25 12:00:52 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/29 12:23:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,22 @@ int	validate_path(t_list *lst_exec, char *path)
 char	*create_path(char *path, t_list *lst_token)
 {
 	char	*temp;
+	t_node	*aux;
 
 	temp = NULL;
 	if (!lst_token)
 		return (NULL);
-	lst_token->node = lst_token->head;
-	while (lst_token->node)
+	aux = lst_token->head;
+	while (aux)
 	{
-		if (lst_token->node->data->token->type == PATH)
-			temp = ft_strdup(lst_token->node->data->token->value);
-		if (lst_token->node->data->token->type == COMMAND)
+		if (aux->data->token->type == PATH)
+			temp = ft_strdup(aux->data->token->value);
+		if (aux->data->token->type == COMMAND)
 		{
-			temp = concatenate_path(path, lst_token->node->data->token->value);
+			temp = concatenate_path(path, aux->data->token->value);
 			return (temp);
 		}
-		lst_token->node = lst_token->node->next;
+		aux = aux->next;
 	}
 	return (temp);
 }
