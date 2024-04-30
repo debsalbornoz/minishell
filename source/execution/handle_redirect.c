@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/29 16:36:04 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/30 12:21:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,32 +63,37 @@ t_list *handle_redirect(t_list *lst_tokens, t_list *lst_exec)
 	return (lst_tokens);
 }
 
-t_list *remove_redirect_and_next(t_list *lst_tokens)
-{
-	t_node *current = lst_tokens->head;
-	t_node *next_node = NULL;
+t_list *remove_redirect_and_next(t_list *lst_tokens) {
+    t_node *current = lst_tokens->head;
+    t_node *next_node = NULL;
+    t_node *prev_node = NULL;
 
-	if (!lst_tokens || !lst_tokens->head)
-		return (NULL);
-	while (current && current->next)
-	{
-		if (find_redirect(current->data->token->type))
-		{
-			next_node = current->next;
-			if (next_node)
-			{
-				current->next = next_node->next;
-				free(next_node);
-			}
-			next_node = current->next;
-			free(current);
-			current = next_node;
-			current = lst_tokens->head;
-		}
-		else
-		current = current->next;
-	}
-	lst_tokens->node = lst_tokens->head;
-	return (lst_tokens);
+    if (!lst_tokens || !lst_tokens->head)
+        return lst_tokens;
+
+    while (current && current->next) {
+        if (find_redirect(current->data->token->type)) {
+            next_node = current->next;
+            if (prev_node) {
+                prev_node->next = next_node->next;
+                free(current);
+                free(next_node);
+                current = prev_node->next;
+            } else {
+                lst_tokens->head = next_node->next;
+                free(current);
+                free(next_node);
+                current = lst_tokens->head;
+            }
+        } else {
+            prev_node = current;
+            current = current->next;
+        }
+    }
+
+    lst_tokens->node = lst_tokens->head;
+    return lst_tokens;
 }
+
+
 
