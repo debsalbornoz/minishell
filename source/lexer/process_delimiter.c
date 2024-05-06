@@ -1,16 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   delimiter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/20 13:20:22 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/06 12:31:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	process_delimiter(t_list *lst_tokens, int signal, char *input, int i)
+{
+	int	delimiter;
+
+	delimiter = 0;
+	if (!signal && is_delimiter(input[i]))
+	{
+		delimiter = 1;
+		if (is_redirect(input[i]))
+		{
+			lst_tokens = process_redirect(lst_tokens, input, i);
+			if (is_append(input[i], input[i + 1])
+				|| is_heredoc(input[i], input[i + 1]))
+				return (2);
+		}
+		else if (is_pipe(input[i]))
+		{
+			lst_tokens = add_node(lst_tokens);
+			lst_tokens->node->data = ft_calloc(1, sizeof(union u_data));
+			lst_tokens->node->data->token = ft_calloc(1, sizeof(t_token));
+			lst_tokens->node->data->token->value = ft_strdup("|");
+			lst_tokens->node->data->token->type = PIPE;
+		}
+	}
+	return (delimiter);
+}
+
 
 t_list	*process_redirect(t_list *lst_tokens, char *input, int i)
 {

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/29 12:23:16 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/06 11:53:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
 	int		validate;
 
 	i = 0;
+	lst_env->node = lst_env->head;
 	if (!lst_exec || !lst_token || !lst_env)
 		return (NULL);
 	path_array = split_path(lst_env);

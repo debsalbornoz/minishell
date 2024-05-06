@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/29 17:01:17 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/05 22:37:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,17 @@
 t_list	*execution(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env)
 {
+	int	fd_in;
+	int	fd_out;
+
+	fd_in = dup(0);
+	fd_out = dup(1);
 	lst_tokens = handle_redirect(lst_tokens, lst_exec);
 	lst_exec = prepare_for_execution(lst_tokens, lst_exec, lst_env);
 	if (lst_exec->node->data->execution ->path != NULL)
 		execute_simple_command(lst_exec);
+	dup2(0, fd_in);
+	dup2(1, fd_out);
 	lst_exec->node = lst_exec->head;
 	return (lst_exec);
 }

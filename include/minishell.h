@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/29 14:00:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/06 14:46:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,42 @@ struct s_exec
 
 /* --- source/main --- */
 
-// env_list.c
-t_list	*make_lst_env(char **envp, t_list *lst_env);
-char	*find_name(char *envp);
-char	*find_value(char *envp);
+/* --- source/envp/ --- */
+
+//create_env_list.c
+t_list	*data_env_addr(void);
+t_list	*create_env_list(char **envp, t_list *env_lst);
+char	*get_envp_name(char *envp);
+char	*get_envp_value(char *envp);
+
+//update_env_list.c
+void	update_env_list(t_list *lst_env, char *name, char *value);
+
+/* --- source/lexer/ --- */
+
+//lexer.c
+t_list	*lexer(t_list *tokens, char *input);
+char	*trim_start_spaces(char *input);
+char	process_quotes(char signal, char input);
+
+// process_delimiter.c
+int		process_delimiter(t_list *lst_tokens, int signal, char *input, int i);
+t_list	*process_redirect(t_list *lst_tokens, char *input, int i);
+t_list	*process_redirect_input(t_list *lst_tokens, char *input, int i);
+t_list	*process_redirect_output(t_list *lst_tokens, char *input, int i);
+
+// process_word.c
+int		process_word(t_list *lst_tokens, int signal, char *input, int i);
+int		get_token_len(char *input, int signal);
+
+
+
+
+
+
+
+
+
 
 // expand_part1.c
 char	*expand(t_list *lst_env, char *input);
@@ -147,10 +179,6 @@ void	free_lst_env(t_list *env_list);
 void	free_lst_exec(t_list *lst_exec);
 void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input);
 
-//init_env_addr.c
-
-t_list	*data_env_addr(void);
-
 // linked_list.c
 t_list	*add_node(t_list *list);
 t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
@@ -164,11 +192,6 @@ void	handle_signal(void);
 // program.c
 int		program(t_list *lst_env);
 
-/* --- source/lexer/ --- */
-
-// form_word.c
-int		form_word(t_list *lst_tokens, int signal, char *input, int i);
-int		find_len(char *input, int signal);
 
 //lexycal_analysis.c
 
@@ -180,16 +203,7 @@ int		single_quotes_closed(char *input);
 int		double_quotes_closed(char *input);
 int		is_closed(char *input);
 
-// redirect.c
-t_list	*process_redirect(t_list *lst_tokens, char *input, int i);
-t_list	*process_redirect_input(t_list *lst_tokens, char *input, int i);
-t_list	*process_redirect_output(t_list *lst_tokens, char *input, int i);
 
-// tokenization.c
-t_list	*tokenization(t_list *lst_tokens, char *input);
-char	*trim_start_spaces(char *input);
-char	process_quotes(char signal, char input);
-int		process_delimiter(t_list *lst_tokens, int signal, char *input, int i);
 
 /* --- source/lexer/type --- */
 
@@ -221,8 +235,6 @@ int		is_pipe(char chr);
 int		s_dollar(char chr);
 int		is_redirect_or_pipe(int type);
 
-//utils_env_list.c
-void	update_env_list(t_list *lst_env, char *name, char *value);
 
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
@@ -328,16 +340,20 @@ t_list *prepare_for_execution(t_list *lst_tokens, t_list *lst_exec,
 
 //handle_output_redirect.c
 
-int count_outputs(t_list *lst_tokens);
+int 	count_outputs(t_list *lst_tokens);
 t_list *handle_redirect(t_list *lst_exec, t_list *lst_tokens);
-int has_command(t_list *lst_tokens);
-int has_pipe(t_list *lst_tokens);
+int 	has_command(t_list *lst_tokens);
+int 	has_pipe(t_list *lst_tokens);
 
 //handle_redirect.c
 
-int return_flag(t_node *node);
-t_list  *open_file(t_list *lst_tokens);
-int type_redirect(int type);
+int 	return_flag(t_node *node);
+t_list  *open_file(t_list *lst_tokens, t_list *lst_exec);
+int 	type_redirect(int type);
 t_list  *remove_redirect_and_next(t_list *lst_tokens);
+int 	count_redirects(t_list *lst_tokens);
+void	close_fds();
+t_list *find_path(t_list *lst_tokens);
+
 
 #endif

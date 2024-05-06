@@ -6,20 +6,20 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/29 16:54:20 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/06 13:55:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	program(t_list *lst_env)
+int	program(t_list *envp)
 {
-	t_list		lst_tokens;
 	char		*input;
-	t_list		exec_list;
+	t_list		tokens;
+	t_list		exec;
 
-	lst_tokens.node = 0;
-	exec_list.node = 0;
+	tokens.node = 0;
+	exec.node = 0;
 	input = readline("¯\\_(ツ)_/¯: ");
 	if (!input)
 	{
@@ -28,14 +28,14 @@ int	program(t_list *lst_env)
 	}
 	if (!*input)
 		return (TRUE);
-	input = expand(lst_env, input);
-	lst_tokens.node = 0;
+	input = expand(envp, input);
 	if (!is_closed(input))
 		return (FALSE);
-	lst_tokens = *lexical_analysis(input, &lst_tokens);
-	if (!parsing(&lst_tokens, lst_env, input))
+	tokens = *lexer(&tokens, input);
+	tokens = *type_assignment(&tokens);
+	if (!parsing(&tokens, envp, input))
 		return (TRUE);
-	exec_list = *execution(&lst_tokens, &exec_list, lst_env);
-	release_memory(&lst_tokens, &exec_list, input);
+	exec = *execution(&tokens, &exec, envp);
+	release_memory(&tokens, &exec, input);
 	return (TRUE);
 }
