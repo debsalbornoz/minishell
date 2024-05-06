@@ -20,8 +20,6 @@ F_SOURCE	:=		\
 	main			\
 
 F_MAIN		:=		\
-	expand_part1	\
-	expand_part2	\
 	program			\
 	linked_list		\
 	free			\
@@ -31,18 +29,21 @@ F_ENVP		:=				\
 	create_env_list			\
 	update_env_list			\
 
+F_EXPANDER		:=			\
+	expand_part1			\
+	expand_part2			\
+
 F_LEXER		:=				\
 	lexer					\
 	process_delimiter		\
 	process_word			\
 
-F_TYPE	:=			\
-	type_assignment \
-	commands		\
-	arguments		\
-	builtins		\
-	files			\
-	path
+F_TYPE_ASSIGNMENT	:=		\
+	builtins				\
+	commands_and_arguments	\
+	files					\
+	path					\
+	type_assignment 		\
 
 F_UTILS		:=		\
 	utils_quote		\
@@ -70,28 +71,31 @@ F_EXECUTION		:=	\
 	handle_output_redirect \
 	handle_redirect
 
-O_SOURCE	:=		\
+O_SOURCE	:=			\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))
 
-O_MAIN		:=		\
+O_MAIN		:=			\
 	$(addprefix objects/main/, $(addsuffix .o, $(F_MAIN)))
 
-O_ENVP		:=		\
+O_ENVP		:=			\
 	$(addprefix objects/envp/, $(addsuffix .o, $(F_ENVP)))
 
-O_LEXER		:=		\
+O_EXPANDER	:=			\
+	$(addprefix objects/expander/, $(addsuffix .o, $(F_EXPANDER)))
+
+O_LEXER		:=			\
 	$(addprefix objects/lexer/, $(addsuffix .o, $(F_LEXER)))
 
-O_TYPE		:=		\
-	$(addprefix objects/parser/type/, $(addsuffix .o, $(F_TYPE)))
+O_TYPE_ASSIGNMENT	:=	\
+	$(addprefix objects/parser/type_assignment/, $(addsuffix .o, $(F_TYPE_ASSIGNMENT)))
 
-O_UTILS		:=		\
+O_UTILS		:=			\
 	$(addprefix objects/utils/, $(addsuffix .o, $(F_UTILS)))
 
-O_PARSER	:=		\
+O_PARSER	:=			\
 	$(addprefix objects/parser/, $(addsuffix .o, $(F_PARSER)))
 
-O_EXECUTION	:=		\
+O_EXECUTION	:=			\
 	$(addprefix objects/execution/, $(addsuffix .o, $(F_EXECUTION)))
 
 all: make_libft $(NAME)
@@ -108,10 +112,13 @@ objects/main/%.o: source/main/%.c | objects/main
 objects/envp/%.o: source/envp/%.c | objects/envp
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
+objects/expander/%.o: source/expander/%.c | objects/expander
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+
 objects/lexer/%.o: source/lexer/%.c | objects/lexer
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
-objects/parser/type/%.o: source/parser/type/%.c | objects/parser/type
+objects/parser/type_assignment/%.o: source/parser/type_assignment/%.c | objects/parser/type_assignment
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
 objects/utils/%.o: source/utils/%.c | objects/utils
@@ -122,8 +129,8 @@ objects/parser/%.o: source/parser/%.c | objects/parser
 objects/execution/%.o: source/execution/%.c | objects/execution
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
-$(NAME): $(O_SOURCE) $(O_MAIN) $(O_ENVP) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(O_PARSER) $(O_EXECUTION)
-	$(CC) $(O_SOURCE) $(O_MAIN) $(O_ENVP) $(O_LEXER) $(O_TYPE) $(O_UTILS) $(O_PARSER) $(O_EXECUTION) $(LIBS) $(HEADERS) -o $(NAME)
+$(NAME): $(O_SOURCE) $(O_MAIN) $(O_ENVP) $(O_EXPANDER) $(O_LEXER) $(O_TYPE_ASSIGNMENT) $(O_UTILS) $(O_PARSER) $(O_EXECUTION)
+	$(CC) $(O_SOURCE) $(O_MAIN) $(O_ENVP) $(O_EXPANDER) $(O_LEXER) $(O_TYPE_ASSIGNMENT) $(O_UTILS) $(O_PARSER) $(O_EXECUTION) $(LIBS) $(HEADERS) -o $(NAME)
 
 objects:
 	mkdir -p objects
@@ -134,11 +141,14 @@ objects/main:
 objects/envp:
 	mkdir -p objects/envp
 
+objects/expander:
+	mkdir -p objects/expander
+
 objects/lexer:
 	mkdir -p objects/lexer
 
-objects/parser/type:
-	mkdir -p objects/parser/type
+objects/parser/type_assignment:
+	mkdir -p objects/parser/type_assignment
 
 objects/utils:
 	mkdir -p objects/utils
@@ -168,20 +178,21 @@ fclean: clean
 re: fclean all
 
 .PHONY:
-	all					\
-	make_libft:			\
-	clean				\
-	fclean				\
-	re					\
-	play				\
-	leak				\
-	objects				\
-	objects/main		\
-	objects/envp		\
-	objects/lexer		\
-	objects/parser/type	\
-	objects/utils		\
-	objects/parser		\
+	all								\
+	make_libft:						\
+	clean							\
+	fclean							\
+	re								\
+	play							\
+	leak							\
+	objects							\
+	objects/main					\
+	objects/envp					\
+	objects/expander				\
+	objects/lexer					\
+	objects/parser/type_assignment	\
+	objects/utils					\
+	objects/parser					\
 	objects/execution
 
 .SILENT:

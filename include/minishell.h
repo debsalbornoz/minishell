@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/06 14:46:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/06 17:15:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ struct s_token
 {
 	char			*value;
 	int				type;
-	char			next_chr;
 };
 
 struct s_exp
@@ -129,6 +128,19 @@ char	*get_envp_value(char *envp);
 //update_env_list.c
 void	update_env_list(t_list *lst_env, char *name, char *value);
 
+/* --- source/expander/ --- */
+
+// expand_part1.c
+char	*expand(t_list *lst_env, char *input);
+char	*search_name(t_list *lst_env, t_exp *exp);
+
+// expand_part2.c
+char	*process_dollar(t_exp *exp);
+char	*process_heredoc(t_exp *exp);
+char	*process_doble_quote(t_list *lst_env, t_exp *exp);
+char	*var_expand(t_exp *cur, t_env *var);
+char	*var_is_null(char *value, char sig);
+
 /* --- source/lexer/ --- */
 
 //lexer.c
@@ -147,6 +159,32 @@ int		process_word(t_list *lst_tokens, int signal, char *input, int i);
 int		get_token_len(char *input, int signal);
 
 
+/* --- source/parser/ --- */
+
+/* --- source/parser/type_assignment --- */
+
+//builtins.c
+
+
+t_node	*is_builtin(t_node *node);
+int identify_builtin(char *token, char *builtin, int token_len);
+int	compare_quoted_strings(char *token, char *builtin);
+
+//commands_and_arguments.c
+
+t_node	*is_command_part1(t_node *head);
+t_node	*is_command_part2(t_node *node);
+t_node	*is_argument(t_node *node);
+
+// files.c
+t_node	*is_file(t_node *node);
+t_node	*is_heredoc_key(t_node *node);
+
+//path.c
+t_node *is_path(t_node *node);
+
+// type_assignment.C
+t_list	*type_assignment(t_list *lst_tokens);
 
 
 
@@ -155,22 +193,6 @@ int		get_token_len(char *input, int signal);
 
 
 
-// expand_part1.c
-char	*expand(t_list *lst_env, char *input);
-char	*search_name(t_list *lst_env, t_exp *exp);
-char	*search_name(t_list *lst_env, t_exp *exp);
-
-// expand_part2.c
-char	*process_dollar(t_exp *exp);
-char	*process_heredoc(t_exp *exp);
-char	*process_doble_quote(t_list *lst_env, t_exp *exp);
-char	*var_expand(t_exp *cur, t_env *var);
-char	*var_is_null(char *value, char sig);
-char	*process_dollar(t_exp *exp);
-char	*process_heredoc(t_exp *exp);
-char	*process_doble_quote(t_list *lst_env, t_exp *exp);
-char	*var_expand(t_exp *cur, t_env *var);
-char	*var_is_null(char *value, char sig);
 
 // free.c
 void	free_list(t_list *list, void (f)(t_list *));
@@ -219,12 +241,7 @@ t_node	*is_builtin(t_node *node);
 t_node	*is_command_part1(t_node *head);
 t_node	*is_command_part2(t_node *node);
 
-// files.c
-t_node	*is_file(t_node *node);
-t_node	*is_heredoc_key(t_node *node);
 
-// type assignment.C
-t_list	*type_assignment(t_list *lst_tokens);
 
 /* --- source/utils/ --- */
 
