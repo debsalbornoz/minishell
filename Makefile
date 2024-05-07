@@ -67,7 +67,7 @@ F_EXECUTION		:=			\
 	execution				\
 	command_table			\
 	env_list_to_str_array	\
-	save_path				\
+	find_executable			\
 	handle_redirect			\
 	split_path				\
 

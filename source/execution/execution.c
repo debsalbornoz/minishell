@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 20:14:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 20:27:28 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_list *prepare_for_execution(t_list *tokens, t_list *exec, t_list *envp)
 	exec->node->data->execution->command_table = create_command_table
 		(tokens, exec);
 	exec->node->data->execution
-		->path = save_path(exec, tokens, envp);
+		->path = find_executable_in_path(exec, tokens, envp);
 	exec->node = exec->head;
 	tokens->node = tokens->head;
 	return (exec);

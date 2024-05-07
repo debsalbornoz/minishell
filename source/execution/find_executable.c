@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   save_path.c                                        :+:      :+:    :+:   */
+/*   find_executable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 20:20:26 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 20:28:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*save_path(t_list *exec, t_list *tokens, t_list *envp)
+char	*find_executable_in_path(t_list *exec, t_list *tokens, t_list *envp)
 {
 	int		i;
 	char	*path;
@@ -27,7 +27,7 @@ char	*save_path(t_list *exec, t_list *tokens, t_list *envp)
 	while (path_array[i] != NULL)
 	{
 		path = create_path(path_array[i], tokens);
-		validate = validate_path(exec, path);
+		validate = is_executable(exec, path);
 		if (validate)
 		{
 			free_matrix(path_array);
@@ -42,7 +42,7 @@ char	*save_path(t_list *exec, t_list *tokens, t_list *envp)
 	return (NULL);
 }
 
-int	validate_path(t_list *exec, char *path)
+int	is_executable(t_list *exec, char *path)
 {
 	if (*(exec->node->data->execution->command_table[0]) == '\0')
 		return (0);
