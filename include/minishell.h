@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/07 19:45:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 19:50:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@ char	**create_command_table(t_list *tokens, t_list *lst_execution);
 
 char	**env_list_to_str_array(t_list *lst_env);
 int		count_nodes(t_list *lst_env);
-char	*concatenate(char *s1, char *s2);
+char	*build_env_var(char *s1, char *s2);
 void	free_matrix(char **envp);
 
 //execute_simple_command.c

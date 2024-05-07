@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 17:32:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 19:57:00 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
 	return (lst_exec);
 }
 
-int	find_builtin(t_list *lst_tokens)
-{
-	t_node	*aux;
-
-	aux = lst_tokens->head;
-	while(aux)
-	{
-		if(aux->data->token->type == BUILTIN)
-			return (1);
-		aux = aux->next;
-	}
-	return (0);
-}
 t_list *prepare_for_execution(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env)
 {

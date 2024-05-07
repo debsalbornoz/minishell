@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 19:46:24 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 19:50:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**env_list_to_str_array(t_list *lst_env)
 		return (NULL);
 	while (aux)
 	{
-		envp[i] = concatenate(aux->data->env->name,
+		envp[i] = build_env_var(aux->data->env->name,
 				aux->data->env->value);
 		i++;
 		aux = aux->next;
@@ -39,32 +39,32 @@ char	**env_list_to_str_array(t_list *lst_env)
 	return (envp);
 }
 
-char	*concatenate(char *s1, char *s2)
+char	*build_env_var(char *name, char *value)
 {
-	char	*temp;
+	char	*env_var;
 	int		len;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(s1) + ft_strlen(s2) + 2;
-	temp = ft_calloc(len, sizeof(char));
-	while (s1[i] != '\0')
+	len = ft_strlen(name) + ft_strlen(value) + 2;
+	env_var = ft_calloc(len, sizeof(char));
+	while (name[i] != '\0')
 	{
-		temp[i] = s1[i];
+		env_var[i] = name[i];
 		i++;
 	}
-	temp[i] = '=';
+	env_var[i] = '=';
 	i++;
-	while (s2[j] != '\0')
+	while (value[j] != '\0')
 	{
-		temp[i] = s2[j];
+		env_var[i] = value[j];
 		i++;
 		j++;
 	}
-	temp[i] = '\0';
-	return (temp);
+	env_var[i] = '\0';
+	return (env_var);
 }
 
 void	free_matrix(char **matrix)
