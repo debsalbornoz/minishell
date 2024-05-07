@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/07 20:15:50 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 20:17:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_list *handle_redirect(t_list *tokens)
 {
 	tokens = open_file(tokens);
-	tokens = remove_redirect_and_next(tokens);
+	tokens = remove_redirect_and_file(tokens);
 	tokens->node = tokens->head;
 	return (tokens);
 }
@@ -60,14 +60,14 @@ int set_flag(t_node *node)
 	return (flag);
 }
 
-t_list *remove_redirect_and_next(t_list *lst_tokens)
+t_list *remove_redirect_and_file(t_list *tokens)
 {
-	t_node *current = lst_tokens->head;
+	t_node *current = tokens->head;
 	t_node *next_node = NULL;
 	t_node *prev_node = NULL;
 
-	if (!lst_tokens || !lst_tokens->head)
-		return lst_tokens;
+	if (!tokens || !tokens->head)
+		return tokens;
 	while (current && current->next)
 	{
 		if (find_redirect(current->data->token->type))
@@ -82,10 +82,10 @@ t_list *remove_redirect_and_next(t_list *lst_tokens)
 			}
 			else
 			{
-				lst_tokens->head = next_node->next;
+				tokens->head = next_node->next;
 				free(current);
 				free(next_node);
-				current = lst_tokens->head;
+				current = tokens->head;
 			}
 		}
 		else
@@ -94,8 +94,8 @@ t_list *remove_redirect_and_next(t_list *lst_tokens)
 			current = current->next;
 		}
 	}
-	lst_tokens->node = lst_tokens->head;
-	return lst_tokens;
+	tokens->node = tokens->head;
+	return (tokens);
 }
 
 void close_fds()

@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/06 11:53:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 20:20:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
+char	*save_path(t_list *exec, t_list *tokens, t_list *envp)
 {
 	int		i;
 	char	*path;
@@ -20,14 +20,14 @@ char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
 	int		validate;
 
 	i = 0;
-	lst_env->node = lst_env->head;
-	if (!lst_exec || !lst_token || !lst_env)
+	envp->node = envp->head;
+	if (!exec || !tokens || !envp)
 		return (NULL);
-	path_array = split_path(lst_env);
+	path_array = split_path(envp);
 	while (path_array[i] != NULL)
 	{
-		path = create_path(path_array[i], lst_token);
-		validate = validate_path(lst_exec, path);
+		path = create_path(path_array[i], tokens);
+		validate = validate_path(exec, path);
 		if (validate)
 		{
 			free_matrix(path_array);
@@ -37,36 +37,36 @@ char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env)
 		i++;
 	}
 	free_matrix(path_array);
-	update_env_list(lst_env, "?", " 127: command not found");
-	printf("%s\n", "comando nao encontrado");
+	update_env_list(envp, "?", " 127: command not found");
+	printf("%s\n", "Command not found");
 	return (NULL);
 }
 
-int	validate_path(t_list *lst_exec, char *path)
+int	validate_path(t_list *exec, char *path)
 {
-	if (*(lst_exec->node->data->execution->command_table[0]) == '\0')
+	if (*(exec->node->data->execution->command_table[0]) == '\0')
 		return (0);
 	if (access(path, X_OK) == 0 && access(path, F_OK) == 0)
 	{
-		if (lst_exec)
+		if (exec)
 		{
-			lst_exec->node->data->execution->path = path;
-			printf("%s\n", lst_exec->node->data->execution->path);
+			exec->node->data->execution->path = path;
+			printf("%s\n", exec->node->data->execution->path);
 			return (1);
 		}
 	}
 	return (0);
 }
 
-char	*create_path(char *path, t_list *lst_token)
+char	*create_path(char *path, t_list *tokens)
 {
 	char	*temp;
 	t_node	*aux;
 
 	temp = NULL;
-	if (!lst_token)
+	if (!tokens)
 		return (NULL);
-	aux = lst_token->head;
+	aux = tokens->head;
 	while (aux)
 	{
 		if (aux->data->token->type == PATH)
@@ -81,7 +81,7 @@ char	*create_path(char *path, t_list *lst_token)
 	return (temp);
 }
 
-char	*concatenate_path(char *s1, char *s2)
+char	*concatenate_path(char *path, char *command)
 {
 	int		i;
 	int		j;
@@ -90,20 +90,20 @@ char	*concatenate_path(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	if (!s1 || !s2)
+	if (!path || !command)
 		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2) + 2;
+	len = ft_strlen(path) + ft_strlen(command) + 2;
 	temp = ft_calloc(len, sizeof(char));
-	while (s1[i] != '\0')
+	while (path[i] != '\0')
 	{
-		temp[i] = s1[i];
+		temp[i] = path[i];
 		i++;
 	}
 	temp[i] = '/';
 	i++;
-	while (s2[j] != '\0')
+	while (command[j] != '\0')
 	{
-		temp[i] = s2[j];
+		temp[i] = command[j];
 		i++;
 		j++;
 	}
