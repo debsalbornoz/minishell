@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 19:57:00 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 20:14:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
 
 	fd_in = dup(0);
 	fd_out = dup(1);
-	lst_tokens = handle_redirect(lst_tokens, lst_exec);
+	lst_tokens = handle_redirect(lst_tokens);
 	lst_exec = prepare_for_execution(lst_tokens, lst_exec, lst_env);
 	if (lst_exec->node->data->execution ->path != NULL)
 		execute_simple_command(lst_exec);
@@ -30,22 +30,21 @@ t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
 	return (lst_exec);
 }
 
-t_list *prepare_for_execution(t_list *lst_tokens, t_list *lst_exec,
-	t_list *lst_env)
+t_list *prepare_for_execution(t_list *tokens, t_list *exec, t_list *envp)
 {
-	lst_exec = add_node(lst_exec);
-	lst_exec->node->data = ft_calloc(1, sizeof(union u_data));
-	if (!lst_exec->node->data)
+	exec = add_node(exec);
+	exec->node->data = ft_calloc(1, sizeof(union u_data));
+	if (!exec->node->data)
 		return (NULL);
-	lst_exec->node->data->execution = ft_calloc(1, sizeof(t_exec));
-	if (!lst_exec->node->data->execution)
+	exec->node->data->execution = ft_calloc(1, sizeof(t_exec));
+	if (!exec->node->data->execution)
 		return (NULL);
-	lst_exec->node->data->execution->envp = env_list_to_str_array(lst_env);
-	lst_exec->node->data->execution->command_table = create_command_table
-		(lst_tokens, lst_exec);
-	lst_exec->node->data->execution
-		->path = save_path(lst_exec, lst_tokens, lst_env);
-	lst_exec->node = lst_exec->head;
-	lst_tokens->node = lst_tokens->head;
-	return (lst_exec);
+	exec->node->data->execution->envp = env_list_to_str_array(envp);
+	exec->node->data->execution->command_table = create_command_table
+		(tokens, exec);
+	exec->node->data->execution
+		->path = save_path(exec, tokens, envp);
+	exec->node = exec->head;
+	tokens->node = tokens->head;
+	return (exec);
 }

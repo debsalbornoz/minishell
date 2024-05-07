@@ -6,33 +6,25 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/03 17:30:11 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 20:15:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int set_flag(t_node *node)
+t_list *handle_redirect(t_list *tokens)
 {
-	int flag;
-
-	flag = 0;
-	if (node->data->token->type == OUTPUT)
-		flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
-	if (node->data->token->type == APPEND)
-		flag = flag | O_WRONLY | O_CREAT | O_APPEND;
-	if (node->data->token->type == HEREDOC || node->data->token->type == INPUT)
-		flag = flag | O_RDONLY;
-	return (flag);
+	tokens = open_file(tokens);
+	tokens = remove_redirect_and_next(tokens);
+	tokens->node = tokens->head;
+	return (tokens);
 }
-
-t_list  *open_file(t_list *lst_tokens, t_list *lst_exec)
+t_list  *open_file(t_list *tokens)
 {
 	t_node 	*aux;
 	int		fd;
-	(void) lst_exec;
 
-	aux = lst_tokens->head;
+	aux = tokens->head;
 	while (aux)
 	{
 		if(find_redirect(aux->data->token->type))
@@ -51,15 +43,21 @@ t_list  *open_file(t_list *lst_tokens, t_list *lst_exec)
 		aux = aux->next;
 	}
 
-	return (lst_tokens);
+	return (tokens);
 }
-t_list *handle_redirect(t_list *lst_tokens, t_list *lst_exec)
+
+int set_flag(t_node *node)
 {
-	(void)lst_exec;
-	lst_tokens = open_file(lst_tokens, lst_exec);
-	lst_tokens = remove_redirect_and_next(lst_tokens);
-	lst_tokens->node = lst_tokens->head;
-	return (lst_tokens);
+	int flag;
+
+	flag = 0;
+	if (node->data->token->type == OUTPUT)
+		flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
+	if (node->data->token->type == APPEND)
+		flag = flag | O_WRONLY | O_CREAT | O_APPEND;
+	if (node->data->token->type == HEREDOC || node->data->token->type == INPUT)
+		flag = flag | O_RDONLY;
+	return (flag);
 }
 
 t_list *remove_redirect_and_next(t_list *lst_tokens)
@@ -109,19 +107,3 @@ void close_fds()
 		}
 	}
 }
-
-
-/*int count_redirects(t_list *lst_tokens)
-{
-	t_node *aux;
-
-	aux = lst_tokens->head;
-	while (aux)
-	{
-		if (find_redirect(aux->data->token->type))
-			i++;
-		aux = aux->next;
-	}
-	return (i);
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/07 20:12:28 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 20:16:30 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,14 +283,11 @@ int	execute_simple_command(t_list *exec);
 t_list *prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
 
 //handle_redirect.c
-int 	return_flag(t_node *node);
-t_list  *open_file(t_list *tokens, t_list *lst_exec);
-int 	type_redirect(int type);
+t_list *handle_redirect(t_list *lst_tokens);
+t_list  *open_file(t_list *tokens);
+int 	set_flag(t_node *node);
 t_list  *remove_redirect_and_next(t_list *tokens);
-int 	count_redirects(t_list *tokens);
 void	close_fds();
-t_list *find_path(t_list *tokens);
-t_list *handle_redirect(t_list *lst_tokens, t_list *lst_exec);
 
 //save_path.c
 int		validate_path(t_list *lst_exec, char *path);
