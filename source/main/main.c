@@ -6,12 +6,12 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:51:39 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/06 14:47:38 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 14:52:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {

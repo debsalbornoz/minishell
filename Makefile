@@ -17,13 +17,15 @@ LIBS		:=		\
 	-lreadline $(LIBFT)/libft.a
 
 F_SOURCE	:=		\
-	main			\
 
 F_MAIN		:=		\
+	main			\
 	program			\
-	linked_list		\
-	free			\
 	signals
+
+F_LINKED_LIST		:=		\
+	free					\
+	linked_list				\
 
 F_ENVP		:=				\
 	create_env_list			\
@@ -77,6 +79,9 @@ O_SOURCE	:=			\
 O_MAIN		:=			\
 	$(addprefix objects/main/, $(addsuffix .o, $(F_MAIN)))
 
+O_LINKED_LIST		:=			\
+	$(addprefix objects/linked_list/, $(addsuffix .o, $(F_LINKED_LIST)))
+
 O_ENVP		:=			\
 	$(addprefix objects/envp/, $(addsuffix .o, $(F_ENVP)))
 
@@ -109,6 +114,9 @@ objects/%.o: source/%.c | objects
 objects/main/%.o: source/main/%.c | objects/main
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
+objects/linked_list/%.o: source/linked_list/%.c | objects/linked_list
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
+
 objects/envp/%.o: source/envp/%.c | objects/envp
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
@@ -129,14 +137,17 @@ objects/parser/%.o: source/parser/%.c | objects/parser
 objects/execution/%.o: source/execution/%.c | objects/execution
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
-$(NAME): $(O_SOURCE) $(O_MAIN) $(O_ENVP) $(O_EXPANDER) $(O_LEXER) $(O_TYPE_ASSIGNMENT) $(O_UTILS) $(O_PARSER) $(O_EXECUTION)
-	$(CC) $(O_SOURCE) $(O_MAIN) $(O_ENVP) $(O_EXPANDER) $(O_LEXER) $(O_TYPE_ASSIGNMENT) $(O_UTILS) $(O_PARSER) $(O_EXECUTION) $(LIBS) $(HEADERS) -o $(NAME)
+$(NAME): $(O_SOURCE) $(O_MAIN) $(O_LINKED_LIST) $(O_ENVP) $(O_EXPANDER) $(O_LEXER) $(O_TYPE_ASSIGNMENT) $(O_UTILS) $(O_PARSER) $(O_EXECUTION)
+	$(CC) $(O_SOURCE) $(O_MAIN)  $(O_LINKED_LIST) $(O_ENVP) $(O_EXPANDER) $(O_LEXER) $(O_TYPE_ASSIGNMENT) $(O_UTILS) $(O_PARSER) $(O_EXECUTION) $(LIBS) $(HEADERS) -o $(NAME)
 
 objects:
 	mkdir -p objects
 
 objects/main:
 	mkdir -p objects/main
+
+objects/linked_list:
+	mkdir -p objects/linked_list
 
 objects/envp:
 	mkdir -p objects/envp
@@ -187,6 +198,7 @@ re: fclean all
 	leak							\
 	objects							\
 	objects/main					\
+	objects/linked_list				\
 	objects/envp					\
 	objects/expander				\
 	objects/lexer					\
