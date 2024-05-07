@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:28:36 by jraupp            #+#    #+#             */
-/*   Updated: 2024/04/29 17:51:11 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 17:26:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,37 +27,37 @@ void	free_list(t_list *list, void (f)(t_list *))
 	}
 }
 
-void	free_lst_tokens(t_list *lst_tokens)
+void	free_lst_tokens(t_list *tokens)
 {
-	free(lst_tokens->node->data->token->value);
-	free(lst_tokens->node->data->token);
-	free(lst_tokens->node->data);
-	free(lst_tokens->node);
+	free(tokens->node->data->token->value);
+	free(tokens->node->data->token);
+	free(tokens->node->data);
+	free(tokens->node);
 }
 
-void	free_lst_env(t_list *lst_env)
+void	free_lst_env(t_list *envp)
 {
-	free(lst_env->node->data->env->name);
-	free(lst_env->node->data->env->value);
-	free(lst_env->node->data->env);
-	free(lst_env->node->data);
-	free(lst_env->node);
+	free(envp->node->data->env->name);
+	free(envp->node->data->env->value);
+	free(envp->node->data->env);
+	free(envp->node->data);
+	free(envp->node);
 }
 
-void	free_lst_exec(t_list *lst_exec)
+void	free_lst_exec(t_list *exec)
 {
-	lst_exec->node = lst_exec->head;
-	free_matrix(lst_exec->node->data->execution->command_table);
-	free_matrix(lst_exec->node->data->execution->envp);
-	free(lst_exec->node->data->execution->path);
-	free(lst_exec->node->data->execution);
-	free(lst_exec->node->data);
-	free(lst_exec->node);
+	exec->node = exec->head;
+	free_matrix(exec->node->data->execution->command_table);
+	free_matrix(exec->node->data->execution->envp);
+	free(exec->node->data->execution->path);
+	free(exec->node->data->execution);
+	free(exec->node->data);
+	free(exec->node);
 }
 
-void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input)
+void	release_memory(t_list *tokens, t_list *exec, char *input)
 {
-	free_list(exec_list, free_lst_exec);
-	free_list(lst_tokens, free_lst_tokens);
+	free_list(exec, free_lst_exec);
+	free_list(tokens, free_lst_tokens);
 	free(input);
 }

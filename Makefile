@@ -1,26 +1,26 @@
-NAME		:=		\
+NAME		:=				\
 	minishell
 
-CFLAGS		:=		\
+CFLAGS		:=				\
 	-Wall -Wextra -Werror -g
 
-LIBFT		:=		\
+LIBFT		:=				\
 	./library/libft
 
-LFLAGS		:=		\
+LFLAGS		:=				\
 	valgrind --leak-check=full
 
-HEADERS		:=		\
+HEADERS		:=				\
 	-I ./include -I $(LIBFT)/include
 
-LIBS		:=		\
+LIBS		:=				\
 	-lreadline $(LIBFT)/libft.a
 
-F_SOURCE	:=		\
+F_SOURCE	:=				\
 
-F_MAIN		:=		\
-	main			\
-	program			\
+F_MAIN		:=				\
+	main					\
+	program					\
 	signals
 
 F_LINKED_LIST		:=		\
@@ -47,60 +47,59 @@ F_TYPE_ASSIGNMENT	:=		\
 	path					\
 	type_assignment 		\
 
-F_UTILS		:=		\
-	utils_quote		\
-	utils_delimiter	\
-	utils_redirect	\
-	utils_tokens	\
+F_UTILS		:=				\
+	utils_quote				\
+	utils_delimiter			\
+	utils_redirect			\
+	utils_tokens			\
 	utils_ft
 
-F_PARSER	:=		\
-	pipe_error		\
-	redirect_error	\
-	syntax_error	\
-	parser			\
-	remove_quotes	\
-	split_path			\
-	lexycal_analysis	\
-		quotes			\
+F_PARSER	:=				\
+	pipe_error				\
+	redirect_error			\
+	syntax_error			\
+	parser					\
+	remove_quotes			\
+	split_path				\
+		quotes				\
 
-F_EXECUTION		:=	\
-	execute_simple_command \
-	execution		\
-	command_table	\
+F_EXECUTION		:=			\
+	execute_simple_command	\
+	execution				\
+	command_table			\
 	env_list_to_str_array	\
-	save_path		\
-	handle_output_redirect \
-	handle_redirect
+	save_path				\
+	handle_output_redirect	\
+	handle_redirect			\
 
-O_SOURCE	:=			\
+O_SOURCE	:=				\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))
 
-O_MAIN		:=			\
+O_MAIN		:=				\
 	$(addprefix objects/main/, $(addsuffix .o, $(F_MAIN)))
 
-O_LINKED_LIST		:=			\
+O_LINKED_LIST		:=		\
 	$(addprefix objects/linked_list/, $(addsuffix .o, $(F_LINKED_LIST)))
 
-O_ENVP		:=			\
+O_ENVP		:=				\
 	$(addprefix objects/envp/, $(addsuffix .o, $(F_ENVP)))
 
-O_EXPANDER	:=			\
+O_EXPANDER	:=				\
 	$(addprefix objects/expander/, $(addsuffix .o, $(F_EXPANDER)))
 
-O_LEXER		:=			\
+O_LEXER		:=				\
 	$(addprefix objects/lexer/, $(addsuffix .o, $(F_LEXER)))
 
-O_TYPE_ASSIGNMENT	:=	\
+O_TYPE_ASSIGNMENT	:=		\
 	$(addprefix objects/parser/type_assignment/, $(addsuffix .o, $(F_TYPE_ASSIGNMENT)))
 
-O_UTILS		:=			\
+O_UTILS		:=				\
 	$(addprefix objects/utils/, $(addsuffix .o, $(F_UTILS)))
 
-O_PARSER	:=			\
+O_PARSER	:=				\
 	$(addprefix objects/parser/, $(addsuffix .o, $(F_PARSER)))
 
-O_EXECUTION	:=			\
+O_EXECUTION	:=				\
 	$(addprefix objects/execution/, $(addsuffix .o, $(F_EXECUTION)))
 
 all: make_libft $(NAME)

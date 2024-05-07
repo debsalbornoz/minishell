@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:57:17 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 17:12:20 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 17:37:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ int	syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input)
 	return (0);
 }
 
-int	pipe_error(t_list	*lst_tokens)
-{
-	if (check_first_pipe(lst_tokens) || check_last_pipe(lst_tokens) || check_pipe_after_redirect(lst_tokens))
-		return (1);
-	return (0);
-}
 
 int	dot_error(t_list	*lst_tokens)
 {

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/07 14:59:32 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 17:32:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	program(t_list *envp)
 		return (TRUE);
 	input = expand(envp, input);
 	tokens = *lexer(&tokens, input);
-	if (!parsing(&tokens, envp, input))
+	if (!parser(&tokens, envp, input))
 		return (TRUE);
-	exec = *execution(&tokens, &exec, envp);
+	exec = *execute(&tokens, &exec, envp);
 	release_memory(&tokens, &exec, input);
 	return (TRUE);
 }

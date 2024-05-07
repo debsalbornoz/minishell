@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:56:46 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 17:12:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 17:51:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ int	find_redirect(int type)
 		|| type == OUTPUT || type == APPEND);
 }
 
-int	redirect_error(t_list	*lst_tokens)
+int	redirect_error(t_list	*tokens)
 {
 	int	flag;
 	t_node *aux;
 
 	flag = 0;
-	if (!lst_tokens)
+	if (!tokens)
 		return (0);
-	if (lst_tokens)
-		aux = lst_tokens->head;
+	if (tokens)
+		aux = tokens->head;
 	while (aux)
 	{
 		if (find_redirect(aux->data->token->type))
@@ -40,6 +40,21 @@ int	redirect_error(t_list	*lst_tokens)
 		}
 		aux = aux->next;
 	}
-	aux = lst_tokens->head;
+	if(redirect_at_end(tokens))
+		flag = 1;
 	return (flag);
+}
+int redirect_at_end(t_list *tokens)
+{
+	t_node	*aux;
+
+	aux = tokens->head;
+
+	while (aux)
+	{
+		if (aux->next == NULL && find_redirect(aux->data->token->type))
+			return (1);
+		aux = aux->next;
+	}
+	return (0);
 }

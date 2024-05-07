@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/06 17:15:18 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 17:50:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,28 @@ struct s_exec
 
 /* --- source/main --- */
 
+// program.c
+int		program(t_list *lst_env);
+
+//signals.c
+void	handle_sigint(int signal);
+void	set_error(t_list *lst_env);
+void	handle_signal(void);
+
+/* --- source/linked_list --- */
+
+// free.c
+void	free_list(t_list *list, void (f)(t_list *));
+void	free_lst_tokens(t_list *tokens);
+void	free_lst_env(t_list *envp);
+void	free_lst_exec(t_list *exec);
+void	release_memory(t_list *tokens, t_list *exec, char *input);
+
+// linked_list.c
+t_list	*add_node(t_list *list);
+t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
+int		count_nodes(t_list *lst);
+
 /* --- source/envp/ --- */
 
 //create_env_list.c
@@ -126,7 +148,7 @@ char	*get_envp_name(char *envp);
 char	*get_envp_value(char *envp);
 
 //update_env_list.c
-void	update_env_list(t_list *lst_env, char *name, char *value);
+void	update_env_list(t_list *envp, char *name, char *value);
 
 /* --- source/expander/ --- */
 
@@ -149,17 +171,42 @@ char	*trim_start_spaces(char *input);
 char	process_quotes(char signal, char input);
 
 // process_delimiter.c
-int		process_delimiter(t_list *lst_tokens, int signal, char *input, int i);
-t_list	*process_redirect(t_list *lst_tokens, char *input, int i);
-t_list	*process_redirect_input(t_list *lst_tokens, char *input, int i);
-t_list	*process_redirect_output(t_list *lst_tokens, char *input, int i);
+int		process_delimiter(t_list *tokens, int signal, char *input, int i);
+t_list	*process_redirect(t_list *tokens, char *input, int i);
+t_list	*process_redirect_input(t_list *tokens, char *input, int i);
+t_list	*process_redirect_output(t_list *tokens, char *input, int i);
 
 // process_word.c
-int		process_word(t_list *lst_tokens, int signal, char *input, int i);
+int		process_word(t_list *tokens, int signal, char *input, int i);
 int		get_token_len(char *input, int signal);
 
-
 /* --- source/parser/ --- */
+
+//parser.c
+int		parser(t_list *tokens, t_list	*envp, char *input);
+
+//pipe_error.c
+int		pipe_error(t_list	*tokens);
+int		check_first_and_last_pipe(t_list	*tokens);
+int		check_pipe_after_redirect(t_list	*tokens);
+
+//quotes.c
+
+int		is_closed(char *input);
+
+//redirect_error.c
+
+int		find_redirect(int type);
+int		redirect_error(t_list	*tokens);
+int 	redirect_at_end(t_list *tokens);
+
+
+
+
+
+
+
+
 
 /* --- source/parser/type_assignment --- */
 
@@ -183,8 +230,8 @@ t_node	*is_heredoc_key(t_node *node);
 //path.c
 t_node *is_path(t_node *node);
 
-// type_assignment.C
-t_list	*type_assignment(t_list *lst_tokens);
+// type_assignment.c
+t_list	*type_assignment(t_list *tokens);
 
 
 
@@ -194,36 +241,22 @@ t_list	*type_assignment(t_list *lst_tokens);
 
 
 
-// free.c
-void	free_list(t_list *list, void (f)(t_list *));
-void	free_lst_tokens(t_list *tokens);
-void	free_lst_env(t_list *env_list);
-void	free_lst_exec(t_list *lst_exec);
-void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input);
 
-// linked_list.c
-t_list	*add_node(t_list *list);
-t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
-int		count_nodes(t_list *lst);
 
-//signals.c
-void	handle_sigint(int signal);
-void	set_error(t_list *lst_env);
-void	handle_signal(void);
 
-// program.c
-int		program(t_list *lst_env);
+
+
+
 
 
 //lexycal_analysis.c
 
-t_list	*lexical_analysis(char *input, t_list *lst_tokens);
+t_list	*lexical_analysis(char *input, t_list *tokens);
 int		check_input(char *input);
 
 // quotes.c
 int		single_quotes_closed(char *input);
 int		double_quotes_closed(char *input);
-int		is_closed(char *input);
 
 
 
@@ -271,34 +304,21 @@ int		is_heredoc(char chr, char next_chr);
 int		is_append(char chr, char next_chr);
 
 // utils_tokens.c
-t_node	*print_lst_tokens(t_node *node);
+t_node	*print_tokens(t_node *node);
 
 /* --- parser --- */
 
-//parser.c
 
-int		parsing(t_list *lst_tokens, t_list	*lst_env, char *input);
 
-//pipe_error.c
 
-int		check_first_pipe(t_list	*lst_tokens);
-int		check_last_pipe(t_list	*lst_tokens);
-int		check_redirect_after_pipe(t_list	*lst_tokens);
-int	check_pipe_after_redirect(t_list	*lst_tokens);
-//redirect_error.c
 
-int		find_redirect(int type);
-int		output_error(t_list	*lst_tokens);
-int		input_error(t_list	*lst_tokens);
-int		append_error(t_list	*lst_tokens);
-int		heredoc_error(t_list	*lst_tokens);
-int redirect_at_end(t_list *lst_tokens);
+
 
 //remove_quotes.c
 
 t_node	*new_str(t_node *node);
 char	*create_str(char *str, char *temp, int i, int j);
-t_list	*remove_quotes(t_list *lst_tokens);
+t_list	*remove_quotes(t_list *tokens);
 int		count_characters_inside_quotes(const char *value, int *i,
 			char signal, int inside_quotes);
 int		count_characters_outside_quotes(const char *value, int *i,
@@ -314,16 +334,15 @@ char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
 
 //syntax_error.c
-int		syntax_error(t_list *lst_tokens, t_list	*lst_env, char *input);
-int		redirect_error(t_list	*lst_tokens);
-int		pipe_error(t_list	*lst_tokens);
-int		dot_error(t_list	*lst_tokens);
+int		syntax_error(t_list *tokens, t_list	*lst_env, char *input);
+int		redirect_error(t_list	*tokens);
+int		dot_error(t_list	*tokens);
 
 /* --- execution --- */
 
 //command_table.c
 
-char	**create_command_table(t_list *lst_tokens, t_list *lst_execution);
+char	**create_command_table(t_list *tokens, t_list *lst_execution);
 
 //env_list_to_str_array.c
 
@@ -334,11 +353,11 @@ void	free_matrix(char **envp);
 
 //execute_simple_command.c
 
-int		is_simple_command(t_list *lst_tokens);
+int		is_simple_command(t_list *tokens);
 int		execute_simple_command(t_list *lst_exec);
 //execution.c
 
-t_list	*execution(t_list *lst_tokens,
+t_list	*execute(t_list *tokens,
 			t_list *lst_execution, t_list *envp);
 int	execute_simple_command(t_list *lst_exec);
 //save_path.c
@@ -348,29 +367,29 @@ char	*create_path(char *path, t_list *lst_token);
 char	*concatenate_path(char *s1, char *s2);
 char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
 
-void	release_memory(t_list *lst_tokens, t_list *exec_list, char *input);
+void	release_memory(t_list *tokens, t_list *exec_list, char *input);
 
-int		find_builtin(t_list *lst_tokens);
+int		find_builtin(t_list *tokens);
 t_node *is_path(t_node *node);
-t_list *prepare_for_execution(t_list *lst_tokens, t_list *lst_exec,
+t_list *prepare_for_execution(t_list *tokens, t_list *lst_exec,
 	t_list *lst_env);
 
 //handle_output_redirect.c
 
-int 	count_outputs(t_list *lst_tokens);
-t_list *handle_redirect(t_list *lst_exec, t_list *lst_tokens);
-int 	has_command(t_list *lst_tokens);
-int 	has_pipe(t_list *lst_tokens);
+int 	count_outputs(t_list *tokens);
+t_list *handle_redirect(t_list *lst_exec, t_list *tokens);
+int 	has_command(t_list *tokens);
+int 	has_pipe(t_list *tokens);
 
 //handle_redirect.c
 
 int 	return_flag(t_node *node);
-t_list  *open_file(t_list *lst_tokens, t_list *lst_exec);
+t_list  *open_file(t_list *tokens, t_list *lst_exec);
 int 	type_redirect(int type);
-t_list  *remove_redirect_and_next(t_list *lst_tokens);
-int 	count_redirects(t_list *lst_tokens);
+t_list  *remove_redirect_and_next(t_list *tokens);
+int 	count_redirects(t_list *tokens);
 void	close_fds();
-t_list *find_path(t_list *lst_tokens);
+t_list *find_path(t_list *tokens);
 
 
 #endif

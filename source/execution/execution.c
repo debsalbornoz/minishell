@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/05 22:37:07 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 17:32:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_list	*execution(t_list *lst_tokens, t_list *lst_exec,
+t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env)
 {
 	int	fd_in;
