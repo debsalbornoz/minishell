@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/07 19:50:49 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 20:12:28 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,48 +265,24 @@ t_node	*print_tokens(t_node *node);
 /* --- execution --- */
 
 //command_table.c
-
 char	**create_command_table(t_list *tokens, t_list *lst_execution);
 
 //env_list_to_str_array.c
-
 char	**env_list_to_str_array(t_list *lst_env);
 int		count_nodes(t_list *lst_env);
 char	*build_env_var(char *s1, char *s2);
 void	free_matrix(char **envp);
 
 //execute_simple_command.c
-
 int		is_simple_command(t_list *tokens);
 int		execute_simple_command(t_list *lst_exec);
+
 //execution.c
-
-t_list	*execute(t_list *tokens,
-			t_list *lst_execution, t_list *envp);
-int	execute_simple_command(t_list *lst_exec);
-//save_path.c
-
-int		validate_path(t_list *lst_exec, char *path);
-char	*create_path(char *path, t_list *lst_token);
-char	*concatenate_path(char *s1, char *s2);
-char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
-
-void	release_memory(t_list *tokens, t_list *exec_list, char *input);
-
-int		find_builtin(t_list *tokens);
-t_node *is_path(t_node *node);
-t_list *prepare_for_execution(t_list *tokens, t_list *lst_exec,
-	t_list *lst_env);
-
-//handle_output_redirect.c
-
-int 	count_outputs(t_list *tokens);
-t_list *handle_redirect(t_list *lst_exec, t_list *tokens);
-int 	has_command(t_list *tokens);
-int 	has_pipe(t_list *tokens);
+t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
+int	execute_simple_command(t_list *exec);
+t_list *prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
 
 //handle_redirect.c
-
 int 	return_flag(t_node *node);
 t_list  *open_file(t_list *tokens, t_list *lst_exec);
 int 	type_redirect(int type);
@@ -314,9 +290,15 @@ t_list  *remove_redirect_and_next(t_list *tokens);
 int 	count_redirects(t_list *tokens);
 void	close_fds();
 t_list *find_path(t_list *tokens);
+t_list *handle_redirect(t_list *lst_tokens, t_list *lst_exec);
+
+//save_path.c
+int		validate_path(t_list *lst_exec, char *path);
+char	*create_path(char *path, t_list *lst_token);
+char	*concatenate_path(char *s1, char *s2);
+char	*save_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
 
 //split_path.c
-
 char	**split_path(t_list *lst_env);
 int		count_paths(const char *value);
 char	*return_value(t_list *lst_env, char *name);

@@ -68,7 +68,6 @@ F_EXECUTION		:=			\
 	command_table			\
 	env_list_to_str_array	\
 	save_path				\
-	handle_output_redirect	\
 	handle_redirect			\
 	split_path				\
 
