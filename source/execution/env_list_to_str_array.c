@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/29 12:19:01 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 19:46:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	**env_list_to_str_array(t_list *lst_env)
 		aux = aux->next;
 	}
 	envp[i] = NULL;
-	aux = lst_env->head;
 	return (envp);
 }
 

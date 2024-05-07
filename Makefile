@@ -60,8 +60,7 @@ F_PARSER	:=				\
 	syntax_error			\
 	parser					\
 	remove_quotes			\
-	split_path				\
-		quotes				\
+	quotes					\
 
 F_EXECUTION		:=			\
 	execute_simple_command	\
@@ -71,6 +70,7 @@ F_EXECUTION		:=			\
 	save_path				\
 	handle_output_redirect	\
 	handle_redirect			\
+	split_path				\
 
 O_SOURCE	:=				\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))

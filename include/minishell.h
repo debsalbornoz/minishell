@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/07 17:50:35 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/07 19:45:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,34 +191,33 @@ int		check_first_and_last_pipe(t_list	*tokens);
 int		check_pipe_after_redirect(t_list	*tokens);
 
 //quotes.c
-
 int		is_closed(char *input);
-
+int		count_characters_inside_quotes(const char *str, int *i, char signal, int inside_quotes);
+int		count_characters_outside_quotes(const char *str, int *i, int inside_quotes);
 //redirect_error.c
-
 int		find_redirect(int type);
 int		redirect_error(t_list	*tokens);
 int 	redirect_at_end(t_list *tokens);
 
+//remove_quotes.c
+t_list	*remove_quotes(t_list *tokens);
+t_node	*replace_str(t_node *node);
+char	*unquote_str(char *str, char *temp, int i, int j);
+int		find_new_len(const char *str, int len, int i, int counter);
 
-
-
-
-
-
-
+//syntax_error.c
+int		syntax_error(t_list *tokens, t_list	*lst_env, char *input);
+int		redirect_error(t_list	*tokens);
+int		dot_error(t_list	*tokens);
 
 /* --- source/parser/type_assignment --- */
 
 //builtins.c
-
-
 t_node	*is_builtin(t_node *node);
 int identify_builtin(char *token, char *builtin, int token_len);
 int	compare_quoted_strings(char *token, char *builtin);
 
 //commands_and_arguments.c
-
 t_node	*is_command_part1(t_node *head);
 t_node	*is_command_part2(t_node *node);
 t_node	*is_argument(t_node *node);
@@ -234,48 +233,6 @@ t_node *is_path(t_node *node);
 t_list	*type_assignment(t_list *tokens);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//lexycal_analysis.c
-
-t_list	*lexical_analysis(char *input, t_list *tokens);
-int		check_input(char *input);
-
-// quotes.c
-int		single_quotes_closed(char *input);
-int		double_quotes_closed(char *input);
-
-
-
-/* --- source/lexer/type --- */
-
-// arguments.c
-t_node	*is_argument(t_node *node);
-
-// builtins.c
-int		ft_strlcmp(char *s1, char *s2, int len);
-int		compare_quoted_strings(char *s1, char *s2);
-t_node	*is_builtin(t_node *node);
-
-// commands.c
-t_node	*is_command_part1(t_node *head);
-t_node	*is_command_part2(t_node *node);
-
-
-
 /* --- source/utils/ --- */
 
 // utils_delimiter.c
@@ -284,7 +241,6 @@ int		is_space(char chr);
 int		is_pipe(char chr);
 int		s_dollar(char chr);
 int		is_redirect_or_pipe(int type);
-
 
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
@@ -305,38 +261,6 @@ int		is_append(char chr, char next_chr);
 
 // utils_tokens.c
 t_node	*print_tokens(t_node *node);
-
-/* --- parser --- */
-
-
-
-
-
-
-
-//remove_quotes.c
-
-t_node	*new_str(t_node *node);
-char	*create_str(char *str, char *temp, int i, int j);
-t_list	*remove_quotes(t_list *tokens);
-int		count_characters_inside_quotes(const char *value, int *i,
-			char signal, int inside_quotes);
-int		count_characters_outside_quotes(const char *value, int *i,
-			int inside_quotes);
-int		find_new_len(const char *value, int len, int i, int counter);
-
-//split_path.c
-
-char	**split_path(t_list *lst_env);
-int		count_paths(const char *value);
-char	*return_value(t_list *lst_env, char *name);
-char	*get_path(char *value, int i, int len, int j);
-int		get_len(char *value);
-
-//syntax_error.c
-int		syntax_error(t_list *tokens, t_list	*lst_env, char *input);
-int		redirect_error(t_list	*tokens);
-int		dot_error(t_list	*tokens);
 
 /* --- execution --- */
 
@@ -390,6 +314,14 @@ t_list  *remove_redirect_and_next(t_list *tokens);
 int 	count_redirects(t_list *tokens);
 void	close_fds();
 t_list *find_path(t_list *tokens);
+
+//split_path.c
+
+char	**split_path(t_list *lst_env);
+int		count_paths(const char *value);
+char	*return_value(t_list *lst_env, char *name);
+char	*get_path(char *value, int i, int len, int j);
+int		get_len(char *value);
 
 
 #endif
