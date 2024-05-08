@@ -33,10 +33,12 @@ int	is_closed(char *input)
 	if (signal)
 	{
 		printf("Fatal error: unclosed quotes\n");
+		free(input);
 		return (0);
 	}
 	return (1);
 }
+
 int	count_characters_inside_quotes(const char *str, int *i,
 char signal, int inside_quotes)
 {

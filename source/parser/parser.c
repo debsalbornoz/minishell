@@ -12,11 +12,15 @@
 
 #include "../../include/minishell.h"
 
-int	parser(t_list *lst_tokens, t_list	*envp, char *input)
+int	parser(t_list *tokens, t_list	*envp, char *input)
 {
-	lst_tokens = type_assignment(lst_tokens);
-	if(!is_closed(input) ||syntax_error(lst_tokens, envp, input))
+	tokens = type_assignment(tokens);
+	if(syntax_error(tokens, envp, input))
+	{
+		//free_list(tokens, free_lst_tokens);
+		//free(input);
 		return (0);
-	lst_tokens = remove_quotes(lst_tokens);
+	}
+	tokens = remove_quotes(tokens);
 	return (1);
 }

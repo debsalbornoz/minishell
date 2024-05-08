@@ -29,6 +29,8 @@ int	program(t_list *envp)
 	if (!*input)
 		return (TRUE);
 	input = expand(envp, input);
+	if (!is_closed(input))
+		return (TRUE);
 	tokens = *lexer(&tokens, input);
 	if (!parser(&tokens, envp, input))
 		return (TRUE);
