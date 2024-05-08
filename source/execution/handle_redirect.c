@@ -81,8 +81,8 @@ t_list	*remove_redirect_and_file(t_list *tokens)
 			if (prev_node)
 			{
 				prev_node->next = next_node->next;
-				free(current);
-				free(next_node);
+				free_token(current);
+				free_token(next_node);
 				current = prev_node->next;
 			}
 			else
@@ -103,7 +103,7 @@ t_list	*remove_redirect_and_file(t_list *tokens)
 	return (tokens);
 }
 
-void	close_fds()
+void	close_fds(void)
 {
 	int	fd;
 
@@ -113,4 +113,12 @@ void	close_fds()
 		close(fd);
 		fd++;
 	}
+}
+
+void	free_token(t_node *node)
+{
+	free(node->data->token->value);
+	free(node->data->token);
+	free(node->data);
+	free(node);
 }

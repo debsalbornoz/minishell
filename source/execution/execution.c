@@ -24,8 +24,9 @@ t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
 	lst_exec = prepare_for_execution(lst_tokens, lst_exec, lst_env);
 	if (lst_exec->node->data->execution ->path != NULL)
 		execute_simple_command(lst_exec);
-	dup2(0, fd_in);
-	dup2(1, fd_out);
+	dup2(fd_in, 0);
+	dup2(fd_out, 1);
+	close_fds();
 	lst_exec->node = lst_exec->head;
 	return (lst_exec);
 }

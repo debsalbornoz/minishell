@@ -302,4 +302,6 @@ char	*return_value(t_list *envp, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
 
+
+void	free_token(t_node *node);
 #endif
