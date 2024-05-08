@@ -30,7 +30,7 @@ t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
 	return (lst_exec);
 }
 
-t_list *prepare_for_execution(t_list *tokens, t_list *exec, t_list *envp)
+t_list	*prepare_for_execution(t_list *tokens, t_list *exec, t_list *envp)
 {
 	exec = add_node(exec);
 	exec->node->data = ft_calloc(1, sizeof(union u_data));

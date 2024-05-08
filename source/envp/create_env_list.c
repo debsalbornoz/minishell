@@ -19,6 +19,7 @@ t_list	*data_env_addr(void)
 	lst_env.node = 0;
 	return (&lst_env);
 }
+
 t_list	*create_env_list(char **envp, t_list *env_lst)
 {
 	while (*envp)

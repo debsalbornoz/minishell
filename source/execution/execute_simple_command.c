@@ -30,17 +30,17 @@ int	is_simple_command(t_list *tokens)
 int	execute_simple_command(t_list *exec)
 {
 	pid_t	pid;
-	int	status;
+	int		status;
 
 	(void)exec;
-
 	pid = fork();
-
 	if (pid == -1)
-		return -1;
+		return (-1);
 	else if (pid == 0)
-		execve(exec->node->data->execution->path, exec->node->data->execution->command_table, exec->node->data->execution->envp);
+		execve(exec->node->data->execution->path,
+			exec->node->data->execution->command_table,
+			exec->node->data->execution->envp);
 	else
 		wait(&status);
-	return status;
+	return (status);
 }

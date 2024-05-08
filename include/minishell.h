@@ -192,12 +192,14 @@ int		check_pipe_after_redirect(t_list	*tokens);
 
 //quotes.c
 int		is_closed(char *input);
-int		count_characters_inside_quotes(const char *str, int *i, char signal, int inside_quotes);
-int		count_characters_outside_quotes(const char *str, int *i, int inside_quotes);
+int		count_characters_inside_quotes(const char *str,
+			int *i, char signal, int inside_quotes);
+int		count_characters_outside_quotes(const char *str,
+			int *i, int inside_quotes);
 //redirect_error.c
 int		find_redirect(int type);
 int		redirect_error(t_list	*tokens);
-int 	redirect_at_end(t_list *tokens);
+int		redirect_at_end(t_list *tokens);
 
 //remove_quotes.c
 t_list	*remove_quotes(t_list *tokens);
@@ -214,8 +216,8 @@ int		dot_error(t_list	*tokens);
 
 //builtins.c
 t_node	*is_builtin(t_node *node);
-int identify_builtin(char *token, char *builtin, int token_len);
-int	compare_quoted_strings(char *token, char *builtin);
+int		identify_builtin(char *token, char *builtin, int token_len);
+int		compare_quoted_strings(char *token, char *builtin);
 
 //commands_and_arguments.c
 t_node	*is_command_part1(t_node *head);
@@ -227,14 +229,12 @@ t_node	*is_file(t_node *node);
 t_node	*is_heredoc_key(t_node *node);
 
 //path.c
-t_node *is_path(t_node *node);
+t_node	*is_path(t_node *node);
 
 // type_assignment.c
 t_list	*type_assignment(t_list *tokens);
 
-
 /* --- source/utils/ --- */
-
 // utils_delimiter.c
 int		is_delimiter(char chr);
 int		is_space(char chr);
@@ -279,28 +279,27 @@ int		execute_simple_command(t_list *lst_exec);
 
 //execution.c
 t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
-int	execute_simple_command(t_list *exec);
-t_list *prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
+int		execute_simple_command(t_list *exec);
+t_list	*prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
 
 //handle_redirect.c
-t_list *handle_redirect(t_list *lst_tokens);
-t_list  *open_file(t_list *tokens);
-int 	set_flag(t_node *node);
-t_list  *remove_redirect_and_file(t_list *tokens);
-void	close_fds();
+t_list	*handle_redirect(t_list *tokens);
+t_list	*open_file(t_list *tokens);
+int		set_flag(t_node *node);
+t_list	*remove_redirect_and_file(t_list *tokens);
+void	close_fds(void);
 
 //find_executable.c
-int		is_executable(t_list *lst_exec, char *path);
-char	*find_executable_in_path(t_list *lst_exec, t_list *lst_token, t_list *lst_env);
-char	*create_path(char *path, t_list *lst_token);
+int		is_executable(t_list *exec, char *path);
+char	*find_executable_in_path(t_list *exec, t_list *tokens, t_list *envp);
+char	*create_path(char *path, t_list *tokens);
 char	*concatenate_path(char *s1, char *s2);
 
 //split_path.c
-char	**split_path(t_list *lst_env);
+char	**split_path(t_list *envp);
 int		count_paths(const char *value);
-char	*return_value(t_list *lst_env, char *name);
+char	*return_value(t_list *envp, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
-
 
 #endif

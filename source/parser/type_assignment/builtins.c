@@ -32,13 +32,14 @@ t_node	*is_builtin(t_node *node)
 	builtins[7] = NULL;
 	while (builtins[i] != NULL)
 	{
-		if (identify_builtin(token, builtins[i++], token_len) && node->data->token->type == COMMAND)
+		if (identify_builtin(token, builtins[i++], token_len)
+			&& node->data->token->type == COMMAND)
 			node->data->token->type = BUILTIN;
 	}
 	return (node);
 }
 
-int identify_builtin(char *token, char *builtin, int token_len)
+int	identify_builtin(char *token, char *builtin, int token_len)
 {
 	int		i;
 	char	signal;
@@ -67,7 +68,8 @@ int	compare_quoted_strings(char *token, char *builtin)
 	i = 0;
 	j = 1;
 	token_len = ft_strlen(token);
-	if (is_quote(token[0]) && is_quote(token[token_len - 1]) && token[0] == token[token_len - 1])
+	if (is_quote(token[0]) && is_quote(token[token_len - 1])
+		&& token[0] == token[token_len - 1])
 	{
 		token_len -= 2;
 		if (token_len == ft_strlen(builtin))
@@ -84,4 +86,3 @@ int	compare_quoted_strings(char *token, char *builtin)
 	}
 	return (0);
 }
-

@@ -34,7 +34,6 @@ int	syntax_error(t_list *tokens, t_list	*envp, char *input)
 	return (0);
 }
 
-
 int	dot_error(t_list	*tokens)
 {
 	char	*str;

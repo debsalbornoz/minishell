@@ -39,7 +39,6 @@ int	process_delimiter(t_list *lst_tokens, int signal, char *input, int i)
 	return (delimiter);
 }
 
-
 t_list	*process_redirect(t_list *lst_tokens, char *input, int i)
 {
 	if (is_redirect_input(input[i]))

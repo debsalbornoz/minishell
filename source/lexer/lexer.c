@@ -26,7 +26,7 @@ t_list	*lexer(t_list *tokens, char *input)
 	while (i < input_len)
 	{
 		signal = process_quotes(signal, input[i]);
-		token_len =process_word(tokens, signal, input, i);
+		token_len = process_word(tokens, signal, input, i);
 		if (signal)
 			signal = '\0';
 		if (token_len >= 0 && i + token_len <= input_len)
@@ -56,4 +56,3 @@ char	process_quotes(char signal, char input)
 		return (FALSE);
 	return (signal);
 }
-

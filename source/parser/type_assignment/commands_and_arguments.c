@@ -29,8 +29,9 @@ t_node	*is_command_part2(t_node *node)
 
 t_node	*is_argument(t_node *node)
 {
-	if (node->data->token->type == WORD && node->data->token->type != COMMAND && node->data->token->type != PATH)
+	if (node->data->token->type == WORD
+		&& node->data->token->type != COMMAND
+		&& node->data->token->type != PATH)
 		node->data->token->type = ARGUMENT;
 	return (node);
 }
-

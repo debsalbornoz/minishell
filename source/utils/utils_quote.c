@@ -26,4 +26,3 @@ int	is_double_quote(char chr)
 {
 	return (chr == '\"');
 }
-

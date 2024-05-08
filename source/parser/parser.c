@@ -15,12 +15,8 @@
 int	parser(t_list *tokens, t_list	*envp, char *input)
 {
 	tokens = type_assignment(tokens);
-	if(syntax_error(tokens, envp, input))
-	{
-		//free_list(tokens, free_lst_tokens);
-		//free(input);
+	if (syntax_error(tokens, envp, input))
 		return (0);
-	}
 	tokens = remove_quotes(tokens);
 	return (1);
 }

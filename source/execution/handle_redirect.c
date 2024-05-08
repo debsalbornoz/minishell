@@ -12,43 +12,45 @@
 
 #include "../../include/minishell.h"
 
-t_list *handle_redirect(t_list *tokens)
+t_list	*handle_redirect(t_list *tokens)
 {
 	tokens = open_file(tokens);
 	tokens = remove_redirect_and_file(tokens);
 	tokens->node = tokens->head;
 	return (tokens);
 }
-t_list  *open_file(t_list *tokens)
+
+t_list	*open_file(t_list *tokens)
 {
-	t_node 	*aux;
+	t_node	*aux;
 	int		fd;
 
 	aux = tokens->head;
 	while (aux)
 	{
-		if(find_redirect(aux->data->token->type))
+		if (find_redirect(aux->data->token->type))
 		{
 			if (aux->next)
 			{
 				fd = open(aux->next->data->token->value, set_flag(aux), 0644);
 				if (fd == -1)
 					return (NULL);
-				if (aux->data->token->type == OUTPUT || aux->data->token->type == APPEND)
+				if (aux->data->token->type == OUTPUT
+					|| aux->data->token->type == APPEND)
 					fd = dup2(fd, 1);
-				else if (aux->data->token->type == INPUT || aux->data->token->type == HEREDOC)
-						fd = dup2(fd, 0);
+				else if (aux->data->token->type == INPUT
+					|| aux->data->token->type == HEREDOC)
+					fd = dup2(fd, 0);
 			}
 		}
 		aux = aux->next;
 	}
-
 	return (tokens);
 }
 
-int set_flag(t_node *node)
+int	set_flag(t_node *node)
 {
-	int flag;
+	int	flag;
 
 	flag = 0;
 	if (node->data->token->type == OUTPUT)
@@ -60,14 +62,17 @@ int set_flag(t_node *node)
 	return (flag);
 }
 
-t_list *remove_redirect_and_file(t_list *tokens)
+t_list	*remove_redirect_and_file(t_list *tokens)
 {
-	t_node *current = tokens->head;
-	t_node *next_node = NULL;
-	t_node *prev_node = NULL;
+	t_node	*current;
+	t_node	*next_node;
+	t_node	*prev_node;
 
+	current = tokens->head;
+	next_node = NULL;
+	prev_node = NULL;
 	if (!tokens || !tokens->head)
-		return tokens;
+		return (tokens);
 	while (current && current->next)
 	{
 		if (find_redirect(current->data->token->type))
@@ -89,7 +94,7 @@ t_list *remove_redirect_and_file(t_list *tokens)
 			}
 		}
 		else
-		 {
+		{
 			prev_node = current;
 			current = current->next;
 		}
@@ -98,12 +103,14 @@ t_list *remove_redirect_and_file(t_list *tokens)
 	return (tokens);
 }
 
-void close_fds()
+void	close_fds()
 {
-	for (int fd = 3; fd < 1024; fd++) {
-		if (fd != STDOUT_FILENO && fd != STDIN_FILENO)
-		{
-			close(fd);
-		}
+	int	fd;
+
+	fd = 3;
+	while (fd < 1024)
+	{
+		close(fd);
+		fd++;
 	}
 }

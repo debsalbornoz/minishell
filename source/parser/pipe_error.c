@@ -21,7 +21,7 @@ int	pipe_error(t_list	*tokens)
 
 int	check_first_and_last_pipe(t_list	*tokens)
 {
-	int	flag;
+	int		flag;
 	t_node	*aux;
 
 	flag = 0;
@@ -42,7 +42,7 @@ int	check_first_and_last_pipe(t_list	*tokens)
 
 int	check_pipe_after_redirect(t_list	*tokens)
 {
-	int	flag;
+	int		flag;
 	t_node	*aux;
 
 	flag = 0;
