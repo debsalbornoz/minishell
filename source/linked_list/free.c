@@ -46,10 +46,9 @@ void	free_lst_env(t_list *envp)
 
 void	free_lst_exec(t_list *exec)
 {
-	exec->node = exec->head;
 	free_matrix(exec->node->data->execution->command_table);
 	free_matrix(exec->node->data->execution->envp);
-	free(exec->node->data->execution->path);
+	//free(exec->node->data->execution->path);
 	free(exec->node->data->execution);
 	free(exec->node->data);
 	free(exec->node);

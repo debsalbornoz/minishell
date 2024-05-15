@@ -110,7 +110,6 @@ struct s_exec
 {
 	char			*path;
 	char			**command_table;
-	int				simple;
 	char			**envp;
 
 };
@@ -265,8 +264,10 @@ t_node	*print_tokens(t_node *node);
 /* --- execution --- */
 
 //command_table.c
-char	**create_command_table(t_list *tokens, t_list *lst_execution);
-
+void	create_command_table(t_list *tokens, t_list *exec);
+void	create_simple_cmd_table(t_list *tokens, t_list *exec);
+void	create_multi_cmd_table(t_list *tokens, t_list *exec);
+int		find_file(int type);
 //env_list_to_str_array.c
 char	**env_list_to_str_array(t_list *lst_env);
 int		count_nodes(t_list *lst_env);
@@ -279,7 +280,7 @@ int		execute_simple_command(t_list *lst_exec);
 
 //execution.c
 t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
-int		execute_simple_command(t_list *exec);
+//int		execute_simple_command(t_list *exec, t_list *lst_env);
 t_list	*prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
 
 //handle_redirect.c
@@ -302,6 +303,6 @@ char	*return_value(t_list *envp, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
 
-
+t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 void	free_token(t_node *node);
 #endif
