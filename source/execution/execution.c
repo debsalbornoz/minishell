@@ -51,6 +51,7 @@ t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 		}
 		aux = aux->next;
 	}
+	printf("%i\n", i);
 	create_command_table(tokens, exec);
 	return (exec);
 }

@@ -268,6 +268,9 @@ void	create_command_table(t_list *tokens, t_list *exec);
 void	create_simple_cmd_table(t_list *tokens, t_list *exec);
 void	create_multi_cmd_table(t_list *tokens, t_list *exec);
 int		find_file(int type);
+void	print_command_table(char **command_table);
+int count(t_node *node);
+
 //env_list_to_str_array.c
 char	**env_list_to_str_array(t_list *lst_env);
 int		count_nodes(t_list *lst_env);
