@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/16 16:30:46 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/16 19:16:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,10 +292,13 @@ t_list	*remove_redirect_and_file(t_list *tokens);
 void	close_fds(void);
 
 //find_executable.c
-int		is_executable(t_list *exec, char *path);
-char	*find_executable_in_path(t_list *exec, t_list *tokens, t_list *envp);
-char	*create_path(char *path, t_list *tokens);
-char	*concatenate_path(char *s1, char *s2);
+void	fill_path_in_exec(t_list *tokens, t_list *exec, t_list *envp);
+char	*validate_path(char **command_table, t_node *exec, t_list *envp);
+void	free_and_update_lst(char **path_array, t_list	*envp);
+int		is_absolute_path(char **command_table);
+int		is_executable(t_node *exec, char *path);
+char	*create_path(char *path, t_node *tokens);
+char	*concatenate_path(char *path, char *command);
 
 //split_path.c
 char	**split_path(t_list *envp);
