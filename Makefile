@@ -70,6 +70,7 @@ F_EXECUTION		:=			\
 	find_executable			\
 	handle_redirect			\
 	split_path				\
+	exec_utils				\
 
 O_SOURCE	:=				\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))

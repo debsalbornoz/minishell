@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/07 20:17:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/16 14:06:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_list	*handle_redirect(t_list *tokens)
 {
 	tokens = open_file(tokens);
-	tokens = remove_redirect_and_file(tokens);
+	//tokens = remove_redirect_and_file(tokens);
 	tokens->node = tokens->head;
 	return (tokens);
 }
@@ -60,47 +60,6 @@ int	set_flag(t_node *node)
 	if (node->data->token->type == HEREDOC || node->data->token->type == INPUT)
 		flag = flag | O_RDONLY;
 	return (flag);
-}
-
-t_list	*remove_redirect_and_file(t_list *tokens)
-{
-	t_node	*current;
-	t_node	*next_node;
-	t_node	*prev_node;
-
-	current = tokens->head;
-	next_node = NULL;
-	prev_node = NULL;
-	if (!tokens || !tokens->head)
-		return (tokens);
-	while (current && current->next)
-	{
-		if (find_redirect(current->data->token->type))
-		{
-			next_node = current->next;
-			if (prev_node)
-			{
-				prev_node->next = next_node->next;
-				free_token(current);
-				free_token(next_node);
-				current = prev_node->next;
-			}
-			else
-			{
-				tokens->head = next_node->next;
-				free(current);
-				free(next_node);
-				current = tokens->head;
-			}
-		}
-		else
-		{
-			prev_node = current;
-			current = current->next;
-		}
-	}
-	tokens->node = tokens->head;
-	return (tokens);
 }
 
 void	close_fds(void)

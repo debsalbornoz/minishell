@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/07 20:28:31 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/16 16:30:46 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,11 +265,9 @@ t_node	*print_tokens(t_node *node);
 
 //command_table.c
 void	create_command_table(t_list *tokens, t_list *exec);
+char	**allocate_cmd_table(t_node *tokens);
 void	create_simple_cmd_table(t_list *tokens, t_list *exec);
-void	create_multi_cmd_table(t_list *tokens, t_list *exec);
-int		find_file(int type);
-void	print_command_table(char **command_table);
-int count(t_node *node);
+void	create_multi_cmd_table(t_list *tokens, t_list *exec, int i);
 
 //env_list_to_str_array.c
 char	**env_list_to_str_array(t_list *lst_env);
@@ -305,6 +303,10 @@ int		count_paths(const char *value);
 char	*return_value(t_list *envp, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
+
+//exec_utils.c
+int		find_file(int type);
+int		is_file_redirect_or_pipe(int type);
 
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 void	free_token(t_node *node);
