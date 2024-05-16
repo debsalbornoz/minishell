@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:56:46 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 17:51:50 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/16 19:34:02 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	redirect_error(t_list	*tokens)
 	t_node	*aux;
 
 	flag = 0;
+	aux = NULL;
 	if (!tokens)
 		return (0);
 	if (tokens)
