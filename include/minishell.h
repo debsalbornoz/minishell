@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/17 18:34:18 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/17 19:27:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,7 @@ void	free_matrix(char **envp);
 
 //execute_simple_command.c
 int		is_simple_command(t_list *tokens);
-int		execute_simple_command(t_list *lst_exec);
+int	execute_simple_command(t_list *exec, t_list *tokens, t_list *envp);
 
 //execution.c
 t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
