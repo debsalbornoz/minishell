@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_executable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/16 19:37:23 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/16 20:18:51 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ void	fill_path_in_exec(t_list *tokens, t_list *exec, t_list *envp)
 	{
 		path = validate_path(exec->node->data->execution->command_table,
 				exec->node, envp);
-		exec->node->data->execution->path = path;
+		exec->node->data->execution->path = ft_strdup(path);
+		free(path);
 		exec->node = exec->node->next;
 	}
+	exec->node = exec->head;
 }
 
 char	*validate_path(char **command_table, t_node *exec, t_list *envp)
@@ -48,31 +50,23 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 		while (path_array[i])
 		{
 			absolute_path = concatenate_path(path_array[i], command_table[0]);
-			if (is_executable(exec, absolute_path))
+			if (i++, is_executable(exec, absolute_path))
 			{
 				free_matrix(path_array);
 				return (absolute_path);
 			}
 			free(absolute_path);
-			i++;
 		}
 		free_and_update_lst(path_array, envp);
 	}
 	return (NULL);
 }
 
-void	free_and_update_lst(char **path_array, t_list	*envp)
-{
-	free_matrix(path_array);
-	update_env_list(envp, "?", " 127: command not found");
-	printf("%s\n", "Command not found");
-}
-
 int	is_absolute_path(char **command_table)
 {
 	if (!ft_strncmp(command_table[0], "/", 1)
 		|| !ft_strncmp(command_table[0], "./", 2))
-			return (1);
+		return (1);
 	return (0);
 }
 
@@ -89,33 +83,6 @@ int	is_executable(t_node *exec, char *path)
 		}
 	}
 	return (0);
-}
-
-char	*create_path(char *path, t_node *tokens)
-{
-	char	*absolute_path;
-
-	absolute_path = NULL;
-	if (!tokens)
-		return (NULL);
-	while (tokens)
-	{
-		if (!is_file_redirect_or_pipe(tokens->data->token->type))
-		{
-			if (tokens->data->token->type == PATH)
-				absolute_path = ft_strdup(tokens->data->token->value);
-			if (tokens->data->token->type == COMMAND)
-				absolute_path
-					= concatenate_path(path, tokens->data->token->value);
-		}
-		if (tokens->data->token->type == PIPE && tokens->next)
-		{
-			tokens = tokens->next;
-			break ;
-		}
-		tokens = tokens->next;
-	}
-	return (absolute_path);
 }
 
 char	*concatenate_path(char *path, char *command)

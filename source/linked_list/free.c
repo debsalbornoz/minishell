@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:28:36 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/16 12:28:45 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/16 21:40:40 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	free_list(t_list *list, void (f)(t_list *))
 {
+	if (!list)
+		return ;
 	if (list->node)
 	{
 		list->node = list->head;
@@ -48,7 +50,7 @@ void	free_lst_exec(t_list *exec)
 {
 	free_matrix(exec->node->data->execution->command_table);
 	free_matrix(exec->node->data->execution->envp);
-	//free(exec->node->data->execution->path);
+	free(exec->node->data->execution->path);
 	free(exec->node->data->execution);
 	free(exec->node->data);
 	free(exec->node);

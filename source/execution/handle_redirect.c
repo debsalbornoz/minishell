@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/16 14:06:54 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/16 20:18:40 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_list	*handle_redirect(t_list *tokens)
 {
 	tokens = open_file(tokens);
-	//tokens = remove_redirect_and_file(tokens);
 	tokens->node = tokens->head;
 	return (tokens);
 }
