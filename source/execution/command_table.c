@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/16 16:30:19 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/17 16:36:13 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ char	**allocate_cmd_table(t_node *tokens)
 	counter = 0;
 	while (aux)
 	{
-		if (!find_redirect(aux->data->token->type)
-			&& !find_file(aux->data->token->type))
+		if (!is_file_redirect_or_pipe(aux->data->token->type))
 			counter++;
 		if (aux->data->token->type == PIPE)
 			break ;
@@ -95,8 +94,13 @@ void	create_multi_cmd_table(t_list *tokens, t_list *exec, int i)
 			tokens->node = tokens->node->next;
 		}
 		command_table[i] = NULL;
-		exec->node->data->execution->command_table = command_table;
-		exec->node = exec->node->next;
-		i = 0;
+		if (*command_table != NULL)
+		{
+			exec->node->data->execution->command_table = command_table;
+			exec->node = exec->node->next;
+			i = 0;
+		}
+		if (*command_table == NULL)
+			free(command_table);
 	}
 }
