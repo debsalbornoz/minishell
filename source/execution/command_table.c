@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/17 16:36:13 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/17 19:02:48 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	create_command_table(t_list *tokens, t_list *exec)
 	if (is_simple_command(tokens) && exec)
 		create_simple_cmd_table(tokens, exec);
 	else
-		create_multi_cmd_table(tokens, exec, 0);
+		create_multi_cmd_table(tokens, exec);
 	tokens->node = tokens->head;
 	exec->node = exec->head;
 }
@@ -71,7 +71,7 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 	exec->node->data->execution->command_table = command_table;
 }
 
-void	create_multi_cmd_table(t_list *tokens, t_list *exec, int i)
+void	create_multi_cmd_table(t_list *tokens, t_list *exec)
 {
 	char	**command_table;
 
@@ -79,28 +79,39 @@ void	create_multi_cmd_table(t_list *tokens, t_list *exec, int i)
 	while (exec->node)
 	{
 		command_table = allocate_cmd_table(tokens->node);
-		while (tokens->node)
-		{
-			if (!is_file_redirect_or_pipe(tokens->node->data->token->type))
-			{
-				command_table[i] = ft_strdup(tokens->node->data->token->value);
-				i++;
-			}
-			if (tokens->node->data->token->type == PIPE && tokens->node->next)
-			{
-				tokens->node = tokens->node->next;
-				break ;
-			}
-			tokens->node = tokens->node->next;
-		}
-		command_table[i] = NULL;
-		if (*command_table != NULL)
+		command_table = fill_command_table(&tokens->node, command_table);
+		if (*command_table == NULL)
+			free(command_table);
+		else
 		{
 			exec->node->data->execution->command_table = command_table;
 			exec->node = exec->node->next;
-			i = 0;
 		}
-		if (*command_table == NULL)
-			free(command_table);
 	}
+}
+
+char	**fill_command_table(t_node **tokens, char **command_table)
+{
+	int		i;
+	t_node	*current;
+
+	i = 0;
+	current = *tokens;
+	while (current)
+	{
+		if (!is_file_redirect_or_pipe(current->data->token->type))
+		{
+			command_table[i] = ft_strdup(current->data->token->value);
+			i++;
+		}
+		else if (current->data->token->type == PIPE && current->next)
+		{
+			current = current->next;
+			break ;
+		}
+		current = current->next;
+	}
+	*tokens = current;
+	command_table[i] = NULL;
+	return (command_table);
 }

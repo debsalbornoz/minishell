@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/16 21:41:21 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:34:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,8 @@ t_node	*print_tokens(t_node *node);
 void	create_command_table(t_list *tokens, t_list *exec);
 char	**allocate_cmd_table(t_node *tokens);
 void	create_simple_cmd_table(t_list *tokens, t_list *exec);
-void	create_multi_cmd_table(t_list *tokens, t_list *exec, int i);
+void	create_multi_cmd_table(t_list *tokens, t_list *exec);
+char	**fill_command_table(t_node **tokens, char **command_table);
 
 //env_list_to_str_array.c
 char	**env_list_to_str_array(t_list *lst_env);
