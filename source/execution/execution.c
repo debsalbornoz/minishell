@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/17 19:30:32 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/18 15:41:24 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 t_list	*execute(t_list *lst_tokens, t_list *lst_exec, t_list *lst_env)
 {
+	int	i;
+
+	i = 0;
 	lst_exec = create_lst_exec(lst_tokens, lst_exec, lst_env);
 	if (!lst_exec)
 		return (NULL);
 	if (is_simple_command(lst_tokens))
-		execute_simple_command(lst_exec, lst_tokens, lst_env);
+		execute_simple_command(lst_exec, lst_tokens);
 	if (lst_exec->node)
 		lst_exec->node = lst_exec->head;
 	return (lst_exec);

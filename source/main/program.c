@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/16 14:13:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/18 17:42:18 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	program(t_list *envp)
 		printf("\n");
 		return (FALSE);
 	}
+	input = trim_start_spaces(input);
 	if (!*input)
 		return (TRUE);
 	input = expand(envp, input);

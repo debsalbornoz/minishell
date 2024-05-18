@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/16 20:18:51 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:43:16 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 	absolute_path = NULL;
 	envp->node = envp->head;
 	if (is_absolute_path(command_table))
-		exec->data->execution->path = ft_strdup(command_table[0]);
+	{
+		absolute_path = ft_strdup(command_table[0]);
+		free_matrix(path_array);
+		return (absolute_path);
+	}
 	else
 	{
 		while (path_array[i])

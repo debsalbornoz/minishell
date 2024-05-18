@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/17 19:27:02 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/18 19:41:24 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ t_list	*process_redirect_input(t_list *tokens, char *input, int i);
 t_list	*process_redirect_output(t_list *tokens, char *input, int i);
 
 // process_word.c
-int		process_word(t_list *tokens, int signal, char *input, int i);
+int		process_word(t_list *tokens, int signal, char *input);
 int		get_token_len(char *input, int signal);
 
 /* --- source/parser/ --- */
@@ -278,7 +278,7 @@ void	free_matrix(char **envp);
 
 //execute_simple_command.c
 int		is_simple_command(t_list *tokens);
-int	execute_simple_command(t_list *exec, t_list *tokens, t_list *envp);
+int		execute_simple_command(t_list *exec, t_list *tokens);
 
 //execution.c
 t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
@@ -316,4 +316,5 @@ int		is_file_redirect_or_pipe(int type);
 
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 void	free_token(t_node *node);
+int	is_empty_quotes(char signal, char *input);
 #endif

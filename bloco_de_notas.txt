@@ -1,12 +1,4 @@
-<<>><><><>><><><<<|\
-
-ctrl c + ctrl \ + ctrl d
-
-echo + ctrl d
-
-ctrl d
-
-><<
-> >>
-><>
-| teste
+ls > 1 > 2 > 3 > 4
+">>" asd
+>">" asd
+>> '$USER'
