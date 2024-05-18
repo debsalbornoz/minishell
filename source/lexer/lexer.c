@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/18 19:40:54 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/18 19:53:03 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_list	*lexer(t_list *tokens, char *input)
 	while (i < ft_strlen(input))
 	{
 		signal = process_quotes(signal, input[i]);
-		token_len = process_word(tokens, signal, &input[i]);
+		token_len = process_word(tokens, signal, input, i);
 		if (signal)
 			signal = '\0';
 		if (token_len >= 0 && i + token_len <= ft_strlen(input))

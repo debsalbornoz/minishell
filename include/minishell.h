@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/18 19:41:24 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/18 19:52:34 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ t_list	*process_redirect_input(t_list *tokens, char *input, int i);
 t_list	*process_redirect_output(t_list *tokens, char *input, int i);
 
 // process_word.c
-int		process_word(t_list *tokens, int signal, char *input);
+int		process_word(t_list *tokens, int signal, char *input, int i);
 int		get_token_len(char *input, int signal);
 
 /* --- source/parser/ --- */
