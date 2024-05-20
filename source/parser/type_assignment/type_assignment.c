@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 21:26:00 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/20 14:40:51 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/20 18:42:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_list	*command_after_redirect(t_list *tokens)
 		if (aux->next)
 		{
 			aux = aux->next;
-			aux->data->token->type = COMMAND;
+			if (aux->data->token->type == WORD)
+				aux->data->token->type = COMMAND;
 		}
 	}
 	return (tokens);

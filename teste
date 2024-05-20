@@ -1,15 +1,16 @@
-total 316
--rw-rw-rw-   1 codespace codespace      0 May 20 12:09 
+
 gsfsd
--rw-r--r--   1 codespace codespace      0 May 20 12:15 >
--rw-rw-rw-   1 codespace codespace   4750 May 16 16:06 Makefile
--rw-rw-rw-   1 codespace codespace     48 May 20 12:09 bloco_de_notas.txt
-drwxrwxrwx+  3 codespace root        4096 May 14 11:44 doc
-drwxrwxrwx+  2 codespace root        4096 May 20 12:09 include
-drwxrwxrwx+  3 codespace root        4096 May 14 11:44 library
--rwxrwxrwx   1 codespace codespace 242296 May 20 12:15 minishell
-drwxrwxrwx+ 10 codespace codespace   4096 May 20 12:10 objects
-drwxrwxrwx+ 10 codespace root        4096 May 14 11:44 source
--rw-rw-rw-   1 codespace root          74 May 14 11:44 suppression.supp
--rw-rw-rw-   1 codespace codespace      0 May 20 14:06 teste
--rw-rw-rw-   1 codespace codespace  37135 May 20 12:09 testes_minishell1.txt
+Makefile
+a
+bloco_de_notas.txt
+c
+d
+doc
+include
+library
+minishell
+objects
+source
+suppression.supp
+teste
+testes_minishell1.txt

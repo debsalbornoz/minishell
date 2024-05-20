@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/20 17:51:01 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/20 19:09:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ struct s_exec
 	char			*path;
 	char			**command_table;
 	char			**envp;
-
+	int				fds[];
 };
 
 /* --- source/main --- */
