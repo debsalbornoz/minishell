@@ -69,8 +69,9 @@ F_EXECUTION		:=			\
 	env_list_to_str_array	\
 	find_executable			\
 	handle_redirect			\
-	split_path				\
+	split_path_var			\
 	exec_utils				\
+	create_absolute_path
 
 O_SOURCE	:=				\
 	$(addprefix objects/, $(addsuffix .o, $(F_SOURCE)))

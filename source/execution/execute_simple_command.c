@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/20 14:58:10 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/20 17:06:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	execute_simple_command(t_list *exec, t_list *tokens)
 			exec->node->data->execution->command_table,
 			exec->node->data->execution->envp);
 	}
- 	else
+	else
 	{
 		wait(&status);
 		dup2(fd_in, 0);

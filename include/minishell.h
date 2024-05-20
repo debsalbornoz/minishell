@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/20 16:47:31 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/20 17:51:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,11 @@ void	create_simple_cmd_table(t_list *tokens, t_list *exec);
 void	create_multi_cmd_table(t_list *tokens, t_list *exec);
 char	**fill_command_table(t_node **tokens, char **command_table);
 
+//create_absolute_path.c
+char	*create_absolute_path(char **path_array, char **command_table,
+				t_list *envp, t_node *exec);
+char	*concatenate_path(char *path, char *command);
+
 //env_list_to_str_array.c
 char	**env_list_to_str_array(t_list *lst_env);
 int		count_nodes(t_list *lst_env);
@@ -300,13 +305,11 @@ void	close_fds(void);
 //find_executable.c
 void	fill_path_in_exec(t_list *tokens, t_list *exec, t_list *envp);
 char	*validate_path(char **command_table, t_node *exec, t_list *envp);
-void	free_and_update_lst(char **path_array, t_list	*envp);
 int		is_absolute_path(char **command_table);
 int		is_executable(t_node *exec, char *path);
 char	*create_path(char *path, t_node *tokens);
-char	*concatenate_path(char *path, char *command);
 
-//split_path.c
+//split_path_var.c
 char	**split_path(t_list *envp);
 int		count_paths(const char *value);
 char	*return_value(t_list *envp, char *name);
@@ -316,9 +319,10 @@ int		get_len(char *value);
 //exec_utils.c
 int		find_file(int type);
 int		is_file_redirect_or_pipe(int type);
+void	free_and_update_lst(char **path_array, t_list	*envp);
 
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 void	free_token(t_node *node);
-int	is_empty_quotes(char signal, char *input);
+int		is_empty_quotes(char signal, char *input);
 t_list	*command_after_redirect(t_list *tokens);
 #endif
