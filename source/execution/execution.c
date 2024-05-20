@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/18 15:41:24 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:25:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 t_list	*execute(t_list *lst_tokens, t_list *lst_exec, t_list *lst_env)
 {
-	int	i;
-
-	i = 0;
 	lst_exec = create_lst_exec(lst_tokens, lst_exec, lst_env);
 	if (!lst_exec)
 		return (NULL);
@@ -34,11 +31,7 @@ t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 	aux = tokens->head;
 	while (aux)
 	{
-		if ((aux == tokens->head && (aux->data->token->type == COMMAND
-					|| aux->data->token->type == PATH))
-			|| (aux->data->token->type == PIPE
-				&& (aux->next->data->token->type == COMMAND
-					|| aux->next->data->token->type == PATH)))
+		if (aux->data->token->type == COMMAND || aux->data->token->type == PATH)
 		{
 			exec = add_node(exec);
 			exec->node->data = ft_calloc(1, sizeof(union u_data));

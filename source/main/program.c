@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/18 17:42:18 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:45:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	program(t_list *envp)
 	if (!*input)
 		return (TRUE);
 	input = expand(envp, input);
-	if (!is_closed(input))
+	if (!is_closed(input, envp))
 		return (TRUE);
 	tokens = *lexer(&tokens, input);
 	if (!parser(&tokens, envp, input))

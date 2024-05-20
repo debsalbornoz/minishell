@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/18 19:52:34 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:47:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,11 +190,13 @@ int		check_first_and_last_pipe(t_list	*tokens);
 int		check_pipe_after_redirect(t_list	*tokens);
 
 //quotes.c
-int		is_closed(char *input);
+int		is_closed(char *input, t_list *envp);
 int		count_characters_inside_quotes(const char *str,
 			int *i, char signal, int inside_quotes);
 int		count_characters_outside_quotes(const char *str,
 			int *i, int inside_quotes);
+void	print_fatal_error(char *input, t_list *envp);
+
 //redirect_error.c
 int		find_redirect(int type);
 int		redirect_error(t_list	*tokens);
@@ -222,6 +224,7 @@ int		compare_quoted_strings(char *token, char *builtin);
 t_node	*is_command_part1(t_node *head);
 t_node	*is_command_part2(t_node *node);
 t_node	*is_argument(t_node *node);
+t_node	*is_command_part3(t_node *tokens);
 
 // files.c
 t_node	*is_file(t_node *node);
@@ -317,4 +320,5 @@ int		is_file_redirect_or_pipe(int type);
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 void	free_token(t_node *node);
 int	is_empty_quotes(char signal, char *input);
+t_list	*command_after_redirect(t_list *tokens);
 #endif

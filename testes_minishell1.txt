@@ -183,7 +183,7 @@
 #                                PARSING HELL                                  #
 # **************************************************************************** #
 
->">" asd
+[x]>">" asd
 
 echo '' -n
 
@@ -1544,42 +1544,19 @@ lim
 #                                     SCMD                                     #
 # **************************************************************************** #
 
-[x] ls
-
 cat cmds.sh
 
 /bin/echo test1
 
-[x]""
-
-[x]touch ""
-
-[x]touch "  "
-/bin/rm -f "  "
-
-
-touch "
-"
-/bin/rm -f "
-"
-
-[x]mkdir " "
-/bin/rm -rf " "
-
-[x]asd
 expr $? + $?
 
-[x]expr 21 + 21
-
-[x]"ls"
-
-[x]"cat cmds.sh"
+"cat cmds.sh"
 
 "/bin/echo" test1
 
 '/bin/echo test1'
 
-[x]awk '$1 ~ /^d/ {print $9}'
+awk '$1 ~ /^d/ {print $9}'
 
 awk 'BEGIN{for(i=1;i<=10;i++){for(j=1;j<=10;j++){printf("%4d ",i*j)} printf("\n")}}' /dev/null | tail -n 10
 
@@ -2134,7 +2111,6 @@ a.out
 
 unset PATH
 echo $PATH
-/bin/ls
 echo 1
 cd -
 echo 42
