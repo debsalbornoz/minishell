@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:28:36 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/16 21:40:40 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:59:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	free_lst_env(t_list *envp)
 void	free_lst_exec(t_list *exec)
 {
 	free_matrix(exec->node->data->execution->command_table);
+	//free_matrix(exec->node->data->execution->redirects_and_files);
 	free_matrix(exec->node->data->execution->envp);
 	free(exec->node->data->execution->path);
 	free(exec->node->data->execution);

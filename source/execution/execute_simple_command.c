@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/20 17:06:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/22 16:06:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,19 @@ int	execute_simple_command(t_list *exec, t_list *tokens)
 	fd_out = dup(STDOUT_FILENO);
 	tokens = handle_redirect(tokens);
 	pid = -2;
-	if (!exec->node)
+	if (!exec)
 	{
 		dup2(fd_in, 0);
 		dup2(fd_out, 1);
 		return (1);
 	}
-	if (exec->node->data->execution->path != NULL
-		&& exec->node->data->execution->command_table != NULL
-		&& exec->node->data->execution->envp != NULL)
-		pid = fork();
+	if (exec)
+	{
+		if (exec->node->data->execution->path != NULL
+			&& exec->node->data->execution->command_table != NULL
+			&& exec->node->data->execution->envp != NULL)
+			pid = fork();
+	}
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)

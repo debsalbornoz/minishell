@@ -58,6 +58,7 @@ EXEC	:=	$(DIR_EXEC)/execution				\
 			$(DIR_EXEC)/env_list_to_str_array	\
 			$(DIR_EXEC)/execute_simple_command	\
 			$(DIR_EXEC)/create_absolute_path	\
+			$(DIR_EXEC)/redirects_and_files		\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft				\
 			$(DIR_UTLS)/utils_quote				\

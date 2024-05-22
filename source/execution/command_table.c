@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/17 19:02:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/22 17:15:55 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char	**allocate_cmd_table(t_node *tokens)
 			break ;
 		aux = aux->next;
 	}
-	command_table = ft_calloc(counter + 1, sizeof(char *));
+	if (counter > 0)
+		command_table = ft_calloc(counter + 1, sizeof(char *));
 	if (!command_table)
 		return (NULL);
 	return (command_table);
@@ -57,6 +58,8 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 	command_table = NULL;
 	i = 0;
 	command_table = allocate_cmd_table(aux_tokens);
+	if (!command_table)
+		return ;
 	while (aux_tokens)
 	{
 		if (!find_redirect(aux_tokens->data->token->type)
@@ -68,6 +71,12 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 		aux_tokens = aux_tokens->next;
 	}
 	command_table[i] = NULL;
+	if (!command_table || !*command_table)
+	{
+		free_matrix(command_table);
+		exec->node->data->execution->command_table = NULL;
+		return ;
+	}
 	exec->node->data->execution->command_table = command_table;
 }
 

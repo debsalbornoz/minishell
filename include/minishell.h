@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/21 17:49:01 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/22 12:16:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,8 +326,7 @@ void	free_token(t_node *node);
 int		is_empty_quotes(char signal, char *input);
 t_list	*command_after_redirect(t_list *tokens);
 
-void get_redirects_and_files(t_list *exec, t_list *tokens);
-int	get_size(t_node *tokens);
-char	**allocate_matrix(t_list *tokens);
-char	**fill_redir_and_files(t_node **tokens, char **redir_and_files);
+void	fill_redir_and_files(t_list *exec, t_list *tokens);
+char	**allocate_matrix(t_node *tokens);
+char	**get_redirects_and_files(t_node **tokens, char **redir_and_files);
 #endif
