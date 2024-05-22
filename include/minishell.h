@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/20 19:09:50 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/21 17:49:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ struct s_exec
 	char			*path;
 	char			**command_table;
 	char			**envp;
-	int				fds[];
+	char			**redirects_and_files;
 };
 
 /* --- source/main --- */
@@ -325,4 +325,9 @@ t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 void	free_token(t_node *node);
 int		is_empty_quotes(char signal, char *input);
 t_list	*command_after_redirect(t_list *tokens);
+
+void get_redirects_and_files(t_list *exec, t_list *tokens);
+int	get_size(t_node *tokens);
+char	**allocate_matrix(t_list *tokens);
+char	**fill_redir_and_files(t_node **tokens, char **redir_and_files);
 #endif
