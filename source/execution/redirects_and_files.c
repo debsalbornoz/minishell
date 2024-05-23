@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/23 12:37:34 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 13:06:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	fill_redir_and_files(t_list *exec, t_list *tokens)
 	while (exec->node)
 	{
 		redir_and_files = allocate_matrix(tokens->node);
+		if (!redir_and_files)
+			return ;
 		redir_and_files = get_redirects_and_files(&tokens->node,
-			redir_and_files);
+				redir_and_files);
 		exec->node->data->execution->redirects_and_files = redir_and_files;
 		exec->node = exec->node->next;
 	}
@@ -43,13 +45,14 @@ char	**allocate_matrix(t_node *tokens)
 	while (aux)
 	{
 		if (find_redirect(aux->data->token->type)
-		|| find_file(aux->data->token->type))
+			|| find_file(aux->data->token->type))
 			counter++;
 		if (aux->data->token->type == PIPE)
-			break;
+			break ;
 		aux = aux->next;
 	}
-	redir_and_files = ft_calloc(counter + 1, sizeof(char *));
+	if (counter > 0)
+		redir_and_files = ft_calloc(counter + 1, sizeof(char *));
 	if (!redir_and_files)
 		return (NULL);
 	return (redir_and_files);
