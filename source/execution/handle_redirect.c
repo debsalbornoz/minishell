@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/23 20:16:06 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 20:12:40 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	find_append(char *str);
 int	find_input(char *str);
 int	find_heredoc(char *str);
 
-void handle_redirect(t_node *exec)
+void	handle_redirect(t_node *exec)
 {
 	int		fd;
 	int		i;
@@ -33,8 +33,8 @@ void handle_redirect(t_node *exec)
 			if (exec->data->execution->redirects_and_files[i + 1])
 			{
 				fd = open(exec->data->execution->redirects_and_files[i + 1], set_flag(exec->data->execution->redirects_and_files[i]), 0644);
-				if ( fd == -1)
-					printf("???\n");
+				if (fd == -1)
+					return ;
 				fd = dup2(fd, 1);
 				exec->data->execution->output = fd;
 			}
@@ -53,7 +53,7 @@ void handle_redirect(t_node *exec)
 	}
 	return ;
 }
-
+void	open_file
 int	set_flag(char *redirect)
 {
 	int	flag;

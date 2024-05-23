@@ -121,6 +121,7 @@ valgrind: re
 	--leak-check=full \
 	--show-leak-kinds=all \
 	--suppressions=suppression.supp \
+	valgrind --trace-children=yes --track-fds=yes \
 	./$(NAME)
 
 .PHONY:	all clean fclean re make_libft valgrind
