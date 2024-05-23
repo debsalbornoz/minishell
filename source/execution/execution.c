@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/22 17:07:11 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 12:11:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 		if (exec->node->data->execution->command_table != NULL)
 			fill_path_in_exec(tokens, exec, envp);
 		exec->node = exec->head;
+		envp->node = envp->head;
 	}
 	return (exec);
 }
