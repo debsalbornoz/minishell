@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/22 13:07:17 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 12:37:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,16 @@ void	fill_redir_and_files(t_list *exec, t_list *tokens)
 	while (exec->node)
 	{
 		redir_and_files = allocate_matrix(tokens->node);
-		redir_and_files = get_redirects_and_files(&tokens->node, redir_and_files);
+		redir_and_files = get_redirects_and_files(&tokens->node,
+			redir_and_files);
 		exec->node->data->execution->redirects_and_files = redir_and_files;
 		exec->node = exec->node->next;
 	}
-tokens->node = tokens->head;
-exec->node = exec->head;
+	tokens->node = tokens->head;
+	exec->node = exec->head;
 }
 
-char **allocate_matrix(t_node *tokens)
+char	**allocate_matrix(t_node *tokens)
 {
 	int			counter;
 	t_node		*aux;
@@ -41,42 +42,42 @@ char **allocate_matrix(t_node *tokens)
 	counter = 0;
 	while (aux)
 	{
-	if (find_redirect(aux->data->token->type)
-	|| find_file(aux->data->token->type))
-	counter++;
-	if (aux->data->token->type == PIPE)
-	break;
-	aux = aux->next;
+		if (find_redirect(aux->data->token->type)
+		|| find_file(aux->data->token->type))
+			counter++;
+		if (aux->data->token->type == PIPE)
+			break;
+		aux = aux->next;
 	}
 	redir_and_files = ft_calloc(counter + 1, sizeof(char *));
 	if (!redir_and_files)
-	return (NULL);
+		return (NULL);
 	return (redir_and_files);
 }
 
-char **get_redirects_and_files(t_node **tokens, char **redir_and_files)
+char	**get_redirects_and_files(t_node **tokens, char **redir_and_files)
 {
-    int i;
-    t_node *current;
+	int		i;
+	t_node	*current;
 
-    i = 0;
-    current = *tokens;
-    while (current)
-    {
-        if (find_redirect(current->data->token->type)
-            || find_file(current->data->token->type))
-        {
-            redir_and_files[i] = ft_strdup(current->data->token->value);
-            i++;
-        }
-        else if (current->data->token->type == PIPE && current->next)
-        {
-            current = current->next;
-            break;
-        }
-        current = current->next;
-    }
-    *tokens = current;
-    redir_and_files[i] = NULL;
-    return (redir_and_files);
+	i = 0;
+	current = *tokens;
+	while (current)
+	{
+		if (find_redirect(current->data->token->type)
+			|| find_file(current->data->token->type))
+		{
+			redir_and_files[i] = ft_strdup(current->data->token->value);
+			i++;
+		}
+		else if (current->data->token->type == PIPE && current->next)
+		{
+			current = current->next;
+			break ;
+		}
+		current = current->next;
+	}
+	*tokens = current;
+	redir_and_files[i] = NULL;
+	return (redir_and_files);
 }

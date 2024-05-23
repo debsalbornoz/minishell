@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/18 19:53:03 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:39:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,3 @@ char	process_quotes(char signal, char input)
 	return (signal);
 }
 
-int	is_empty_quotes(char signal, char *input)
-{
-	int	i;
-
-	i = 0;
-	if (signal && input[i + 1] == signal)
-		return (2);
-	return (0);
-}

@@ -6,13 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/23 12:11:09 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 12:20:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	print_command_table(char **command_table);
 
 t_list	*execute(t_list *lst_tokens, t_list *lst_exec, t_list *lst_env)
 {
@@ -27,7 +25,7 @@ t_list	*execute(t_list *lst_tokens, t_list *lst_exec, t_list *lst_env)
 	return (lst_exec);
 }
 
-t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
+t_list	*allocate_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 {
 	t_node	*aux;
 
@@ -50,6 +48,12 @@ t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 		}
 		aux = aux->next;
 	}
+	return (exec);
+}
+
+t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
+{
+	exec = allocate_lst_exec(tokens, exec, envp);
 	if (exec->node)
 	{
 		create_command_table(tokens, exec);

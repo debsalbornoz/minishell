@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/22 12:16:25 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 12:39:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ t_list	*process_redirect_output(t_list *tokens, char *input, int i);
 // process_word.c
 int		process_word(t_list *tokens, int signal, char *input, int i);
 int		get_token_len(char *input, int signal);
+int		is_empty_quotes(char signal, char *input);
 
 /* --- source/parser/ --- */
 
@@ -275,14 +276,18 @@ char	**fill_command_table(t_node **tokens, char **command_table);
 
 //create_absolute_path.c
 char	*create_absolute_path(char **path_array, char **command_table,
-				t_list *envp, t_node *exec);
+			t_list *envp, t_node *exec);
 char	*concatenate_path(char *path, char *command);
 
 //env_list_to_str_array.c
 char	**env_list_to_str_array(t_list *lst_env);
-int		count_nodes(t_list *lst_env);
 char	*build_env_var(char *s1, char *s2);
-void	free_matrix(char **envp);
+
+//exec_utils.c
+int		find_file(int type);
+int		is_file_redirect_or_pipe(int type);
+void	free_and_update_lst(char **path_array, t_list	*envp);
+void	free_matrix(char **matrix);
 
 //execute_simple_command.c
 int		is_simple_command(t_list *tokens);
@@ -290,10 +295,8 @@ int		execute_simple_command(t_list *exec, t_list *tokens);
 
 //execution.c
 t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
-int		first_command(t_node *node, t_list *tokens);
-int		command_after_pipe(t_node *node);
-//int		execute_simple_command(t_list *exec, t_list *lst_env);
-t_list	*prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
+t_list	*allocate_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
+t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 
 //handle_redirect.c
 t_list	*handle_redirect(t_list *tokens);
@@ -307,7 +310,11 @@ void	fill_path_in_exec(t_list *tokens, t_list *exec, t_list *envp);
 char	*validate_path(char **command_table, t_node *exec, t_list *envp);
 int		is_absolute_path(char **command_table);
 int		is_executable(t_node *exec, char *path);
-char	*create_path(char *path, t_node *tokens);
+
+//redirects_and_files.c
+void	fill_redir_and_files(t_list *exec, t_list *tokens);
+char	**allocate_matrix(t_node *tokens);
+char	**get_redirects_and_files(t_node **tokens, char **redir_and_files);
 
 //split_path_var.c
 char	**split_path(t_list *envp);
@@ -316,17 +323,4 @@ char	*return_value(t_list *envp, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
 
-//exec_utils.c
-int		find_file(int type);
-int		is_file_redirect_or_pipe(int type);
-void	free_and_update_lst(char **path_array, t_list	*envp);
-
-t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
-void	free_token(t_node *node);
-int		is_empty_quotes(char signal, char *input);
-t_list	*command_after_redirect(t_list *tokens);
-
-void	fill_redir_and_files(t_list *exec, t_list *tokens);
-char	**allocate_matrix(t_node *tokens);
-char	**get_redirects_and_files(t_node **tokens, char **redir_and_files);
 #endif

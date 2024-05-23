@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/22 17:15:55 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 12:23:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,6 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 		aux_tokens = aux_tokens->next;
 	}
 	command_table[i] = NULL;
-	if (!command_table || !*command_table)
-	{
-		free_matrix(command_table);
-		exec->node->data->execution->command_table = NULL;
-		return ;
-	}
 	exec->node->data->execution->command_table = command_table;
 }
 

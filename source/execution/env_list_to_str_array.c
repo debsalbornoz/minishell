@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 19:50:12 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 12:26:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,4 @@ char	*build_env_var(char *name, char *value)
 	}
 	env_var[i] = '\0';
 	return (env_var);
-}
-
-void	free_matrix(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	if (!matrix || !*matrix)
-		return ;
-	while (matrix[i] != NULL)
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
 }
