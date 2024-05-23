@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/23 12:39:22 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 20:16:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ struct s_exec
 	char			**command_table;
 	char			**envp;
 	char			**redirects_and_files;
+	int				input;
+	int				output;
 };
 
 /* --- source/main --- */
@@ -299,9 +301,9 @@ t_list	*allocate_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 
 //handle_redirect.c
-t_list	*handle_redirect(t_list *tokens);
+void	handle_redirect(t_node *tokens);
 t_list	*open_file(t_list *tokens);
-int		set_flag(t_node *node);
+int		set_flag(char *redirect);
 t_list	*remove_redirect_and_file(t_list *tokens);
 void	close_fds(void);
 

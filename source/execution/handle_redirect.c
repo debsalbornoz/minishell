@@ -3,60 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/16 20:18:40 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:16:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_list	*handle_redirect(t_list *tokens)
-{
-	tokens = open_file(tokens);
-	tokens->node = tokens->head;
-	return (tokens);
-}
+int	find_output(char *str);
+int	find_append(char *str);
+int	find_input(char *str);
+int	find_heredoc(char *str);
 
-t_list	*open_file(t_list *tokens)
+void handle_redirect(t_node *exec)
 {
-	t_node	*aux;
 	int		fd;
+	int		i;
 
-	aux = tokens->head;
-	while (aux)
+	i = 0;
+	if (!exec->data->execution->redirects_and_files)
+		return ;
+	while (exec->data->execution->redirects_and_files[i])
 	{
-		if (find_redirect(aux->data->token->type))
+		if (find_output(exec->data->execution->redirects_and_files[i])
+			|| find_append(exec->data->execution->redirects_and_files[i]))
 		{
-			if (aux->next)
+			if (exec->data->execution->redirects_and_files[i + 1])
 			{
-				fd = open(aux->next->data->token->value, set_flag(aux), 0644);
-				if (fd == -1)
-					return (NULL);
-				if (aux->data->token->type == OUTPUT
-					|| aux->data->token->type == APPEND)
-					fd = dup2(fd, 1);
-				else if (aux->data->token->type == INPUT
-					|| aux->data->token->type == HEREDOC)
-					fd = dup2(fd, 0);
+				fd = open(exec->data->execution->redirects_and_files[i + 1], set_flag(exec->data->execution->redirects_and_files[i]), 0644);
+				if ( fd == -1)
+					printf("???\n");
+				fd = dup2(fd, 1);
+				exec->data->execution->output = fd;
 			}
 		}
-		aux = aux->next;
+		if (find_input(exec->data->execution->redirects_and_files[i])
+			|| find_heredoc(exec->data->execution->redirects_and_files[i]))
+		{
+			if (exec->data->execution->redirects_and_files[i + 1])
+			{
+				fd = open(exec->data->execution->redirects_and_files[i + 1], set_flag(exec->data->execution->redirects_and_files[i]), 0644);
+				fd = dup2(fd, 0);
+				exec->data->execution->input  = fd;
+			}
+		}
+		i++;
 	}
-	return (tokens);
+	return ;
 }
 
-int	set_flag(t_node *node)
+int	set_flag(char *redirect)
 {
 	int	flag;
 
 	flag = 0;
-	if (node->data->token->type == OUTPUT)
+	if (find_output(redirect))
 		flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
-	if (node->data->token->type == APPEND)
+	if (find_append(redirect))
 		flag = flag | O_WRONLY | O_CREAT | O_APPEND;
-	if (node->data->token->type == HEREDOC || node->data->token->type == INPUT)
+	if (find_heredoc(redirect) || find_input(redirect))
 		flag = flag | O_RDONLY;
 	return (flag);
 }
@@ -79,4 +86,55 @@ void	free_token(t_node *node)
 	free(node->data->token);
 	free(node->data);
 	free(node);
+}
+
+int	find_output(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len == 1)
+	{
+		if (ft_strncmp(str, ">", len) == 0)
+			return (1);
+	}
+	return (0);
+}
+int	find_append(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len == 2)
+	{
+		if (ft_strncmp(str, ">>", len) == 0)
+			return (1);
+	}
+	return (0);
+}
+
+int	find_input(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len == 1)
+	{
+		if (ft_strncmp(str, "<", len) == 0)
+			return (1);
+	}
+	return (0);
+}
+
+int	find_heredoc(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len == 2)
+	{
+		if (ft_strncmp(str, "<<", len) == 0)
+			return (1);
+	}
+	return (0);
 }
