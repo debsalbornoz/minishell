@@ -2,3 +2,4 @@ minishell
 objects
 *.a
 .obsidian
+bin

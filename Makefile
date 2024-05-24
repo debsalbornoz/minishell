@@ -1,5 +1,8 @@
 NAME	:=	minishell
-CFLAGS	:=	-Wall -Wextra -Werror -g3
+
+NPWD	:=	pwd
+
+CFLAGS	:=	-Wall -Wextra -Werror -g3 -Ofast
 
 CRST	:=	"\033[0m"
 CGRN	:=	"\033[32m"
@@ -15,9 +18,10 @@ DIR_ENVP	:=	envp
 DIR_EXPD	:=	expander
 DIR_LEXR	:=	lexer
 DIR_TYPE	:=	type_assignment
-DIR_UTLS	:=	utils
 DIR_PARS	:=	parser
 DIR_EXEC	:=	execution
+DIR_BIUL	:=	$(DIR_SRCS)/builtins
+DIR_UTLS	:=	utils
 
 MAIN 	:=	$(DIR_MAIN)/main					\
 			$(DIR_MAIN)/program					\
@@ -83,9 +87,12 @@ OBJS	:=	$(addprefix $(DIR_OBJS)/,$(addsuffix .o,$(SRCS)))
 
 all: make_libft $(NAME)
 
+
 $(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c | $(DIR_OBJS)
 	$(CC) $(CFLAGS) -o $@ -c $<
 	printf $(CGRN)"Compiling: "$(CRST)"$<\n"
+	$(CC) $(CFLAGS) $(DIR_BIUL)/pwd.c -o $(DIR_BIUL)/bin/pwd
+	$(CC) $(CFLAGS) $(DIR_BIUL)/echo.c -o $(DIR_BIUL)/bin/echo
 
 $(DIR_OBJS):
 	mkdir -p $@
@@ -98,6 +105,8 @@ $(DIR_OBJS):
 	mkdir -p $@/$(DIR_PARS)/$(DIR_TYPE)
 	mkdir -p $@/$(DIR_EXEC)
 	mkdir -p $@/$(DIR_UTLS)
+	mkdir -p $@/$(DIR_BIUL)
+	mkdir -p $(DIR_BIUL)/bin
 
 $(NAME): make_libft $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(INCS) -o $(NAME)
@@ -108,6 +117,7 @@ clean:
 
 fclean: clean
 	$(MAKE) -C $(L_FT) fclean
+	rm -rf $(DIR_BIUL)/bin
 	rm -rf $(NAME)
 
 re: fclean all
