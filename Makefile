@@ -20,7 +20,7 @@ DIR_LEXR	:=	lexer
 DIR_TYPE	:=	type_assignment
 DIR_PARS	:=	parser
 DIR_EXEC	:=	execution
-DIR_BIUL	:=	$(DIR_SRCS)/builtins
+DIR_BIUL	:=	builtins
 DIR_UTLS	:=	utils
 
 MAIN 	:=	$(DIR_MAIN)/main					\
@@ -63,6 +63,14 @@ EXEC	:=	$(DIR_EXEC)/execution				\
 			$(DIR_EXEC)/execute_simple_command	\
 			$(DIR_EXEC)/create_absolute_path	\
 
+BUIL	:=	$(DIR_BIUL)/echo					\
+			$(DIR_BIUL)/cd						\
+			$(DIR_BIUL)/pwd						\
+			$(DIR_BIUL)/export					\
+			$(DIR_BIUL)/unset					\
+			$(DIR_BIUL)/env						\
+			$(DIR_BIUL)/exit					\
+
 UTLS	:=	$(DIR_UTLS)/utils_ft				\
 			$(DIR_UTLS)/utils_quote				\
 			$(DIR_UTLS)/utils_tokens			\
@@ -91,8 +99,6 @@ all: make_libft $(NAME)
 $(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c | $(DIR_OBJS)
 	$(CC) $(CFLAGS) -o $@ -c $<
 	printf $(CGRN)"Compiling: "$(CRST)"$<\n"
-	$(CC) $(CFLAGS) $(DIR_BIUL)/pwd.c -o $(DIR_BIUL)/bin/pwd
-	$(CC) $(CFLAGS) $(DIR_BIUL)/echo.c -o $(DIR_BIUL)/bin/echo
 
 $(DIR_OBJS):
 	mkdir -p $@
@@ -106,7 +112,6 @@ $(DIR_OBJS):
 	mkdir -p $@/$(DIR_EXEC)
 	mkdir -p $@/$(DIR_UTLS)
 	mkdir -p $@/$(DIR_BIUL)
-	mkdir -p $(DIR_BIUL)/bin
 
 $(NAME): make_libft $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(INCS) -o $(NAME)
