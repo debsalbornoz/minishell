@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirects_and_files.c                              :+:      :+:    :+:   */
+/*   save_redirects_and_files.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/23 16:37:55 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/25 16:41:52 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
-void	fill_redir_and_files(t_list *exec, t_list *tokens)
-{
-	char	**redir_and_files;
-
-	tokens->node = tokens->head;
-	exec->node = exec->head;
-	redir_and_files = NULL;
-	while (exec->node)
-	{
-		redir_and_files = allocate_matrix(tokens->node);
-		if (!redir_and_files)
-			return ;
-		redir_and_files = get_redirects_and_files(&tokens->node,
-				redir_and_files);
-		exec->node->data->execution->redirects_and_files = redir_and_files;
-		exec->node = exec->node->next;
-	}
-	tokens->node = tokens->head;
-	exec->node = exec->head;
-}
-
-char	**allocate_matrix(t_node *tokens)
+char	**allocate_redir_and_files(t_node *tokens)
 {
 	int			counter;
 	t_node		*aux;

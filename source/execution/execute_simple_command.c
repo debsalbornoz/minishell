@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/24 12:14:24 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/25 14:31:27 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	validate_command(t_node *exec);
+int		validate_command(t_node *exec);
+void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input);
 
 int	is_simple_command(t_list *tokens)
 {
@@ -29,7 +30,7 @@ int	is_simple_command(t_list *tokens)
 	return (1);
 }
 
-int	execute_simple_command(t_list *exec)
+int	execute_simple_command(t_list *exec, t_list *tokens, t_list *envp, char *input)
 {
 	pid_t	pid;
 	int		status;
@@ -43,24 +44,35 @@ int	execute_simple_command(t_list *exec)
 	if (pid == 0)
 	{
 		handle_redirect(exec->node);
-		printf("teste\n");
 		if (validate_command(exec->node))
-			execve(exec->node->data->execution->path,
-				exec->node->data->execution->command_table,
-				exec->node->data->execution->envp);
+		{
+			pid = fork();
+			if (pid == 0)
+			{
+				execve(exec->node->data->execution->path,
+					exec->node->data->execution->command_table,
+					exec->node->data->execution->envp);
+			}
+			else
+			{
+				wait(&status);
+				close_fds();
+				finish_process(exec, tokens, envp, input);
+				exit(2);
+			}
+		}
+		close_fds();
+		finish_process(exec, tokens, envp, input);
 		exit(2);
-		//finish_process(exec,tokens, envp);
 	}
 	else
 		wait(&status);
 	return (status);
 }
-
-int	validate_command(t_node *exec)
+void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input)
 {
-	if (exec->data->execution->path != NULL
-		&& exec->data->execution->command_table != NULL
-		&& exec->data->execution->envp != NULL)
-		return (1);
-	return (0);
+	free_list(exec, free_lst_exec);
+	free_list(tokens, free_lst_tokens);
+	free_list(envp, free_lst_env);
+	free(input);
 }

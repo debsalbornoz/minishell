@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:59:18 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/23 12:26:57 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/25 14:31:51 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,16 @@ void	free_matrix(char **matrix)
 		i++;
 	}
 	free(matrix);
+}
+
+void	print_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i] != NULL)
+	{
+		printf("%s , ", matrix[i]);
+		i++;
+	}
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_list_to_str_array.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/23 12:26:54 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/25 16:44:50 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 char	**env_list_to_str_array(t_list *lst_env)
 {

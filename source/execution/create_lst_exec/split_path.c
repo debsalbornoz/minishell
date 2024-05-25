@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   split_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:16:13 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/22 13:25:44 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/25 16:44:43 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 char	**split_path(t_list *lst_env)
 {

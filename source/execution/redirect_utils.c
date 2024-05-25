@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:20:16 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/24 12:20:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/25 13:50:11 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	find_output(char *str)
 	}
 	return (0);
 }
+
 int	find_append(char *str)
 {
 	int	len;

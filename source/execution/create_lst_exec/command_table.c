@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/23 12:23:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/25 16:06:35 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-void	create_command_table(t_list *tokens, t_list *exec)
-{
-	tokens->node = tokens->head;
-	exec->node = exec->head;
-	if (is_simple_command(tokens) && exec)
-		create_simple_cmd_table(tokens, exec);
-	else
-		create_multi_cmd_table(tokens, exec);
-	tokens->node = tokens->head;
-	exec->node = exec->head;
-}
+#include "../../../include/minishell.h"
 
 char	**allocate_cmd_table(t_node *tokens)
 {

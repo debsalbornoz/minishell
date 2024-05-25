@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/24 16:31:58 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/25 13:50:36 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	open_file(t_node *exec, int i, int flag);
 
 void	handle_redirect(t_node *exec)
 {
-	int		fd;
 	int		i;
 
 	i = 0;
@@ -26,14 +25,15 @@ void	handle_redirect(t_node *exec)
 	{
 		if (find_output(exec->data->execution->redirects_and_files[i])
 			|| find_append(exec->data->execution->redirects_and_files[i]))
-				open_file(exec, i, 1)
+			open_file(exec, i, 1);
 		if (find_input(exec->data->execution->redirects_and_files[i])
 			|| find_heredoc(exec->data->execution->redirects_and_files[i]))
-				open_file(exec, i, 0);
+			open_file(exec, i, 0);
 		i++;
 	}
 	return ;
 }
+
 int	set_flag(char *redirect)
 {
 	int	flag;
@@ -67,7 +67,8 @@ void	open_file(t_node *exec, int i, int flag)
 	fd = 0;
 	if (exec->data->execution->redirects_and_files[i + 1])
 	{
-		fd = open(exec->data->execution->redirects_and_files[i + 1], set_flag(exec->data->execution->redirects_and_files[i]), 0644);
+		fd = open(exec->data->execution->redirects_and_files[i + 1],
+				set_flag(exec->data->execution->redirects_and_files[i]), 0644);
 		if (fd == -1)
 			return ;
 		if (flag == 0)
