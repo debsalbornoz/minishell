@@ -50,7 +50,7 @@ PARS	:=	$(DIR_PARS)/parser					\
 			$(DIR_PARS)/redirect_error			\
 
 EXEC	:=	$(DIR_EXEC)/execution				\
-			$(DIR_EXEC)/split_path_var			\
+			$(DIR_EXEC)/split_path				\
 			$(DIR_EXEC)/exec_utils				\
 			$(DIR_EXEC)/command_table			\
 			$(DIR_EXEC)/find_executable			\
@@ -58,7 +58,8 @@ EXEC	:=	$(DIR_EXEC)/execution				\
 			$(DIR_EXEC)/env_list_to_str_array	\
 			$(DIR_EXEC)/execute_simple_command	\
 			$(DIR_EXEC)/create_absolute_path	\
-			$(DIR_EXEC)/redirects_and_files		\
+			$(DIR_EXEC)/fill_redirects_and_files\
+			$(DIR_EXEC)/redirect_utils			\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft				\
 			$(DIR_UTLS)/utils_quote				\

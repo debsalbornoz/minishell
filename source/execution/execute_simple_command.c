@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/23 19:59:30 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/24 12:14:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	execute_simple_command(t_list *exec)
 			execve(exec->node->data->execution->path,
 				exec->node->data->execution->command_table,
 				exec->node->data->execution->envp);
-		finish_process(exec,tokens, envp);
+		exit(2);
+		//finish_process(exec,tokens, envp);
 	}
 	else
 		wait(&status);

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/23 20:16:35 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/24 12:38:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,7 +293,7 @@ void	free_matrix(char **matrix);
 
 //execute_simple_command.c
 int		is_simple_command(t_list *tokens);
-int		execute_simple_command(t_list *exec, t_list *tokens);
+int		execute_simple_command(t_list *exec);
 
 //execution.c
 t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
@@ -324,5 +324,11 @@ int		count_paths(const char *value);
 char	*return_value(t_list *envp, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
+
+//redirect_utils.c
+int	find_output(char *str);
+int	find_append(char *str);
+int	find_input(char *str);
+int	find_heredoc(char *str);
 
 #endif

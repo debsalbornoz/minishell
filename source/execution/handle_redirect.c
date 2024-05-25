@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/23 20:12:40 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:31:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	find_output(char *str);
-int	find_append(char *str);
-int	find_input(char *str);
-int	find_heredoc(char *str);
+void	open_file(t_node *exec, int i, int flag);
 
 void	handle_redirect(t_node *exec)
 {
@@ -29,31 +26,14 @@ void	handle_redirect(t_node *exec)
 	{
 		if (find_output(exec->data->execution->redirects_and_files[i])
 			|| find_append(exec->data->execution->redirects_and_files[i]))
-		{
-			if (exec->data->execution->redirects_and_files[i + 1])
-			{
-				fd = open(exec->data->execution->redirects_and_files[i + 1], set_flag(exec->data->execution->redirects_and_files[i]), 0644);
-				if (fd == -1)
-					return ;
-				fd = dup2(fd, 1);
-				exec->data->execution->output = fd;
-			}
-		}
+				open_file(exec, i, 1)
 		if (find_input(exec->data->execution->redirects_and_files[i])
 			|| find_heredoc(exec->data->execution->redirects_and_files[i]))
-		{
-			if (exec->data->execution->redirects_and_files[i + 1])
-			{
-				fd = open(exec->data->execution->redirects_and_files[i + 1], set_flag(exec->data->execution->redirects_and_files[i]), 0644);
-				fd = dup2(fd, 0);
-				exec->data->execution->input  = fd;
-			}
-		}
+				open_file(exec, i, 0);
 		i++;
 	}
 	return ;
 }
-void	open_file
 int	set_flag(char *redirect)
 {
 	int	flag;
@@ -80,61 +60,25 @@ void	close_fds(void)
 	}
 }
 
-void	free_token(t_node *node)
+void	open_file(t_node *exec, int i, int flag)
 {
-	free(node->data->token->value);
-	free(node->data->token);
-	free(node->data);
-	free(node);
-}
+	int	fd;
 
-int	find_output(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (len == 1)
+	fd = 0;
+	if (exec->data->execution->redirects_and_files[i + 1])
 	{
-		if (ft_strncmp(str, ">", len) == 0)
-			return (1);
+		fd = open(exec->data->execution->redirects_and_files[i + 1], set_flag(exec->data->execution->redirects_and_files[i]), 0644);
+		if (fd == -1)
+			return ;
+		if (flag == 0)
+		{
+			fd = dup2(fd, 0);
+			exec->data->execution->input = fd;
+		}
+		if (flag == 1)
+		{
+			fd = dup2(fd, 1);
+			exec->data->execution->output = fd;
+		}
 	}
-	return (0);
-}
-int	find_append(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (len == 2)
-	{
-		if (ft_strncmp(str, ">>", len) == 0)
-			return (1);
-	}
-	return (0);
-}
-
-int	find_input(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (len == 1)
-	{
-		if (ft_strncmp(str, "<", len) == 0)
-			return (1);
-	}
-	return (0);
-}
-
-int	find_heredoc(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (len == 2)
-	{
-		if (ft_strncmp(str, "<<", len) == 0)
-			return (1);
-	}
-	return (0);
 }
