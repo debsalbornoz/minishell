@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:29:20 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/25 16:21:25 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:42:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
 char	*create_absolute_path(char **path_array,
-	char **command_table, t_list *envp, t_node	*exec)
+	char **command_table, t_node *exec)
 {
 	int		i;
 	char	*absolute_path;
@@ -30,7 +30,7 @@ char	*create_absolute_path(char **path_array,
 		}
 		free(absolute_path);
 	}
-	free_and_update_lst(path_array, envp);
+	free_matrix(path_array);
 	return (NULL);
 }
 
@@ -95,7 +95,7 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 	}
 	else
 		absolute_path = create_absolute_path(path_array,
-				command_table, envp, exec);
+				command_table, exec);
 	return (absolute_path);
 }
 

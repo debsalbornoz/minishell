@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/27 16:19:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/27 18:37:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,17 @@ int	execute_simple_command(t_list *exec,
 	t_list *tokens, t_list *envp, char *input)
 {
 	pid_t	pid;
-	int		status;
 
-	status = 0;
 	if (!exec)
 		return (1);
 	pid = fork();
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
-		redirect_and_execute(exec, tokens, envp, input);
+		redirect_and_execute(exec->head, tokens, envp, input);
 	else
-		wait(&status);
-	return (status);
+		waitpid(pid, NULL, 0);
+	return (0);
 }
 
 void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input)
@@ -56,30 +54,28 @@ void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input)
 	exit(2);
 }
 
-void	redirect_and_execute(t_list *exec, t_list *tokens,
+void	redirect_and_execute(t_node *exec, t_list *tokens,
 	t_list *envp, char *input)
 {
 	int	pid;
-	int	status;
 
 	pid = -2;
-	status = 0;
-	handle_redirect(exec->node);
-	if (validate_command(exec->node))
+	handle_redirect(exec);
+	if (validate_command(exec, envp))
 	{
 		pid = fork();
 		if (pid == -1)
 			return ;
 		if (pid == 0)
 		{
-			if (execve(exec->node->data->execution->path,
-					exec->node->data->execution->command_table,
-					exec->node->data->execution->envp) == -1)
+			if (execve(exec->data->execution->path,
+					exec->data->execution->command_table,
+					exec->data->execution->envp) == -1)
 				finish_process(exec, tokens, envp, input);
 		}
 		else
 		{
-			wait(&status);
+			waitpid(pid, NULL);
 			finish_process(exec, tokens, envp, input);
 		}
 	}

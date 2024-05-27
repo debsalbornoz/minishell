@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/27 16:18:53 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/27 16:42:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,7 @@ void	free_matrix(char **matrix);
 int		is_simple_command(t_list *tokens);
 int		execute_simple_command(t_list *exec, t_list *tokens,
 			t_list *envp, char *input);
-int		validate_command(t_node *exec);
+int	validate_command(t_node *exec, t_list *envp);
 void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input);
 void	redirect_and_execute(t_list *exec, t_list *tokens,
 			t_list *envp, char *input);
@@ -310,8 +310,7 @@ char	**env_list_to_str_array(t_list *lst_env);
 char	*build_env_var(char *s1, char *s2);
 
 //path.c
-char	*create_absolute_path(char **path_array, char **command_table,
-			t_list *envp, t_node *exec);
+char	*create_absolute_path(char **path_array, char **command_table, t_node *exec);
 char	*concatenate_path(char *path, char *command);
 char	*validate_path(char **command_table, t_node *exec, t_list *envp);
 int		is_absolute_path(char **command_table);
