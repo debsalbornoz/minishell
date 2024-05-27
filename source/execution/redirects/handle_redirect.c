@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/25 13:50:36 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:01:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 void	open_file(t_node *exec, int i, int flag);
 

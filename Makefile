@@ -17,9 +17,9 @@ DIR_LEXR			:=	lexer
 DIR_TYPE			:=	type_assignment
 DIR_UTLS			:=	utils
 DIR_PARS			:=	parser
+DIR_CREATE_LST_EXEC	:=	create_lst_exec
+DIR_REDIRECTS		:=	redirects
 DIR_EXEC			:=	execution
-DIR_CREATE_LST_EXEC :=	create_lst_exec
-
 
 MAIN 	:=	$(DIR_MAIN)/main					\
 			$(DIR_MAIN)/program					\
@@ -58,11 +58,12 @@ CREATE_LST_EXEC	:=	$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/create_lst_exec		\
 					$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/split_path				\
 					$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/env_list_to_str_array		\
 
+REDIRECTS	:=	$(DIR_EXEC)/$(DIR_REDIRECTS)/handle_redirect	\
+				$(DIR_EXEC)/$(DIR_REDIRECTS)/redirect_utils		\
+
 EXEC	:=	$(DIR_EXEC)/execution				\
 			$(DIR_EXEC)/exec_utils				\
-			$(DIR_EXEC)/handle_redirect			\
 			$(DIR_EXEC)/execute_simple_command	\
-			$(DIR_EXEC)/redirect_utils			\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft				\
 			$(DIR_UTLS)/utils_quote				\
@@ -78,11 +79,9 @@ SRCS	:=	${MAIN}								\
 			${TYPE}								\
 			$(PARS)								\
 			${CREATE_LST_EXEC}					\
+			$(REDIRECTS)						\
 			$(EXEC)								\
 			$(UTLS)								\
-
-$(DIR_OBJS)/$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC):
-	mkdir -p $@
 
 L_FT	:=	./$(DIR_LIBS)/libft
 LIBS	:=	-lreadline $(L_FT)/libft.a
@@ -105,9 +104,10 @@ $(DIR_OBJS):
 	mkdir -p $@/$(DIR_LEXR)
 	mkdir -p $@/$(DIR_PARS)
 	mkdir -p $@/$(DIR_PARS)/$(DIR_TYPE)
+	mkdir -p $@/$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)
+	mkdir -p $@/$(DIR_EXEC)/$(DIR_REDIRECTS)
 	mkdir -p $@/$(DIR_EXEC)
 	mkdir -p $@/$(DIR_UTLS)
-	mkdir -p $@/$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)
 
 $(NAME): make_libft $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(INCS) -o $(NAME)

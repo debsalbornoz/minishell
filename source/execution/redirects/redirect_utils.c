@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 12:20:16 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/25 13:50:11 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:48:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 int	find_output(char *str)
 {
