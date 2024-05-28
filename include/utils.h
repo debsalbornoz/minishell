@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 14:15:16 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 04:00:40 by jackson          ###   ########.fr       */
+/*   Created: 2024/05/28 02:44:52 by jackson           #+#    #+#             */
+/*   Updated: 2024/05/28 02:51:37 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#ifndef UTILS_H
+# define UTILS_H
 
-#include "utils.h"
-#include "../library/lib.h"
+# include "../library/lib.h"
 
-void	builtins(t_list *token, t_list *exec, t_list *envp);
-int		mini_cd(t_list *token);
-void	mini_pwd(void);
-void	mini_env(void);
-void	mini_echo(t_list *token);
-int		mini_exit(void);
-void	mini_unset(void);
-void	mini_export(void);
+int		ft_strcmp(char	*str1, char *str2);
+char	*ft_chrjoin(char *dest, char src);
+char	*ft_rmchr(char *input, char *position);
 
 #endif

@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:05:22 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/25 14:06:12 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/26 08:02:57 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
-
+void	mini_export(void)
+{
+	;
+}

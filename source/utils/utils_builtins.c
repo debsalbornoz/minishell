@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 14:15:16 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 04:00:40 by jackson          ###   ########.fr       */
+/*   Created: 2024/05/26 20:23:46 by jackson           #+#    #+#             */
+/*   Updated: 2024/05/28 02:53:22 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "../../include/minishell.h"
 
-#include "utils.h"
-#include "../library/lib.h"
+int is_command(int type)
+{
+	return (type >= COMMAND && type <= EXIT);
+}
 
-void	builtins(t_list *token, t_list *exec, t_list *envp);
-int		mini_cd(t_list *token);
-void	mini_pwd(void);
-void	mini_env(void);
-void	mini_echo(t_list *token);
-int		mini_exit(void);
-void	mini_unset(void);
-void	mini_export(void);
-
-#endif
+int is_builtins(int type)
+{
+	return (type >= ECHO && type <= EXIT);
+}

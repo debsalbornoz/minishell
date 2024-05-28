@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:07:26 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/25 14:07:30 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/26 08:03:35 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
-
+void	mini_unset(void)
+{
+	;
+}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_path.c                                       :+:      :+:    :+:   */
+/*   split_path_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:16:13 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/22 13:25:44 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/26 08:21:42 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*return_value(t_list *lst_env, char *name)
 {
 	char	*temp;
 
+	temp = 0;
 	if (!lst_env)
 		return (NULL);
 	lst_env->node = lst_env->head;
@@ -77,6 +78,7 @@ char	*get_path(char *value, int i, int len, int j)
 {
 	char	*temp;
 
+	temp = 0;
 	while (value[j] != '\0')
 	{
 		if (value[j] != ':' && value[j] != '\0')

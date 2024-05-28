@@ -3,40 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:57:42 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/23 15:12:52 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/28 03:13:56 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
-int	main(int argc, char **argv)
+void	mini_echo(t_list *token)
 {
-	(void)argc;
-	echo(argv);
-	return (EXIT_SUCCESS);
-}
+	int	newline;
 
-void	echo(char **argv)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	j = 0;
-	while (argv[i])
+	newline = 0;
+	token->node = token->node->next;
+	while (token->node && (token->node->data->token->type != PIPE))
 	{
-		j = 0;
-		while (argv[i][j])
+		if (!ft_strcmp(token->node->data->token->value, "-n"))
+			newline++;
+		printf("%s", token->node->data->token->value);
+		if (token->node->next)
 		{
-			write(1, &argv[i][j], 1);
-			j++;
+			printf(" ");
+			token->node = token->node->next;
 		}
-		if (argv[i + 1])
-			write(1, " ", 1);
-		i++;
+		else
+			break ;
 	}
-	write(1, "\n", 1);
+	if (!newline)
+		printf("\n");
 }

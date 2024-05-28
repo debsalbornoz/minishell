@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/23 12:19:28 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/28 02:58:41 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,97 +14,8 @@
 # define MINISHELL_H
 
 # include "../library/lib.h"
-
-enum	e_type_signal
-{
-	FALSE,
-	TRUE
-};
-
-enum	e_type_type
-{
-	DELIMITER	= 1000,
-	REDIRECT	= 1100,
-	INPUT		= 1110,
-	HEREDOC		= 1120,
-	OUTPUT		= 1130,
-	APPEND		= 1140,
-	PIPE		= 1200,
-	WORD		= 2000,
-	COMMAND		= 2100,
-	EXECUTABLE	= 2110,
-	BUILTIN		= 2120,
-	ECHO		= 2121,
-	CD			= 2122,
-	PWD			= 2123,
-	EXPORT		= 2124,
-	UNSET		= 2125,
-	ENV			= 2126,
-	EXIT		= 2127,
-	ARGUMENT	= 2200,
-	FILES		= 2210,
-	INPUT_FILE	= 2211,
-	OUTPUT_FILE	= 2212,
-	APPEND_FILE = 2213,
-	FLAG		= 2220,
-	HEREDOC_KEY	= 2230,
-	PATH		= 3000,
-	ERROR		= 9999,
-};
-
-typedef struct s_list	t_list;
-typedef struct s_node	t_node;
-union					u_data;
-typedef struct s_token	t_token;
-typedef struct s_env	t_env;
-typedef struct s_exp	t_exp;
-typedef struct s_exec	t_exec;
-
-struct s_list
-{
-	t_node			*node;
-	struct s_node	*head;
-};
-
-struct s_node
-{
-	union u_data	*data;
-	struct s_node	*next;
-};
-
-union u_data
-{
-	t_token	*token;
-	t_env	*env;
-	t_exec	*execution;
-};
-
-struct s_env
-{
-	char			*name;
-	char			*value;
-};
-
-struct s_token
-{
-	char			*value;
-	int				type;
-};
-
-struct s_exp
-{
-	char			*input;
-	char			*temp;
-	char			sig_quote;
-};
-
-struct s_exec
-{
-	char			*path;
-	char			**command_table;
-	char			**envp;
-	char			**redirects_and_files;
-};
+# include "builtins.h"
+# include "utils.h"
 
 /* --- source/main --- */
 
@@ -236,11 +147,6 @@ int		is_pipe(char chr);
 int		s_dollar(char chr);
 int		is_redirect_or_pipe(int type);
 
-// utils_ft.c
-int		ft_strcmp(char	*str1, char *str2);
-char	*ft_chrjoin(char *dest, char src);
-char	*ft_rmchr(char *input, char *position);
-
 // utils_quote.c
 int		is_quote(char chr);
 int		is_single_quote(char chr);
@@ -256,6 +162,10 @@ int		is_append(char chr, char next_chr);
 // utils_tokens.c
 t_node	*print_tokens(t_node *node);
 
+// utils_builtins.c
+int is_command(int type);
+int is_builtins(int type);
+
 /* --- execution --- */
 
 //command_table.c
@@ -267,7 +177,7 @@ char	**fill_command_table(t_node **tokens, char **command_table);
 
 //create_absolute_path.c
 char	*create_absolute_path(char **path_array, char **command_table,
-				t_list *envp, t_node *exec);
+t_list	*envp, t_node *exec);
 char	*concatenate_path(char *path, char *command);
 
 //env_list_to_str_array.c
@@ -284,6 +194,7 @@ int		execute_simple_command(t_list *exec, t_list *tokens);
 t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
 int		first_command(t_node *node, t_list *tokens);
 int		command_after_pipe(t_node *node);
+
 //int		execute_simple_command(t_list *exec, t_list *lst_env);
 t_list	*prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
 
@@ -322,4 +233,5 @@ void get_redirects_and_files(t_list *exec, t_list *tokens);
 int	get_size(t_node *tokens);
 char	**allocate_matrix(t_list *tokens);
 char	**fill_redir_and_files(t_node **tokens, char **redir_and_files);
+
 #endif

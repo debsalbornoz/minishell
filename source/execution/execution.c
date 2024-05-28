@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/25 13:57:03 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/27 10:14:28 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ t_list	*execute(t_list *lst_tokens, t_list *lst_exec, t_list *lst_env)
 		return (NULL);
 	lst_exec->node = lst_exec->head;
 	if (is_simple_command(lst_tokens))
-		execute_simple_command(lst_exec, lst_tokens);
+	{
+		if (is_builtins(lst_tokens->node->data->token->type))
+			builtins(lst_tokens, lst_exec, lst_env);
+		else
+			execute_simple_command(lst_exec, lst_tokens);
+	}
 	if (lst_exec->node)
 		lst_exec->node = lst_exec->head;
 	return (lst_exec);
@@ -34,7 +39,7 @@ t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 	aux = tokens->head;
 	while (aux)
 	{
-		if (aux->data->token->type == COMMAND || aux->data->token->type == PATH)
+		if (is_command(aux->data->token->type) || aux->data->token->type == PATH)
 		{
 			exec = add_node(exec);
 			exec->node->data = ft_calloc(1, sizeof(union u_data));

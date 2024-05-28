@@ -63,17 +63,19 @@ EXEC	:=	$(DIR_EXEC)/execution				\
 			$(DIR_EXEC)/execute_simple_command	\
 			$(DIR_EXEC)/create_absolute_path	\
 
-BUIL	:=	$(DIR_BIUL)/echo					\
-			$(DIR_BIUL)/cd						\
+BUIL	:=	$(DIR_BIUL)/cd						\
 			$(DIR_BIUL)/pwd						\
-			$(DIR_BIUL)/export					\
-			$(DIR_BIUL)/unset					\
 			$(DIR_BIUL)/env						\
+			$(DIR_BIUL)/echo					\
 			$(DIR_BIUL)/exit					\
+			$(DIR_BIUL)/unset					\
+			$(DIR_BIUL)/export					\
+			$(DIR_BIUL)/builtins				\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft				\
 			$(DIR_UTLS)/utils_quote				\
 			$(DIR_UTLS)/utils_tokens			\
+			$(DIR_UTLS)/utils_builtins			\
 			$(DIR_UTLS)/utils_redirect			\
 			$(DIR_UTLS)/utils_delimiter			\
 
@@ -85,6 +87,7 @@ SRCS	:=	${MAIN}								\
 			${TYPE}								\
 			$(PARS)								\
 			$(EXEC)								\
+			$(BUIL)								\
 			$(UTLS)								\
 
 L_FT	:=	./$(DIR_LIBS)/libft

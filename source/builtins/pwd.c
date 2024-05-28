@@ -3,21 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:16:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/23 14:19:01 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/26 08:03:12 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
-int	main(void)
-{
-	return (pwd(), EXIT_SUCCESS);
-}
-
-void	pwd(void)
+void	mini_pwd(void)
 {
 	printf("%s\n", getcwd(NULL, 0));
 }
