@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:15:05 by jraupp            #+#    #+#             */
-/*   Updated: 2024/03/11 16:04:02 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/28 10:51:39 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/utils.h"
 
 int	is_redirect(char chr)
 {

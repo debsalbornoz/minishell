@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 02:44:52 by jackson           #+#    #+#             */
-/*   Updated: 2024/05/28 10:25:17 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/28 10:55:13 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		is_heredoc(char chr, char next_chr);
 int		is_append(char chr, char next_chr);
 
 // utils_tokens.c
-t_node	*print_tokens(t_node *node);
+t_node	*print_lst_tokens(t_node *node);
 
 // utils_builtins.c
 int		is_command(int type);
