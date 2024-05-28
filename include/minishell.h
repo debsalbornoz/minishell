@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 10:26:42 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/28 10:34:19 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "../library/lib.h"
 
 /* --- source/main --- */
-
 // program.c
 int		program(t_list *lst_env);
 
@@ -28,7 +27,6 @@ void	set_error(t_list *lst_env);
 void	handle_signal(void);
 
 /* --- source/linked_list --- */
-
 // free.c
 void	free_list(t_list *list, void (f)(t_list *));
 void	free_lst_tokens(t_list *tokens);
@@ -42,7 +40,6 @@ t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
 int		count_nodes(t_list *lst);
 
 /* --- source/envp/ --- */
-
 //create_env_list.c
 t_list	*data_env_addr(void);
 t_list	*create_env_list(char **envp, t_list *env_lst);
@@ -53,7 +50,6 @@ char	*get_envp_value(char *envp);
 void	update_env_list(t_list *envp, char *name, char *value);
 
 /* --- source/expander/ --- */
-
 // expand_part1.c
 char	*expand(t_list *lst_env, char *input);
 char	*search_name(t_list *lst_env, t_exp *exp);
@@ -66,7 +62,6 @@ char	*var_expand(t_exp *cur, t_env *var);
 char	*var_is_null(char *value, char sig);
 
 /* --- source/lexer/ --- */
-
 //lexer.c
 t_list	*lexer(t_list *tokens, char *input);
 char	*trim_start_spaces(char *input);
@@ -83,7 +78,6 @@ int		process_word(t_list *tokens, int signal, char *input, int i);
 int		get_token_len(char *input, int signal);
 
 /* --- source/parser/ --- */
-
 //parser.c
 int		parser(t_list *tokens, t_list	*envp, char *input);
 
@@ -117,7 +111,6 @@ int		redirect_error(t_list	*tokens);
 int		dot_error(t_list	*tokens);
 
 /* --- source/parser/type_assignment --- */
-
 //builtins.c
 t_node	*is_builtin(t_node *node);
 int		identify_builtin(char *token, char *builtin, int token_len);
@@ -140,7 +133,6 @@ t_node	*is_path(t_node *node);
 t_list	*type_assignment(t_list *tokens);
 
 /* --- execution --- */
-
 //command_table.c
 void	create_command_table(t_list *tokens, t_list *exec);
 char	**allocate_cmd_table(t_node *tokens);
