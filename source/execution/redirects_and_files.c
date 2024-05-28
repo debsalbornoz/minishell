@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirects_and_files.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/21 19:43:28 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/28 10:21:05 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void get_redirects_and_files(t_list *exec, t_list *tokens)
+void	get_redirects_and_files(t_list *exec, t_list *tokens)
 {
 	t_node	*aux_exec;
 	char	**redir_and_files;
@@ -53,7 +53,7 @@ char	**allocate_matrix(t_list *tokens)
 	while (tokens->node)
 	{
 		if (find_redirect(tokens->node->data->token->type)
-				|| find_file(tokens->node->data->token->type))
+			|| find_file(tokens->node->data->token->type))
 			counter++;
 		if (tokens->node->data->token->type == PIPE)
 			break ;
@@ -75,7 +75,7 @@ char	**fill_redir_and_files(t_node **tokens, char **redir_and_files)
 	while (current)
 	{
 		if (find_redirect(current->data->token->type)
-				|| find_redirect(current->data->token->type))
+			|| find_redirect(current->data->token->type))
 		{
 			redir_and_files[i] = ft_strdup(current->data->token->value);
 			i++;

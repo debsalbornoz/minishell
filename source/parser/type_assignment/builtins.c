@@ -6,13 +6,13 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:12:07 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/26 19:51:06 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/28 10:15:52 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-static void classify_builtin_type(t_node *node, int builtin_case);
+static void	classify_builtin_type(t_node *node, int builtin_case);
 
 t_node	*is_builtin(t_node *node)
 {
@@ -89,7 +89,7 @@ int	compare_quoted_strings(char *token, char *builtin)
 	return (0);
 }
 
-static void classify_builtin_type(t_node *token, int builtin_case)
+static void	classify_builtin_type(t_node *token, int builtin_case)
 {
 	if (builtin_case == 1)
 		token->data->token->type = ECHO;

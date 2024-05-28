@@ -6,15 +6,15 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:15:16 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 04:00:40 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/28 10:11:11 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-#include "utils.h"
-#include "../library/lib.h"
+# include "utils.h"
+# include "../library/lib.h"
 
 void	builtins(t_list *token, t_list *exec, t_list *envp);
 int		mini_cd(t_list *token);

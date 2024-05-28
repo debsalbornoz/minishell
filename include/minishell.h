@@ -6,16 +6,16 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 02:58:41 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/28 10:26:42 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../library/lib.h"
-# include "builtins.h"
 # include "utils.h"
+# include "builtins.h"
+# include "../library/lib.h"
 
 /* --- source/main --- */
 
@@ -139,33 +139,6 @@ t_node	*is_path(t_node *node);
 // type_assignment.c
 t_list	*type_assignment(t_list *tokens);
 
-/* --- source/utils/ --- */
-// utils_delimiter.c
-int		is_delimiter(char chr);
-int		is_space(char chr);
-int		is_pipe(char chr);
-int		s_dollar(char chr);
-int		is_redirect_or_pipe(int type);
-
-// utils_quote.c
-int		is_quote(char chr);
-int		is_single_quote(char chr);
-int		is_double_quote(char chr);
-
-// utils_redirect.c
-int		is_redirect(char chr);
-int		is_redirect_input(char chr);
-int		is_redirect_output(char chr);
-int		is_heredoc(char chr, char next_chr);
-int		is_append(char chr, char next_chr);
-
-// utils_tokens.c
-t_node	*print_tokens(t_node *node);
-
-// utils_builtins.c
-int is_command(int type);
-int is_builtins(int type);
-
 /* --- execution --- */
 
 //command_table.c
@@ -177,7 +150,7 @@ char	**fill_command_table(t_node **tokens, char **command_table);
 
 //create_absolute_path.c
 char	*create_absolute_path(char **path_array, char **command_table,
-t_list	*envp, t_node *exec);
+			t_list *envp, t_node *exec);
 char	*concatenate_path(char *path, char *command);
 
 //env_list_to_str_array.c
@@ -229,8 +202,8 @@ void	free_token(t_node *node);
 int		is_empty_quotes(char signal, char *input);
 t_list	*command_after_redirect(t_list *tokens);
 
-void get_redirects_and_files(t_list *exec, t_list *tokens);
-int	get_size(t_node *tokens);
+void	get_redirects_and_files(t_list *exec, t_list *tokens);
+int		get_size(t_node *tokens);
 char	**allocate_matrix(t_list *tokens);
 char	**fill_redir_and_files(t_node **tokens, char **redir_and_files);
 

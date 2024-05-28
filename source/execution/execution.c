@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/27 10:14:28 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/28 10:22:35 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 	aux = tokens->head;
 	while (aux)
 	{
-		if (is_command(aux->data->token->type) || aux->data->token->type == PATH)
+		if (is_command(aux->data->token->type)
+			|| aux->data->token->type == PATH)
 		{
 			exec = add_node(exec);
 			exec->node->data = ft_calloc(1, sizeof(union u_data));
