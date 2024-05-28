@@ -122,7 +122,6 @@ clean:
 
 fclean: clean
 	$(MAKE) -C $(L_FT) fclean
-	rm -rf $(DIR_BIUL)/bin
 	rm -rf $(NAME)
 
 re: fclean all
