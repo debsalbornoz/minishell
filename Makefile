@@ -1,7 +1,5 @@
 NAME	:=	minishell
 
-NPWD	:=	pwd
-
 CFLAGS	:=	-Wall -Wextra -Werror -g3 -Ofast
 
 CRST	:=	"\033[0m"
@@ -23,22 +21,22 @@ DIR_EXEC	:=	execution
 DIR_BIUL	:=	builtins
 DIR_UTLS	:=	utils
 
-MAIN 	:=	$(DIR_MAIN)/main					\
-			$(DIR_MAIN)/program					\
-			$(DIR_MAIN)/signals					\
+MAIN 	:=	$(DIR_MAIN)/main								\
+			$(DIR_MAIN)/program								\
+			$(DIR_MAIN)/signals								\
 
-LINK	:=	$(DIR_LINK)/free					\
-			$(DIR_LINK)/linked_list				\
+LINK	:=	$(DIR_LINK)/free								\
+			$(DIR_LINK)/linked_list							\
 
-ENVP	:=	$(DIR_ENVP)/create_env_list			\
-			$(DIR_ENVP)/update_env_list			\
+ENVP	:=	$(DIR_ENVP)/create_env_list						\
+			$(DIR_ENVP)/update_env_list						\
 
-EXPD	:=	$(DIR_EXPD)/expand_part1			\
-			$(DIR_EXPD)/expand_part2			\
+EXPD	:=	$(DIR_EXPD)/expand_part1						\
+			$(DIR_EXPD)/expand_part2						\
 
-LEXR	:=	$(DIR_LEXR)/lexer					\
-			$(DIR_LEXR)/process_word			\
-			$(DIR_LEXR)/process_delimiter		\
+LEXR	:=	$(DIR_LEXR)/lexer								\
+			$(DIR_LEXR)/process_word						\
+			$(DIR_LEXR)/process_delimiter					\
 
 TYPE	:=	$(DIR_PARS)/$(DIR_TYPE)/files					\
 			$(DIR_PARS)/$(DIR_TYPE)/path					\
@@ -46,49 +44,49 @@ TYPE	:=	$(DIR_PARS)/$(DIR_TYPE)/files					\
 			$(DIR_PARS)/$(DIR_TYPE)/type_assignment			\
 			$(DIR_PARS)/$(DIR_TYPE)/commands_and_arguments	\
 
-PARS	:=	$(DIR_PARS)/parser					\
-			$(DIR_PARS)/quotes					\
-			$(DIR_PARS)/pipe_error				\
-			$(DIR_PARS)/syntax_error			\
-			$(DIR_PARS)/remove_quotes			\
-			$(DIR_PARS)/redirect_error			\
+PARS	:=	$(DIR_PARS)/parser								\
+			$(DIR_PARS)/quotes								\
+			$(DIR_PARS)/pipe_error							\
+			$(DIR_PARS)/syntax_error						\
+			$(DIR_PARS)/remove_quotes						\
+			$(DIR_PARS)/redirect_error						\
 
-EXEC	:=	$(DIR_EXEC)/execution				\
-			$(DIR_EXEC)/split_path_var			\
-			$(DIR_EXEC)/exec_utils				\
-			$(DIR_EXEC)/command_table			\
-			$(DIR_EXEC)/find_executable			\
-			$(DIR_EXEC)/handle_redirect			\
-			$(DIR_EXEC)/env_list_to_str_array	\
-			$(DIR_EXEC)/execute_simple_command	\
-			$(DIR_EXEC)/create_absolute_path	\
+EXEC	:=	$(DIR_EXEC)/execution							\
+			$(DIR_EXEC)/split_path_var						\
+			$(DIR_EXEC)/exec_utils							\
+			$(DIR_EXEC)/command_table						\
+			$(DIR_EXEC)/find_executable						\
+			$(DIR_EXEC)/handle_redirect						\
+			$(DIR_EXEC)/env_list_to_str_array				\
+			$(DIR_EXEC)/execute_simple_command				\
+			$(DIR_EXEC)/create_absolute_path				\
 
-BUIL	:=	$(DIR_BIUL)/cd						\
-			$(DIR_BIUL)/pwd						\
-			$(DIR_BIUL)/env						\
-			$(DIR_BIUL)/echo					\
-			$(DIR_BIUL)/exit					\
-			$(DIR_BIUL)/unset					\
-			$(DIR_BIUL)/export					\
-			$(DIR_BIUL)/builtins				\
+BUIL	:=	$(DIR_BIUL)/cd									\
+			$(DIR_BIUL)/pwd									\
+			$(DIR_BIUL)/env									\
+			$(DIR_BIUL)/echo								\
+			$(DIR_BIUL)/exit								\
+			$(DIR_BIUL)/unset								\
+			$(DIR_BIUL)/export								\
+			$(DIR_BIUL)/builtins							\
 
-UTLS	:=	$(DIR_UTLS)/utils_ft				\
-			$(DIR_UTLS)/utils_quote				\
-			$(DIR_UTLS)/utils_tokens			\
-			$(DIR_UTLS)/utils_builtins			\
-			$(DIR_UTLS)/utils_redirect			\
-			$(DIR_UTLS)/utils_delimiter			\
+UTLS	:=	$(DIR_UTLS)/utils_ft							\
+			$(DIR_UTLS)/utils_quote							\
+			$(DIR_UTLS)/utils_tokens						\
+			$(DIR_UTLS)/utils_builtins						\
+			$(DIR_UTLS)/utils_redirect						\
+			$(DIR_UTLS)/utils_delimiter						\
 
-SRCS	:=	${MAIN}								\
-			${LINK}								\
-			${ENVP}								\
-			${EXPD}								\
-			${LEXR}								\
-			${TYPE}								\
-			$(PARS)								\
-			$(EXEC)								\
-			$(BUIL)								\
-			$(UTLS)								\
+SRCS	:=	${MAIN}											\
+			${LINK}											\
+			${ENVP}											\
+			${EXPD}											\
+			${LEXR}											\
+			${TYPE}											\
+			$(PARS)											\
+			$(EXEC)											\
+			$(BUIL)											\
+			$(UTLS)											\
 
 L_FT	:=	./$(DIR_LIBS)/libft
 LIBS	:=	-lreadline $(L_FT)/libft.a
@@ -97,7 +95,6 @@ INCS	:=	-I ./$(DIR_INCL) -I $(L_FT)/$(DIR_INCL)
 OBJS	:=	$(addprefix $(DIR_OBJS)/,$(addsuffix .o,$(SRCS)))
 
 all: make_libft $(NAME)
-
 
 $(DIR_OBJS)/%.o: $(DIR_SRCS)/%.c | $(DIR_OBJS)
 	$(CC) $(CFLAGS) -o $@ -c $<
