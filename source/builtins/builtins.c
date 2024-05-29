@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 07:54:54 by jackson           #+#    #+#             */
-/*   Updated: 2024/05/28 03:58:50 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/29 13:55:59 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,30 @@
 /*
 	- [x] implementar pwd;
 	- [x] implementar 'echo'
-	- [x] implementar 'cd'
-	- [ ] Em cd falta retornar o erro se falha ao mudar de diretório
-	- [ ] implementar 'exit'
+	- [x] implementar 'cd'.
+		- [ ] Em 'cd' falta retornar o erro se falha ao mudar de diretório
+	- [x] implementar 'exit'
+		- [ ] Obs.: Em 'exit' falta implementar parâmetro numérico.
 	- [ ] implementar 'unset'
 	- [ ] implementar 'export'
 	- [ ] implementar 'env'
 */
 
-void	builtins(t_list *token, t_list *exec, t_list *envp)
+int	builtins(t_list *token, t_list *exec, t_list *envp)
 {
 	(void)exec;
 	(void)envp;
 	if (token->node->data->token->type == CD)
-		mini_cd(token);
+		return (mini_cd(token), 0);
 	else if (token->node->data->token->type == PWD)
-		mini_pwd();
+		return (mini_pwd(), 0);
 	else if (token->node->data->token->type == ENV)
-		mini_env();
-	else if (token->node->data->token->type == EXIT)
-		mini_exit();
+		return (mini_env(), 0);
 	else if (token->node->data->token->type == ECHO)
-		mini_echo(token);
+		return (mini_echo(token), 0);
 	else if (token->node->data->token->type == UNSET)
-		mini_unset();
+		return (mini_unset(), 0);
 	else if (token->node->data->token->type == EXPORT)
-		mini_export();
+		return (mini_export(), 0);
+	return (mini_exit());
 }

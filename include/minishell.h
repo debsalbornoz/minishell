@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 10:34:19 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/29 05:13:22 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int		is_simple_command(t_list *tokens);
 int		execute_simple_command(t_list *exec, t_list *tokens);
 
 //execution.c
-t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
+int		execute(t_list *tokens, t_list *exec, t_list *envp, char *input);
 int		first_command(t_node *node, t_list *tokens);
 int		command_after_pipe(t_node *node);
 

@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:15:16 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 10:11:11 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/29 05:16:16 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "utils.h"
 # include "../library/lib.h"
 
-void	builtins(t_list *token, t_list *exec, t_list *envp);
+int		builtins(t_list *token, t_list *exec, t_list *envp);
 int		mini_cd(t_list *token);
 void	mini_pwd(void);
 void	mini_env(void);

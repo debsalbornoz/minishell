@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:59:18 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/20 16:44:23 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/29 13:47:41 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/*
+	- [ ] Verificar lugar melhor para atribuir essa função:
+
+			update_env_list(envp, "?", " 127");
+			printf("%s\n", "Command not found");
+
+	função acima estavam anteriormente em "ree_and_update_lst" depois do free.
+*/
 
 int	find_file(int type)
 {
@@ -30,7 +39,6 @@ int	is_file_redirect_or_pipe(int type)
 
 void	free_and_update_lst(char **path_array, t_list	*envp)
 {
+	(void)envp;
 	free_matrix(path_array);
-	update_env_list(envp, "?", " 127");
-	printf("%s\n", "Command not found");
 }

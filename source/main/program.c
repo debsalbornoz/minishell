@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/26 19:05:10 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/29 13:32:08 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	program(t_list *envp)
 	input = readline("¯\\_(ツ)_/¯: ");
 	if (!input)
 	{
-		printf("\n");
+		printf("exit\n");
 		return (FALSE);
 	}
 	input = trim_start_spaces(input);
@@ -35,7 +35,7 @@ int	program(t_list *envp)
 	tokens = *lexer(&tokens, input);
 	if (!parser(&tokens, envp, input))
 		return (TRUE);
-	exec = *execute(&tokens, &exec, envp);
-	release_memory(&tokens, &exec, input);
+	if (execute(&tokens, &exec, envp, input))
+		return (FALSE);
 	return (TRUE);
 }

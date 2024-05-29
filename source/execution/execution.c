@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/28 10:22:35 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/29 05:26:17 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,25 @@
 
 void	print_command_table(char **command_table);
 
-t_list	*execute(t_list *lst_tokens, t_list *lst_exec, t_list *lst_env)
+int	execute(t_list *lst_tokens, t_list *lst_exec, t_list *lst_env, char *input)
 {
+	int	output;
+
+	output = 0;
 	lst_exec = create_lst_exec(lst_tokens, lst_exec, lst_env);
 	if (!lst_exec)
-		return (NULL);
+		return (output);
 	lst_exec->node = lst_exec->head;
 	if (is_simple_command(lst_tokens))
 	{
 		if (is_builtins(lst_tokens->node->data->token->type))
-			builtins(lst_tokens, lst_exec, lst_env);
+			output = builtins(lst_tokens, lst_exec, lst_env);
 		else
 			execute_simple_command(lst_exec, lst_tokens);
 	}
 	if (lst_exec->node)
 		lst_exec->node = lst_exec->head;
-	return (lst_exec);
+	return (release_memory(lst_tokens, lst_exec, input), output);
 }
 
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
