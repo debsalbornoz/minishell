@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/27 18:37:53 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/29 14:55:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,26 @@ int	execute_simple_command(t_list *exec,
 {
 	pid_t	pid;
 
+	exec->node = exec->head;
 	if (!exec)
 		return (1);
 	pid = fork();
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
-		redirect_and_execute(exec->head, tokens, envp, input);
+		redirect_and_execute(exec->node, tokens, envp, input);
 	else
 		waitpid(pid, NULL, 0);
 	return (0);
 }
 
-void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input)
+void	finish_process(t_node *exec, t_list *tokens, t_list *envp, char *input)
 {
-	free_list(exec, free_lst_exec);
+	t_list	*lst_exec;
+	(void)exec;
+
+	lst_exec = init_exec_addr();
+	free_list(lst_exec, free_lst_exec);
 	free_list(tokens, free_lst_tokens);
 	free_list(envp, free_lst_env);
 	free(input);
@@ -75,7 +80,7 @@ void	redirect_and_execute(t_node *exec, t_list *tokens,
 		}
 		else
 		{
-			waitpid(pid, NULL);
+			waitpid(pid, NULL, 0);
 			finish_process(exec, tokens, envp, input);
 		}
 	}

@@ -1,5 +1,5 @@
 NAME	:=	minishell
-CFLAGS	:=	-Wall -Wextra -Werror -g3
+CFLAGS	:=	-Wall -Wextra -Werror -g
 
 CRST	:=	"\033[0m"
 CGRN	:=	"\033[32m"
@@ -60,6 +60,7 @@ CREATE_LST_EXEC	:=	$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/create_lst_exec		\
 
 REDIRECTS	:=	$(DIR_EXEC)/$(DIR_REDIRECTS)/handle_redirect	\
 				$(DIR_EXEC)/$(DIR_REDIRECTS)/redirect_utils		\
+				$(DIR_EXEC)/$(DIR_REDIRECTS)/heredoc			\
 
 EXEC	:=	$(DIR_EXEC)/execution				\
 			$(DIR_EXEC)/exec_utils				\

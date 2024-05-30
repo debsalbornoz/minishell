@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/27 13:01:54 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/30 15:34:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ void	handle_redirect(t_node *exec)
 		if (find_output(exec->data->execution->redirects_and_files[i])
 			|| find_append(exec->data->execution->redirects_and_files[i]))
 			open_file(exec, i, 1);
-		if (find_input(exec->data->execution->redirects_and_files[i])
-			|| find_heredoc(exec->data->execution->redirects_and_files[i]))
+		if (find_input(exec->data->execution->redirects_and_files[i]))
 			open_file(exec, i, 0);
+		if (find_heredoc(exec->data->execution->redirects_and_files[i]))
+			handle_heredoc(exec, i);
 		i++;
 	}
 	return ;
@@ -43,7 +44,7 @@ int	set_flag(char *redirect)
 		flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
 	if (find_append(redirect))
 		flag = flag | O_WRONLY | O_CREAT | O_APPEND;
-	if (find_heredoc(redirect) || find_input(redirect))
+	if (find_input(redirect))
 		flag = flag | O_RDONLY;
 	return (flag);
 }

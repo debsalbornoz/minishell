@@ -3,23 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:59:33 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/25 16:42:13 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:51:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
+void	get_index(t_list *exec);
+t_list	*init_exec_addr(void);
+
+t_list	*init_exec_addr(void)
+{
+	static t_list	exec;
+
+	exec.node = 0;
+	return (&exec);
+}
+
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 {
+	exec = init_exec_addr();
 	exec = initialize_lst_exec(tokens, exec, envp);
 	if (exec->node)
 	{
 		create_command_table(tokens, exec);
 		find_path(tokens, exec, envp);
 		save_redirects_and_files(exec, tokens);
+		get_index(exec);
 	}
 	envp->node = envp->head;
 	return (exec);
@@ -102,4 +115,18 @@ void	save_redirects_and_files(t_list *exec, t_list *tokens)
 	}
 	tokens->node = tokens->head;
 	exec->node = exec->head;
+}
+
+void	get_index(t_list *exec)
+{
+	t_node	*aux;
+	int		i;
+
+	aux = exec->head;
+	i = 0;
+	while (aux)
+	{
+		aux->data->execution->index = i;
+		aux = aux->next;
+	}
 }

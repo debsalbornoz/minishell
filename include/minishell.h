@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/27 16:42:26 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/29 14:54:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../library/libft/include/libft.h"
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <sys/types.h>
 
 enum	e_type_signal
 {
@@ -114,6 +115,7 @@ struct s_exec
 	char			**redirects_and_files;
 	int				input;
 	int				output;
+	int				index;
 };
 
 /* --- source/main --- */
@@ -278,9 +280,9 @@ void	free_matrix(char **matrix);
 int		is_simple_command(t_list *tokens);
 int		execute_simple_command(t_list *exec, t_list *tokens,
 			t_list *envp, char *input);
-int	validate_command(t_node *exec, t_list *envp);
-void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input);
-void	redirect_and_execute(t_list *exec, t_list *tokens,
+int		validate_command(t_node *exec, t_list *envp);
+void	finish_process(t_node *exec, t_list *tokens, t_list *envp, char *input);
+void	redirect_and_execute(t_node *exec, t_list *tokens,
 			t_list *envp, char *input);
 //execution.c
 t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
@@ -334,10 +336,16 @@ int		set_flag(char *redirect);
 t_list	*remove_redirect_and_file(t_list *tokens);
 void	close_fds(void);
 
+//heredoc.c
+void	handle_heredoc(t_node *exec, int i);
+char	*get_filename(int i);
+void	get_input(int fd, char *eof);
+
 //redirect_utils.c
 int		find_output(char *str);
 int		find_append(char *str);
 int		find_input(char *str);
 int		find_heredoc(char *str);
 
+t_list	*init_exec_addr(void);
 #endif
