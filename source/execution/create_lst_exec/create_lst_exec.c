@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:59:33 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/29 14:51:54 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/30 20:15:03 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+#include <string.h>
 
 void	get_index(t_list *exec);
 t_list	*init_exec_addr(void);
@@ -129,4 +130,43 @@ void	get_index(t_list *exec)
 		aux->data->execution->index = i;
 		aux = aux->next;
 	}
+}
+int	create_heredocs(t_node	*exec)
+{
+	t_node	*aux;
+	int		i;
+	char	*filename;
+	int		j;
+
+	i = 0;
+	j = 0;
+	aux = exec;
+	filename = NULL;
+	aux->data->execution->eofs = allocate_eof(exec);
+	if (!exec->data->execution->redirects_and_files)
+		return (1);
+	while (aux)
+	{
+		j = 0;
+		i = 0;
+		while (aux->data->execution->redirects_and_files[i])
+		{
+			printf("teste\n");
+			if (ft_strncmp("<<", aux->data->execution->redirects_and_files[i], 2) == 0)
+			{
+				printf("?");
+				if (aux->data->execution->redirects_and_files[i + 1])
+				{
+					aux->data->execution->eofs[j] = ft_strdup(aux->data->execution->redirects_and_files[i + 1]);
+					filename = handle_heredoc(aux,i,j);
+					free(aux->data->execution->redirects_and_files[i + 1]);
+					aux->data->execution->redirects_and_files[i + 1] = filename;
+					j++;
+				}
+			}
+			i++;
+		}
+		aux = aux->next;
+	}
+	return (0);
 }

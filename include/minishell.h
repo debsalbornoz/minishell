@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/29 14:54:03 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/30 20:11:11 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ struct s_exec
 	char			**command_table;
 	char			**envp;
 	char			**redirects_and_files;
+	char			**eofs;
 	int				input;
 	int				output;
 	int				index;
@@ -331,15 +332,15 @@ int		get_len(char *value);
 
 /* --- source/execution/redirects--- */
 //handle_redirect.c
-void	handle_redirect(t_node *tokens);
+void	handle_redirect(t_node *exec);
 int		set_flag(char *redirect);
 t_list	*remove_redirect_and_file(t_list *tokens);
 void	close_fds(void);
 
 //heredoc.c
-void	handle_heredoc(t_node *exec, int i);
+char	*handle_heredoc(t_node *exec, int i, int j);
 char	*get_filename(int i);
-void	get_input(int fd, char *eof);
+void	get_input(int fd, char *eof, char *filename);
 
 //redirect_utils.c
 int		find_output(char *str);
@@ -348,4 +349,6 @@ int		find_input(char *str);
 int		find_heredoc(char *str);
 
 t_list	*init_exec_addr(void);
+int		create_heredocs(t_node	*exec);
+char	**allocate_eof(t_node	*exec);
 #endif

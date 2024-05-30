@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/25 16:41:52 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/30 20:11:01 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,23 @@ char	**get_redirects_and_files(t_node **tokens, char **redir_and_files)
 	*tokens = current;
 	redir_and_files[i] = NULL;
 	return (redir_and_files);
+}
+char	**allocate_eof(t_node	*exec)
+{
+	int		counter;
+	t_node	*aux;
+	char	**eof;
+	int		i;
+
+	i  = 0;
+	aux = exec;
+	counter = 0;
+	while (aux->data->execution->redirects_and_files[i])
+	{
+		if (ft_strncmp("<<", aux->data->execution->redirects_and_files[i], 2)== 0 && aux->data->execution->redirects_and_files[i + 1])
+			counter++;
+		i++;
+	}
+	eof = ft_calloc(counter + 1, sizeof(char *));
+	return (eof);
 }
