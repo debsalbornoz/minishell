@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   linked_list.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 14:15:16 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/30 17:05:01 by jraupp           ###   ########.fr       */
+/*   Created: 2024/05/30 16:12:32 by jraupp            #+#    #+#             */
+/*   Updated: 2024/05/30 16:14:21 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#ifndef LINKED_LIST_H
+# define LINKED_LIST_H
 
-# include "utils.h"
-# include "linked_list.h"
 # include "../library/lib.h"
 
-int		builtins(t_list *token, t_list *exec, t_list *envp);
-int		mini_cd(t_list *token);
-void	mini_pwd(void);
-void	mini_env(t_list *envp);
-void	mini_echo(t_list *token);
-int		mini_exit(void);
-void	mini_unset(void);
-void	mini_export(t_list *envp);
+// linked_list.c
+t_list	*add_node(t_list *list);
+t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
+int		count_nodes(t_list *lst);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/29 05:13:22 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/30 16:15:11 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "utils.h"
 # include "builtins.h"
+# include "linked_list.h"
 # include "../library/lib.h"
 
 /* --- source/main --- */
@@ -33,11 +34,6 @@ void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *envp);
 void	free_lst_exec(t_list *exec);
 void	release_memory(t_list *tokens, t_list *exec, char *input);
-
-// linked_list.c
-t_list	*add_node(t_list *list);
-t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
-int		count_nodes(t_list *lst);
 
 /* --- source/envp/ --- */
 //create_env_list.c
