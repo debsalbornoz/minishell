@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/30 21:24:50 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:11:54 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -342,7 +342,8 @@ void	close_fds(void);
 void	handle_heredoc(t_node	*exec);
 char	*create_heredoc_file(t_node *exec, int j);
 char	*get_filename(int i);
-void	open_heredoc_file(int fd, char *eof, char *filename);
+void	open_heredoc_file(int fd,
+			char *eof, char *filename);
 int		heredoc_flags(int signal);
 
 //redirect_utils.c
