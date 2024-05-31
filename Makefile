@@ -1,23 +1,25 @@
 NAME	:=	minishell
-CFLAGS	:=	-Wall -Wextra -Werror -g3
+CFLAGS	:=	-Wall -Wextra -Werror -g
 
 CRST	:=	"\033[0m"
 CGRN	:=	"\033[32m"
 
-DIR_INCL	:=	include
-DIR_OBJS	:=	objects
-DIR_LIBS	:=	library
-DIR_L_FT	:=	libft
-DIR_SRCS	:=	source
-DIR_MAIN	:=	main
-DIR_LINK	:=	linked_list
-DIR_ENVP	:=	envp
-DIR_EXPD	:=	expander
-DIR_LEXR	:=	lexer
-DIR_TYPE	:=	type_assignment
-DIR_UTLS	:=	utils
-DIR_PARS	:=	parser
-DIR_EXEC	:=	execution
+DIR_INCL			:=	include
+DIR_OBJS			:=	objects
+DIR_LIBS			:=	library
+DIR_L_FT			:=	libft
+DIR_SRCS			:=	source
+DIR_MAIN			:=	main
+DIR_LINK			:=	linked_list
+DIR_ENVP			:=	envp
+DIR_EXPD			:=	expander
+DIR_LEXR			:=	lexer
+DIR_TYPE			:=	type_assignment
+DIR_UTLS			:=	utils
+DIR_PARS			:=	parser
+DIR_CREATE_LST_EXEC	:=	create_lst_exec
+DIR_REDIRECTS		:=	redirects
+DIR_EXEC			:=	execution
 
 MAIN 	:=	$(DIR_MAIN)/main					\
 			$(DIR_MAIN)/program					\
@@ -49,16 +51,20 @@ PARS	:=	$(DIR_PARS)/parser					\
 			$(DIR_PARS)/remove_quotes			\
 			$(DIR_PARS)/redirect_error			\
 
+CREATE_LST_EXEC	:=	$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/create_lst_exec		\
+					$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/command_table	\
+					$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/path				\
+					$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/save_redirects_and_files	\
+					$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/split_path				\
+					$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/env_list_to_str_array		\
+
+REDIRECTS	:=	$(DIR_EXEC)/$(DIR_REDIRECTS)/handle_redirect	\
+				$(DIR_EXEC)/$(DIR_REDIRECTS)/redirect_utils		\
+				$(DIR_EXEC)/$(DIR_REDIRECTS)/heredoc			\
+
 EXEC	:=	$(DIR_EXEC)/execution				\
-			$(DIR_EXEC)/split_path_var			\
 			$(DIR_EXEC)/exec_utils				\
-			$(DIR_EXEC)/command_table			\
-			$(DIR_EXEC)/find_executable			\
-			$(DIR_EXEC)/handle_redirect			\
-			$(DIR_EXEC)/env_list_to_str_array	\
 			$(DIR_EXEC)/execute_simple_command	\
-			$(DIR_EXEC)/create_absolute_path	\
-			$(DIR_EXEC)/redirects_and_files		\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft				\
 			$(DIR_UTLS)/utils_quote				\
@@ -73,6 +79,8 @@ SRCS	:=	${MAIN}								\
 			${LEXR}								\
 			${TYPE}								\
 			$(PARS)								\
+			${CREATE_LST_EXEC}					\
+			$(REDIRECTS)						\
 			$(EXEC)								\
 			$(UTLS)								\
 
@@ -97,6 +105,8 @@ $(DIR_OBJS):
 	mkdir -p $@/$(DIR_LEXR)
 	mkdir -p $@/$(DIR_PARS)
 	mkdir -p $@/$(DIR_PARS)/$(DIR_TYPE)
+	mkdir -p $@/$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)
+	mkdir -p $@/$(DIR_EXEC)/$(DIR_REDIRECTS)
 	mkdir -p $@/$(DIR_EXEC)
 	mkdir -p $@/$(DIR_UTLS)
 
@@ -119,8 +129,10 @@ make_libft:
 valgrind: re
 	valgrind \
 	--leak-check=full \
-	--show-leak-kinds=all \
 	--suppressions=suppression.supp \
+	--show-leak-kinds=all \
+	--trace-children=yes --track-fds=yes \
+	--log-file=leaks.sup \
 	./$(NAME)
 
 .PHONY:	all clean fclean re make_libft valgrind

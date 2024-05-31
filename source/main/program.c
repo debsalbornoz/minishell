@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/20 16:45:20 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/25 15:56:43 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	program(t_list *envp)
 	tokens = *lexer(&tokens, input);
 	if (!parser(&tokens, envp, input))
 		return (TRUE);
-	exec = *execute(&tokens, &exec, envp);
+	tokens.node = tokens.head;
+	exec = *execute(&tokens, &exec, envp, input);
 	release_memory(&tokens, &exec, input);
 	return (TRUE);
 }
