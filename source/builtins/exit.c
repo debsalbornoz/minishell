@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 11:51:39 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/29 13:31:43 by jackson          ###   ########.fr       */
+/*   Created: 2024/05/23 17:39:14 by jraupp            #+#    #+#             */
+/*   Updated: 2024/05/29 13:50:58 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/builtins.h"
 
-int	main(int argc, char **argv, char **envp)
+/*
+	- [x] implementar 'exit'
+	- [ ] Falta implementar parãmetros numericos para retornar o FD.
+*/
+
+int	mini_exit(void)
 {
-	t_list	*env_lst;
-
-	(void)argc;
-	(void)argv;
-	env_lst = data_env_addr();
-	env_lst = create_env_list(envp, env_lst);
-	handle_signal();
-	while (program(env_lst))
-		;
-	free_list(env_lst, free_lst_env);
-	return (EXIT_SUCCESS);
+	printf("exit\n");
+	return (1);
 }

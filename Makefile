@@ -1,5 +1,6 @@
 NAME	:=	minishell
-CFLAGS	:=	-Wall -Wextra -Werror -g
+
+CFLAGS	:=	-Wall -Wextra -Werror -g3 -Ofast
 
 CRST	:=	"\033[0m"
 CGRN	:=	"\033[32m"
@@ -20,23 +21,38 @@ DIR_PARS			:=	parser
 DIR_CREATE_LST_EXEC	:=	create_lst_exec
 DIR_REDIRECTS		:=	redirects
 DIR_EXEC			:=	execution
+DIR_INCL	:=	include
+DIR_OBJS	:=	objects
+DIR_LIBS	:=	library
+DIR_L_FT	:=	libft
+DIR_SRCS	:=	source
+DIR_MAIN	:=	main
+DIR_LINK	:=	linked_list
+DIR_ENVP	:=	envp
+DIR_EXPD	:=	expander
+DIR_LEXR	:=	lexer
+DIR_TYPE	:=	type_assignment
+DIR_PARS	:=	parser
+DIR_EXEC	:=	execution
+DIR_BIUL	:=	builtins
+DIR_UTLS	:=	utils
 
-MAIN 	:=	$(DIR_MAIN)/main					\
-			$(DIR_MAIN)/program					\
-			$(DIR_MAIN)/signals					\
+MAIN 	:=	$(DIR_MAIN)/main								\
+			$(DIR_MAIN)/program								\
+			$(DIR_MAIN)/signals								\
 
-LINK	:=	$(DIR_LINK)/free					\
-			$(DIR_LINK)/linked_list				\
+LINK	:=	$(DIR_LINK)/free								\
+			$(DIR_LINK)/linked_list							\
 
-ENVP	:=	$(DIR_ENVP)/create_env_list			\
-			$(DIR_ENVP)/update_env_list			\
+ENVP	:=	$(DIR_ENVP)/create_env_list						\
+			$(DIR_ENVP)/update_env_list						\
 
-EXPD	:=	$(DIR_EXPD)/expand_part1			\
-			$(DIR_EXPD)/expand_part2			\
+EXPD	:=	$(DIR_EXPD)/expand_part1						\
+			$(DIR_EXPD)/expand_part2						\
 
-LEXR	:=	$(DIR_LEXR)/lexer					\
-			$(DIR_LEXR)/process_word			\
-			$(DIR_LEXR)/process_delimiter		\
+LEXR	:=	$(DIR_LEXR)/lexer								\
+			$(DIR_LEXR)/process_word						\
+			$(DIR_LEXR)/process_delimiter					\
 
 TYPE	:=	$(DIR_PARS)/$(DIR_TYPE)/files					\
 			$(DIR_PARS)/$(DIR_TYPE)/path					\
@@ -44,12 +60,12 @@ TYPE	:=	$(DIR_PARS)/$(DIR_TYPE)/files					\
 			$(DIR_PARS)/$(DIR_TYPE)/type_assignment			\
 			$(DIR_PARS)/$(DIR_TYPE)/commands_and_arguments	\
 
-PARS	:=	$(DIR_PARS)/parser					\
-			$(DIR_PARS)/quotes					\
-			$(DIR_PARS)/pipe_error				\
-			$(DIR_PARS)/syntax_error			\
-			$(DIR_PARS)/remove_quotes			\
-			$(DIR_PARS)/redirect_error			\
+PARS	:=	$(DIR_PARS)/parser								\
+			$(DIR_PARS)/quotes								\
+			$(DIR_PARS)/pipe_error							\
+			$(DIR_PARS)/syntax_error						\
+			$(DIR_PARS)/remove_quotes						\
+			$(DIR_PARS)/redirect_error						\
 
 CREATE_LST_EXEC	:=	$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/create_lst_exec		\
 					$(DIR_EXEC)/$(DIR_CREATE_LST_EXEC)/command_table	\
@@ -66,23 +82,34 @@ EXEC	:=	$(DIR_EXEC)/execution				\
 			$(DIR_EXEC)/exec_utils				\
 			$(DIR_EXEC)/execute_simple_command	\
 
-UTLS	:=	$(DIR_UTLS)/utils_ft				\
-			$(DIR_UTLS)/utils_quote				\
-			$(DIR_UTLS)/utils_tokens			\
-			$(DIR_UTLS)/utils_redirect			\
-			$(DIR_UTLS)/utils_delimiter			\
+UTLS	:=	$(DIR_UTLS)/utils_ft							\
+			$(DIR_UTLS)/utils_quote							\
+			$(DIR_UTLS)/utils_tokens						\
+			$(DIR_UTLS)/utils_builtins						\
+			$(DIR_UTLS)/utils_redirect						\
+			$(DIR_UTLS)/utils_delimiter						\
 
-SRCS	:=	${MAIN}								\
-			${LINK}								\
-			${ENVP}								\
-			${EXPD}								\
-			${LEXR}								\
-			${TYPE}								\
-			$(PARS)								\
+BUIL	:=	$(DIR_BIUL)/cd									\
+			$(DIR_BIUL)/pwd									\
+			$(DIR_BIUL)/env									\
+			$(DIR_BIUL)/echo								\
+			$(DIR_BIUL)/exit								\
+			$(DIR_BIUL)/unset								\
+			$(DIR_BIUL)/export								\
+			$(DIR_BIUL)/builtins							\
+
+SRCS	:=	${MAIN}											\
+			${LINK}											\
+			${ENVP}											\
+			${EXPD}											\
+			${LEXR}											\
+			${TYPE}											\
+			$(PARS)											\
 			${CREATE_LST_EXEC}					\
 			$(REDIRECTS)						\
-			$(EXEC)								\
-			$(UTLS)								\
+			$(EXEC)											\
+			$(BUIL)											\
+			$(UTLS)											\
 
 L_FT	:=	./$(DIR_LIBS)/libft
 LIBS	:=	-lreadline $(L_FT)/libft.a
@@ -109,6 +136,7 @@ $(DIR_OBJS):
 	mkdir -p $@/$(DIR_EXEC)/$(DIR_REDIRECTS)
 	mkdir -p $@/$(DIR_EXEC)
 	mkdir -p $@/$(DIR_UTLS)
+	mkdir -p $@/$(DIR_BIUL)
 
 $(NAME): make_libft $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(INCS) -o $(NAME)

@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:59:18 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/27 16:43:47 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/31 14:26:45 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/*
+	- [ ] Verificar lugar melhor para atribuir essa função:
+
+			update_env_list(envp, "?", " 127");
+			printf("%s\n", "Command not found");
+
+	função acima estavam anteriormente em "ree_and_update_lst" depois do free.
+*/
 
 int	find_file(int type)
 {

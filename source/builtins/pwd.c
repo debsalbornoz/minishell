@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_quote.c                                      :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 12:16:31 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 10:51:18 by jackson          ###   ########.fr       */
+/*   Created: 2024/05/23 12:16:17 by jraupp            #+#    #+#             */
+/*   Updated: 2024/05/31 12:50:48 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/utils.h"
+#include "../../include/builtins.h"
 
-int	is_quote(char chr)
+void	mini_pwd(void)
 {
-	return (is_single_quote(chr) || is_double_quote(chr));
-}
+	char	*path;
 
-int	is_single_quote(char chr)
-{
-	return (chr == '\'');
-}
-
-int	is_double_quote(char chr)
-{
-	return (chr == '\"');
+	path = getcwd(NULL, 0);
+	printf("%s\n", path);
+	free(path);
 }

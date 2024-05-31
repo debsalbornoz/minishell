@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_quote.c                                      :+:      :+:    :+:   */
+/*   linked_list.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 12:16:31 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 10:51:18 by jackson          ###   ########.fr       */
+/*   Created: 2024/05/30 16:12:32 by jraupp            #+#    #+#             */
+/*   Updated: 2024/05/30 16:14:21 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/utils.h"
+#ifndef LINKED_LIST_H
+# define LINKED_LIST_H
 
-int	is_quote(char chr)
-{
-	return (is_single_quote(chr) || is_double_quote(chr));
-}
+# include "../library/lib.h"
 
-int	is_single_quote(char chr)
-{
-	return (chr == '\'');
-}
+// linked_list.c
+t_list	*add_node(t_list *list);
+t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
+int		count_nodes(t_list *lst);
 
-int	is_double_quote(char chr)
-{
-	return (chr == '\"');
-}
+#endif
