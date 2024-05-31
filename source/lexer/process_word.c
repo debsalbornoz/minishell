@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/06 14:11:33 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/23 12:40:46 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ int	process_word(t_list *lst_tokens, int signal, char *input, int i)
 {
 	int		token_len;
 	char	*word;
+	int		empty_quotes;
 
+	empty_quotes = 0;
+	if (input[i + is_empty_quotes(signal, &input[i])] != '\0')
+		i = i + empty_quotes;
 	token_len = get_token_len(&input[i], signal);
 	if (token_len > 0)
 	{
@@ -58,4 +62,14 @@ int	get_token_len(char *input, int signal)
 		i++;
 	}
 	return (i);
+}
+
+int	is_empty_quotes(char signal, char *input)
+{
+	int	i;
+
+	i = 0;
+	if (signal && input[i + 1] == signal)
+		return (2);
+	return (0);
 }

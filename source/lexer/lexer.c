@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/06 14:13:46 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/27 16:24:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,23 @@ t_list	*lexer(t_list *tokens, char *input)
 {
 	char	signal;
 	int		i;
-	int		input_len;
 	int		token_len;
 
 	signal = 0;
 	i = 0;
-	input = trim_start_spaces(input);
-	input_len = ft_strlen(input);
-	while (i < input_len)
+	if (ft_strlen(input) == 0)
+		return (NULL);
+	while (i < ft_strlen(input))
 	{
 		signal = process_quotes(signal, input[i]);
 		token_len = process_word(tokens, signal, input, i);
 		if (signal)
 			signal = '\0';
-		if (token_len >= 0 && i + token_len <= input_len)
+		if (token_len >= 0 && i + token_len <= ft_strlen(input))
 			i += token_len;
 		else
 			break ;
-		if (i + 1 <= input_len)
+		if (i + 1 <= ft_strlen(input))
 			i += process_delimiter(tokens, signal, input, i);
 		if (input[i] == ' ' && input[i] != '\0')
 			i++;
@@ -43,8 +42,11 @@ t_list	*lexer(t_list *tokens, char *input)
 
 char	*trim_start_spaces(char *input)
 {
-	while (is_space(*input))
-		input++;
+	int	i;
+
+	i = 0;
+	while (is_space(input[i]))
+		i++;
 	return (input);
 }
 

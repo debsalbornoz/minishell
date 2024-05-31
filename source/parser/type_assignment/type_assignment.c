@@ -6,14 +6,33 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 21:26:00 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/04/24 14:10:47 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/20 18:42:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
+t_list	*command_after_redirect(t_list *tokens)
+{
+	t_node	*aux;
+
+	aux = tokens->head;
+	if (find_redirect(aux->data->token->type) && aux->next)
+	{
+		aux = aux->next;
+		if (aux->next)
+		{
+			aux = aux->next;
+			if (aux->data->token->type == WORD)
+				aux->data->token->type = COMMAND;
+		}
+	}
+	return (tokens);
+}
+
 t_list	*type_assignment(t_list *lst_tokens)
 {
+	lst_tokens = command_after_redirect(lst_tokens);
 	lst_tokens->head = is_command_part1(lst_tokens->head);
 	lst_tokens = runs_on_list(lst_tokens, is_command_part2);
 	lst_tokens = runs_on_list(lst_tokens, is_path);

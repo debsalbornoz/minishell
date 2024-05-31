@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/07 18:44:13 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/20 16:51:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_closed(char *input)
+int	is_closed(char *input, t_list *envp)
 {
 	char	signal;
 	int		i;
@@ -24,19 +24,28 @@ int	is_closed(char *input)
 		if (is_quote(input[i]) && !signal)
 		{
 			signal = input[i];
-			i++;
+			if (input[i + 1] != '\0')
+				i++;
+			else
+				break ;
 		}
-		if (input[i] == signal)
+		if (input[i] != '\0' && input[i] == signal)
 			signal = 0;
 		i++;
 	}
 	if (signal)
 	{
-		printf("Fatal error: unclosed quotes\n");
-		free(input);
+		print_fatal_error(input, envp);
 		return (0);
 	}
 	return (1);
+}
+
+void	print_fatal_error(char *input, t_list *envp)
+{
+	printf("Fatal error: unclosed quotes\n");
+	update_env_list(envp, "?", "2: syntax error");
+	free(input);
 }
 
 int	count_characters_inside_quotes(const char *str, int *i,

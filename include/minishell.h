@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/16 19:16:29 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/30 21:24:50 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../library/libft/include/libft.h"
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <sys/types.h>
 
 enum	e_type_signal
 {
@@ -111,7 +112,11 @@ struct s_exec
 	char			*path;
 	char			**command_table;
 	char			**envp;
-
+	char			**redirects_and_files;
+	char			**eofs;
+	int				input;
+	int				output;
+	int				index;
 };
 
 /* --- source/main --- */
@@ -178,6 +183,7 @@ t_list	*process_redirect_output(t_list *tokens, char *input, int i);
 // process_word.c
 int		process_word(t_list *tokens, int signal, char *input, int i);
 int		get_token_len(char *input, int signal);
+int		is_empty_quotes(char signal, char *input);
 
 /* --- source/parser/ --- */
 
@@ -190,11 +196,13 @@ int		check_first_and_last_pipe(t_list	*tokens);
 int		check_pipe_after_redirect(t_list	*tokens);
 
 //quotes.c
-int		is_closed(char *input);
+int		is_closed(char *input, t_list *envp);
 int		count_characters_inside_quotes(const char *str,
 			int *i, char signal, int inside_quotes);
 int		count_characters_outside_quotes(const char *str,
 			int *i, int inside_quotes);
+void	print_fatal_error(char *input, t_list *envp);
+
 //redirect_error.c
 int		find_redirect(int type);
 int		redirect_error(t_list	*tokens);
@@ -222,6 +230,7 @@ int		compare_quoted_strings(char *token, char *builtin);
 t_node	*is_command_part1(t_node *head);
 t_node	*is_command_part2(t_node *node);
 t_node	*is_argument(t_node *node);
+t_node	*is_command_part3(t_node *tokens);
 
 // files.c
 t_node	*is_file(t_node *node);
@@ -262,43 +271,58 @@ int		is_append(char chr, char next_chr);
 t_node	*print_tokens(t_node *node);
 
 /* --- execution --- */
-
-//command_table.c
-void	create_command_table(t_list *tokens, t_list *exec);
-char	**allocate_cmd_table(t_node *tokens);
-void	create_simple_cmd_table(t_list *tokens, t_list *exec);
-void	create_multi_cmd_table(t_list *tokens, t_list *exec, int i);
-
-//env_list_to_str_array.c
-char	**env_list_to_str_array(t_list *lst_env);
-int		count_nodes(t_list *lst_env);
-char	*build_env_var(char *s1, char *s2);
-void	free_matrix(char **envp);
+//exec_utils.c
+int		find_file(int type);
+int		is_file_redirect_or_pipe(int type);
+void	free_and_update_lst(char **path_array, t_list	*envp);
+void	free_matrix(char **matrix);
 
 //execute_simple_command.c
 int		is_simple_command(t_list *tokens);
-int		execute_simple_command(t_list *lst_exec);
-
+int		execute_simple_command(t_list *exec, t_list *tokens,
+			t_list *envp, char *input);
+int		validate_command(t_node *exec, t_list *envp);
+void	finish_process(t_node *exec, t_list *tokens, t_list *envp, char *input);
+void	redirect_and_execute(t_node *exec, t_list *tokens,
+			t_list *envp, char *input);
 //execution.c
-t_list	*execute(t_list *tokens, t_list *exec, t_list *envp);
-//int		execute_simple_command(t_list *exec, t_list *lst_env);
-t_list	*prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
+t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
+			t_list *lst_env, char *input);
+void	print_matrix(char **matrix);
+void	print_lst_exec(t_list *lst_exec);
 
-//handle_redirect.c
-t_list	*handle_redirect(t_list *tokens);
-t_list	*open_file(t_list *tokens);
-int		set_flag(t_node *node);
-t_list	*remove_redirect_and_file(t_list *tokens);
-void	close_fds(void);
+/* --- source/execution/create lst exec--- */
 
-//find_executable.c
-void	fill_path_in_exec(t_list *tokens, t_list *exec, t_list *envp);
+//create_lst_exec.c
+
+//command_table.c
+char	**allocate_cmd_table(t_node *tokens);
+void	create_simple_cmd_table(t_list *tokens, t_list *exec);
+void	create_multi_cmd_table(t_list *tokens, t_list *exec);
+char	**fill_command_table(t_node **tokens, char **command_table);
+
+//create_lst_exec.c
+t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
+t_list	*initialize_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
+void	create_command_table(t_list *tokens, t_list *exec);
+void	find_path(t_list *tokens, t_list *exec, t_list *envp);
+void	save_redirects_and_files(t_list *exec, t_list *tokens);
+
+//env_list_to_str_array.c
+char	**env_list_to_str_array(t_list *lst_env);
+char	*build_env_var(char *s1, char *s2);
+
+//path.c
+char	*create_absolute_path(char **path_array, char **command_table, t_node *exec);
+char	*concatenate_path(char *path, char *command);
 char	*validate_path(char **command_table, t_node *exec, t_list *envp);
-void	free_and_update_lst(char **path_array, t_list	*envp);
 int		is_absolute_path(char **command_table);
 int		is_executable(t_node *exec, char *path);
-char	*create_path(char *path, t_node *tokens);
-char	*concatenate_path(char *path, char *command);
+
+//save_redirects_and_files.c
+char	**allocate_redir_and_files(t_node *tokens);
+char	**get_redirects_and_files(t_node **tokens, char **redir_and_files);
+char	**allocate_eof(t_node	*exec);
 
 //split_path.c
 char	**split_path(t_list *envp);
@@ -307,10 +331,27 @@ char	*return_value(t_list *envp, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
 
-//exec_utils.c
-int		find_file(int type);
-int		is_file_redirect_or_pipe(int type);
+/* --- source/execution/redirects--- */
+//handle_redirect.c
+void	handle_redirect(t_node *exec);
+int		set_flag(char *redirect);
+void	open_file(t_node *exec, int i, int flag);
+void	close_fds(void);
 
-t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
-void	free_token(t_node *node);
+//heredoc.c
+void	handle_heredoc(t_node	*exec);
+char	*create_heredoc_file(t_node *exec, int j);
+char	*get_filename(int i);
+void	open_heredoc_file(int fd, char *eof, char *filename);
+int		heredoc_flags(int signal);
+
+//redirect_utils.c
+int		find_output(char *str);
+int		find_append(char *str);
+int		find_input(char *str);
+int		find_heredoc(char *str);
+
+t_list	*init_exec_addr(void);
+int		create_heredocs(t_node	*exec);
+
 #endif

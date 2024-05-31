@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/16 19:31:12 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/31 14:05:56 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,59 @@ int	is_simple_command(t_list *tokens)
 	return (1);
 }
 
-int	execute_simple_command(t_list *exec)
+int	execute_simple_command(t_list *exec,
+	t_list *tokens, t_list *envp, char *input)
 {
-	pid_t	pid;
-	int		status;
-
-	(void)exec;
+	redirect_and_execute(exec->node, tokens, envp, input);
+	return (0);
+}
+void	redirect_and_execute(t_node *exec, t_list *tokens,
+	t_list *envp, char *input)
+{
+	int	pid;
+	int	ft_stdout;
+	int	ft_stdin;
+	handle_heredoc(exec);
+	ft_stdout = dup(1);
+	ft_stdin = dup(0);
 	pid = fork();
 	status = 0;
 	if (pid == -1)
-		return (-1);
-	else if (pid == 0)
-		execve(exec->node->data->execution->path,
-			exec->node->data->execution->command_table,
-			exec->node->data->execution->envp);
+		return ;
+	if (pid == 0)
+	{
+		handle_redirect(exec);
+		if (validate_command(exec, envp))
+		{
+			if (execve(exec->data->execution->path,
+				exec->data->execution->command_table,
+				exec->data->execution->envp) == -1)
+				{
+					ft_stdout = dup2(ft_stdout, 1);
+					ft_stdin = dup2(ft_stdin, 0);
+					finish_process(exec, tokens, envp, input);
+				}
+		}
+		ft_stdout = dup2(ft_stdout, 1);
+		ft_stdin = dup2(ft_stdin, 0);
+		finish_process(exec, tokens, envp, input);
+	}
 	else
-		wait(&status);
-	return (status);
+		waitpid(pid, NULL, 0);
 }
+
+
+void	finish_process(t_node *exec, t_list *tokens, t_list *envp, char *input)
+{
+	t_list	*lst_exec;
+	(void)exec;
+
+	lst_exec = init_exec_addr();
+	free_list(lst_exec, free_lst_exec);
+	free_list(tokens, free_lst_tokens);
+	free_list(envp, free_lst_env);
+	free(input);
+	close_fds();
+	exit(2);
+}
+

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:12:07 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/06 17:14:10 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/20 12:14:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_node	*is_builtin(t_node *node)
 	while (builtins[i] != NULL)
 	{
 		if (identify_builtin(token, builtins[i++], token_len)
-			&& node->data->token->type == COMMAND)
+			&& node->data->token->type == WORD)
 			node->data->token->type = BUILTIN;
 	}
 	return (node);

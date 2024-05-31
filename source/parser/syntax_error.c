@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:57:17 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/07 17:56:09 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/20 16:43:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	syntax_error(t_list *tokens, t_list	*envp, char *input)
 		|| dot_error(tokens))
 	{
 		printf("Syntax error\n");
-		update_env_list(envp, "?", "2: command not found");
+		update_env_list(envp, "?", "2");
 		free_list(tokens, free_lst_tokens);
 		free(input);
 		return (1);
@@ -26,7 +26,7 @@ int	syntax_error(t_list *tokens, t_list	*envp, char *input)
 	if (dot_error(tokens) == 2)
 	{
 		printf("Syntax error\n");
-		update_env_list(envp, "?", "127: command not found");
+		update_env_list(envp, "?", "127");
 		free_list(tokens, free_lst_tokens);
 		free(input);
 		return (1);
