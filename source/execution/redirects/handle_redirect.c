@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/31 14:12:45 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:43:41 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	handle_redirect(t_node *exec)
 	int		i;
 
 	i = 0;
-	if (!exec->data->execution->redirects_and_files)
+	if (!exec->data->exec->redirs_files)
 		return ;
-	while (exec->data->execution->redirects_and_files[i])
+	while (exec->data->exec->redirs_files[i])
 	{
-		if (find_output(exec->data->execution->redirects_and_files[i])
-			|| find_append(exec->data->execution->redirects_and_files[i]))
+		if (find_output(exec->data->exec->redirs_files[i])
+			|| find_append(exec->data->exec->redirs_files[i]))
 			open_file(exec, i, 1);
-		if (find_input(exec->data->execution->redirects_and_files[i]) ||ft_strncmp("<<", exec->data->execution->redirects_and_files[i], 2) == 0)
+		if (find_input(exec->data->exec->redirs_files[i]) || \
+			ft_strncmp("<<", \
+			exec->data->exec->redirs_files[i], 2) == 0)
 			open_file(exec, i, 0);
 		i++;
 	}
@@ -62,21 +64,21 @@ void	open_file(t_node *exec, int i, int flag)
 	int	fd;
 
 	fd = 0;
-	if (exec->data->execution->redirects_and_files[i + 1])
+	if (exec->data->exec->redirs_files[i + 1])
 	{
-		fd = open(exec->data->execution->redirects_and_files[i + 1],
-				set_flag(exec->data->execution->redirects_and_files[i]), 0644);
+		fd = open(exec->data->exec->redirs_files[i + 1],
+				set_flag(exec->data->exec->redirs_files[i]), 0644);
 		if (fd == -1)
 			return ;
 		if (flag == 0)
 		{
 			fd = dup2(fd, 0);
-			exec->data->execution->input = fd;
+			exec->data->exec->input = fd;
 		}
 		if (flag == 1)
 		{
 			fd = dup2(fd, 1);
-			exec->data->execution->output = fd;
+			exec->data->exec->output = fd;
 		}
 	}
 }

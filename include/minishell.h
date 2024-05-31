@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/05/31 14:25:59 by dlamark-         ###   ########.fr       */
+/*   Created: 2024/05/31 15:08:18 by jraupp            #+#    #+#             */
+/*   Updated: 2024/05/31 15:08:50 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -146,10 +145,9 @@ void	finish_process(t_node *exec, t_list *tokens, t_list *envp, char *input);
 void	redirect_and_execute(t_node *exec, t_list *tokens,
 			t_list *envp, char *input);
 //execution.c
-t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
-			t_list *lst_env, char *input);
 void	print_matrix(char **matrix);
-void	print_lst_exec(t_list *lst_exec);
+void	print_lst_exec(t_list *lst_exec, t_list *envp);
+// void	print_lst_exec(t_list *lst_exec);
 
 /* --- source/execution/create lst exec--- */
 
@@ -162,9 +160,8 @@ void	create_multi_cmd_table(t_list *tokens, t_list *exec);
 char	**fill_command_table(t_node **tokens, char **command_table);
 
 //create_absolute_path.c
-char	*create_absolute_path(char **path_array, char **command_table,
-			t_list *envp, t_node *exec);
 char	*concatenate_path(char *path, char *command);
+
 //create_lst_exec.c
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 t_list	*initialize_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
@@ -179,28 +176,23 @@ void	free_matrix(char **envp);
 
 //execute_simple_command.c
 int		is_simple_command(t_list *tokens);
-int		execute_simple_command(t_list *exec, t_list *tokens);
 
 //execution.c
 int		execute(t_list *tokens, t_list *exec, t_list *envp, char *input);
 int		first_command(t_node *node, t_list *tokens);
 int		command_after_pipe(t_node *node);
 
-//int		execute_simple_command(t_list *exec, t_list *lst_env);
 t_list	*prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
 
 //handle_redirect.c
-t_list	*handle_redirect(t_list *tokens);
-t_list	*open_file(t_list *tokens);
-int		set_flag(t_node *node);
 t_list	*remove_redirect_and_file(t_list *tokens);
-void	close_fds(void);
 
 //find_executable.c
 void	fill_path_in_exec(t_list *tokens, t_list *exec, t_list *envp);
 
 //path.c
-char	*create_absolute_path(char **path_array, char **command_table, t_node *exec);
+char	*create_absolute_path(char **path_array, \
+		char **command_table, t_node *exec);
 char	*concatenate_path(char *path, char *command);
 char	*validate_path(char **command_table, t_node *exec, t_list *envp);
 int		is_absolute_path(char **command_table);
@@ -233,7 +225,7 @@ void	open_heredoc_file(int fd,
 			char *eof, char *filename);
 int		heredoc_flags(int signal);
 
-void	get_redirects_and_files(t_list *exec, t_list *tokens);
+// void	get_redirects_and_files(t_list *exec, t_list *tokens);
 int		get_size(t_node *tokens);
 char	**allocate_matrix(t_list *tokens);
 char	**fill_redir_and_files(t_node **tokens, char **redir_and_files);

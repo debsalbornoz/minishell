@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/25 16:06:35 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:34:50 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 		aux_tokens = aux_tokens->next;
 	}
 	command_table[i] = NULL;
-	exec->node->data->execution->command_table = command_table;
+	exec->node->data->exec->command_table = command_table;
 }
 
 void	create_multi_cmd_table(t_list *tokens, t_list *exec)
@@ -75,7 +75,7 @@ void	create_multi_cmd_table(t_list *tokens, t_list *exec)
 			free(command_table);
 		else
 		{
-			exec->node->data->execution->command_table = command_table;
+			exec->node->data->exec->command_table = command_table;
 			exec->node = exec->node->next;
 		}
 	}

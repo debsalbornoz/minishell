@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 09:59:44 by jackson           #+#    #+#             */
-/*   Updated: 2024/05/28 04:06:43 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/31 15:24:21 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ union u_data
 {
 	t_token	*token;
 	t_env	*env;
-	t_exec	*execution;
+	t_exec	*exec;
 };
 
 struct s_env
@@ -101,7 +101,11 @@ struct s_exec
 	char			*path;
 	char			**command_table;
 	char			**envp;
-	char			**redirects_and_files;
+	char			**redirs_files;
+	char			**eofs;
+	int				input;
+	int				output;
+	int				index;
 };
 
 #endif
