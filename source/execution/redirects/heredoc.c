@@ -6,24 +6,50 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:34:28 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/30 20:16:41 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:25:55 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	get_flag(int signal);
-char	*get_eof(t_node	*exec, int i);
+void	handle_heredoc(t_node	*exec)
+{
+	char	*heredoc_file;
+	int		i;
+	int		j;
 
-char	*handle_heredoc(t_node *exec, int i, int j)
+	heredoc_file = NULL;
+	i = 0;
+	j = 0;
+	if (!exec->data->execution->redirects_and_files)
+		return ;
+	exec->data->execution->eofs = allocate_eof(exec);
+	while (exec->data->execution->redirects_and_files[i])
+	{
+		if (find_heredoc(exec->data->execution->redirects_and_files[i]))
+		{
+			if (exec->data->execution->redirects_and_files[i + 1])
+			{
+				exec->data->execution->eofs[j] = ft_strdup(exec->data->execution->redirects_and_files[i + 1]);
+				heredoc_file = create_heredoc_file(exec, j);
+				free(exec->data->execution->redirects_and_files[i + 1]);
+				exec->data->execution->redirects_and_files[i + 1] = heredoc_file;
+				j++;
+			}
+		}
+		i++;
+	}
+}
+
+char	*create_heredoc_file(t_node *exec, int j)
 {
 	char	*filename;
 	int		fd;
 	char	*eof;
 	int		flag;
-	(void)	i;
+
 	eof = NULL;
-	flag = get_flag(0);
+	flag = heredoc_flags(0);
 	fd = 0;
 	filename = get_filename(exec->data->execution->index);
 	eof = exec->data->execution->eofs[j];
@@ -32,17 +58,8 @@ char	*handle_heredoc(t_node *exec, int i, int j)
 	fd = open(filename, flag, 0644);
 	if (fd == -1)
 		return (NULL);
-	get_input(fd, eof, filename);
+	open_heredoc_file(fd, eof, filename);
 	return (filename);
-}
-char	*get_eof(t_node	*exec, int i)
-{
-	char	*eof;
-
-	eof = NULL;
-	if (exec->data->execution->redirects_and_files[i + 1] != NULL)
-		eof = exec->data->execution->redirects_and_files[i + 1];
-	return (eof);
 }
 char	*get_filename(int i)
 {
@@ -54,14 +71,13 @@ char	*get_filename(int i)
 	free(number);
 	return (filename);
 }
-//Lidar com expansão no heredoc, lidar com sinais,
-void	get_input(int fd, char *eof, char *filename)
+void	open_heredoc_file(int fd, char *eof, char *filename)
 {
 	char	*input;
 	int		flag;
 
 	input = NULL;
-	flag = get_flag(1);
+	flag = heredoc_flags(1);
 	while (1)
 	{
 		input = readline(">");
@@ -84,7 +100,7 @@ void	get_input(int fd, char *eof, char *filename)
 	}
 }
 
-int	get_flag(int signal)
+int	heredoc_flags(int signal)
 {
 	int	flag;
 
@@ -95,3 +111,4 @@ int	get_flag(int signal)
 		flag = flag | O_RDWR | O_CREAT | O_TRUNC;
 	return (flag);
 }
+

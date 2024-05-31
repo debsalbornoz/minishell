@@ -6,13 +6,11 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/30 19:46:33 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:17:49 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-void	open_file(t_node *exec, int i, int flag);
 
 void	handle_redirect(t_node *exec)
 {

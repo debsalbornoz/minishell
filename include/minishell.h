@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/30 20:11:11 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:24:50 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -322,6 +322,7 @@ int		is_executable(t_node *exec, char *path);
 //save_redirects_and_files.c
 char	**allocate_redir_and_files(t_node *tokens);
 char	**get_redirects_and_files(t_node **tokens, char **redir_and_files);
+char	**allocate_eof(t_node	*exec);
 
 //split_path.c
 char	**split_path(t_list *envp);
@@ -334,13 +335,15 @@ int		get_len(char *value);
 //handle_redirect.c
 void	handle_redirect(t_node *exec);
 int		set_flag(char *redirect);
-t_list	*remove_redirect_and_file(t_list *tokens);
+void	open_file(t_node *exec, int i, int flag);
 void	close_fds(void);
 
 //heredoc.c
-char	*handle_heredoc(t_node *exec, int i, int j);
+void	handle_heredoc(t_node	*exec);
+char	*create_heredoc_file(t_node *exec, int j);
 char	*get_filename(int i);
-void	get_input(int fd, char *eof, char *filename);
+void	open_heredoc_file(int fd, char *eof, char *filename);
+int		heredoc_flags(int signal);
 
 //redirect_utils.c
 int		find_output(char *str);
@@ -350,5 +353,5 @@ int		find_heredoc(char *str);
 
 t_list	*init_exec_addr(void);
 int		create_heredocs(t_node	*exec);
-char	**allocate_eof(t_node	*exec);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:28:36 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/23 16:26:23 by codespace        ###   ########.fr       */
+/*   Updated: 2024/05/30 20:23:57 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	free_lst_exec(t_list *exec)
 	free_matrix(exec->node->data->execution->redirects_and_files);
 	free_matrix(exec->node->data->execution->envp);
 	free(exec->node->data->execution->path);
+	free(exec->node->data->execution->eofs);
 	free(exec->node->data->execution);
 	free(exec->node->data);
 	free(exec->node);

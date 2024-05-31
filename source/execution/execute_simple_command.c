@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/30 20:07:39 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:22:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	redirect_and_execute(t_node *exec, t_list *tokens,
 	int	pid;
 	int	ft_stdout;
 	int	ft_stdin;
-	create_heredocs(exec);
+	handle_heredoc(exec);
 	ft_stdout = dup(1);
 	ft_stdin = dup(0);
 	pid = fork();
