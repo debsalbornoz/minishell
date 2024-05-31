@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_redirects_and_files.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/31 15:37:13 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/30 20:11:01 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ char	**get_redirects_and_files(t_node **tokens, char **redir_and_files)
 	redir_and_files[i] = NULL;
 	return (redir_and_files);
 }
-
 char	**allocate_eof(t_node	*exec)
 {
 	int		counter;
@@ -71,14 +70,12 @@ char	**allocate_eof(t_node	*exec)
 	char	**eof;
 	int		i;
 
-	i = 0;
+	i  = 0;
 	aux = exec;
 	counter = 0;
-	while (aux->data->exec->redirs_files[i])
+	while (aux->data->execution->redirects_and_files[i])
 	{
-		if (ft_strncmp("<<", \
-			aux->data->exec->redirs_files[i], 2) == 0
-			&& aux->data->exec->redirs_files[i + 1])
+		if (ft_strncmp("<<", aux->data->execution->redirects_and_files[i], 2)== 0 && aux->data->execution->redirects_and_files[i + 1])
 			counter++;
 		i++;
 	}

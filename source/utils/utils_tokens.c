@@ -3,25 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:03:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 10:58:25 by jackson          ###   ########.fr       */
+/*   Updated: 2024/04/24 15:00:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/utils.h"
+#include "../../include/minishell.h"
 
 static void	aux_print_tokens(int type);
 static void	aux_print_tokens_delimiter(int type);
 static void	aux_print_tokens_builtin(int type);
 static void	aux_print_tokens_argument(int type);
-
-/*
-	- Função auxiliar criada com intuito de imprimir lista de tokens enquanto
-não tinha a execução pronta.
-	- [ ] Verificar necessidade de manter ou remover a função.
-*/
 
 t_node	*print_lst_tokens(t_node *node)
 {

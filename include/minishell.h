@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 15:08:18 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/31 15:08:50 by jraupp           ###   ########.fr       */
+/*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
+/*   Updated: 2024/05/31 19:52:55 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "utils.h"
 # include "builtins.h"
-# include "linked_list.h"
 # include "../library/lib.h"
+# include "structs.h"
 
 /* --- source/main --- */
 // program.c
@@ -28,6 +28,11 @@ void	set_error(t_list *lst_env);
 void	handle_signal(void);
 
 /* --- source/linked_list --- */
+//linked_list.c
+t_list	*add_node(t_list *list);
+t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
+int		count_nodes(t_list *lst);
+
 // free.c
 void	free_list(t_list *list, void (f)(t_list *));
 void	free_lst_tokens(t_list *tokens);
@@ -178,7 +183,7 @@ void	free_matrix(char **envp);
 int		is_simple_command(t_list *tokens);
 
 //execution.c
-int		execute(t_list *tokens, t_list *exec, t_list *envp, char *input);
+t_list	*execute(t_list *tokens, t_list *exec, t_list *envp, char *input);
 int		first_command(t_node *node, t_list *tokens);
 int		command_after_pipe(t_node *node);
 

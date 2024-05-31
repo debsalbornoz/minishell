@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:12:07 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 10:15:52 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/20 12:14:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-static void	classify_builtin_type(t_node *node, int builtin_case);
 
 t_node	*is_builtin(t_node *node)
 {
@@ -35,8 +33,8 @@ t_node	*is_builtin(t_node *node)
 	while (builtins[i] != NULL)
 	{
 		if (identify_builtin(token, builtins[i++], token_len)
-			&& node->data->token->type == COMMAND)
-			classify_builtin_type(node, i);
+			&& node->data->token->type == WORD)
+			node->data->token->type = BUILTIN;
 	}
 	return (node);
 }
@@ -49,7 +47,7 @@ int	identify_builtin(char *token, char *builtin, int token_len)
 	i = 0;
 	signal = 0;
 	signal = process_quotes(signal, token[i]);
-	if (signal == '\0')
+	if (!signal)
 	{
 		if (token_len == ft_strlen(builtin))
 			if (!ft_strncmp(token, builtin, token_len))
@@ -87,22 +85,4 @@ int	compare_quoted_strings(char *token, char *builtin)
 		}
 	}
 	return (0);
-}
-
-static void	classify_builtin_type(t_node *token, int builtin_case)
-{
-	if (builtin_case == 1)
-		token->data->token->type = ECHO;
-	else if (builtin_case == 2)
-		token->data->token->type = CD;
-	else if (builtin_case == 3)
-		token->data->token->type = PWD;
-	else if (builtin_case == 4)
-		token->data->token->type = EXPORT;
-	else if (builtin_case == 5)
-		token->data->token->type = UNSET;
-	else if (builtin_case == 6)
-		token->data->token->type = ENV;
-	else if (builtin_case == 7)
-		token->data->token->type = EXIT;
 }

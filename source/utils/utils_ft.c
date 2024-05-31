@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:51:48 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 02:49:59 by jackson          ###   ########.fr       */
+/*   Updated: 2024/04/05 12:19:45 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/utils.h"
+#include "../../include/minishell.h"
 
 int	ft_strcmp(char	*str1, char *str2)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 15:26:27 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/31 19:54:07 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	redirect_and_execute(t_node *exec, t_list *tokens,
 	int	pid;
 	int	ft_stdout;
 	int	ft_stdin;
-
 	handle_heredoc(exec);
 	ft_stdout = dup(1);
 	ft_stdin = dup(0);
@@ -52,17 +51,18 @@ void	redirect_and_execute(t_node *exec, t_list *tokens,
 		handle_redirect(exec);
 		if (validate_command(exec, envp))
 		{
-			if (execve(exec->data->exec->path, exec->data->exec->command_table,
-					exec->data->exec->envp) == -1)
+			if (execve(exec->data->execution->path,
+					exec->data->execution->command_table,
+					exec->data->execution->envp) == -1)
 			{
 				ft_stdout = dup2(ft_stdout, 1);
 				ft_stdin = dup2(ft_stdin, 0);
 				finish_process(exec, tokens, envp, input);
 			}
+				ft_stdout = dup2(ft_stdout, 1);
+				ft_stdin = dup2(ft_stdin, 0);
+			finish_process(exec, tokens, envp, input);
 		}
-		ft_stdout = dup2(ft_stdout, 1);
-		ft_stdin = dup2(ft_stdin, 0);
-		finish_process(exec, tokens, envp, input);
 	}
 	else
 		waitpid(pid, NULL, 0);
@@ -71,8 +71,8 @@ void	redirect_and_execute(t_node *exec, t_list *tokens,
 void	finish_process(t_node *exec, t_list *tokens, t_list *envp, char *input)
 {
 	t_list	*lst_exec;
-
 	(void)exec;
+
 	lst_exec = init_exec_addr();
 	free_list(lst_exec, free_lst_exec);
 	free_list(tokens, free_lst_tokens);

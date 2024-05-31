@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_delimiter.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:06 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/28 10:50:40 by jackson          ###   ########.fr       */
+/*   Updated: 2024/03/30 11:44:03 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/utils.h"
+#include "../../include/minishell.h"
 
 int	is_delimiter(char chr)
 {

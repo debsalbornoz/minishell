@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:34:28 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/31 15:25:41 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/31 20:09:51 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,25 @@ void	handle_heredoc(t_node	*exec)
 	int		j;
 
 	heredoc_file = NULL;
-	i = -1;
+	i = 0;
 	j = 0;
-	if (!exec->data->exec->redirs_files)
+	if (!exec->data->execution->redirects_and_files)
 		return ;
-	exec->data->exec->eofs = allocate_eof(exec);
-	while (i++, exec->data->exec->redirs_files[i])
+	exec->data->execution->eofs = allocate_eof(exec);
+	while (exec->data->execution->redirects_and_files[i])
 	{
-		if (find_heredoc(exec->data->exec->redirs_files[i]))
+		if (find_heredoc(exec->data->execution->redirects_and_files[i]))
 		{
-			if (exec->data->exec->redirs_files[i + 1])
+			if (exec->data->execution->redirects_and_files[i + 1])
 			{
-				exec->data->exec->eofs[j] = ft_strdup(\
-					exec->data->exec->redirs_files[i + 1]);
+				exec->data->execution->eofs[j] = ft_strdup(exec->data->execution->redirects_and_files[i + 1]);
 				heredoc_file = create_heredoc_file(exec, j);
-				free(exec->data->exec->redirs_files[i + 1]);
-				exec->data->exec->redirs_files[i + 1] = heredoc_file;
+				free(exec->data->execution->redirects_and_files[i + 1]);
+				exec->data->execution->redirects_and_files[i + 1] = heredoc_file;
 				j++;
 			}
 		}
+		i++;
 	}
 }
 
@@ -51,8 +51,8 @@ char	*create_heredoc_file(t_node *exec, int j)
 	eof = NULL;
 	flag = heredoc_flags(0);
 	fd = 0;
-	filename = get_filename(exec->data->exec->index);
-	eof = exec->data->exec->eofs[j];
+	filename = get_filename(exec->data->execution->index);
+	eof = exec->data->execution->eofs[j];
 	if (!eof)
 		return (NULL);
 	fd = open(filename, flag, 0644);
@@ -61,18 +61,16 @@ char	*create_heredoc_file(t_node *exec, int j)
 	open_heredoc_file(fd, eof, filename);
 	return (filename);
 }
-
 char	*get_filename(int i)
 {
 	char	*filename;
 	char	*number;
 
 	number = ft_itoa(i);
-	filename = ft_strjoin("/tmp/", number);
+	filename = ft_strjoin("./tmp/", number);
 	free(number);
 	return (filename);
 }
-
 void	open_heredoc_file(int fd, char *eof, char *filename)
 {
 	char	*input;
@@ -90,11 +88,13 @@ void	open_heredoc_file(int fd, char *eof, char *filename)
 				return ;
 			ft_putstr_fd(input, fd);
 			ft_putstr_fd("\n", fd);
+			//free(input);
 			close(fd);
 		}
 		if (ft_strncmp(input, eof, ft_strlen(input)) == 0)
 		{
 			close(fd);
+			//free(input);
 			break ;
 		}
 	}
@@ -105,9 +105,10 @@ int	heredoc_flags(int signal)
 	int	flag;
 
 	flag = 0;
-	if (signal == 1)
+	if (signal == 1 )
 		flag = flag | O_RDWR | O_CREAT | O_APPEND;
 	if (signal == 0)
 		flag = flag | O_RDWR | O_CREAT | O_TRUNC;
 	return (flag);
 }
+

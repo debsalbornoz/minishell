@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:29:20 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/31 15:35:08 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/27 16:42:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ char	*concatenate_path(char *path, char *command)
 
 int	is_executable(t_node *exec, char *path)
 {
-	if (*(exec->data->exec->command_table[0]) == '\0')
+	if (*(exec->data->execution->command_table[0]) == '\0')
 		return (0);
 	if (access(path, X_OK) == 0 && access(path, F_OK) == 0)
 	{
 		if (exec)
 		{
-			exec->data->exec->path = path;
+			exec->data->execution->path = path;
 			return (1);
 		}
 	}

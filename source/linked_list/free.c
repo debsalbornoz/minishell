@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:28:36 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/31 15:33:28 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/05/30 20:23:57 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	free_lst_env(t_list *envp)
 
 void	free_lst_exec(t_list *exec)
 {
-	free_matrix(exec->node->data->exec->command_table);
-	free_matrix(exec->node->data->exec->redirs_files);
-	free_matrix(exec->node->data->exec->envp);
-	free_matrix(exec->node->data->exec->eofs);
-	free(exec->node->data->exec->path);
-	free(exec->node->data->exec);
+	free_matrix(exec->node->data->execution->command_table);
+	free_matrix(exec->node->data->execution->redirects_and_files);
+	free_matrix(exec->node->data->execution->envp);
+	free(exec->node->data->execution->path);
+	free(exec->node->data->execution->eofs);
+	free(exec->node->data->execution);
 	free(exec->node->data);
 	free(exec->node);
 }

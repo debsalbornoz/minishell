@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 14:15:16 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/30 17:05:01 by jraupp           ###   ########.fr       */
+/*   Created: 2024/05/31 18:52:19 by dlamark-          #+#    #+#             */
+/*   Updated: 2024/05/31 19:46:48 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define BUILTINS_H
 
 # include "utils.h"
-# include "linked_list.h"
 # include "../library/lib.h"
+# include "structs.h"
 
 int		builtins(t_list *token, t_list *exec, t_list *envp);
 int		mini_cd(t_list *token);
