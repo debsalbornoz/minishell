@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 18:52:19 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 20:43:49 by dlamark-         ###   ########.fr       */
+/*   Created: 2024/05/31 20:35:44 by dlamark-          #+#    #+#             */
+/*   Updated: 2024/05/31 20:37:54 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "../../include/builtins.h"
 
-# include "utils.h"
-# include "../library/lib.h"
-# include "structs.h"
-# include "linked_list.h"
+static t_node	*print_for_export(t_node *nde);
 
-int		builtins(t_list *token, t_list *exec, t_list *envp);
-int		mini_cd(t_list *token);
-void	mini_pwd(void);
-void	mini_env(t_list *envp);
-void	mini_echo(t_list *token);
-int		mini_exit(void);
-void	mini_unset(void);
-void	mini_export(t_list *envp);
+void	mini_export(t_list *envp)
+{
+	runs_on_list(envp, print_for_export);
+}
 
-#endif
+static t_node	*print_for_export(t_node *nde)
+{
+	printf("declare -x %s=%s\n", nde->data->env->name, nde->data->env->value);
+	return (nde);
+}
