@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:16:17 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/26 08:03:12 by jackson          ###   ########.fr       */
+/*   Updated: 2024/05/31 12:50:48 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 void	mini_pwd(void)
 {
-	printf("%s\n", getcwd(NULL, 0));
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	printf("%s\n", path);
+	free(path);
 }
