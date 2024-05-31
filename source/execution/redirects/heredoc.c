@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:34:28 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/30 21:25:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:36:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*get_filename(int i)
 	char	*number;
 
 	number = ft_itoa(i);
-	filename = ft_strjoin("./tmp/", number);
+	filename = ft_strjoin("/tmp/", number);
 	free(number);
 	return (filename);
 }

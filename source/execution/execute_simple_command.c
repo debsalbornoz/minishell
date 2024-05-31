@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/30 21:22:31 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/05/30 21:47:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	redirect_and_execute(t_node *exec, t_list *tokens,
 					finish_process(exec, tokens, envp, input);
 				}
 		}
+		ft_stdout = dup2(ft_stdout, 1);
+		ft_stdin = dup2(ft_stdin, 0);
+		finish_process(exec, tokens, envp, input);
 	}
 	else
 		waitpid(pid, NULL, 0);
