@@ -34,7 +34,7 @@ DIR_LEXR	:=	lexer
 DIR_TYPE	:=	type_assignment
 DIR_PARS	:=	parser
 DIR_EXEC	:=	execution
-DIR_BIUL	:=	builtins
+DIR_BUIL	:=	builtins
 DIR_UTLS	:=	utils
 
 MAIN 	:=	$(DIR_MAIN)/main									\
@@ -89,14 +89,14 @@ UTLS	:=	$(DIR_UTLS)/utils_ft								\
 			$(DIR_UTLS)/utils_redirect							\
 			$(DIR_UTLS)/utils_delimiter							\
 
-BUIL	:=	$(DIR_BIUL)/cd										\
-			$(DIR_BIUL)/pwd										\
-			$(DIR_BIUL)/env										\
-			$(DIR_BIUL)/echo									\
-			$(DIR_BIUL)/exit									\
-			$(DIR_BIUL)/unset									\
-			$(DIR_BIUL)/export									\
-			$(DIR_BIUL)/builtins								\
+BUIL	:=	$(DIR_BUIL)/cd										\
+			$(DIR_BUIL)/pwd										\
+			$(DIR_BUIL)/env										\
+			$(DIR_BUIL)/echo									\
+			$(DIR_BUIL)/exit									\
+			$(DIR_BUIL)/unset									\
+			$(DIR_BUIL)/export									\
+			$(DIR_BUIL)/builtins								\
 
 SRCS	:=	${MAIN}												\
 			${LINK}												\
@@ -136,7 +136,7 @@ $(DIR_OBJS):
 	mkdir -p $@/$(DIR_EXEC)/$(DIR_REDR)
 	mkdir -p $@/$(DIR_EXEC)
 	mkdir -p $@/$(DIR_UTLS)
-	mkdir -p $@/$(DIR_BIUL)
+	mkdir -p $@/$(DIR_BUIL)
 
 $(NAME): make_libft $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(INCS) -o $(NAME)
