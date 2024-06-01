@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 19:54:07 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:04:48 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ int	is_simple_command(t_list *tokens)
 int	execute_simple_command(t_list *exec,
 	t_list *tokens, t_list *envp, char *input)
 {
-	redirect_and_execute(exec->node, tokens, envp, input);
+	redirect_and_execute(exec, tokens, envp, input);
 	return (0);
 }
 
-void	redirect_and_execute(t_node *exec, t_list *tokens,
+void	redirect_and_execute(t_list *exec, t_list *tokens,
 	t_list *envp, char *input)
 {
 	int	pid;
 	int	ft_stdout;
 	int	ft_stdin;
-	handle_heredoc(exec);
+	handle_heredoc(exec->head);
 	ft_stdout = dup(1);
 	ft_stdin = dup(0);
 	pid = fork();
@@ -48,33 +48,30 @@ void	redirect_and_execute(t_node *exec, t_list *tokens,
 		return ;
 	if (pid == 0)
 	{
-		handle_redirect(exec);
-		if (validate_command(exec, envp))
+		handle_redirect(exec->head);
+		exec->node = exec->head;
+		if (validate_command(exec->head, envp))
 		{
-			if (execve(exec->data->execution->path,
-					exec->data->execution->command_table,
-					exec->data->execution->envp) == -1)
+			if (execve(exec->node->data->execution->path,
+					exec->node->data->execution->command_table,
+					exec->node->data->execution->envp) == -1)
 			{
 				ft_stdout = dup2(ft_stdout, 1);
 				ft_stdin = dup2(ft_stdin, 0);
 				finish_process(exec, tokens, envp, input);
 			}
-				ft_stdout = dup2(ft_stdout, 1);
-				ft_stdin = dup2(ft_stdin, 0);
-			finish_process(exec, tokens, envp, input);
 		}
+		ft_stdout = dup2(ft_stdout, 1);
+		ft_stdin = dup2(ft_stdin, 0);
+		finish_process(exec, tokens, envp, input);
 	}
 	else
 		waitpid(pid, NULL, 0);
 }
 
-void	finish_process(t_node *exec, t_list *tokens, t_list *envp, char *input)
+void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input)
 {
-	t_list	*lst_exec;
-	(void)exec;
-
-	lst_exec = init_exec_addr();
-	free_list(lst_exec, free_lst_exec);
+	free_list(exec, free_lst_exec);
 	free_list(tokens, free_lst_tokens);
 	free_list(envp, free_lst_env);
 	free(input);

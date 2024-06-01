@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/31 19:52:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:05:01 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,12 @@ int		is_simple_command(t_list *tokens);
 int		execute_simple_command(t_list *exec, t_list *tokens,
 			t_list *envp, char *input);
 int		validate_command(t_node *exec, t_list *envp);
-void	finish_process(t_node *exec, t_list *tokens, t_list *envp, char *input);
-void	redirect_and_execute(t_node *exec, t_list *tokens,
+void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input);
+void	redirect_and_execute(t_list *exec, t_list *tokens,
 			t_list *envp, char *input);
 //execution.c
 void	print_matrix(char **matrix);
-void	print_lst_exec(t_list *lst_exec, t_list *envp);
+void	print_lst_exec(t_list *lst_exec);
 // void	print_lst_exec(t_list *lst_exec);
 
 /* --- source/execution/create lst exec--- */
