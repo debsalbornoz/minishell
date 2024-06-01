@@ -6,11 +6,12 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/31 20:09:54 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:55:00 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
 
 void	handle_redirect(t_node *exec)
 {
@@ -24,7 +25,7 @@ void	handle_redirect(t_node *exec)
 		if (find_output(exec->data->execution->redirects_and_files[i])
 			|| find_append(exec->data->execution->redirects_and_files[i]))
 			open_file(exec, i, 1);
-		if (find_input(exec->data->execution->redirects_and_files[i]) ||ft_strncmp("<<", exec->data->execution->redirects_and_files[i], 2) == 0)
+		if (find_input(exec->data->execution->redirects_and_files[i]) ||find_heredoc(exec->data->execution->redirects_and_files[i]))
 			open_file(exec, i, 0);
 		i++;
 	}
@@ -40,7 +41,7 @@ int	set_flag(char *redirect)
 		flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
 	if (find_append(redirect))
 		flag = flag | O_WRONLY | O_CREAT | O_APPEND;
-	if (find_input(redirect) || ft_strncmp("<<", redirect, 2) == 0)
+	if (find_input(redirect) || find_heredoc(redirect))
 		flag = flag | O_RDONLY;
 	return (flag);
 }

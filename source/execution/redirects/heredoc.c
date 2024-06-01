@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:34:28 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/31 20:09:51 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:05:20 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ char	*create_heredoc_file(t_node *exec, int j)
 		return (NULL);
 	fd = open(filename, flag, 0644);
 	if (fd == -1)
+	{
+		printf("?\n");
 		return (NULL);
+	}
 	open_heredoc_file(fd, eof, filename);
 	return (filename);
 }
@@ -67,7 +70,7 @@ char	*get_filename(int i)
 	char	*number;
 
 	number = ft_itoa(i);
-	filename = ft_strjoin("./tmp/", number);
+	filename = ft_strjoin("/tmp/", number);
 	free(number);
 	return (filename);
 }
