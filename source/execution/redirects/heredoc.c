@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:34:28 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/01 16:45:32 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 17:49:27 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	handle_heredoc(t_node *exec)
 	int		j;
 
 	heredoc_file = NULL;
-	i = 0;
+	i = -1;
 	j = 0;
 	if (!exec->data->exec->redir_and_files)
 		return ;
 	exec->data->exec->eofs = allocate_eof(exec);
-	while (exec->data->exec->redir_and_files[i])
+	while (exec->data->exec->redir_and_files[++i])
 	{
 		if (find_heredoc(exec->data->exec->redir_and_files[i]))
 		{
@@ -38,7 +38,6 @@ void	handle_heredoc(t_node *exec)
 				j++;
 			}
 		}
-		i++;
 	}
 }
 

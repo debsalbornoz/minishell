@@ -6,11 +6,30 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/01 16:41:47 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 18:16:45 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+void	save_redirects_and_files(t_list *exec, t_list *tokens)
+{
+	char	**redir_and_files;
+
+	redir_and_files = NULL;
+	while (exec->node)
+	{
+		redir_and_files = allocate_redir_and_files(tokens->node);
+		if (!redir_and_files)
+			return ;
+		redir_and_files = get_redirects_and_files(&tokens->node,
+				redir_and_files);
+		exec->node->data->exec->redir_and_files = redir_and_files;
+		exec->node = exec->node->next;
+	}
+	tokens->node = tokens->head;
+	exec->node = exec->head;
+}
 
 char	**allocate_redir_and_files(t_node *tokens)
 {
@@ -62,27 +81,4 @@ char	**get_redirects_and_files(t_node **tokens, char **redir_and_files)
 	*tokens = current;
 	redir_and_files[i] = NULL;
 	return (redir_and_files);
-}
-
-char	**allocate_eof(t_node *exec)
-{
-	int		counter;
-	t_node	*aux;
-	char	**eof;
-	int		i;
-
-	i = 0;
-	aux = exec;
-	counter = 0;
-	eof = NULL;
-	while (aux->data->exec->redir_and_files[i])
-	{
-		if (find_heredoc(aux->data->exec->redir_and_files[i])
-			&& aux->data->exec->redir_and_files[i + 1])
-			counter++;
-		i++;
-	}
-	if (counter > 0)
-		eof = ft_calloc(counter + 1, sizeof(char *));
-	return (eof);
 }

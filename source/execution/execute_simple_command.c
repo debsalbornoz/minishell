@@ -6,27 +6,11 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 16:45:57 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 18:24:26 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <sys/wait.h>
-
-int	is_simple_command(t_list *tokens)
-{
-	t_node	*aux;
-
-	aux = tokens->head;
-	while (aux != NULL)
-	{
-		if (aux->data->token->type == PIPE)
-			return (0);
-		aux = aux->next;
-	}
-	aux = tokens->head;
-	return (1);
-}
 
 int	execute_simple_command(t_list *exec,
 	t_list *tokens, t_list *envp, char *input)
@@ -43,7 +27,12 @@ int	execute_simple_command(t_list *exec,
 		return (-1);
 	if (pid == 0)
 	{
-		redirect_and_execute(exec->node, envp);
+		if (exec->node->data->exec->path == NULL)
+		{
+			update_env_list(envp, "?", "127");
+			printf("Command not found\n");
+		}
+		redirect_and_execute(exec->head);
 		ft_stdout = dup2(ft_stdout, 1);
 		ft_stdin = dup2(ft_stdin, 0);
 		finish_process(exec, tokens, envp, input);
@@ -53,10 +42,10 @@ int	execute_simple_command(t_list *exec,
 	return (0);
 }
 
-int	redirect_and_execute(t_node *exec, t_list *envp)
+int	redirect_and_execute(t_node *exec)
 {
 	handle_redirect(exec);
-	if (validate_command(exec, envp))
+	if (validate_command(exec))
 	{
 		if (execve(exec->data->exec->path,
 				exec->data->exec->command_table,
@@ -64,14 +53,4 @@ int	redirect_and_execute(t_node *exec, t_list *envp)
 			return (-1);
 	}
 	return (0);
-}
-
-void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input)
-{
-	free_list(exec, free_lst_exec);
-	free_list(tokens, free_lst_tokens);
-	free_list(envp, free_lst_env);
-	free(input);
-	close_fds();
-	exit(2);
 }

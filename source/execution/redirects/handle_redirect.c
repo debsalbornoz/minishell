@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/01 16:42:35 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 18:34:28 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,32 +32,6 @@ void	handle_redirect(t_node *exec)
 	return ;
 }
 
-int	set_flag(char *redirect)
-{
-	int	flag;
-
-	flag = 0;
-	if (find_output(redirect))
-		flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
-	if (find_append(redirect))
-		flag = flag | O_WRONLY | O_CREAT | O_APPEND;
-	if (find_input(redirect) || find_heredoc(redirect))
-		flag = flag | O_RDONLY;
-	return (flag);
-}
-
-void	close_fds(void)
-{
-	int	fd;
-
-	fd = 3;
-	while (fd < 1024)
-	{
-		close(fd);
-		fd++;
-	}
-}
-
 void	open_file(t_node *exec, int i, int flag)
 {
 	int	fd;
@@ -80,4 +54,18 @@ void	open_file(t_node *exec, int i, int flag)
 			exec->data->exec->output = fd;
 		}
 	}
+}
+
+int	set_flag(char *redirect)
+{
+	int	flag;
+
+	flag = 0;
+	if (find_output(redirect))
+		flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
+	if (find_append(redirect))
+		flag = flag | O_WRONLY | O_CREAT | O_APPEND;
+	if (find_input(redirect) || find_heredoc(redirect))
+		flag = flag | O_RDONLY;
+	return (flag);
 }

@@ -77,10 +77,13 @@ CLEX	:=	$(DIR_EXEC)/$(DIR_CLEX)/create_lst_exec				\
 REDR	:=	$(DIR_EXEC)/$(DIR_REDR)/handle_redirect				\
 			$(DIR_EXEC)/$(DIR_REDR)/redirect_utils				\
 			$(DIR_EXEC)/$(DIR_REDR)/heredoc						\
+			$(DIR_EXEC)/$(DIR_REDR)/heredoc_utils				\
+
 
 EXEC	:=	$(DIR_EXEC)/execution								\
 			$(DIR_EXEC)/exec_utils								\
 			$(DIR_EXEC)/execute_simple_command					\
+			$(DIR_EXEC)/finish_process							\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft								\
 			$(DIR_UTLS)/utils_quote								\

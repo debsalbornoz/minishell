@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/01 15:45:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 18:46:43 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,61 +138,43 @@ t_list	*type_assignment(t_list *tokens);
 //exec_utils.c
 int		find_file(int type);
 int		is_file_redirect_or_pipe(int type);
-void	free_and_update_lst(char **path_array, t_list	*envp);
-void	free_matrix(char **matrix);
+int		validate_command(t_node *exec);
+void	get_index(t_list *exec);
+int		is_simple_command(t_list *tokens);
 
 //execute_simple_command.c
-int		is_simple_command(t_list *tokens);
-int		execute_simple_command(t_list *exec, t_list *tokens,
-			t_list *envp, char *input);
-int		validate_command(t_node *exec, t_list *envp);
-void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input);
-int		redirect_and_execute(t_node *exec, t_list *envp);
+int		execute_simple_command(t_list *exec,
+			t_list *tokens, t_list *envp, char *input);
+int		redirect_and_execute(t_node *exec);
+
 //execution.c
-void	print_matrix(char **matrix);
-void	print_lst_exec(t_list *lst_exec);
-// void	print_lst_exec(t_list *lst_exec);
+t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
+			t_list *lst_env, char *input);
+
+//finish_proccess.c
+void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input);
+void	free_matrix(char **matrix);
+void	close_fds(void);
 
 /* --- source/execution/create lst exec--- */
 
 //create_lst_exec.c
 
 //command_table.c
+void	create_command_table(t_list *tokens, t_list *exec);
 char	**allocate_cmd_table(t_node *tokens);
 void	create_simple_cmd_table(t_list *tokens, t_list *exec);
 void	create_multi_cmd_table(t_list *tokens, t_list *exec);
 char	**fill_command_table(t_node **tokens, char **command_table);
 
-//create_absolute_path.c
-char	*concatenate_path(char *path, char *command);
-
 //create_lst_exec.c
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 t_list	*initialize_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
-void	create_command_table(t_list *tokens, t_list *exec);
 void	find_path(t_list *tokens, t_list *exec, t_list *envp);
-void	save_redirects_and_files(t_list *exec, t_list *tokens);
 
 //env_list_to_str_array.c
 char	**env_list_to_str_array(t_list *lst_env);
 char	*build_env_var(char *s1, char *s2);
-void	free_matrix(char **envp);
-
-//execute_simple_command.c
-int		is_simple_command(t_list *tokens);
-
-//execution.c
-t_list	*execute(t_list *tokens, t_list *exec, t_list *envp, char *input);
-int		first_command(t_node *node, t_list *tokens);
-int		command_after_pipe(t_node *node);
-
-t_list	*prepare_for_execution(t_list *tokens, t_list *exec, t_list *lst_env);
-
-//handle_redirect.c
-t_list	*remove_redirect_and_file(t_list *tokens);
-
-//find_executable.c
-void	fill_path_in_exec(t_list *tokens, t_list *exec, t_list *envp);
 
 //path.c
 char	*create_absolute_path(char **path_array, \
@@ -203,9 +185,9 @@ int		is_absolute_path(char **command_table);
 int		is_executable(t_node *exec, char *path);
 
 //save_redirects_and_files.c
+void	save_redirects_and_files(t_list *exec, t_list *tokens);
 char	**allocate_redir_and_files(t_node *tokens);
 char	**get_redirects_and_files(t_node **tokens, char **redir_and_files);
-char	**allocate_eof(t_node	*exec);
 
 //split_path.c
 char	**split_path(t_list *envp);
@@ -217,30 +199,23 @@ int		get_len(char *value);
 /* --- source/execution/redirects--- */
 //handle_redirect.c
 void	handle_redirect(t_node *exec);
-int		set_flag(char *redirect);
 void	open_file(t_node *exec, int i, int flag);
-void	close_fds(void);
+int		set_flag(char *redirect);
+
+//heredoc_utils.c
+char	**allocate_eof(t_node *exec);
 
 //heredoc.c
-void	handle_heredoc(t_node	*exec);
+void	handle_heredoc(t_node *exec);
 char	*create_heredoc_file(t_node *exec, int j);
 char	*get_filename(int i);
-void	open_heredoc_file(int fd,
-			char *eof, char *filename);
+void	open_heredoc_file(int fd, char *eof, char *filename);
 int		heredoc_flags(int signal);
-
-// void	get_redirects_and_files(t_list *exec, t_list *tokens);
-int		get_size(t_node *tokens);
-char	**allocate_matrix(t_list *tokens);
-char	**fill_redir_and_files(t_node **tokens, char **redir_and_files);
 
 //redirect_utils.c
 int		find_output(char *str);
 int		find_append(char *str);
 int		find_input(char *str);
 int		find_heredoc(char *str);
-
-t_list	*init_exec_addr(void);
-int		create_heredocs(t_node	*exec);
 
 #endif

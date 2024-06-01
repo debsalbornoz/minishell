@@ -6,14 +6,12 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:59:33 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 16:44:41 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 18:28:37 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 #include <string.h>
-
-void	get_index(t_list *exec);
 
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 {
@@ -77,37 +75,4 @@ void	find_path(t_list *tokens, t_list *exec, t_list *envp)
 	}
 	exec->node = exec->head;
 	tokens->node = tokens->head;
-}
-
-void	save_redirects_and_files(t_list *exec, t_list *tokens)
-{
-	char	**redir_and_files;
-
-	redir_and_files = NULL;
-	while (exec->node)
-	{
-		redir_and_files = allocate_redir_and_files(tokens->node);
-		if (!redir_and_files)
-			return ;
-		redir_and_files = get_redirects_and_files(&tokens->node,
-				redir_and_files);
-		exec->node->data->exec->redir_and_files = redir_and_files;
-		exec->node = exec->node->next;
-	}
-	tokens->node = tokens->head;
-	exec->node = exec->head;
-}
-
-void	get_index(t_list *exec)
-{
-	t_node	*aux;
-	int		i;
-
-	aux = exec->head;
-	i = 0;
-	while (aux)
-	{
-		aux->data->exec->index = i;
-		aux = aux->next;
-	}
 }
