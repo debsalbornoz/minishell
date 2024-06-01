@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/05/30 20:11:01 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:41:47 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	**allocate_redir_and_files(t_node *tokens)
 {
-	int			counter;
-	t_node		*aux;
-	char		**redir_and_files;
+	int		counter;
+	t_node	*aux;
+	char	**redir_and_files;
 
 	aux = tokens;
 	redir_and_files = NULL;
@@ -63,22 +63,26 @@ char	**get_redirects_and_files(t_node **tokens, char **redir_and_files)
 	redir_and_files[i] = NULL;
 	return (redir_and_files);
 }
-char	**allocate_eof(t_node	*exec)
+
+char	**allocate_eof(t_node *exec)
 {
 	int		counter;
 	t_node	*aux;
 	char	**eof;
 	int		i;
 
-	i  = 0;
+	i = 0;
 	aux = exec;
 	counter = 0;
-	while (aux->data->execution->redirects_and_files[i])
+	eof = NULL;
+	while (aux->data->exec->redir_and_files[i])
 	{
-		if (ft_strncmp("<<", aux->data->execution->redirects_and_files[i], 2)== 0 && aux->data->execution->redirects_and_files[i + 1])
+		if (find_heredoc(aux->data->exec->redir_and_files[i])
+			&& aux->data->exec->redir_and_files[i + 1])
 			counter++;
 		i++;
 	}
-	eof = ft_calloc(counter + 1, sizeof(char *));
+	if (counter > 0)
+		eof = ft_calloc(counter + 1, sizeof(char *));
 	return (eof);
 }

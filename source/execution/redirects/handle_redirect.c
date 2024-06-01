@@ -6,26 +6,26 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/01 15:55:00 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:42:35 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
 
 void	handle_redirect(t_node *exec)
 {
 	int		i;
 
 	i = 0;
-	if (!exec->data->execution->redirects_and_files)
+	if (!exec->data->exec->redir_and_files)
 		return ;
-	while (exec->data->execution->redirects_and_files[i])
+	while (exec->data->exec->redir_and_files[i])
 	{
-		if (find_output(exec->data->execution->redirects_and_files[i])
-			|| find_append(exec->data->execution->redirects_and_files[i]))
+		if (find_output(exec->data->exec->redir_and_files[i])
+			|| find_append(exec->data->exec->redir_and_files[i]))
 			open_file(exec, i, 1);
-		if (find_input(exec->data->execution->redirects_and_files[i]) ||find_heredoc(exec->data->execution->redirects_and_files[i]))
+		if (find_input(exec->data->exec->redir_and_files[i])
+			|| find_heredoc(exec->data->exec->redir_and_files[i]))
 			open_file(exec, i, 0);
 		i++;
 	}
@@ -63,21 +63,21 @@ void	open_file(t_node *exec, int i, int flag)
 	int	fd;
 
 	fd = 0;
-	if (exec->data->execution->redirects_and_files[i + 1])
+	if (exec->data->exec->redir_and_files[i + 1])
 	{
-		fd = open(exec->data->execution->redirects_and_files[i + 1],
-				set_flag(exec->data->execution->redirects_and_files[i]), 0644);
+		fd = open(exec->data->exec->redir_and_files[i + 1],
+				set_flag(exec->data->exec->redir_and_files[i]), 0644);
 		if (fd == -1)
 			return ;
 		if (flag == 0)
 		{
 			fd = dup2(fd, 0);
-			exec->data->execution->input = fd;
+			exec->data->exec->input = fd;
 		}
 		if (flag == 1)
 		{
 			fd = dup2(fd, 1);
-			exec->data->execution->output = fd;
+			exec->data->exec->output = fd;
 		}
 	}
 }

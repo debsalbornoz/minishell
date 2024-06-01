@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 14:50:37 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:46:17 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
 		lst_exec->node = lst_exec->head;
 	return (lst_exec);
 }
-
 
 /*void	print_lst_exec(t_list *lst_exec)
 {
@@ -46,11 +45,11 @@ t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
 
 int	validate_command(t_node *exec, t_list *envp)
 {
-	if (exec->data->execution->path != NULL
-		&& exec->data->execution->command_table != NULL
-		&& exec->data->execution->envp != NULL)
+	if (exec->data->exec->path != NULL
+		&& exec->data->exec->command_table != NULL
+		&& exec->data->exec->envp != NULL)
 		return (1);
-	if (exec->data->execution->command_table == NULL)
+	if (exec->data->exec->command_table == NULL)
 	{
 		update_env_list(envp, "?", "127");
 		printf("Command not found\n");

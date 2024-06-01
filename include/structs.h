@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:53:10 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 19:53:33 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:39:49 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ union u_data
 {
 	t_token	*token;
 	t_env	*env;
-	t_exec	*execution;
+	t_exec	*exec;
 };
 
 struct s_env
@@ -101,7 +101,7 @@ struct s_exec
 	char			*path;
 	char			**command_table;
 	char			**envp;
-	char			**redirects_and_files;
+	char			**redir_and_files;
 	char			**eofs;
 	int				input;
 	int				output;

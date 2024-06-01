@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 15:56:15 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:45:57 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	execute_simple_command(t_list *exec,
 		finish_process(exec, tokens, envp, input);
 	}
 	else
-		waitpid(pid, NULL , 0);
+		waitpid(pid, NULL, 0);
 	return (0);
 }
 
@@ -58,9 +58,9 @@ int	redirect_and_execute(t_node *exec, t_list *envp)
 	handle_redirect(exec);
 	if (validate_command(exec, envp))
 	{
-		if (execve(exec->data->execution->path,
-				exec->data->execution->command_table,
-				exec->data->execution->envp) == -1)
+		if (execve(exec->data->exec->path,
+				exec->data->exec->command_table,
+				exec->data->exec->envp) == -1)
 			return (-1);
 	}
 	return (0);

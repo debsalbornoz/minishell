@@ -6,11 +6,21 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 20:09:58 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:40:15 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+void	create_command_table(t_list *tokens, t_list *exec)
+{
+	if (is_simple_command(tokens) && exec)
+		create_simple_cmd_table(tokens, exec);
+	else
+		create_multi_cmd_table(tokens, exec);
+	tokens->node = tokens->head;
+	exec->node = exec->head;
+}
 
 char	**allocate_cmd_table(t_node *tokens)
 {
@@ -59,7 +69,7 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 		aux_tokens = aux_tokens->next;
 	}
 	command_table[i] = NULL;
-	exec->node->data->execution->command_table = command_table;
+	exec->node->data->exec->command_table = command_table;
 }
 
 void	create_multi_cmd_table(t_list *tokens, t_list *exec)
@@ -75,7 +85,7 @@ void	create_multi_cmd_table(t_list *tokens, t_list *exec)
 			free(command_table);
 		else
 		{
-			exec->node->data->execution->command_table = command_table;
+			exec->node->data->exec->command_table = command_table;
 			exec->node = exec->node->next;
 		}
 	}
