@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 18:24:26 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/02 17:13:13 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@ int	execute_simple_command(t_list *exec,
 	int	ft_stdout;
 	int	ft_stdin;
 
-	handle_heredoc(exec->head);
 	ft_stdout = dup(1);
 	ft_stdin = dup(0);
+	handle_heredoc(exec->head);
 	pid = fork();
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
 	{
+		redirect_and_execute(exec->head, envp);
+		ft_stdout = dup2(ft_stdout, 1);
+		ft_stdin = dup2(ft_stdin, 0);
 		if (exec->node->data->exec->path == NULL)
 		{
 			update_env_list(envp, "?", "127");
 			printf("Command not found\n");
 		}
-		redirect_and_execute(exec->head);
-		ft_stdout = dup2(ft_stdout, 1);
-		ft_stdin = dup2(ft_stdin, 0);
+
 		finish_process(exec, tokens, envp, input);
 	}
 	else
@@ -42,9 +43,10 @@ int	execute_simple_command(t_list *exec,
 	return (0);
 }
 
-int	redirect_and_execute(t_node *exec)
+int	redirect_and_execute(t_node *exec, t_list *envp)
 {
-	handle_redirect(exec);
+	if (handle_redirect(exec, envp) == -1)
+		return (-1);
 	if (validate_command(exec))
 	{
 		if (execve(exec->data->exec->path,

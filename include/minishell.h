@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/01 18:46:43 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/02 17:11:00 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "builtins.h"
 # include "../library/lib.h"
 # include "structs.h"
+#include <limits.h>
 
 /* --- source/main --- */
 // program.c
@@ -145,7 +146,7 @@ int		is_simple_command(t_list *tokens);
 //execute_simple_command.c
 int		execute_simple_command(t_list *exec,
 			t_list *tokens, t_list *envp, char *input);
-int		redirect_and_execute(t_node *exec);
+int		redirect_and_execute(t_node *exec, t_list *envp);
 
 //execution.c
 t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
@@ -198,8 +199,8 @@ int		get_len(char *value);
 
 /* --- source/execution/redirects--- */
 //handle_redirect.c
-void	handle_redirect(t_node *exec);
-void	open_file(t_node *exec, int i, int flag);
+int		handle_redirect(t_node *exec, t_list *envp);
+int		open_file(t_node *exec, int i, int flag, t_list *envp);
 int		set_flag(char *redirect);
 
 //heredoc_utils.c
