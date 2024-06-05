@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/02 17:51391:39 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/06/04 21:44:29 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-
 static int	check_access_input(char *redirect, char *file, t_list *envp);
-static int check_access_output(char *redirect, char *file, t_list *envp);
+static int	check_access_output(char *redirect, char *file, t_list *envp);
 
 int	handle_redirect(t_node *exec, t_list *envp)
 {
@@ -34,7 +33,7 @@ int	handle_redirect(t_node *exec, t_list *envp)
 		if (find_input(exec->data->exec->redir_and_files[i])
 			|| find_heredoc(exec->data->exec->redir_and_files[i]))
 		{
-			if (open_file(exec, i, 1, envp) == -1)
+			if (open_file(exec, i, 0, envp) == -1)
 				return (-1);
 		}
 		i++;
@@ -77,7 +76,7 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 {
 	if (find_heredoc(redirect) || find_input(redirect))
 	{
-		if (access(file, R_OK) == -1 || access(file, F_OK)  == -1)
+		if (access(file, R_OK) == -1 || access(file, F_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
 			perror("");
@@ -87,13 +86,13 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 	return (0);
 }
 
-static int check_access_output(char *redirect, char *file, t_list *envp)
+static int	check_access_output(char *redirect, char *file, t_list *envp)
 {
 	if (find_output(redirect)
 		|| find_append(redirect))
 	{
-		if (access(file, F_OK)  == -1
-		|| access(file, W_OK) == -1)
+		if (access(file, F_OK) == -1
+				|| access(file, W_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
 			perror("");

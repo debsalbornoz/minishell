@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/02 16:55:42 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/06/04 21:27:27 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 		if (ft_strncmp(lst_env->node->data->env->name, name, 1000) == 0)
 		{
 			lst_env->node->data->env->value = ft_strdup(value);
-			printf("%s\n", value);
 			return ;
 		}
 		lst_env->node = lst_env->node->next;
@@ -32,7 +31,6 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 		{
 			free(lst_env->node->data->env->value);
 			lst_env->node->data->env->value = ft_strdup(value);
-			printf("%s\n", value);
 			return ;
 		}
 		lst_env = add_node(lst_env);
@@ -40,6 +38,5 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 		lst_env->node->data->env = ft_calloc(1, sizeof(t_env));
 		lst_env->node->data->env->name = ft_strdup(name);
 		lst_env->node->data->env->value = ft_strdup(value);
-		printf("%s\n", value);
 	}
 }
