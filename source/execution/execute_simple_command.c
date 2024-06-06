@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/04 21:42:39 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:50:06 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ int	execute_simple_command(t_list *exec,
 
 	ft_stdout = dup(1);
 	ft_stdin = dup(0);
+	handle_heredoc(exec->head);
+	handle_signal();
 	pid = fork();
 	if (pid == -1)
 		return (-1);
 	if (pid == 0)
 	{
-		handle_heredoc(exec->head);
 		redirect_and_execute(exec->head, envp);
 		ft_stdout = dup2(ft_stdout, 1);
 		ft_stdin = dup2(ft_stdin, 0);

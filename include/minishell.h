@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/02 17:11:00 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/06/05 21:08:05 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,10 +207,10 @@ int		set_flag(char *redirect);
 char	**allocate_eof(t_node *exec);
 
 //heredoc.c
-void	handle_heredoc(t_node *exec);
+int		handle_heredoc(t_node *exec);
 char	*create_heredoc_file(t_node *exec, int j);
 char	*get_filename(int i);
-void	open_heredoc_file(int fd, char *eof, char *filename);
+int		open_heredoc_file(int fd, char *eof, char *filename);
 int		heredoc_flags(int signal);
 
 //redirect_utils.c
@@ -218,5 +218,7 @@ int		find_output(char *str);
 int		find_append(char *str);
 int		find_input(char *str);
 int		find_heredoc(char *str);
+void	handle_heresignals(void);
+char	*ft_get_env(t_list *env, char *name);
 
 #endif

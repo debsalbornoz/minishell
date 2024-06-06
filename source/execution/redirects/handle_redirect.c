@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/04 21:44:29 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/05 19:16:55 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	open_file(t_node *exec, int i, int flag, t_list *envp)
 			fd = dup2(fd, 0);
 			exec->data->exec->input = fd;
 		}
-			if (flag == 1)
-			{
+		if (flag == 1)
+		{
 				fd = dup2(fd, 1);
 			exec->data->exec->output = fd;
 		}
@@ -92,7 +92,7 @@ static int	check_access_output(char *redirect, char *file, t_list *envp)
 		|| find_append(redirect))
 	{
 		if (access(file, F_OK) == -1
-				|| access(file, W_OK) == -1)
+			|| access(file, W_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
 			perror("");

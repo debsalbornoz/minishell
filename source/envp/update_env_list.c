@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/04 21:27:27 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/05 20:20:45 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,18 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 		lst_env->node->data->env->name = ft_strdup(name);
 		lst_env->node->data->env->value = ft_strdup(value);
 	}
+}
+
+char	*ft_get_env(t_list *env, char *name)
+{
+	t_node	*aux;
+
+	aux = env->head;
+	while (aux)
+	{
+		if (ft_strncmp(aux->data->env->name, name, ft_strlen(name)) == 0)
+			return (aux->data->env->value);
+		aux = aux->next;
+	}
+	return (NULL);
 }
