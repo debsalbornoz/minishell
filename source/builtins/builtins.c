@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:33:53 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/02 16:16:26 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/06/07 13:49:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 		- [ ] Obs.: Em 'env' falta implementar alterações de variáveis.
 */
 
-int	builtins(t_list *token, t_list *exec, t_list *envp)
+/*int	builtins(t_list *token, t_list *exec, t_list *envp)
 {
 	(void)exec;
 	if (token->node->data->token->type == CD)
@@ -43,3 +43,4 @@ int	builtins(t_list *token, t_list *exec, t_list *envp)
 		return (mini_export(envp), 0);
 	return (mini_exit());
 }
+*/

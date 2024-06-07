@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/05 20:50:06 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:29:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	execute_simple_command(t_list *exec,
 
 	ft_stdout = dup(1);
 	ft_stdin = dup(0);
-	handle_heredoc(exec->head);
 	handle_signal();
 	pid = fork();
 	if (pid == -1)

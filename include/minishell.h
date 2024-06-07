@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/05 21:08:05 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/07 13:43:19 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,11 +207,11 @@ int		set_flag(char *redirect);
 char	**allocate_eof(t_node *exec);
 
 //heredoc.c
-int		handle_heredoc(t_node *exec);
-char	*create_heredoc_file(t_node *exec, int j);
-char	*get_filename(int i);
-int		open_heredoc_file(int fd, char *eof, char *filename);
-int		heredoc_flags(int signal);
+//int		handle_heredoc(t_node *exec);
+//char	*create_heredoc_file(t_node *exec, int j);
+//char	*get_filename(int i);
+//int		open_heredoc_file(int fd, char *eof, char *filename);
+//int		heredoc_flags(int signal);
 
 //redirect_utils.c
 int		find_output(char *str);
@@ -221,4 +221,8 @@ int		find_heredoc(char *str);
 void	handle_heresignals(void);
 char	*ft_get_env(t_list *env, char *name);
 
+t_list	*handle_heredoc(t_list *tokens);
+char 	*open_here_file(char *eof, int i);
+
 #endif
+

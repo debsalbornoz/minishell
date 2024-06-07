@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:16:13 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/25 16:44:43 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:16:24 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*return_value(t_list *lst_env, char *name)
 {
 	char	*temp;
 
+	temp = NULL;
 	if (!lst_env)
 		return (NULL);
 	lst_env->node = lst_env->head;
@@ -77,6 +78,7 @@ char	*get_path(char *value, int i, int len, int j)
 {
 	char	*temp;
 
+	temp = NULL;
 	while (value[j] != '\0')
 	{
 		if (value[j] != ':' && value[j] != '\0')
