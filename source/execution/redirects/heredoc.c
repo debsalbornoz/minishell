@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:34:28 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/05 21:08:37 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/08 17:41:34 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,19 @@ int	heredoc_flags(int signal)
 	if (signal == 0)
 		flag = flag | O_RDWR | O_CREAT | O_TRUNC;
 	return (flag);
+}
+void	handle_heresignals(void)
+{
+	signal(SIGINT, handle_ctrlc_heredoc);
+}
+
+void	handle_ctrlc_heredoc(int signal)
+{
+	t_list	*envp;
+
+	(void)signal;
+	envp = data_env_addr();
+	close(STDIN_FILENO);
+	printf("\n");
+	update_env_list(envp, "?", "130");
 }

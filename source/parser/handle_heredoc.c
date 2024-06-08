@@ -6,11 +6,13 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/08 17:36:40 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/08 17:54:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	handle_ctrlc_heredoc(int signal);
 
 t_list *handle_heredoc(t_list *tokens)
 {
@@ -63,10 +65,20 @@ char *open_here_file(char *eof, int i)
 int open_heredoc_prompt(char *new_eof, int fd)
 {
 	char	*input;
+	t_list	*env;
 
+	env = data_env_addr();
+	handle_heresignals();
 	while (1)
 	{
 		input = readline("> ");
+		if (ft_strncmp(ft_get_env(env, "?"), "130", 3) == 0)
+			return (0);
+		if (!input)
+		{
+			printf("warning: here-document at line 133 delimited by end-of-file (wanted `eof')\n");
+			return (0);
+		}
 		if (ft_strncmp(input, new_eof, ft_strlen(input)) == 0)
 		{
 			free(input);
@@ -77,4 +89,19 @@ int open_heredoc_prompt(char *new_eof, int fd)
 		free(input);
 	}
 	return (0);
+}
+void	handle_heresignals(void)
+{
+	signal(SIGINT, handle_ctrlc_heredoc);
+}
+
+void	handle_ctrlc_heredoc(int signal)
+{
+	t_list	*envp;
+
+	(void)signal;
+	envp = data_env_addr();
+	close(STDIN_FILENO);
+	printf("\n");
+	update_env_list(envp, "?", "130");
 }
