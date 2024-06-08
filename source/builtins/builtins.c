@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:33:53 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/08 13:32:34 by jackson          ###   ########.fr       */
+/*   Updated: 2024/06/08 15:41:53 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 	- [x] implementar pwd;
 	- [x] implementar 'echo'
 	- [x] implementar 'cd'.
-		- [ ] Em 'cd' falta retornar o erro se falha ao mudar de diretório.
 	- [x] implementar 'exit'
 		- [ ] Obs.: Em 'exit' falta implementar parâmetro numérico.
 	- [ ] implementar 'unset'
