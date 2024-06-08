@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/07 23:53:26 by jackson          ###   ########.fr       */
+/*   Updated: 2024/06/08 13:31:47 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 		lst_exec->node = lst_exec->head;
 	return (release_memory(lst_tokens, lst_exec, input), status);
 }
+
 void	print_exec_node(t_list *exec)
 {
 	t_node	*exec_node;
@@ -55,7 +56,9 @@ void	print_exec_node(t_list *exec)
 
 void	print_matrix(char **matrix)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (matrix[i] != NULL)
 	{
 		printf("%s\n", matrix[i]);

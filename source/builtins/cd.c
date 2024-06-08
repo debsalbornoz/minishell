@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/07 23:49:06 by jackson          ###   ########.fr       */
+/*   Updated: 2024/06/08 13:32:51 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ int	mini_cd(t_list *token)
 		return (perror("getcwd"), 1);
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/07 23:50:07 by jackson          ###   ########.fr       */
+/*   Updated: 2024/06/08 13:34:04 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "builtins.h"
 # include "../library/lib.h"
 # include "structs.h"
-#include <limits.h>
+# include <limits.h>
 
 /* --- source/main --- */
 // program.c
@@ -222,7 +222,6 @@ void	handle_heresignals(void);
 char	*ft_get_env(t_list *env, char *name);
 
 t_list	*handle_heredoc(t_list *tokens);
-char 	*open_here_file(char *eof, int i);
+char	*open_here_file(char *eof, int i);
 
 #endif
-

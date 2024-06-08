@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:59:33 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 18:28:37 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/08 13:17:43 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-#include <string.h>
 
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 {

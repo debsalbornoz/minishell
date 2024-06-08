@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:33:53 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/07 23:41:02 by jackson          ###   ########.fr       */
+/*   Updated: 2024/06/08 13:32:34 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,3 @@ int	builtins(t_list *token, t_list *exec, t_list *envp)
 		return (mini_export(envp), 0);
 	return (mini_exit());
 }
-
