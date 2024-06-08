@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/07 13:43:19 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/07 23:50:07 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int		execute_simple_command(t_list *exec,
 int		redirect_and_execute(t_node *exec, t_list *envp);
 
 //execution.c
-t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
+int		execute(t_list *lst_tokens, t_list *lst_exec,
 			t_list *lst_env, char *input);
 
 //finish_proccess.c

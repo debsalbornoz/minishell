@@ -86,10 +86,9 @@ EXEC	:=	$(DIR_EXEC)/execution								\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft								\
 			$(DIR_UTLS)/utils_quote								\
-			$(DIR_UTLS)/utils_tokens							\
 			$(DIR_UTLS)/utils_redirect							\
 			$(DIR_UTLS)/utils_delimiter							\
-#			$(DIR_UTLS)/utils_builtins							\
+			$(DIR_UTLS)/utils_builtins							\
 
 BUIL	:=	$(DIR_BUIL)/cd										\
 			$(DIR_BUIL)/pwd										\

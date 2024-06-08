@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/07 13:50:18 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/07 23:49:06 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	- [ ] Está com falha de segmentação quando tento expandir alguma variável
 */
 
-/*int	mini_cd(t_list *token)
+int	mini_cd(t_list *token)
 {
 	char	cwd[2048];
 
@@ -39,4 +39,4 @@
 		return (perror("getcwd"), 1);
 	return (0);
 }
-*/
+

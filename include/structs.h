@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:53:10 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 16:39:49 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:04:37 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ enum	e_type_type
 	WORD		= 2000,
 	COMMAND		= 2100,
 	EXECUTABLE	= 2110,
-	BUILTIN		= 2120,
 	ECHO		= 2121,
 	CD			= 2122,
 	PWD			= 2123,

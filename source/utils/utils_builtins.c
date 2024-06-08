@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_delimiter.c                                  :+:      :+:    :+:   */
+/*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/26 10:46:06 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/07 23:27:13 by jackson          ###   ########.fr       */
+/*   Created: 2024/06/07 23:26:22 by jackson           #+#    #+#             */
+/*   Updated: 2024/06/07 23:40:01 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/utils.h"
 
-int	is_delimiter(char chr)
+int		is_command(int type)
 {
-	return (is_space(chr) || is_redirect(chr)
-		|| is_pipe(chr));
+	return (type == COMMAND);
 }
 
-int	is_space(char chr)
+int		is_builtins(int type)
 {
-	return (chr == ' ' || chr == '\t');
-}
-
-int	is_pipe(char chr)
-{
-	return (chr == '|');
-}
-
-int	is_dollar(char chr)
-{
-	return (chr == '$');
-}
-
-int	is_redirect_or_pipe(int type)
-{
-	return (type == PIPE
-		|| type == INPUT || type == HEREDOC
-		|| type == OUTPUT || type == APPEND);
+	return (type >= ECHO && type <= EXIT);
 }
