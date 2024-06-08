@@ -6,7 +6,7 @@
 /*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/08 13:31:47 by jackson          ###   ########.fr       */
+/*   Updated: 2024/06/08 14:03:25 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 		if (is_builtins(lst_tokens->node->data->token->type))
 			status = builtins(lst_tokens, lst_exec, lst_env);
 		else
+		{
 			execute_simple_command(lst_exec, lst_tokens, lst_env, input);
+			close_fds();
+		}
 	}
-	close_fds();
 	if (lst_exec->node)
 		lst_exec->node = lst_exec->head;
 	return (release_memory(lst_tokens, lst_exec, input), status);
