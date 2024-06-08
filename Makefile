@@ -67,6 +67,7 @@ PARS	:=	$(DIR_PARS)/parser									\
 			$(DIR_PARS)/remove_quotes							\
 			$(DIR_PARS)/redirect_error							\
 			$(DIR_PARS)/handle_heredoc							\
+			$(DIR_PARS)/heredoc_utils							\
 
 CLEX	:=	$(DIR_EXEC)/$(DIR_CLEX)/create_lst_exec				\
 			$(DIR_EXEC)/$(DIR_CLEX)/command_table				\

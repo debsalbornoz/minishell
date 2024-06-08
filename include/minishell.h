@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/08 13:34:04 by jackson          ###   ########.fr       */
+/*   Updated: 2024/06/08 17:30:38 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,4 +224,13 @@ char	*ft_get_env(t_list *env, char *name);
 t_list	*handle_heredoc(t_list *tokens);
 char	*open_here_file(char *eof, int i);
 
+int new_eof_size(char *eof);
+int is_quoted(char *eof);
+char	*remove_eof_quotes(char *eof);
+int new_eof_size(char *eof);
+char	*get_filename(int i);
+char	*handle_quotes(char *eof, int fd, char *filename);
+t_list *handle_heredoc(t_list *tokens);
+char *open_here_file(char *eof, int i);
+int open_heredoc_prompt(char *new_eof, int fd);
 #endif

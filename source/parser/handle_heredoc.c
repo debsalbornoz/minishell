@@ -3,46 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/07 16:42:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/08 17:36:40 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int is_quoted(char *eof);
-int new_eof_size(char *eof);
-char	*remove_eof_quotes(char *eof);
-int is_quoted(char *eof);
-char 	*open_here_file(char *eof, int i);
-
-t_list	*handle_heredoc(t_list *tokens)
+t_list *handle_heredoc(t_list *tokens)
 {
-	t_node	*aux;
-	int		i;
+	t_node *aux;
 	char	*filename;
 
-
 	aux = tokens->head;
-	i = 0;
+	int i = 0;
 	filename = NULL;
 	while (aux)
 	{
-		if (aux->data->token->type == HEREDOC)
+		if (aux->data->token->type == HEREDOC && aux->next)
 		{
-			if (aux->next)
-			{
-				filename = open_here_file(aux->next->data->token->value, i);
-				if (filename)
-				{
-					free(aux->next->data->token->value);
-					aux->next->data->token->value = filename;
-				}
-				else
-					return (NULL);
-			}
+			filename = open_here_file(aux->next->data->token->value, i);
+			if (!filename)
+				return NULL;
+			aux->next->data->token->value = filename;
 		}
 		if (aux->data->token->type == PIPE)
 			i++;
@@ -51,107 +36,45 @@ t_list	*handle_heredoc(t_list *tokens)
 	return (tokens);
 }
 
-char 	*open_here_file(char *eof, int i)
+char *open_here_file(char *eof, int i)
 {
 	char	*filename;
-	char	*index;
 	int		flag;
-	int		fd_stdin;
 	int		fd;
-	char	*input;
 	char	*new_eof;
 
+	filename = get_filename(i);
+	if (!filename)
+		return (NULL);
 	flag = 0;
-	if (is_quoted(eof))
-	{
-		new_eof = remove_eof_quotes(eof);
-		printf("new eof: %s \n", new_eof);
-		free(eof);
-		eof = new_eof;
-		printf("%s\n", eof);
-		flag = 1;
-	}
-	(void)fd_stdin;
-	fd_stdin = dup(STDIN_FILENO);
-	index = ft_itoa(i);
-	filename = ft_strjoin("/tmp/", index);
-	input = NULL;
-	free(index);
-	flag = 0;
-	flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
+	flag = O_WRONLY | O_CREAT | O_TRUNC;
 	fd = open(filename, flag, 0777);
 	if (fd == -1)
-		return (NULL);
+	{
+		free(filename);
+		return NULL;
+	}
+	new_eof = handle_quotes(eof, fd, filename);
+	open_heredoc_prompt(new_eof, fd);
+	close(fd);
+	free(new_eof);
+	return filename;
+}
+int open_heredoc_prompt(char *new_eof, int fd)
+{
+	char	*input;
+
 	while (1)
 	{
 		input = readline("> ");
-		if (ft_strncmp(input, eof, ft_strlen(input)))
+		if (ft_strncmp(input, new_eof, ft_strlen(input)) == 0)
 		{
-			ft_putstr_fd(input, fd);
-			ft_putstr_fd("\n", fd);
-			free(input);
-		}
-		else
-		{
-			close(fd);
 			free(input);
 			break;
 		}
-	}
-	return (filename);
-}
-
-int is_quoted(char *eof)
-{
-	int	i;
-
-	i = 0;
-	while (eof[i])
-	{
-		if (eof[i] == '\'' || eof[i] == '\"')
-			return (1);
-		i++;
+		ft_putstr_fd(input, fd);
+		ft_putstr_fd("\n", fd);
+		free(input);
 	}
 	return (0);
-}
-
-char	*remove_eof_quotes(char *eof)
-{
-	int		counter;
-	char	*new_eof;
-	int		i;
-	int		j;
-
-	counter = new_eof_size(eof);
-	new_eof = NULL;
-	i = 0;
-	j = 0;
-	if (counter > 0)
-		new_eof = ft_calloc((counter + 1), sizeof(char ));
-	while (eof[i])
-	{
-		if (eof[i] != '\'' || eof[i] != '\"')
-		{
-			new_eof[j] = eof[i];
-			j++;
-		}
-		i++;
-	}
-	return (new_eof);
-}
-
-int new_eof_size(char *eof)
-{
-	int	i;
-	int	counter;
-
-	i = 0;
-	counter = 0;
-	while (eof[i] != '\0')
-	{
-		if(eof[i] != '\'' && eof[i] != '\"')
-			counter++;
-		i++;
-	}
-	return (counter);
 }
