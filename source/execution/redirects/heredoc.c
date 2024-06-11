@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:34:28 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/08 17:41:34 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:36:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,6 @@ void	handle_ctrlc_heredoc(int signal)
 	close(STDIN_FILENO);
 	printf("\n");
 	update_env_list(envp, "?", "130");
+}
+v_list(envp, "?", "130");
 }

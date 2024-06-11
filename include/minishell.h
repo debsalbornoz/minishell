@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/08 17:30:38 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:34:35 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,8 +221,18 @@ int		find_heredoc(char *str);
 void	handle_heresignals(void);
 char	*ft_get_env(t_list *env, char *name);
 
-t_list	*handle_heredoc(t_list *tokens);
-char	*open_here_file(char *eof, int i);
+
+int new_eof_size(char *eof);
+char	*remove_eof_quotes(char *eof);
+int is_quoted(char *eof);
+int	open_prompt(char *eof, int flag, int fd, t_list *envp, char *filename);
+int open_here_file(char *filename);
+char 	*handle_heredoc(t_node *token,char *eof, char *filename, t_list *envp);
+t_list	*process_heredoc_tokens(t_list *tokens, t_list *envp, char *input);
+char	*get_filename(int i);
+void	handle_heredoc_signals(void);
+void	handle_ctrlc_heredoc(int signal);
+
 
 int new_eof_size(char *eof);
 int is_quoted(char *eof);

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 17:12:44 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/08 17:29:21 by dlamark-         ###   ########.fr       */
+/*   Created: 2024/06/10 13:55:37 by codespace         #+#    #+#             */
+/*   Updated: 2024/06/11 23:37:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 int is_quoted(char *eof)
 {
@@ -21,7 +20,7 @@ int is_quoted(char *eof)
 	while (eof[i])
 	{
 		if (eof[i] == '\'' || eof[i] == '\"')
-		return (1);
+			return (1);
 		i++;
 	}
 	return (0);
@@ -38,20 +37,19 @@ char	*remove_eof_quotes(char *eof)
 	new_eof = NULL;
 	i = 0;
 	j = 0;
-	if (counter > 0)
+	if (counter <= 0)
+		return (NULL);
+	new_eof = ft_calloc((counter + 1), sizeof(char ));
+	while (eof[i])
 	{
-		new_eof = ft_calloc((counter + 1), sizeof(char ));
-		while (eof[i])
+		if (eof[i] != '\'' && eof[i] != '\"')
 		{
-			if (eof[i] != '\'' && eof[i] != '\"')
-			{
-				new_eof[j] = eof[i];
-				j++;
-			}
-			i++;
+			new_eof[j] = eof[i];
+			j++;
 		}
-		new_eof[j] = '\0';
+		i++;
 	}
+	new_eof[j] = '\0';
 	return (new_eof);
 }
 
@@ -70,41 +68,14 @@ int new_eof_size(char *eof)
 	}
 	return (counter);
 }
-
-char	*get_filename(int i)
+char *get_filename(int i)
 {
-	char *filename;
-	char *index;
+	char	*filename;
+	char	*index;
 
+	filename = NULL;
 	index = ft_itoa(i);
-	if (!index)
-		return (NULL);
 	filename = ft_strjoin("/tmp/", index);
-	if (!filename)
-		return (NULL);
 	free(index);
 	return (filename);
-}
-char	*handle_quotes(char *eof, int fd, char *filename)
-{
-	char *new_eof;
-
-	new_eof = NULL;
-	if (is_quoted(eof))
-	{
-		new_eof = remove_eof_quotes(eof);
-		free(eof);
-	}
-	else
-	{
-		new_eof = ft_strdup(eof);
-		free(eof);
-	}
-	if (!new_eof)
-	{
-		close(fd);
-		free(filename);
-		return (NULL);
-	}
-	return (new_eof);
 }

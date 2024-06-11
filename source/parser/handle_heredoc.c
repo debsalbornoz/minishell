@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/08 17:54:31 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/11 23:36:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	handle_ctrlc_heredoc(int signal);
-
-t_list *handle_heredoc(t_list *tokens)
+t_list	*process_heredoc_tokens(t_list *tokens, t_list *envp)
 {
 	t_node *aux;
 	char	*filename;
@@ -26,10 +24,12 @@ t_list *handle_heredoc(t_list *tokens)
 	{
 		if (aux->data->token->type == HEREDOC && aux->next)
 		{
-			filename = open_here_file(aux->next->data->token->value, i);
-			if (!filename)
-				return NULL;
-			aux->next->data->token->value = filename;
+				filename = get_filename(i);
+				if (!handle_heredoc(aux, aux->next->data->token->value, filename, envp))
+				{
+					free_list(tokens, free_lst_tokens);
+					return (NULL);
+				}
 		}
 		if (aux->data->token->type == PIPE)
 			i++;
@@ -38,9 +38,8 @@ t_list *handle_heredoc(t_list *tokens)
 	return (tokens);
 }
 
-char *open_here_file(char *eof, int i)
+char 	*handle_heredoc(t_node *token, char *eof, char *filename, t_list *envp)
 {
-	char	*filename;
 	int		flag;
 	int		fd;
 	char	*new_eof;
@@ -49,59 +48,70 @@ char *open_here_file(char *eof, int i)
 	if (!filename)
 		return (NULL);
 	flag = 0;
-	flag = O_WRONLY | O_CREAT | O_TRUNC;
-	fd = open(filename, flag, 0777);
-	if (fd == -1)
+	fd = open_here_file(filename);
+	if (is_quoted(eof))
 	{
-		free(filename);
-		return NULL;
+		new_eof = remove_eof_quotes(eof);;
+		free(eof);
+		eof = new_eof;
+		flag = 1;
 	}
-	new_eof = handle_quotes(eof, fd, filename);
-	open_heredoc_prompt(new_eof, fd);
-	close(fd);
-	free(new_eof);
-	return filename;
-}
-int open_heredoc_prompt(char *new_eof, int fd)
-{
-	char	*input;
-	t_list	*env;
-
-	env = data_env_addr();
-	handle_heresignals();
 	while (1)
 	{
-		input = readline("> ");
-		if (ft_strncmp(ft_get_env(env, "?"), "130", 3) == 0)
-			return (0);
-		if (!input)
-		{
-			printf("warning: here-document at line 133 delimited by end-of-file (wanted `eof')\n");
-			return (0);
-		}
-		if (ft_strncmp(input, new_eof, ft_strlen(input)) == 0)
-		{
-			free(input);
-			break;
-		}
+		if (!open_prompt(eof, flag, fd, envp, filename))
+			return (NULL);
+	}
+	free(token->next->data->token->value);
+	token->next->data->token->value = filename;
+	return (filename);
+}
+int open_here_file(char *filename)
+{
+	int	flag;
+	int	fd;
+
+	flag = 0;
+	flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
+	fd = open(filename, flag, 0777);
+	if (fd == -1)
+		return (-1);
+	return (fd);
+}
+
+int	open_prompt(char *eof, int flag, int fd, t_list *envp, char *filename)
+{
+	char	*input;
+	char	*env;
+
+	envp->node = envp->head;
+	handle_heredoc_signals();
+	(void)flag;
+	input = readline("> ");
+	env = ft_get_env(envp, "?");
+	if (!ft_strncmp(env, "130", 3))
+	{
+		unlink(filename);
+		printf("\n");
+		return (0);
+	}
+	else if (!input)
+	{
+		printf("bash: warning: here-document delimited by end-of-file (wanted `eof')\n");
+		update_env_list(envp, "?", "131");
+		return (0);
+	}
+	else if (ft_strncmp(input, eof, ft_strlen(input)))
+	{
 		ft_putstr_fd(input, fd);
 		ft_putstr_fd("\n", fd);
 		free(input);
 	}
-	return (0);
-}
-void	handle_heresignals(void)
-{
-	signal(SIGINT, handle_ctrlc_heredoc);
+	else
+	{
+		close(fd);
+		free(input);
+		return(0);
+	}
+	return (1);
 }
 
-void	handle_ctrlc_heredoc(int signal)
-{
-	t_list	*envp;
-
-	(void)signal;
-	envp = data_env_addr();
-	close(STDIN_FILENO);
-	printf("\n");
-	update_env_list(envp, "?", "130");
-}
