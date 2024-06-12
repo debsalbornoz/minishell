@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/11 13:27:03 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/11 21:40:14 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,13 @@ void	update_env_list(t_list *lst_env, char *name, char *value)
 	}
 }
 
-char	*ft_get_env(t_list *env, char *name)
+char	*ft_get_env(char *name)
 {
+	t_list	*env;
 	t_node	*aux;
 
+	env = data_env_addr();
+	env->node = env->head;
 	aux = env->head;
 	while (aux)
 	{

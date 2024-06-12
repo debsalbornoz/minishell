@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:55:37 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/11 23:37:17 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/11 21:30:33 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int is_quoted(char *eof)
+int	is_quoted(char *eof)
 {
 	int	i;
 
@@ -39,7 +39,7 @@ char	*remove_eof_quotes(char *eof)
 	j = 0;
 	if (counter <= 0)
 		return (NULL);
-	new_eof = ft_calloc((counter + 1), sizeof(char ));
+	new_eof = ft_calloc((counter + 1), sizeof(char));
 	while (eof[i])
 	{
 		if (eof[i] != '\'' && eof[i] != '\"')
@@ -53,7 +53,7 @@ char	*remove_eof_quotes(char *eof)
 	return (new_eof);
 }
 
-int new_eof_size(char *eof)
+int	new_eof_size(char *eof)
 {
 	int	i;
 	int	counter;
@@ -62,13 +62,14 @@ int new_eof_size(char *eof)
 	counter = 0;
 	while (eof[i] != '\0')
 	{
-		if(eof[i] != '\'' && eof[i] != '\"')
+		if (eof[i] != '\'' && eof[i] != '\"')
 			counter++;
 		i++;
 	}
 	return (counter);
 }
-char *get_filename(int i)
+
+char	*get_filename(int i)
 {
 	char	*filename;
 	char	*index;

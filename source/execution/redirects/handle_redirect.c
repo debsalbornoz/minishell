@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/05 19:16:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/11 21:49:07 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_access_output(char *redirect, char *file, t_list *envp);
 
 int	handle_redirect(t_node *exec, t_list *envp)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (!exec->data->exec->redir_and_files)
@@ -43,19 +43,21 @@ int	handle_redirect(t_node *exec, t_list *envp)
 
 int	open_file(t_node *exec, int i, int flag, t_list *envp)
 {
-	int		fd;
+	int	fd;
 
 	fd = 0;
 	if (exec->data->exec->redir_and_files[i + 1])
 	{
 		fd = open(exec->data->exec->redir_and_files[i + 1],
-				set_flag(exec->data->exec->redir_and_files[i]), 0644);
+				set_flag(exec->data->exec->redir_and_files[i]),
+				0644);
 		if (fd == -1)
 		{
-			if (check_access_input(exec->data->exec->redir_and_files[i], \
-				exec->data->exec->redir_and_files[i + 1], envp) == -1
-				|| check_access_output(exec->data->exec->redir_and_files[i], \
-				exec->data->exec->redir_and_files[i + 1], envp) == -1)
+			if (check_access_input(exec->data->exec->redir_and_files[i],
+					exec->data->exec->redir_and_files[i + 1], envp) == -1
+				|| check_access_output(exec->data->exec->redir_and_files[i],
+					exec->data->exec->redir_and_files[i + 1],
+						envp) == -1)
 				return (-1);
 		}
 		if (flag == 0)
@@ -65,7 +67,7 @@ int	open_file(t_node *exec, int i, int flag, t_list *envp)
 		}
 		if (flag == 1)
 		{
-				fd = dup2(fd, 1);
+			fd = dup2(fd, 1);
 			exec->data->exec->output = fd;
 		}
 	}
@@ -88,11 +90,9 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 
 static int	check_access_output(char *redirect, char *file, t_list *envp)
 {
-	if (find_output(redirect)
-		|| find_append(redirect))
+	if (find_output(redirect) || find_append(redirect))
 	{
-		if (access(file, F_OK) == -1
-			|| access(file, W_OK) == -1)
+		if (access(file, F_OK) == -1 || access(file, W_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
 			perror("");
