@@ -6,63 +6,72 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/11 21:46:37 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/12 21:56:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <unistd.h>
 
-int		check_signals(char *input, char *filename, int fd_in, char *env);
+int		check_signals(char *input, char *filename, int fd_in);
+void	write_in_file(char *input, int fd, int flag);
 
 t_list	*process_heredoc_tokens(t_list *tokens)
 {
-	t_node	*aux;
+	t_node	*token;
 	char	*filename;
 	int		i;
 
 	i = 0;
-	aux = tokens->head;
+	token = tokens->head;
 	filename = NULL;
-	while (aux)
+	while (token)
 	{
-		if (aux->data->token->type == HEREDOC && aux->next)
+		if (token->data->token->type == HEREDOC && token->next)
 		{
 			filename = get_filename(i);
-			if (!handle_heredoc(aux, aux->next->data->token->value, filename))
+			if (!handle_heredoc(token, token->next->data->token->value,
+					filename))
 			{
 				free_list(tokens, free_lst_tokens);
 				return (NULL);
 			}
 		}
-		if (aux->data->token->type == PIPE)
+		if (token->data->token->type == PIPE)
 			i++;
-		aux = aux->next;
+		token = token->next;
 	}
 	return (tokens);
 }
 
 char	*handle_heredoc(t_node *token, char *eof, char *filename)
 {
-	int		flag;
+	int		expand;
 	int		fd;
 	char	*new_eof;
+	int		flag;
+	t_list	*envp;
 
 	if (!filename)
 		return (NULL);
-	flag = 0;
+	envp = data_env_addr();
+	expand = 0;
+	update_env_list(envp, "?", "0");
 	fd = open_here_file(filename);
+	handle_heredoc_signals();
 	if (is_quoted(eof))
 	{
 		new_eof = remove_eof_quotes(eof);
 		free(eof);
 		eof = new_eof;
-		flag = 1;
+		expand = 1;
 	}
 	while (1)
 	{
-		if (!open_prompt(eof, flag, fd, filename))
+		flag = open_prompt(eof, expand, fd, filename);
+		if (flag < 0)
 			return (NULL);
+		if (flag == 2 || flag == 1)
+			break ;
 	}
 	free(token->next->data->token->value);
 	token->next->data->token->value = filename;
@@ -85,50 +94,33 @@ int	open_here_file(char *filename)
 int	open_prompt(char *eof, int flag, int fd, char *filename)
 {
 	char	*input;
-	char	*env;
-	int		fd_in;
+	int		fd_stdin;
+	int		result;
+	t_list	*envp;
 
-	handle_heredoc_signals();
-	fd_in = dup(STDIN_FILENO);
-	(void)flag;
+	result = 0;
+	fd_stdin = dup(STDIN_FILENO);
+	envp = data_env_addr();
 	input = readline("> ");
-	env = ft_get_env("?");
-	if (check_signals(input, filename, fd_in, env))
-		return (0);
-	else if (ft_strncmp(input, eof, ft_strlen(input)))
+	result = check_signals(input, filename, fd_stdin);
+	if (input && ft_strncmp(input, eof, ft_strlen(input)))
 	{
-		ft_putstr_fd(input, fd);
-		ft_putstr_fd("\n", fd);
-		free(input);
+		write_in_file(input, fd, flag);
+		result = 3;
 	}
-	else
+	else if (result == 0)
 	{
 		close(fd);
 		free(input);
-		return (0);
+		result = 2;
 	}
-	return (1);
+	return (result);
 }
 
-int	check_signals(char *input, char *filename, int fd_in, char *env)
+void	write_in_file(char *input, int fd, int flag)
 {
-	t_list	*envp;
-
-	envp = data_env_addr();
-	envp->node = envp->head;
-	if (!ft_strncmp(env, "130", 3))
-	{
-		unlink(filename);
-		dup2(fd_in, 0);
-		printf("\n");
-		return (1);
-	}
-	else if (!input)
-	{
-		printf("warning:here-document delimited by end-of-file(wanted `eof')\n");
-		update_env_list(envp, "?", "131");
-		return (1);
-	}
-	else
-		return (0);
+	(void)flag;
+	ft_putstr_fd(input, fd);
+	ft_putstr_fd("\n", fd);
+	free(input);
 }
