@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/11 21:50:31 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:11:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ int		get_len(char *value);
 /* --- source/execution/redirects--- */
 //handle_redirect.c
 int		handle_redirect(t_node *exec, t_list *envp);
-int		open_file(t_node *exec, int i, int flag, t_list *envp);
+int		open_file(char **redir_and_files, int i, int flag, t_list *envp);
 int		set_flag(char *redirect);
 
 //heredoc_utils.c
@@ -221,22 +221,26 @@ int		find_heredoc(char *str);
 void	handle_heresignals(void);
 char	*ft_get_env(char *name);
 
-int		new_eof_size(char *eof);
-char	*remove_eof_quotes(char *eof);
-int		is_quoted(char *eof);
-int		open_prompt(char *eof, int flag, int fd, char *filename);
-char	*handle_heredoc(t_node *token, char *eof, char *filename);
+//handle_heredoc.c
 t_list	*process_heredoc_tokens(t_list *tokens);
-char	*get_filename(int i);
+char	*handle_heredoc(t_node *token, char *eof, char *filename);
+char	*handle_eof(char *eof);
+int		setup_heredoc_env(char *filename);
+
+//heredoc_signals.c
 void	handle_heredoc_signals(void);
 void	handle_ctrlc_heredoc(int signal);
-int		new_eof_size(char *eof);
+int		check_signals(char *input, char *filename, int fd_in);
+
+//heredoc_utils.c
 int		is_quoted(char *eof);
 char	*remove_eof_quotes(char *eof);
 int		new_eof_size(char *eof);
+
+//open_heredoc_file.c
 char	*get_filename(int i);
-char	*handle_quotes(char *eof, int fd, char *filename);
-int		open_heredoc_prompt(char *new_eof, int fd);
 int		open_here_file(char *filename);
+int		open_prompt(char *eof, int flag, int fd, char *filename);
+void	write_in_file(char *input, int fd, int flag);
 
 #endif

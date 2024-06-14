@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/11 21:49:07 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:58:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	handle_redirect(t_node *exec, t_list *envp)
 		if (find_output(exec->data->exec->redir_and_files[i])
 			|| find_append(exec->data->exec->redir_and_files[i]))
 		{
-			if (open_file(exec, i, 1, envp) == -1)
+			if (open_file(exec->data->exec->redir_and_files, i, 1, envp) == -1)
 				return (-1);
 		}
 		if (find_input(exec->data->exec->redir_and_files[i])
 			|| find_heredoc(exec->data->exec->redir_and_files[i]))
 		{
-			if (open_file(exec, i, 0, envp) == -1)
+			if (open_file(exec->data->exec->redir_and_files, i, 0, envp) == -1)
 				return (-1);
 		}
 		i++;
@@ -41,35 +41,29 @@ int	handle_redirect(t_node *exec, t_list *envp)
 	return (0);
 }
 
-int	open_file(t_node *exec, int i, int flag, t_list *envp)
+int	open_file(char **redir_and_files, int i, int flag, t_list *envp)
 {
 	int	fd;
 
 	fd = 0;
-	if (exec->data->exec->redir_and_files[i + 1])
+	if (redir_and_files[i + 1])
 	{
-		fd = open(exec->data->exec->redir_and_files[i + 1],
-				set_flag(exec->data->exec->redir_and_files[i]),
+		fd = open(redir_and_files[i + 1],
+				set_flag(redir_and_files[i]),
 				0644);
 		if (fd == -1)
 		{
-			if (check_access_input(exec->data->exec->redir_and_files[i],
-					exec->data->exec->redir_and_files[i + 1], envp) == -1
-				|| check_access_output(exec->data->exec->redir_and_files[i],
-					exec->data->exec->redir_and_files[i + 1],
-						envp) == -1)
+			if (check_access_input(redir_and_files[i],
+					redir_and_files[i + 1], envp) == -1
+				|| check_access_output(redir_and_files[i],
+					redir_and_files[i + 1],
+					envp) == -1)
 				return (-1);
 		}
 		if (flag == 0)
-		{
 			fd = dup2(fd, 0);
-			exec->data->exec->input = fd;
-		}
 		if (flag == 1)
-		{
 			fd = dup2(fd, 1);
-			exec->data->exec->output = fd;
-		}
 	}
 	return (0);
 }

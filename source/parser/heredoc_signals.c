@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:15:08 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/12 21:34:46 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/14 12:19:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_signals(char *input, char *filename, int fd_in)
 	}
 	else if (!input)
 	{
-		printf("warning:here-document delimited by end-of-file(wanted `eof')\n");
+		printf("warning:here-document delimited by end-of-file\n");
 		update_env_list(envp, "?", "131");
 		return (1);
 	}

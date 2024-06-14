@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/12 21:56:31 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:42:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int		check_signals(char *input, char *filename, int fd_in);
-void	write_in_file(char *input, int fd, int flag);
 
 t_list	*process_heredoc_tokens(t_list *tokens)
 {
@@ -30,7 +27,7 @@ t_list	*process_heredoc_tokens(t_list *tokens)
 		{
 			filename = get_filename(i);
 			if (!handle_heredoc(token, token->next->data->token->value,
-					filename))
+					filename) || !filename)
 			{
 				free_list(tokens, free_lst_tokens);
 				return (NULL);
@@ -49,15 +46,9 @@ char	*handle_heredoc(t_node *token, char *eof, char *filename)
 	int		fd;
 	char	*new_eof;
 	int		flag;
-	t_list	*envp;
 
-	if (!filename)
-		return (NULL);
-	envp = data_env_addr();
 	expand = 0;
-	update_env_list(envp, "?", "0");
-	fd = open_here_file(filename);
-	handle_heredoc_signals();
+	fd = setup_heredoc_env(filename);
 	if (is_quoted(eof))
 	{
 		new_eof = remove_eof_quotes(eof);
@@ -78,49 +69,28 @@ char	*handle_heredoc(t_node *token, char *eof, char *filename)
 	return (filename);
 }
 
-int	open_here_file(char *filename)
+char	*handle_eof(char *eof)
 {
-	int	flag;
-	int	fd;
+	char	*new_eof;
 
-	flag = 0;
-	flag = flag | O_WRONLY | O_CREAT | O_TRUNC;
-	fd = open(filename, flag, 0777);
-	if (fd == -1)
-		return (-1);
-	return (fd);
+	new_eof = NULL;
+	if (is_quoted(eof))
+	{
+		new_eof = remove_eof_quotes(eof);
+		free(eof);
+		return (new_eof);
+	}
+	return (eof);
 }
 
-int	open_prompt(char *eof, int flag, int fd, char *filename)
+int	setup_heredoc_env(char *filename)
 {
-	char	*input;
-	int		fd_stdin;
-	int		result;
 	t_list	*envp;
+	int		fd;
 
-	result = 0;
-	fd_stdin = dup(STDIN_FILENO);
 	envp = data_env_addr();
-	input = readline("> ");
-	result = check_signals(input, filename, fd_stdin);
-	if (input && ft_strncmp(input, eof, ft_strlen(input)))
-	{
-		write_in_file(input, fd, flag);
-		result = 3;
-	}
-	else if (result == 0)
-	{
-		close(fd);
-		free(input);
-		result = 2;
-	}
-	return (result);
-}
-
-void	write_in_file(char *input, int fd, int flag)
-{
-	(void)flag;
-	ft_putstr_fd(input, fd);
-	ft_putstr_fd("\n", fd);
-	free(input);
+	update_env_list(envp, "?", "0");
+	fd = open_here_file(filename);
+	handle_heredoc_signals();
+	return (fd);
 }

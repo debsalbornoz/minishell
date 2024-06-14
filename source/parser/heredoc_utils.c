@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:55:37 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/11 21:30:33 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:45:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,4 @@ int	new_eof_size(char *eof)
 		i++;
 	}
 	return (counter);
-}
-
-char	*get_filename(int i)
-{
-	char	*filename;
-	char	*index;
-
-	filename = NULL;
-	index = ft_itoa(i);
-	filename = ft_strjoin("/tmp/", index);
-	free(index);
-	return (filename);
 }
