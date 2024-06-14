@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/14 19:11:16 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/14 19:15:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,16 +202,6 @@ int		get_len(char *value);
 int		handle_redirect(t_node *exec, t_list *envp);
 int		open_file(char **redir_and_files, int i, int flag, t_list *envp);
 int		set_flag(char *redirect);
-
-//heredoc_utils.c
-char	**allocate_eof(t_node *exec);
-
-//heredoc.c
-//int		handle_heredoc(t_node *exec);
-//char	*create_heredoc_file(t_node *exec, int j);
-//char	*get_filename(int i);
-//int		open_heredoc_file(int fd, char *eof, char *filename);
-//int		heredoc_flags(int signal);
 
 //redirect_utils.c
 int		find_output(char *str);
