@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:18:25 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/15 19:57:01 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/15 17:05:43 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int	count_pipes(t_list *tokens)
 int	**create_pipes(t_list *tokens)
 {
 	int	counter;
+	int	**pipes;
 
 	counter = count_pipes(tokens);
-	
+	pipes = ft_calloc((counter + 1), sizeof(int *));
+	return (pipes);
 }

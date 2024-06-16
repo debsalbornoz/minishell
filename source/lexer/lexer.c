@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/27 16:24:41 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/15 18:55:11 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,23 @@ t_list	*lexer(t_list *tokens, char *input)
 
 char	*trim_start_spaces(char *input)
 {
-	int	i;
+	int		i;
+	char	*trimmed_input;
+	int		len;
 
+	len = ft_strlen(input);
+	trimmed_input = NULL;
 	i = 0;
-	while (is_space(input[i]))
+	while (input[i] == ' ' || input[i] == '	')
 		i++;
+	if (len - i >= 0)
+	{
+		trimmed_input = ft_calloc((len - i + 1), sizeof(char));
+		len = len - i + 1;
+		ft_strlcpy(trimmed_input, &input[i], len);
+		//free (input);
+		return (trimmed_input);
+	}
 	return (input);
 }
 

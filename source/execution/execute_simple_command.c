@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/11 20:45:22 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/15 22:39:17 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	execute_simple_command(t_list *exec,
 		redirect_and_execute(exec->head, envp);
 		ft_stdout = dup2(ft_stdout, 1);
 		ft_stdin = dup2(ft_stdin, 0);
-		if (exec->node->data->exec->path == NULL)
+		if (exec->node->data->exec->command_table
+			&& exec->node->data->exec->path == NULL)
 		{
 			update_env_list(envp, "?", "127");
 			printf("Command not found\n");

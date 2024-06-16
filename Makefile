@@ -1,6 +1,6 @@
 NAME	:=	minishell
 
-CFLAGS	:=	-Wall -Wextra -Werror -g3 -Ofast
+CFLAGS	:=	-Wall -Wextra -Werror -g3
 
 CRST	:=	"\033[0m"
 CGRN	:=	"\033[32m"

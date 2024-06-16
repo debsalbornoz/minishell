@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/14 18:42:52 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/15 21:17:05 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*handle_heredoc(t_node *token, char *eof, char *filename)
 	if (is_quoted(eof))
 	{
 		new_eof = remove_eof_quotes(eof);
+		printf("%s\n", new_eof);
 		free(eof);
 		eof = new_eof;
 		expand = 1;

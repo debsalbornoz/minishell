@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:07:44 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/11 21:44:02 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/15 20:47:32 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	parser(t_list *tokens, t_list *envp, char *input)
 {
+	(void)input;
+	(void)envp;
 	tokens = type_assignment(tokens);
 	if (syntax_error(tokens, envp, input))
 		return (0);
