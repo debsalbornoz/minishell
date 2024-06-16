@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_part2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/06 16:06:50 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/15 22:55:21 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*process_heredoc(t_exp *exp)
 {
 	exp->temp++;
 	exp->temp++;
-	exp->temp = trim_start_spaces(exp->temp);
+	//exp->temp = trim_start_spaces(exp->temp);
 	if (*exp->temp == '$' && is_quote(*(exp->temp + 1)))
 		exp->temp = process_dollar(exp);
 	else

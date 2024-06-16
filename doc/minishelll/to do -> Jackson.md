@@ -12,3 +12,5 @@
 - [ ] Verificar leaks.
 - [x] Verificar Falha de Segmentação quando pressionado ctrl+D.
 - [ ] Criar função para transformar operador dentro da variável de ambiente em texto.
+- [ ] Qnd é builtin nao esta funcionando o redirecionamento
+- [ ] echo $=home (quando for diferente de aspas, numero ou letra n expande)

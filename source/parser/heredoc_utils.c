@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:55:37 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/15 21:17:35 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/15 22:56:58 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*remove_eof_quotes(char *eof)
 		return (NULL);
 	new_eof = ft_calloc((counter + 1), sizeof(char));
 	new_eof = unquote_str(eof, new_eof, 0, 0);
+	free (eof);
 	return (new_eof);
 }
 

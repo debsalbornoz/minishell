@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/15 21:17:05 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/15 23:11:07 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,13 @@ char	*handle_heredoc(t_node *token, char *eof, char *filename)
 {
 	int		expand;
 	int		fd;
-	char	*new_eof;
 	int		flag;
 
 	expand = 0;
 	fd = setup_heredoc_env(filename);
 	if (is_quoted(eof))
 	{
-		new_eof = remove_eof_quotes(eof);
-		printf("%s\n", new_eof);
-		free(eof);
-		eof = new_eof;
+		eof = remove_eof_quotes(eof);
 		expand = 1;
 	}
 	while (1)
@@ -65,7 +61,8 @@ char	*handle_heredoc(t_node *token, char *eof, char *filename)
 		if (flag == 2 || flag == 1)
 			break ;
 	}
-	free(token->next->data->token->value);
+	free (eof);
+	close(fd);
 	token->next->data->token->value = filename;
 	return (filename);
 }

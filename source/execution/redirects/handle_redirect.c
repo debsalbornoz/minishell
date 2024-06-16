@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/15 22:35:50 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/15 23:09:28 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,10 @@ int	open_file(char **redir_and_files, int i, int flag, t_list *envp)
 				return (-1);
 		}
 		if (flag == 0)
-			fd = dup2(fd, 0);
+			dup2(fd, 0);
 		if (flag == 1)
-			fd = dup2(fd, 1);
+			dup2(fd, 1);
+		close(fd);
 	}
 	return (0);
 }
