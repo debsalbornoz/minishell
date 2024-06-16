@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/15 22:39:17 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:56:17 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	execute_simple_command(t_list *exec,
 	int	pid;
 	int	ft_stdout;
 	int	ft_stdin;
+	int	status;
 
+	status = 0;
 	ft_stdout = dup(1);
 	ft_stdin = dup(0);
 	pid = fork();
@@ -38,7 +40,11 @@ int	execute_simple_command(t_list *exec,
 		finish_process(exec, tokens, envp, input);
 	}
 	else
-		waitpid(pid, NULL, 0);
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			update_env_list(envp, "?" , ft_itoa(WEXITSTATUS(status)));
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 18:22:10 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 18:23:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:49:06 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input)
 {
+	int		status;
+	char	*teste;
+
+	teste = ft_get_env("?");
+	status = ft_atoi(teste);
 	free_list(exec, free_lst_exec);
 	free_list(tokens, free_lst_tokens);
 	free_list(envp, free_lst_env);
 	free(input);
 	close_fds();
-	exit(2);
+	exit(status);
 }
 
 void	free_matrix(char **matrix)
