@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_simple_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/16 00:56:17 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:26:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 int	execute_simple_command(t_list *exec,
 	t_list *tokens, t_list *envp, char *input)
 {
-	int	pid;
-	int	ft_stdout;
-	int	ft_stdin;
-	int	status;
+	int		pid;
+	int		ft_stdout;
+	int		ft_stdin;
+	int		status;
+	char	*sts;
 
 	status = 0;
 	ft_stdout = dup(1);
@@ -43,7 +44,11 @@ int	execute_simple_command(t_list *exec,
 	{
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-			update_env_list(envp, "?" , ft_itoa(WEXITSTATUS(status)));
+		{
+			sts = ft_itoa(WEXITSTATUS(status));
+			update_env_list(envp, "?", sts);
+			free (sts);
+		}
 	}
 	return (0);
 }

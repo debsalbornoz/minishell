@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:55:37 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/15 22:56:58 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/17 11:21:48 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*remove_eof_quotes(char *eof)
 	return (new_eof);
 }
 
-int	new_eof_size(char *eof)
+/*int	new_eof_size(char *eof)
 {
 	int		i;
 	int		counter;
@@ -60,3 +60,4 @@ int	new_eof_size(char *eof)
 	}
 	return (counter);
 }
+*/
