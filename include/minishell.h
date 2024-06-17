@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/14 19:15:01 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/17 16:53:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,4 +233,5 @@ int		open_here_file(char *filename);
 int		open_prompt(char *eof, int flag, int fd, char *filename);
 void	write_in_file(char *input, int fd, int flag);
 
+char	*return_var(char *input);
 #endif

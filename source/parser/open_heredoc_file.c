@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:35:58 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/14 18:44:32 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/17 16:53:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	open_prompt(char *eof, int flag, int fd, char *filename)
 void	write_in_file(char *input, int fd, int flag)
 {
 	(void)flag;
+	 printf("%s\n", return_var(input));
 	ft_putstr_fd(input, fd);
 	ft_putstr_fd("\n", fd);
 	free(input);

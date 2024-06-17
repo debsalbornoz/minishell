@@ -70,6 +70,7 @@ PARS	:=	$(DIR_PARS)/parser									\
 			$(DIR_PARS)/heredoc_utils							\
 			$(DIR_PARS)/heredoc_signals							\
 			$(DIR_PARS)/open_heredoc_file						\
+			$(DIR_PARS)/heredoc_expansion						\
 
 
 CLEX	:=	$(DIR_EXEC)/$(DIR_CLEX)/create_lst_exec				\

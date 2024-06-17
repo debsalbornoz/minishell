@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:51:39 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/07 14:52:57 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/17 16:53:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,4 @@ int	main(int argc, char **argv, char **envp)
 	free_list(env_lst, free_lst_env);
 	return (EXIT_SUCCESS);
 }
+
