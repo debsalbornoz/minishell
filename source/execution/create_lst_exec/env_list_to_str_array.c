@@ -57,7 +57,7 @@ char	*build_env_var(char *name, char *value)
 	}
 	env_var[i] = '=';
 	i++;
-	while (value[j] != '\0')
+	while (value && value[j] != '\0')
 	{
 		env_var[i] = value[j];
 		i++;

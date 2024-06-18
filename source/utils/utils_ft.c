@@ -67,3 +67,8 @@ char	*ft_rmchr(char *input, char *position)
 	free(input);
 	return (result);
 }
+
+int	ft_str_exist(char *sting)
+{
+	return (sting && *sting);
+}

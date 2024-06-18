@@ -26,7 +26,7 @@ int	program(t_list *envp)
 		printf("exit\n");
 		return (FALSE);
 	}
-	input = trim_start_spaces(input);
+	// input = trim_start_spaces(input);
 	if (!*input)
 		return (TRUE);
 	input = expand(envp, input);
