@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 23:43:41 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/18 14:07:17 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/18 23:15:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int		count_var_size(char *input);
 char	*get_env_value(int counter, char *input);
 int		get_input_len(char *input);
 char	*get_str(int *i, int counter, char *input);
+char	*get_env_str(int *i, int counter, char *input);
+char	*return_input_expanded(char	*str, char	*env_value,
+	char *input_expanded);
 
 char	*return_var(char *input)
 {
@@ -39,8 +42,16 @@ char	*return_var(char *input)
 			env_value = get_env_str(&i, counter, input);
 		if (str && env_value)
 			input_expanded = ft_strjoin(str, env_value);
+		if ()
 		i++;
 	}
+	input_expanded = return_input_expanded(str, env_value, input_expanded);
+	return (input_expanded);
+}
+
+char	*return_input_expanded(char	*str, char	*env_value,
+	char *input_expanded)
+{
 	if (!str && env_value)
 		input_expanded = env_value;
 	if (str && !env_value)
