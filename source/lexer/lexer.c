@@ -51,7 +51,7 @@ char	*trim_start_spaces(char *input)
 	i = 0;
 	while (input[i] == ' ' || input[i] == '	')
 		i++;
-	if (len - i >= 0)
+	if (i > 0 && len - i >= 0)
 	{
 		trimmed_input = ft_calloc((len - i + 1), sizeof(char));
 		len = len - i + 1;

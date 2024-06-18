@@ -14,10 +14,11 @@
 # define MINISHELL_H
 
 # include "utils.h"
-# include "builtins.h"
-# include "../library/lib.h"
 # include "structs.h"
 # include <limits.h>
+# include "env_list.h"
+# include "builtins.h"
+# include "../library/lib.h"
 
 /* --- source/main --- */
 // program.c
@@ -40,16 +41,6 @@ void	free_lst_tokens(t_list *tokens);
 void	free_lst_env(t_list *envp);
 void	free_lst_exec(t_list *exec);
 void	release_memory(t_list *tokens, t_list *exec, char *input);
-
-/* --- source/envp/ --- */
-//create_env_list.c
-t_list	*data_env_addr(void);
-t_list	*create_env_list(char **envp, t_list *env_lst);
-char	*get_envp_name(char *envp);
-char	*get_envp_value(char *envp);
-
-//update_env_list.c
-void	update_env_list(t_list *envp, char *name, char *value);
 
 /* --- source/expander/ --- */
 // expand_part1.c

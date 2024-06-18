@@ -27,7 +27,6 @@
 
 int	builtins(t_list *token, t_list *exec, t_list *envp)
 {
-	(void)exec;
 	if (token->node->data->token->type == CD)
 		return (mini_cd(token), 0);
 	else if (token->node->data->token->type == PWD)
@@ -39,6 +38,6 @@ int	builtins(t_list *token, t_list *exec, t_list *envp)
 	else if (token->node->data->token->type == UNSET)
 		return (mini_unset(), 0);
 	else if (token->node->data->token->type == EXPORT)
-		return (mini_export(envp), 0);
+		return (mini_export(exec->node->data->exec->command_table, envp), 0);
 	return (mini_exit());
 }
