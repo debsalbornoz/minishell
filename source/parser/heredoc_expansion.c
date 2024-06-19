@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 23:43:41 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/18 23:15:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/18 21:33:45 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		get_input_len(char *input);
 char	*get_str(int *i, int counter, char *input);
 char	*get_env_str(int *i, int counter, char *input);
 char	*return_input_expanded(char	*str, char	*env_value,
-	char *input_expanded);
+char	*input_expanded);
 
 char	*return_var(char *input)
 {
@@ -37,12 +37,19 @@ char	*return_var(char *input)
 	{
 		counter = get_input_len(input);
 		if (counter > 0)
+		{
 			str = get_str(&i, counter, input);
+			if (input_expanded)
+				input_expanded = ft_strjoin(input_expanded, str);
+		}
 		if (input[i] == '$' && input[i + 1])
+		{
 			env_value = get_env_str(&i, counter, input);
-		if (str && env_value)
+			if (input_expanded)
+				input_expanded = ft_strjoin(input_expanded, env_value);
+		}
+		if (str && env_value && !input_expanded)
 			input_expanded = ft_strjoin(str, env_value);
-		if ()
 		i++;
 	}
 	input_expanded = return_input_expanded(str, env_value, input_expanded);
@@ -67,7 +74,7 @@ char	*get_env_str(int *i, int counter, char *input)
 	counter = count_var_size(&input[*i + 1]);
 	env_value = get_env_value(counter, &input[*i + 1]);
 	if (input[*i + counter])
-		*i += counter - 1;
+		*i += counter;
 	return (env_value);
 }
 
@@ -80,7 +87,7 @@ char	*get_str(int *i, int counter, char *input)
 	str = ft_calloc(counter + 1, sizeof(char));
 	ft_strlcpy(str, &input[*i], counter + 1);
 	if (input[*i + counter - 1])
-		*i += counter;
+		*i += counter - 1;
 	return (str);
 }
 
