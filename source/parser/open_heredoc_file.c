@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_heredoc_file.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:35:58 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/19 13:10:58 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/19 21:33:46 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,12 @@ int	open_prompt(char *eof, int flag, int fd, char *filename)
 
 void	write_in_file(char *input, int fd, int flag)
 {
+	char	*input_expanded;
+
 	(void)flag;
-	printf("%s\n", expand_input(input));
-	ft_putstr_fd(input, fd);
-	ft_putstr_fd("\n", fd);
+	input_expanded = expand_input(input);
 	free(input);
+	ft_putstr_fd(input_expanded, fd);
+	ft_putstr_fd("\n", fd);
+	free(input_expanded);
 }
