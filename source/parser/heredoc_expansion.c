@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 23:43:41 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/19 21:48:26 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:29:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*extract_var_value(int counter, char *input)
 
 	env_var = ft_calloc(counter + 1, sizeof(char));
 	ft_strlcpy(env_var, input, counter + 1);
-	env_value = ft_get_env(env_var);
+	env_value = ft_strdup(ft_get_env(env_var));
 	free(env_var);
 	return (env_value);
 }
@@ -111,4 +111,3 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	free(s2);
 	return (result);
 }
-
