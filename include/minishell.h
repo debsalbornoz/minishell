@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/17 16:53:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/19 16:29:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,5 +224,11 @@ int		open_here_file(char *filename);
 int		open_prompt(char *eof, int flag, int fd, char *filename);
 void	write_in_file(char *input, int fd, int flag);
 
-char	*return_var(char *input);
+//heredoc_expansion.c
+
+char	*expand_input(char *input);
+char	*extract_substr(int *i, int counter, char *input);
+int		get_substr_len(char *input);
+int		get_var_len(char *input);
+char	*ft_strjoin_free(char *s1, char *s2);
 #endif
