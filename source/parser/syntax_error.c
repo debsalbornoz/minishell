@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:57:17 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/20 16:43:17 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/19 23:05:30 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <string.h>
+#include <errno.h>
 
 int	syntax_error(t_list *tokens, t_list	*envp, char *input)
 {
