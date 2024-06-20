@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/17 11:26:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/20 12:16:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	execute_simple_command(t_list *exec,
 			&& exec->node->data->exec->path == NULL)
 		{
 			update_env_list(envp, "?", "127");
-			printf("Command not found\n");
+			ft_putstr_fd("Command not found\n", 2);
 		}
 		finish_process(exec, tokens, envp, input);
 	}

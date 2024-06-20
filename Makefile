@@ -18,6 +18,7 @@ DIR_LEXR	:=	lexer
 DIR_TYPE	:=	type_assignment
 DIR_UTLS	:=	utils
 DIR_PARS	:=	parser
+DIR_HEREDOC	:=	heredoc
 DIR_CLEX	:=	create_lst_exec
 DIR_REDR	:=	redirects
 DIR_EXEC	:=	execution
@@ -36,6 +37,7 @@ DIR_PARS	:=	parser
 DIR_EXEC	:=	execution
 DIR_BUIL	:=	builtins
 DIR_UTLS	:=	utils
+DIR_HEREDOC	:=	heredoc
 
 MAIN 	:=	$(DIR_MAIN)/main									\
 			$(DIR_MAIN)/program									\
@@ -54,6 +56,12 @@ LEXR	:=	$(DIR_LEXR)/lexer									\
 			$(DIR_LEXR)/process_word							\
 			$(DIR_LEXR)/process_delimiter						\
 
+HEREDOC	:=	$(DIR_PARS)/$(DIR_HEREDOC)/heredoc_signals			\
+			$(DIR_PARS)/$(DIR_HEREDOC)/handle_heredoc			\
+			$(DIR_PARS)/$(DIR_HEREDOC)/heredoc_utils			\
+			$(DIR_PARS)/$(DIR_HEREDOC)/open_heredoc_file		\
+			$(DIR_PARS)/$(DIR_HEREDOC)/heredoc_expansion		\
+
 TYPE	:=	$(DIR_PARS)/$(DIR_TYPE)/files						\
 			$(DIR_PARS)/$(DIR_TYPE)/path						\
 			$(DIR_PARS)/$(DIR_TYPE)/builtins					\
@@ -66,12 +74,6 @@ PARS	:=	$(DIR_PARS)/parser									\
 			$(DIR_PARS)/syntax_error							\
 			$(DIR_PARS)/remove_quotes							\
 			$(DIR_PARS)/redirect_error							\
-			$(DIR_PARS)/handle_heredoc							\
-			$(DIR_PARS)/heredoc_utils							\
-			$(DIR_PARS)/heredoc_signals							\
-			$(DIR_PARS)/open_heredoc_file						\
-			$(DIR_PARS)/heredoc_expansion						\
-
 
 CLEX	:=	$(DIR_EXEC)/$(DIR_CLEX)/create_lst_exec				\
 			$(DIR_EXEC)/$(DIR_CLEX)/command_table				\
@@ -110,6 +112,7 @@ SRCS	:=	${MAIN}												\
 			${EXPD}												\
 			${LEXR}												\
 			${TYPE}												\
+			$(HEREDOC)											\
 			$(PARS)												\
 			${CLEX}												\
 			$(REDR)												\
@@ -143,6 +146,7 @@ $(DIR_OBJS):
 	mkdir -p $@/$(DIR_EXEC)
 	mkdir -p $@/$(DIR_UTLS)
 	mkdir -p $@/$(DIR_BUIL)
+	mkdir -p $@/$(DIR_PARS)/$(DIR_HEREDOC)
 
 $(NAME): make_libft $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(INCS) -o $(NAME)

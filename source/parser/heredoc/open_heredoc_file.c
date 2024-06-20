@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   open_heredoc_file.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:35:58 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/19 21:33:46 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/20 19:00:46 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 char	*get_filename(int i)
 {
@@ -65,10 +65,17 @@ void	write_in_file(char *input, int fd, int flag)
 {
 	char	*input_expanded;
 
-	(void)flag;
-	input_expanded = expand_input(input);
-	free(input);
-	ft_putstr_fd(input_expanded, fd);
-	ft_putstr_fd("\n", fd);
-	free(input_expanded);
+	if (flag == 0)
+	{
+		input_expanded = expand_input(input);
+		free(input);
+		ft_putstr_fd(input_expanded, fd);
+		ft_putstr_fd("\n", fd);
+		free(input_expanded);
+	}
+	if (flag == 1)
+	{
+		ft_putstr_fd(input, fd);
+		ft_putstr_fd("\n", fd);
+	}
 }

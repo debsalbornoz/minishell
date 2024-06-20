@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:27:12 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/20 16:51:52 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	is_closed(char *input, t_list *envp)
 
 void	print_fatal_error(char *input, t_list *envp)
 {
-	printf("Fatal error: unclosed quotes\n");
-	update_env_list(envp, "?", "2: syntax error");
+	ft_putstr_fd("Fatal error: unclosed quotes\n", 2);
+	update_env_list(envp, "?", "2");
 	free(input);
 }
 

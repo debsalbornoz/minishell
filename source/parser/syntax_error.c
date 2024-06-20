@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:57:17 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/19 23:05:30 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:38:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	syntax_error(t_list *tokens, t_list	*envp, char *input)
 	if (redirect_error(tokens) || pipe_error(tokens)
 		|| dot_error(tokens))
 	{
-		printf("Syntax error\n");
+		ft_putstr_fd("Syntax error\n", 2);
 		update_env_list(envp, "?", "2");
 		free_list(tokens, free_lst_tokens);
 		free(input);
@@ -27,7 +27,7 @@ int	syntax_error(t_list *tokens, t_list	*envp, char *input)
 	}
 	if (dot_error(tokens) == 2)
 	{
-		printf("Syntax error\n");
+		ft_putstr_fd("Syntax error\n", 2);
 		update_env_list(envp, "?", "127");
 		free_list(tokens, free_lst_tokens);
 		free(input);

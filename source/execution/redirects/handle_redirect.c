@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/16 00:52:19 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:31:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,16 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 {
 	if (find_heredoc(redirect) || find_input(redirect))
 	{
-		if (access(file, R_OK) == -1 || access(file, F_OK) == -1)
+		if (access(file, F_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
-			perror("");
+			ft_putstr_fd("No such file or directory\n", 2);
+			return (-1);
+		}
+		if (access(file, R_OK) == -1)
+		{
+			update_env_list(envp, "?", "1");
+			ft_putstr_fd("Permission denied\n", 2);
 			return (-1);
 		}
 	}
@@ -87,10 +93,16 @@ static int	check_access_output(char *redirect, char *file, t_list *envp)
 {
 	if (find_output(redirect) || find_append(redirect))
 	{
-		if (access(file, F_OK) == -1 || access(file, W_OK) == -1)
+		if (access(file, F_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
-			perror("");
+			ft_putstr_fd("No such file or directory\n", 2);
+			return (-1);
+		}
+		if (access(file, W_OK) == -1)
+		{
+			update_env_list(envp, "?", "1");
+			ft_putstr_fd("Permission denied\n", 2);
 			return (-1);
 		}
 	}

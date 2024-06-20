@@ -6,11 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:15:08 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/14 12:19:34 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/20 18:09:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 void	handle_heredoc_signals(void)
 {
@@ -44,7 +44,7 @@ int	check_signals(char *input, char *filename, int fd_in)
 	}
 	else if (!input)
 	{
-		printf("warning:here-document delimited by end-of-file\n");
+		ft_putstr_fd("warning:here-document delimited by end-of-file\n", 2);
 		update_env_list(envp, "?", "131");
 		return (1);
 	}

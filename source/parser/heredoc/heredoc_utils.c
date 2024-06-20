@@ -6,11 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:55:37 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/17 11:21:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/20 18:26:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 int	is_quoted(char *eof)
 {

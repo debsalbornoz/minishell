@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/15 23:11:07 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:26:07 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
 t_list	*process_heredoc_tokens(t_list *tokens)
 {
