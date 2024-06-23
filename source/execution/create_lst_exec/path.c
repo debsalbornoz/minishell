@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:29:20 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/02 16:17:35 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:35:14 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,14 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 	envp->node = envp->head;
 	if (is_absolute_path(command_table))
 	{
+		if (access(command_table[0], F_OK) == -1)
+			return (NULL);
+		if (chdir(command_table[0]) == -1)
+		{
+			update_env_list(envp, "?", "126");
+			ft_putstr_fd("Is a diretory", 2);
+			return (NULL);
+		}
 		absolute_path = ft_strdup(command_table[0]);
 		free_matrix(path_array);
 		return (absolute_path);

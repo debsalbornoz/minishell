@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:42 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/19 22:46:56 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:03:04 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	mini_echo(t_list *token)
 {
-	int	newline;
+	int		newline;
+	t_list	*envp;
 
 	newline = 0;
 	token->node = token->node->next;
+	envp = data_env_addr();
 	while (token->node && (token->node->data->token->type != PIPE))
 	{
 		if (!ft_strcmp(token->node->data->token->value, "-n"))
@@ -33,4 +35,5 @@ void	mini_echo(t_list *token)
 	}
 	if (!newline)
 		printf("\n");
+	update_env_list(envp, "?", "0");
 }
