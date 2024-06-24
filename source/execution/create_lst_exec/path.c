@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:29:20 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/23 16:35:14 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:19:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 
 char	*create_absolute_path(char **path_array,
 	char **command_table, t_node *exec)
@@ -82,6 +84,7 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 {
 	char	**path_array;
 	char	*absolute_path;
+	struct	stat st;
 
 	(void)exec;
 	path_array = split_path(envp);
@@ -91,7 +94,13 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 	{
 		if (access(command_table[0], F_OK) == -1)
 			return (NULL);
-		if (chdir(command_table[0]) == -1)
+		if (access(command_table[0], X_OK) == -1)
+		{
+			update_env_list(envp, "?", "126");
+			ft_putstr_fd("Permission denied", 2);
+			return (NULL);
+		}
+		if (stat(command_table[0], &st) == 0)
 		{
 			update_env_list(envp, "?", "126");
 			ft_putstr_fd("Is a diretory", 2);
