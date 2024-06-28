@@ -1,4 +1,4 @@
-minishell
-objects
 *.a
+objects
 .obsidian
+minishell

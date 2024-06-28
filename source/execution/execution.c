@@ -76,11 +76,11 @@ int	handle_execution(t_node *exec, t_list *envp)
 	if (validate_command(exec))
 	{
 		if (execve(exec->data->exec->path,
-				exec->data->exec->command_table,
-				exec->data->exec->envp) == -1)
-			{
-				exit(EXIT_FAILURE);
-			}
+			exec->data->exec->command_table,
+			exec->data->exec->envp) == -1)
+		{
+			exit(EXIT_FAILURE);
+		}
 
 	}
 	return (0);

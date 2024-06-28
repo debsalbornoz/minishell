@@ -20,7 +20,7 @@
 # include "../library/lib.h"
 
 int		builtins(t_list *token, t_list *exec, t_list *envp);
-int		mini_cd(t_list *token);
+int		mini_cd(char **exec);
 void	mini_pwd(void);
 void	mini_env(t_list *envp);
 void	mini_echo(t_list *token);

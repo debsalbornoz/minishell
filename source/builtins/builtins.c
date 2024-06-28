@@ -13,12 +13,14 @@
 #include "../../include/builtins.h"
 #include "../../include/minishell.h"
 
-static	void test_redirects(t_list *exec, t_list *envp,t_list *token, void (function)(t_list *));
+static void	test_redirects(t_list *exec, t_list *envp, t_list *token,
+				void (function)(t_list *));
 
 /*
+	- [x] implementar 'cd'.
+		- [ ] Obs.: verificar a atualização da variável de ambiente 'OLDPWD' e 'PWD'.
 	- [x] implementar pwd;
 	- [x] implementar 'echo'
-	- [x] implementar 'cd'.
 	- [x] implementar 'exit'
 		- [ ] Obs.: Em 'exit' falta implementar parâmetro numérico.
 	- [ ] implementar 'unset'
@@ -30,15 +32,14 @@ static	void test_redirects(t_list *exec, t_list *envp,t_list *token, void (funct
 
 int	builtins(t_list *token, t_list *exec, t_list *envp)
 {
-	// handle_redirect(exec->head, envp);
 	if (token->node->data->token->type == CD)
-		return (mini_cd(token), 0);
+		return (mini_cd(exec->node->data->exec->command_table), 0);
 	else if (token->node->data->token->type == PWD)
 		return (mini_pwd(), 0);
 	else if (token->node->data->token->type == ENV)
 		return (mini_env(envp), 0);
 	else if (token->node->data->token->type == ECHO)
-		return (test_redirects(exec, envp,token, mini_echo), 0);
+		return (test_redirects(exec, envp, token, mini_echo), 0);
 	else if (token->node->data->token->type == UNSET)
 		return (mini_unset(), 0);
 	else if (token->node->data->token->type == EXPORT)
@@ -46,20 +47,24 @@ int	builtins(t_list *token, t_list *exec, t_list *envp)
 	return (mini_exit());
 }
 
-static void test_redirects(t_list *exec, t_list *envp, t_list *token, void (*function)(t_list *))
+static void	test_redirects(t_list *exec, t_list *envp, t_list *token,
+				void (*function)(t_list *))
 {
-	int fd_in = dup(STDIN_FILENO);
+	int	fd_in;
+	int	fd_out;
+
+	fd_in = dup(STDIN_FILENO);
 	if (fd_in == -1)
 	{
 		perror("dup stdin");
-		return;
+		return ;
 	}
-	int fd_out = dup(STDOUT_FILENO);
+	fd_out = dup(STDOUT_FILENO);
 	if (fd_out == -1)
 	{
 		perror("dup stdout");
 		close(fd_in);
-		return;
+		return ;
 	}
 	handle_redirect(exec->head, envp);
 	function(token);
@@ -70,4 +75,3 @@ static void test_redirects(t_list *exec, t_list *envp, t_list *token, void (*fun
 	close(fd_in);
 	close(fd_out);
 }
-

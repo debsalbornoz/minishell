@@ -82,9 +82,9 @@ int	is_executable(t_node *exec, char *path)
 
 char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 {
-	char	**path_array;
-	char	*absolute_path;
-	struct	stat st;
+	char		**path_array;
+	char		*absolute_path;
+	struct stat	st;
 
 	(void)exec;
 	path_array = split_path(envp);
