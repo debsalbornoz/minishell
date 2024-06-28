@@ -27,7 +27,7 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 	if (is_simple_command(lst_tokens))
 	{
 		if (is_builtins(lst_tokens->node->data->token->type))
-			status = builtins(lst_tokens, lst_exec, lst_env);
+			status = builtins(lst_exec, lst_env);
 		else
 		{
 			execute_simple_command(lst_exec, lst_tokens, lst_env, input);

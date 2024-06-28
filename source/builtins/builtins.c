@@ -13,12 +13,15 @@
 #include "../../include/builtins.h"
 #include "../../include/minishell.h"
 
-static void	test_redirects(t_list *exec, t_list *envp, t_list *token,
-				void (function)(t_list *));
+static void	test_redirects(t_list *exec, t_list *envp,
+				int (*function)(char **));
 
 /*
+	- [x] Obs.: implementar verificação de erros atualizando a variavel
+		de ambiente '?'.
 	- [x] implementar 'cd'.
-		- [ ] Obs.: verificar a atualização da variável de ambiente 'OLDPWD' e 'PWD'.
+		- [ ] Obs.: verificar a atualização da variável de ambiente
+			'OLDPWD' e 'PWD'.
 	- [x] implementar pwd;
 	- [x] implementar 'echo'
 	- [x] implementar 'exit'
@@ -30,25 +33,28 @@ static void	test_redirects(t_list *exec, t_list *envp, t_list *token,
 		- [ ] Obs.: Em 'env' falta implementar alterações de variáveis.
 */
 
-int	builtins(t_list *token, t_list *exec, t_list *envp)
+int	builtins(t_list *exec, t_list *envp)
 {
-	if (token->node->data->token->type == CD)
-		return (mini_cd(exec->node->data->exec->command_table), 0);
-	else if (token->node->data->token->type == PWD)
-		return (mini_pwd(exec->node->data->exec->command_table), 0);
-	else if (token->node->data->token->type == ENV)
-		return (mini_env(envp), 0);
-	else if (token->node->data->token->type == ECHO)
-		return (test_redirects(exec, envp, token, mini_echo), 0);
-	else if (token->node->data->token->type == UNSET)
+	char	**command_table;
+
+	command_table = exec->node->data->exec->command_table;
+	if (!ft_strcmp(*command_table, "cd"))
+		return (test_redirects(exec, envp, mini_cd), 0);
+	else if (!ft_strcmp(*command_table, "pwd"))
+		return (test_redirects(exec, envp, mini_pwd), 0);
+	else if (!ft_strcmp(*command_table, "echo"))
+		return (test_redirects(exec, envp, mini_echo), 0);
+	else if (!ft_strcmp(*command_table, "unset"))
 		return (mini_unset(), 0);
-	else if (token->node->data->token->type == EXPORT)
-		return (mini_export(exec->node->data->exec->command_table, envp), 0);
+	else if (!ft_strcmp(*command_table, "env"))
+		return (mini_env(envp), 0);
+	else if (!ft_strcmp(*command_table, "export"))
+		return (mini_export(command_table, envp), 0);
 	return (mini_exit());
 }
 
-static void	test_redirects(t_list *exec, t_list *envp, t_list *token,
-				void (*function)(t_list *))
+static void	test_redirects(t_list *exec, t_list *envp,
+				int (*function)(char **))
 {
 	int	fd_in;
 	int	fd_out;
@@ -67,7 +73,7 @@ static void	test_redirects(t_list *exec, t_list *envp, t_list *token,
 		return ;
 	}
 	handle_redirect(exec->head, envp);
-	function(token);
+	function(exec->node->data->exec->command_table);
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 		perror("dup2 stdin");
 	if (dup2(fd_out, STDOUT_FILENO) == -1)
