@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/24 16:23:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/28 14:41:08 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	execute_simple_command(t_list *exec,
 		return (-1);
 	if (pid == 0)
 	{
-		redirect_and_execute(exec->head, envp);
+		handle_execution(exec->head, envp);
 		ft_stdout = dup2(ft_stdout, 1);
 		ft_stdin = dup2(ft_stdin, 0);
 		if (exec->node->data->exec->command_table
@@ -53,16 +53,3 @@ int	execute_simple_command(t_list *exec,
 	return (0);
 }
 
-int	redirect_and_execute(t_node *exec, t_list *envp)
-{
-	if (handle_redirect(exec, envp) == -1)
-		return (-1);
-	if (validate_command(exec))
-	{
-		if (execve(exec->data->exec->path,
-				exec->data->exec->command_table,
-				exec->data->exec->envp) == -1)
-			return (-1);
-	}
-	return (0);
-}

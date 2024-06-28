@@ -3,48 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:18:25 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/15 23:54:42 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:02:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	count_pipes(t_list *tokens)
+int count_pipes(t_list *exec)
 {
-	t_node	*aux;
-	int		counter;
+	t_node	*current_node;
+	int num_pipes;
 
-	if (!tokens)
-		return (-1);
-	counter = 0;
-	aux = tokens->head;
-	while (aux)
+	num_pipes = 0;
+	current_node = exec->head;
+
+	while (current_node != NULL && current_node->next != NULL)
 	{
-		if (aux->data->token->type == PIPE)
-			counter++;
-		aux = aux->next;
+		num_pipes++;
+		current_node = current_node->next;
 	}
-	return (counter);
+	return (num_pipes);
 }
 
-int	**create_pipes(t_list *tokens)
+int	**create_pipes(int num_pipes)
 {
-	int	counter;
 	int	**pipes;
 	int	i;
 
+	pipes = ft_calloc(num_pipes , sizeof(int *));
 	i = 0;
-	counter = count_pipes(tokens);
-	pipes = ft_calloc((counter + 1), sizeof(int *));
-	while (i < counter + 1)
+	if (!pipes)
 	{
-		pipes[i] = ft_calloc(2, sizeof(int));
+		perror("pipe:");
+		return (NULL);
+	}
+	while (i < num_pipes)
+	{
+		pipes[i] = ft_calloc(2 , sizeof(int));
 		if (!pipes[i])
+			return(NULL);
+		if (pipe(pipes[i]) == -1)
+		{
+			perror("pipe: ");
 			return (NULL);
+		}
 		i++;
 	}
 	return (pipes);
+}
+void	close_pipes(int command_index, int **pipes, int num_pipes)
+{
+	if (command_index > 0)
+		close(pipes[command_index - 1][0]);
+	if (command_index < num_pipes)
+		close(pipes[command_index][1]);
 }

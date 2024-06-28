@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/23 14:51:52 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/28 14:04:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		is_simple_command(t_list *tokens);
 //execute_simple_command.c
 int		execute_simple_command(t_list *exec,
 			t_list *tokens, t_list *envp, char *input);
-int		redirect_and_execute(t_node *exec, t_list *envp);
+int		handle_execution(t_node *exec, t_list *envp);
 
 //execution.c
 int		execute(t_list *lst_tokens, t_list *lst_exec,
@@ -231,4 +231,10 @@ char	*extract_substr(int *i, int counter, char *input);
 int		get_substr_len(char *input);
 int		get_var_len(char *input);
 char	*ft_strjoin_free(char *s1, char *s2);
+
+int	execute_multiple_commands(t_list *exec, t_list *tokens, t_list *envp, char *input);
+int **create_pipes(int num_pipes);
+int count_pipes(t_list *exec);
+void	close_pipes(int command_index, int **pipes, int num_pipes);
+
 #endif

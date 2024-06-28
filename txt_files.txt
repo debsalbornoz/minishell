@@ -1,0 +1,4 @@
+-rw-rw-rw-   1 codespace codespace     12 Jun 28 14:32 log.txt
+-rw-rw-rw-   1 codespace root       38317 Jun  3 12:14 testes_minishell1 (1).txt
+-rw-rw-rw-   1 codespace root       36975 Jun  3 12:14 testes_minishell1.txt
+-rw-rw-rw-   1 codespace codespace      0 Jun 28 14:33 txt_files.txt

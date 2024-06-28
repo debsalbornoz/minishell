@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/16 00:49:35 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/28 13:53:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 			close_fds();
 		}
 	}
+	else
+		execute_multiple_commands(lst_exec, lst_tokens, lst_env, input);
 	if (lst_exec->node)
 		lst_exec->node = lst_exec->head;
 	return (release_memory(lst_tokens, lst_exec, input), status);
@@ -66,4 +68,20 @@ void	print_matrix(char **matrix)
 		printf("%s\n", matrix[i]);
 		i++;
 	}
+}
+
+int	handle_execution(t_node *exec, t_list *envp)
+{
+	(void)envp;
+	if (validate_command(exec))
+	{
+		if (execve(exec->data->exec->path,
+				exec->data->exec->command_table,
+				exec->data->exec->envp) == -1)
+			{
+				exit(EXIT_FAILURE);
+			}
+
+	}
+	return (0);
 }
