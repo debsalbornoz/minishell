@@ -31,7 +31,7 @@ static int	change_directory(char *cwd, char *path)
 {
 	if (chdir(path))
 		return (perror("chdir"), 1);
-	if (getcwd(cwd, sizeof(cwd)))
+	if (!getcwd(cwd, sizeof(char) * 2048))
 		return (perror("getcwd"), 1);
 	return (0);
 }

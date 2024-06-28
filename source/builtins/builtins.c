@@ -35,7 +35,7 @@ int	builtins(t_list *token, t_list *exec, t_list *envp)
 	if (token->node->data->token->type == CD)
 		return (mini_cd(exec->node->data->exec->command_table), 0);
 	else if (token->node->data->token->type == PWD)
-		return (mini_pwd(), 0);
+		return (mini_pwd(exec->node->data->exec->command_table), 0);
 	else if (token->node->data->token->type == ENV)
 		return (mini_env(envp), 0);
 	else if (token->node->data->token->type == ECHO)
