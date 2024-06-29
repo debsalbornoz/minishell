@@ -13,8 +13,8 @@
 #include "../../include/builtins.h"
 #include "../../include/minishell.h"
 
-static void	test_redirects(t_list *exec, t_list *envp,
-				int (*function)(char **));
+static void	hadle_redir(t_list *exec, t_list *envp, int ftype, union u_func f);
+static int	select_func(t_list *exec, t_list *envp, int ftype, union u_func f);
 
 /*
 	- [x] Obs.: implementar verificação de erros atualizando a variavel
@@ -35,26 +35,25 @@ static void	test_redirects(t_list *exec, t_list *envp,
 
 int	builtins(t_list *exec, t_list *envp)
 {
-	char	**command_table;
+	char	**cmd_table;
 
-	command_table = exec->node->data->exec->command_table;
-	if (!ft_strcmp(*command_table, "cd"))
-		return (test_redirects(exec, envp, mini_cd), 0);
-	else if (!ft_strcmp(*command_table, "pwd"))
-		return (test_redirects(exec, envp, mini_pwd), 0);
-	else if (!ft_strcmp(*command_table, "echo"))
-		return (test_redirects(exec, envp, mini_echo), 0);
-	else if (!ft_strcmp(*command_table, "unset"))
-		return (mini_unset(), 0);
-	else if (!ft_strcmp(*command_table, "env"))
+	cmd_table = exec->node->data->exec->command_table;
+	if (!ft_strcmp(*cmd_table, "cd"))
+		return (hadle_redir(exec, envp, 0, (union u_func)mini_cd), 0);
+	else if (!ft_strcmp(*cmd_table, "pwd"))
+		return (hadle_redir(exec, envp, 0, (union u_func)mini_pwd), 0);
+	else if (!ft_strcmp(*cmd_table, "echo"))
+		return (hadle_redir(exec, envp, 0, (union u_func)mini_echo), 0);
+	else if (!ft_strcmp(*cmd_table, "unset"))
+		return (hadle_redir(exec, envp, 1, (union u_func)mini_unset), 0);
+	else if (!ft_strcmp(*cmd_table, "env"))
 		return (mini_env(envp), 0);
-	else if (!ft_strcmp(*command_table, "export"))
-		return (mini_export(command_table, envp), 0);
+	else if (!ft_strcmp(*cmd_table, "export"))
+		return (hadle_redir(exec, envp, 1, (union u_func)mini_export), 0);
 	return (mini_exit());
 }
 
-static void	test_redirects(t_list *exec, t_list *envp,
-				int (*function)(char **))
+static void	hadle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
 {
 	int	fd_in;
 	int	fd_out;
@@ -73,11 +72,21 @@ static void	test_redirects(t_list *exec, t_list *envp,
 		return ;
 	}
 	handle_redirect(exec->head, envp);
-	function(exec->node->data->exec->command_table);
+	select_func(exec, envp, ftype, f);
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 		perror("dup2 stdin");
 	if (dup2(fd_out, STDOUT_FILENO) == -1)
 		perror("dup2 stdout");
 	close(fd_in);
 	close(fd_out);
+}
+
+static int	select_func(t_list *exec, t_list *envp, int ftype, union u_func f)
+{
+	char	**cmd_table;
+
+	cmd_table = exec->node->data->exec->command_table;
+	if (!ftype)
+		return (f.f_cmd_table(cmd_table));
+	return (f.f_cmd_table_n_env_list(cmd_table, envp));
 }

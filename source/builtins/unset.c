@@ -12,7 +12,9 @@
 
 #include "../../include/builtins.h"
 
-void	mini_unset(void)
+int	mini_unset(char **exec, t_list *envp)
 {
-	return ;
+	(void)exec;
+	(void)envp;
+	return (0);
 }

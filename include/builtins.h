@@ -23,9 +23,15 @@ int		builtins(t_list *exec, t_list *envp);
 int		mini_cd(char **exec);
 int		mini_pwd(char **exec);
 int		mini_echo(char **exec);
-void	mini_unset(void);
+int		mini_unset(char **exec, t_list *envp);
 void	mini_env(t_list *envp);
 int		mini_export(char **exec, t_list *envp);
 int		mini_exit(void);
+
+union u_func
+{
+	int	(*f_cmd_table)(char **);
+	int	(*f_cmd_table_n_env_list)(char **, t_list *);
+};
 
 #endif
