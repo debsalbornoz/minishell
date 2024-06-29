@@ -6,44 +6,13 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 23:43:41 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/29 15:52:52 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:21:38 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
 char	*extract_var_value(int counter, char *input);
-
-char	*expand_input(char *input)
-{
-	int		i;
-	char	*input_expanded;
-	int		counter;
-	char	*env_value;
-	char	*str;
-
-	i = 0;
-	input_expanded = NULL;
-	env_value = NULL;
-	str = NULL;
-	while (input[i] != '\0')
-	{
-		if (input[i] == '$' && input[i + 1] != '\0')
-		{
-			counter = get_var_len(&input[i + 1]);
-			env_value = extract_var_value(counter, &input[i + 1]);
-			input_expanded = ft_strjoin_free(input_expanded, env_value);
-			i += counter + 1;
-		}
-		else
-		{
-			counter = get_substr_len(&input[i]);
-			str = extract_substr(&i, counter, input);
-			input_expanded = ft_strjoin_free(input_expanded, str);
-		}
-	}
-	return (input_expanded);
-}
 
 char	*extract_substr(int *i, int counter, char *input)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_heredoc_file.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:35:58 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/20 19:00:46 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/29 17:22:26 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,33 @@ void	write_in_file(char *input, int fd, int flag)
 		ft_putstr_fd(input, fd);
 		ft_putstr_fd("\n", fd);
 	}
+}
+
+char	*expand_input(char *input)
+{
+	int		i;
+	char	*input_expanded;
+	int		counter;
+	char	*env_value;
+	char	*str;
+
+	i = 0;
+	str = NULL;
+	while (input[i] != '\0')
+	{
+		if (input[i] == '$' && input[i + 1] != '\0')
+		{
+			counter = get_var_len(&input[i + 1]);
+			env_value = extract_var_value(counter, &input[i + 1]);
+			input_expanded = ft_strjoin_free(input_expanded, env_value);
+			i += counter + 1;
+		}
+		else
+		{
+			counter = get_substr_len(&input[i]);
+			str = extract_substr(&i, counter, input);
+			input_expanded = ft_strjoin_free(input_expanded, str);
+		}
+	}
+	return (input_expanded);
 }

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 11:32:29 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/29 16:17:14 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:30:42 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	setup_pipes(int command_index, int fd_in, int fd_out,
 			int **pipes, int num_pipes);
 void	restore_file_descriptors(int fd_in, int fd_out);
 
-void	execute_commands(t_list *exec, int num_pipes, int **pipes,
-		int fd_in, int fd_out, t_list *envp, char *input, t_list *tokens)
+int	execute_commands(t_list *exec, int num_pipes, int **pipes, t_list *envp)
 {
 	int		command_index;
 	t_node	*node;
@@ -25,8 +24,6 @@ void	execute_commands(t_list *exec, int num_pipes, int **pipes,
 	int		ft_stdin;
 	int		ft_stdout;
 
-	(void) fd_out;
-	(void) fd_in;
 	ft_stdin = dup(0);
 	ft_stdout = dup(1);
 	command_index = 0;
@@ -43,19 +40,20 @@ void	execute_commands(t_list *exec, int num_pipes, int **pipes,
 		{
 			setup_pipes(command_index, ft_stdin, ft_stdout, pipes, num_pipes);
 			if (handle_redirect(node, envp, ft_stdin, ft_stdout) == -1)
-				finish_process(exec, tokens,envp, input);
+				return (-1);
 			handle_execution(node, envp);
 			restore_file_descriptors(ft_stdin, ft_stdout);
 			exit(EXIT_SUCCESS);
 		}
 		else
 		{
-			restore_file_descriptors(fd_in, fd_out);
+			restore_file_descriptors(ft_stdin, ft_stdout);
 			close_pipes(command_index, pipes, num_pipes);
 			node = node->next;
 			command_index++;
 		}
 	}
+	return (0);
 }
 
 void	restore_file_descriptors(int fd_in, int fd_out)
@@ -69,7 +67,8 @@ void	wait_for_children(int *status, t_list *envp)
 	char	*sts;
 
 	sts = NULL;
-	while (wait(status) > 0);
+	while (wait(status) > 0)
+		;
 	if (WIFEXITED(*status))
 	{
 		sts = ft_itoa(WEXITSTATUS(*status));
@@ -94,13 +93,14 @@ int	execute_multiple_commands(t_list *exec, t_list *tokens,
 		return (-1);
 	fd_in = dup(0);
 	fd_out = dup(1);
-	execute_commands(exec, num_pipes, pipes, fd_in, fd_out, envp, input, tokens);
+	if (execute_commands(exec, num_pipes, pipes, envp) == -1)
+		finish_process(exec, tokens, envp, input);
 	restore_file_descriptors(fd_in, fd_out);
 	wait_for_children(&status, envp);
 	return (0);
 }
 
-void setup_pipes(int command_index, int fd_in,
+void	setup_pipes(int command_index, int fd_in,
 			int fd_out, int **pipes, int num_pipes)
 {
 	int		i;

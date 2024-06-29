@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/29 16:27:14 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:21:53 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,5 +231,7 @@ int		count_pipes(t_list *exec);
 void	close_pipes(int command_index, int **pipes, int num_pipes);
 void	restore_file_descriptors(int fd_in, int fd_out);
 void	print_exec_node(t_list *exec);
-
+void	wait_for_children(int *status, t_list *envp);
+int		execute_and_update_envp(t_list *exec, t_list *envp);
+char	*extract_var_value(int counter, char *input);
 #endif
