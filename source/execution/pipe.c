@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:18:25 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/28 14:02:45 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/29 15:52:44 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	**create_pipes(int num_pipes)
 	}
 	while (i < num_pipes)
 	{
-		pipes[i] = ft_calloc(2 , sizeof(int));
+		pipes[i] = ft_calloc(2, sizeof(int));
 		if (!pipes[i])
-			return(NULL);
+			return (NULL);
 		if (pipe(pipes[i]) == -1)
 		{
 			perror("pipe: ");
@@ -54,6 +54,7 @@ int	**create_pipes(int num_pipes)
 	}
 	return (pipes);
 }
+
 void	close_pipes(int command_index, int **pipes, int num_pipes)
 {
 	if (command_index > 0)

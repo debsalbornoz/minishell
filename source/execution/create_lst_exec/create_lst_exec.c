@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:59:33 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/08 13:17:43 by jackson          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:47:05 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 {
 	exec = initialize_lst_exec(tokens, exec, envp);
-	if (exec->node)
-	{
-		create_command_table(tokens, exec);
-		find_path(tokens, exec, envp);
-		save_redirects_and_files(exec, tokens);
-		get_index(exec);
-	}
+	if (!exec->node)
+		return (NULL);
+	create_command_table(tokens, exec);
+	find_path(tokens, exec, envp);
+	save_redirects_and_files(exec, tokens);
+	get_index(exec);
 	envp->node = envp->head;
+	exec->node = exec->head;
 	return (exec);
 }
 

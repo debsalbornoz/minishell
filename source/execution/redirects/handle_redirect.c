@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/20 18:31:01 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/29 15:48:03 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+#include <unistd.h>
 
 static int	check_access_input(char *redirect, char *file, t_list *envp);
 static int	check_access_output(char *redirect, char *file, t_list *envp);
 
-int	handle_redirect(t_node *exec, t_list *envp)
+int	handle_redirect(t_node *exec, t_list *envp, int fd_in, int fd_out)
 {
 	int	i;
 
 	i = 0;
 	if (!exec->data->exec->redir_and_files)
 		return (0);
+	restore_file_descriptors(fd_in, fd_out);
 	while (exec->data->exec->redir_and_files[i])
 	{
 		if (find_output(exec->data->exec->redir_and_files[i])

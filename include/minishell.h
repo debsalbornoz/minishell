@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/28 14:04:31 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/29 15:46:57 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ int		get_len(char *value);
 
 /* --- source/execution/redirects--- */
 //handle_redirect.c
-int		handle_redirect(t_node *exec, t_list *envp);
+int	handle_redirect(t_node *exec, t_list *envp, int fd_in, int fd_out);
 int		open_file(char **redir_and_files, int i, int flag, t_list *envp);
 int		set_flag(char *redirect);
 
@@ -236,5 +236,7 @@ int		execute_multiple_commands(
 int		**create_pipes(int num_pipes);
 int		count_pipes(t_list *exec);
 void	close_pipes(int command_index, int **pipes, int num_pipes);
+void	restore_file_descriptors(int fd_in, int fd_out);
+void	print_exec_node(t_list *exec);
 
 #endif
