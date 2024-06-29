@@ -19,13 +19,19 @@
 # include "linked_list.h"
 # include "../library/lib.h"
 
-int		builtins(t_list *token, t_list *exec, t_list *envp);
-int		mini_cd(t_list *token);
-void	mini_pwd(void);
+int		builtins(t_list *exec, t_list *envp);
+int		mini_cd(char **exec);
+int		mini_pwd(char **exec);
+int		mini_echo(char **exec);
+int		mini_unset(char **exec, t_list *envp);
 void	mini_env(t_list *envp);
-void	mini_echo(t_list *token);
-int		mini_exit(void);
-void	mini_unset(void);
 int		mini_export(char **exec, t_list *envp);
+int		mini_exit(void);
+
+union u_func
+{
+	int	(*f_cmd_table)(char **);
+	int	(*f_cmd_table_n_env_list)(char **, t_list *);
+};
 
 #endif

@@ -27,7 +27,7 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 	if (is_simple_command(lst_tokens))
 	{
 		if (is_builtins(lst_tokens->node->data->token->type))
-			status = builtins(lst_tokens, lst_exec, lst_env);
+			status = builtins(lst_exec, lst_env);
 		else
 		{
 			execute_simple_command(lst_exec, lst_tokens, lst_env, input);
@@ -76,11 +76,11 @@ int	handle_execution(t_node *exec, t_list *envp)
 	if (validate_command(exec))
 	{
 		if (execve(exec->data->exec->path,
-				exec->data->exec->command_table,
-				exec->data->exec->envp) == -1)
-			{
-				exit(EXIT_FAILURE);
-			}
+			exec->data->exec->command_table,
+			exec->data->exec->envp) == -1)
+		{
+			exit(EXIT_FAILURE);
+		}
 
 	}
 	return (0);

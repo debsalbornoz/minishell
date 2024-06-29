@@ -12,11 +12,13 @@
 
 #include "../../include/builtins.h"
 
-void	mini_pwd(void)
+int	mini_pwd(char **exec)
 {
-	char	*path;
+	char	path[2048];
 
-	path = getcwd(NULL, 0);
-	printf("%s\n", path);
-	free(path);
+	if (ft_str_exist(*(exec + 1)))
+		return (printf("pwd: too many args for command\n"), 1);
+	if (!getcwd(path, sizeof(path)))
+		return (perror("getcwd"), 1);
+	return (printf("%s\n", path), 0);
 }

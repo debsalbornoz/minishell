@@ -12,23 +12,26 @@
 
 #include "../../include/builtins.h"
 
-int	mini_cd(t_list *token)
+static int	change_directory(char *cwd, char *path);
+
+int	mini_cd(char **exec)
 {
 	char	cwd[2048];
+	char	**copy_exec;
 
-	if (token->node->next)
-		token->node = token->node->next;
-	if (token->node->next && token->node->next->data->token->type != PIPE)
-		return (printf("cd: excessive number of arguments\n"), 1);
-	if (!ft_strcmp(token->node->data->token->value, "~")
-		|| !ft_strcmp(token->node->data->token->value, "-"))
-	{
-		if (chdir(getenv("HOME")))
-			return (perror("chdir"), 1);
-	}
-	else if (chdir(token->node->data->token->value))
+	copy_exec = exec;
+	if (!ft_str_exist(*(copy_exec + 1)))
+		return (change_directory(cwd, getenv("HOME")));
+	else if (++copy_exec, ft_str_exist(*(copy_exec + 1)))
+		return (printf("cd: too many args for command\n"), 1);
+	return (change_directory(cwd, *copy_exec));
+}
+
+static int	change_directory(char *cwd, char *path)
+{
+	if (chdir(path))
 		return (perror("chdir"), 1);
-	if (!getcwd(cwd, sizeof(cwd)))
+	if (!getcwd(cwd, sizeof(char) * 2048))
 		return (perror("getcwd"), 1);
 	return (0);
 }

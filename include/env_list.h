@@ -16,6 +16,7 @@
 # include "utils.h"
 # include "linked_list.h"
 # include "../library/lib.h"
+
 //create_env_list.c
 t_list	*data_env_addr(void);
 t_list	*create_env_list(char **envp, t_list *env_lst);
@@ -23,6 +24,6 @@ char	*get_envp_name(char *envp);
 char	*get_envp_value(char *envp);
 
 //update_env_list.c
-int	update_env_list(t_list *envp, char *name, char *value);
+int		update_env_list(t_list *envp, char *name, char *value);
 
 #endif

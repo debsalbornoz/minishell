@@ -225,16 +225,16 @@ int		open_prompt(char *eof, int flag, int fd, char *filename);
 void	write_in_file(char *input, int fd, int flag);
 
 //heredoc_expansion.c
-
 char	*expand_input(char *input);
 char	*extract_substr(int *i, int counter, char *input);
 int		get_substr_len(char *input);
 int		get_var_len(char *input);
 char	*ft_strjoin_free(char *s1, char *s2);
 
-int	execute_multiple_commands(t_list *exec, t_list *tokens, t_list *envp, char *input);
-int **create_pipes(int num_pipes);
-int count_pipes(t_list *exec);
+int		execute_multiple_commands(
+			t_list *exec, t_list *tokens, t_list *envp, char *input);
+int		**create_pipes(int num_pipes);
+int		count_pipes(t_list *exec);
 void	close_pipes(int command_index, int **pipes, int num_pipes);
 
 #endif

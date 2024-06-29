@@ -18,14 +18,14 @@ static void		free_env(t_env *env);
 
 int	mini_export(char **exec, t_list *envp)
 {
-	int	iterator;
+	int		iterator;
 	t_env	*env;
 
 	iterator = 0;
 	if (!exec[1])
 		return (runs_on_list(envp, print_for_export), 0);
 	env = ft_calloc(1, sizeof(t_env));
-	while(++iterator, exec[iterator])
+	while (++iterator, exec[iterator])
 	{
 		env = get_env(env, exec[iterator]);
 		update_env_list(envp, env->name, env->value);
@@ -36,7 +36,10 @@ int	mini_export(char **exec, t_list *envp)
 static t_node	*print_for_export(t_node *nde)
 {
 	if (nde->data->env->value)
-		return (printf("declare -x %s=%s\n", nde->data->env->name, nde->data->env->value), nde);
+	{
+		return (printf("declare -x %s=%s\n",
+				nde->data->env->name, nde->data->env->value), nde);
+	}
 	return (printf("declare -x %s\n", nde->data->env->name), nde);
 }
 

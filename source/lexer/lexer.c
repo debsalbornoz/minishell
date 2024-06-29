@@ -56,7 +56,6 @@ char	*trim_start_spaces(char *input)
 		trimmed_input = ft_calloc((len - i + 1), sizeof(char));
 		len = len - i + 1;
 		ft_strlcpy(trimmed_input, &input[i], len);
-		//free (input);
 		return (trimmed_input);
 	}
 	return (input);
