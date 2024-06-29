@@ -71,7 +71,7 @@ static void	hadle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
 		close(fd_in);
 		return ;
 	}
-	handle_redirect(exec->head, envp);
+	handle_redirect(exec->head, envp, fd_in, fd_out);
 	select_func(exec, envp, ftype, f);
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 		perror("dup2 stdin");

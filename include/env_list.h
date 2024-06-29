@@ -25,5 +25,6 @@ char	*get_envp_value(char *envp);
 
 //update_env_list.c
 int		update_env_list(t_list *envp, char *name, char *value);
+int		exist_var(t_list *envp, char *name);
 
 #endif

@@ -20,4 +20,11 @@ t_list	*add_node(t_list *list);
 t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
 int		count_nodes(t_list *lst);
 
+// free_list.c
+void	free_list(t_list *list, void (f)(t_list *));
+void	free_lst_tokens(t_list *tokens);
+void	free_lst_env(t_list *envp);
+void	free_lst_exec(t_list *exec);
+void	release_memory(t_list *tokens, t_list *exec, char *input);
+
 #endif

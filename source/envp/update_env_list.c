@@ -64,3 +64,18 @@ char	*ft_get_env(char *name)
 	}
 	return (NULL);
 }
+
+int	exist_var(t_list *envp, char *name)
+{
+	envp->node = envp->head;
+	while (envp->node)
+	{
+		if (!ft_strcmp(envp->node->data->env->name, name))
+			return (1);
+		if (envp->node->next)
+			envp->node = envp->node->next;
+		else
+			break ;
+	}
+	return (envp->node = envp->head, 0);
+}
