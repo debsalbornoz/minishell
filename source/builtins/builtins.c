@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:33:53 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/23 16:01:52 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:32:36 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ int	builtins(t_list *exec, t_list *envp)
 
 static void	hadle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
 {
-	int	fd_in;
-	int	fd_out;
+	int		fd_in;
+	int		fd_out;
+	char	*value;
 
+	value = NULL;
 	fd_in = dup(STDIN_FILENO);
 	if (fd_in == -1)
 	{
@@ -72,7 +74,9 @@ static void	hadle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
 		return ;
 	}
 	handle_redirect(exec->head, envp, fd_in, fd_out);
-	select_func(exec, envp, ftype, f);
+	value = ft_itoa(select_func(exec, envp, ftype, f));
+	update_env_list(envp, "?", value);
+	free(value);
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 		perror("dup2 stdin");
 	if (dup2(fd_out, STDOUT_FILENO) == -1)

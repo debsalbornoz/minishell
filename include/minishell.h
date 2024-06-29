@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/29 15:46:57 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:27:14 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int		get_len(char *value);
 
 /* --- source/execution/redirects--- */
 //handle_redirect.c
-int	handle_redirect(t_node *exec, t_list *envp, int fd_in, int fd_out);
+int		handle_redirect(t_node *exec, t_list *envp, int fd_in, int fd_out);
 int		open_file(char **redir_and_files, int i, int flag, t_list *envp);
 int		set_flag(char *redirect);
 
