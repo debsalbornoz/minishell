@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/29 15:51:56 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/29 16:06:39 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	execute_simple_command(t_list *exec,
 		return (-1);
 	if (pid == 0)
 	{
-		handle_redirect(exec->head, envp, ft_stdin, ft_stdout);
+		if (handle_redirect(exec->head, envp, ft_stdin, ft_stdout) == -1)
+			finish_process(exec, tokens, envp, input);
 		handle_execution(exec->head, envp);
 		ft_stdout = dup2(ft_stdout, 1);
 		ft_stdin = dup2(ft_stdin, 0);
