@@ -64,5 +64,6 @@ void	get_index(t_list *exec)
 	{
 		aux->data->exec->index = i;
 		aux = aux->next;
+		i++;
 	}
 }
