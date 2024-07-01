@@ -6,21 +6,18 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 23:43:41 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 11:44:38 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/01 11:59:36 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-char	*expand_input(char *input)
+char	*expand_input(char *input, int i, int counter)
 {
-	int		i;
 	char	*input_expanded;
-	int		counter;
 	char	*env_value;
 	char	*str;
 
-	i = 0;
 	str = NULL;
 	input_expanded = NULL;
 	env_value = NULL;

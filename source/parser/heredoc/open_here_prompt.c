@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:35:58 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/01 11:44:04 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/01 12:01:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ int	open_prompt(char *eof, int flag, int fd, char *filename)
 	}
 	return (result);
 }
+
 void	write_in_file(char *input, int fd, int flag)
 {
 	char	*input_expanded;
 
 	if (flag == 0)
 	{
-		input_expanded = expand_input(input);
+		input_expanded = expand_input(input, 0, 0);
 		free(input);
 		ft_putstr_fd(input_expanded, fd);
 		ft_putstr_fd("\n", fd);

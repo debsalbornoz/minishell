@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_redirects_and_files.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/29 15:47:40 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:01:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	save_redirects_and_files(t_list *exec, t_list *tokens)
 		{
 			redir_and_files = get_redirects_and_files(&tokens->node,
 					redir_and_files);
-		exec->node->data->exec->redir_and_files = redir_and_files;
-		exec->node = exec->node->next;
+			exec->node->data->exec->redir_and_files = redir_and_files;
+			exec->node = exec->node->next;
 		}
 		if (!redir_and_files)
 		{

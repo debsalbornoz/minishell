@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/01 11:49:12 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/01 11:59:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	write_in_file(char *input, int fd, int flag);
 int		open_here_file(char *filename);
 
 //heredoc_expansion.c
-char	*expand_input(char *input);
+char	*expand_input(char *input, int i, int counter);
 char	*extract_substr(int *i, int counter, char *input);
 char	*ft_strjoin_free(char *s1, char *s2);
 

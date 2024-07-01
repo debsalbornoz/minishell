@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 11:42:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/01 11:52:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,3 @@ char	*remove_eof_quotes(char *eof)
 	free (eof);
 	return (new_eof);
 }
-
