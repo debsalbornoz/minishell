@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_list.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:37:41 by jackson           #+#    #+#             */
-/*   Updated: 2024/06/18 13:37:42 by jackson          ###   ########.fr       */
+/*   Updated: 2024/07/01 14:15:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ char	*get_envp_name(char *envp);
 char	*get_envp_value(char *envp);
 
 //update_env_list.c
-int		update_env_list(t_list *envp, char *name, char *value);
+int		update_env_list(t_list *lst_env, char *name, char *value);
+void	add_new_node(t_list *lst_env, char *name, char *value);
+int		update_existing_node(t_list *lst_env, char *name, char *value);
+char	*ft_get_env(char *name);
 int		exist_var(t_list *envp, char *name);
 
 #endif
