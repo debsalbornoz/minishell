@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:59:33 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 12:19:01 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/01 12:35:10 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,18 @@ t_list	*initialize_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 	}
 	exec->node = exec->head;
 	return (exec);
+}
+
+void	get_index(t_list *exec)
+{
+	t_node	*aux;
+	int		i;
+
+	aux = exec->head;
+	i = 0;
+	while (aux)
+	{
+		aux->data->exec->index = i;
+		aux = aux->next;
+	}
 }

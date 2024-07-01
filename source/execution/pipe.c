@@ -6,11 +6,44 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 19:18:25 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/01 12:03:11 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/01 13:46:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	setup_pipes(int command_index, int fd_in, int fd_out, int **pipes)
+{
+	int		i;
+	int		num_pipes;
+
+	i = 0;
+	num_pipes = count_pipes2(pipes);
+	if (command_index > 0)
+		dup2(pipes[command_index - 1][0], 0);
+	else
+		dup2(fd_in, 0);
+	if (command_index < num_pipes)
+		dup2(pipes[command_index][1], 1);
+	else
+		dup2(fd_out, 1);
+	while (i < num_pipes)
+	{
+		close(pipes[i][0]);
+		close(pipes[i][1]);
+		i++;
+	}
+}
+
+int	count_pipes2(int **pipes)
+{
+	int	i;
+
+	i = 0;
+	while (pipes[i] != NULL)
+		i++;
+	return (i);
+}
 
 int	count_pipes(t_list *exec)
 {
@@ -32,7 +65,7 @@ int	**create_pipes(int num_pipes)
 	int	**pipes;
 	int	i;
 
-	pipes = ft_calloc(num_pipes, sizeof(int *));
+	pipes = ft_calloc(num_pipes + 1, sizeof(int *));
 	i = 0;
 	if (!pipes)
 	{
@@ -51,6 +84,7 @@ int	**create_pipes(int num_pipes)
 		}
 		i++;
 	}
+	pipes[i] = NULL;
 	return (pipes);
 }
 

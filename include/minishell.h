@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/01 12:31:22 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/01 13:45:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,22 +156,39 @@ t_list	*type_assignment(t_list *tokens);
 int		find_file(int type);
 int		is_file_redirect_or_pipe(int type);
 int		validate_command(t_node *exec);
-void	get_index(t_list *exec);
 int		is_simple_command(t_list *tokens);
+
+//execute_multiple_commands.c
+int		execute_commands(t_list *exec, int num_pipes,
+			int **pipes, t_list *envp);
+int		execute_multiple_commands(t_list *exec, t_list *tokens,
+			t_list *envp, char *input);
 
 //execute_simple_command.c
 int		execute_simple_command(t_list *exec,
 			t_list *tokens, t_list *envp, char *input);
-int		handle_execution(t_node *exec, t_list *envp);
+int		execute_and_update_envp(t_list *exec, t_list *envp);
 
 //execution.c
 int		execute(t_list *lst_tokens, t_list *lst_exec,
 			t_list *lst_env, char *input);
+int		handle_execution(t_node *exec, t_list *envp);
+void	wait_for_children(int *status, t_list *envp);
+void	restore_file_descriptors(int fd_in, int fd_out);
 
 //finish_proccess.c
 void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input);
 void	free_matrix(char **matrix);
 void	close_fds(void);
+void	free_pipes(int **pipes);
+
+//pipe.c
+void	setup_pipes(int command_index, int fd_in,
+			int fd_out, int **pipes);
+int		count_pipes(t_list *exec);
+int		**create_pipes(int num_pipes);
+void	close_pipes(int command_index, int **pipes, int num_pipes);
+int		count_pipes2(int **pipes);
 
 /* --- source/execution/create lst exec--- */
 
@@ -187,7 +204,7 @@ char	**fill_command_table(t_node **tokens, char **command_table);
 //create_lst_exec.c
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 t_list	*initialize_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
-void	find_path(t_list *tokens, t_list *exec, t_list *envp);
+void	get_index(t_list *exec);
 
 //create_path.c
 char	*create_absolute_path(char **path_array,
@@ -231,14 +248,4 @@ int		find_heredoc(char *str);
 void	handle_heresignals(void);
 char	*ft_get_env(char *name);
 
-int		execute_multiple_commands(
-			t_list *exec, t_list *tokens, t_list *envp, char *input);
-int		**create_pipes(int num_pipes);
-int		count_pipes(t_list *exec);
-void	close_pipes(int command_index, int **pipes, int num_pipes);
-void	restore_file_descriptors(int fd_in, int fd_out);
-void	print_exec_node(t_list *exec);
-void	wait_for_children(int *status, t_list *envp);
-int		execute_and_update_envp(t_list *exec, t_list *envp);
-char	*extract_var_value(int counter, char *input);
 #endif

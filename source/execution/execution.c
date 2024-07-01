@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/29 17:15:07 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:47:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,35 +41,6 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 	return (release_memory(lst_tokens, lst_exec, input), status);
 }
 
-void	print_exec_node(t_list *exec)
-{
-	t_node	*exec_node;
-
-	exec_node = exec->head;
-	while (exec_node)
-	{
-		printf("command table : ");
-		print_matrix(exec_node->data->exec->command_table);
-		printf("\n");
-		printf("redirects and files: ");
-		print_matrix(exec_node->data->exec->redir_and_files);
-		printf("\n");
-		exec_node = exec_node->next;
-	}
-}
-
-void	print_matrix(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	while (matrix[i] != NULL)
-	{
-		printf("%s\n", matrix[i]);
-		i++;
-	}
-}
-
 int	handle_execution(t_node *exec, t_list *envp)
 {
 	(void)envp;
@@ -81,4 +52,25 @@ int	handle_execution(t_node *exec, t_list *envp)
 			return (-1);
 	}
 	return (0);
+}
+
+void	wait_for_children(int *status, t_list *envp)
+{
+	char	*sts;
+
+	sts = NULL;
+	while (wait(status) > 0)
+		;
+	if (WIFEXITED(*status))
+	{
+		sts = ft_itoa(WEXITSTATUS(*status));
+		update_env_list(envp, "?", sts);
+		free(sts);
+	}
+}
+
+void	restore_file_descriptors(int fd_in, int fd_out)
+{
+	dup2(fd_in, 0);
+	dup2(fd_out, 1);
 }

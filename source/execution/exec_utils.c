@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:59:18 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/01 18:24:39 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:50:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,6 @@ int	validate_command(t_node *exec)
 		&& exec->data->exec->envp != NULL)
 		return (1);
 	return (0);
-}
-
-void	get_index(t_list *exec)
-{
-	t_node	*aux;
-	int		i;
-
-	aux = exec->head;
-	i = 0;
-	while (aux)
-	{
-		aux->data->exec->index = i;
-		aux = aux->next;
-	}
 }
 
 int	is_simple_command(t_list *tokens)
