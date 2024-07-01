@@ -59,7 +59,7 @@ LEXR	:=	$(DIR_LEXR)/lexer									\
 HEREDOC	:=	$(DIR_PARS)/$(DIR_HEREDOC)/heredoc_signals			\
 			$(DIR_PARS)/$(DIR_HEREDOC)/handle_heredoc			\
 			$(DIR_PARS)/$(DIR_HEREDOC)/heredoc_utils			\
-			$(DIR_PARS)/$(DIR_HEREDOC)/open_heredoc_file		\
+			$(DIR_PARS)/$(DIR_HEREDOC)/open_here_prompt			\
 			$(DIR_PARS)/$(DIR_HEREDOC)/heredoc_expansion		\
 
 TYPE	:=	$(DIR_PARS)/$(DIR_TYPE)/files						\

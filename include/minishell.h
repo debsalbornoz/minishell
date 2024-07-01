@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/29 17:21:53 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 11:49:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,36 @@ int		find_new_len(const char *str, int len, int i, int counter);
 int		syntax_error(t_list *tokens, t_list	*lst_env, char *input);
 int		redirect_error(t_list	*tokens);
 int		dot_error(t_list	*tokens);
+
+/* --- source/parser/heredoc --- */
+
+//handle_heredoc.c
+t_list	*process_heredoc_tokens(t_list *tokens);
+char	*handle_heredoc(t_node *token, char *eof, char *filename);
+int		setup_heredoc_env(char *filename);
+char	*remove_eof_quotes(char *eof);
+char	*get_filename(int i);
+
+//heredoc_signals.c
+void	handle_heredoc_signals(void);
+void	handle_ctrlc_heredoc(int signal);
+int		check_signals(char *input, char *filename, int fd_in);
+
+//heredoc_utils.c
+int		is_quoted(char *eof);
+int		get_substr_len(char *input);
+int		get_var_len(char *input);
+char	*extract_var_value(int counter, char *input);
+
+//open_here_prompt.c
+int		open_prompt(char *eof, int flag, int fd, char *filename);
+void	write_in_file(char *input, int fd, int flag);
+int		open_here_file(char *filename);
+
+//heredoc_expansion.c
+char	*expand_input(char *input);
+char	*extract_substr(int *i, int counter, char *input);
+char	*ft_strjoin_free(char *s1, char *s2);
 
 /* --- source/parser/type_assignment --- */
 //builtins.c
@@ -194,35 +224,6 @@ int		find_input(char *str);
 int		find_heredoc(char *str);
 void	handle_heresignals(void);
 char	*ft_get_env(char *name);
-
-//handle_heredoc.c
-t_list	*process_heredoc_tokens(t_list *tokens);
-char	*handle_heredoc(t_node *token, char *eof, char *filename);
-char	*handle_eof(char *eof);
-int		setup_heredoc_env(char *filename);
-
-//heredoc_signals.c
-void	handle_heredoc_signals(void);
-void	handle_ctrlc_heredoc(int signal);
-int		check_signals(char *input, char *filename, int fd_in);
-
-//heredoc_utils.c
-int		is_quoted(char *eof);
-char	*remove_eof_quotes(char *eof);
-int		new_eof_size(char *eof);
-
-//open_heredoc_file.c
-char	*get_filename(int i);
-int		open_here_file(char *filename);
-int		open_prompt(char *eof, int flag, int fd, char *filename);
-void	write_in_file(char *input, int fd, int flag);
-
-//heredoc_expansion.c
-char	*expand_input(char *input);
-char	*extract_substr(int *i, int counter, char *input);
-int		get_substr_len(char *input);
-int		get_var_len(char *input);
-char	*ft_strjoin_free(char *s1, char *s2);
 
 int		execute_multiple_commands(
 			t_list *exec, t_list *tokens, t_list *envp, char *input);
