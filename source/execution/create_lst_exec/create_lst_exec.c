@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:59:33 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/29 15:47:05 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:19:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,4 @@ t_list	*initialize_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 	}
 	exec->node = exec->head;
 	return (exec);
-}
-
-void	find_path(t_list *tokens, t_list *exec, t_list *envp)
-{
-	char	*path;
-
-	envp->node = envp->head;
-	path = NULL;
-	if (!exec || !tokens || !envp)
-		return ;
-	while (exec->node)
-	{
-		if (exec->node->data->exec->command_table)
-		{
-			path = validate_path(exec->node->data->exec->command_table,
-					exec->node, envp);
-			exec->node->data->exec->path = ft_strdup(path);
-			free(path);
-		}
-		exec->node = exec->node->next;
-	}
-	exec->node = exec->head;
-	tokens->node = tokens->head;
 }

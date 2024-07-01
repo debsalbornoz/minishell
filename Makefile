@@ -77,10 +77,11 @@ PARS	:=	$(DIR_PARS)/parser									\
 
 CLEX	:=	$(DIR_EXEC)/$(DIR_CLEX)/create_lst_exec				\
 			$(DIR_EXEC)/$(DIR_CLEX)/command_table				\
-			$(DIR_EXEC)/$(DIR_CLEX)/path						\
+			$(DIR_EXEC)/$(DIR_CLEX)/create_path					\
 			$(DIR_EXEC)/$(DIR_CLEX)/save_redirects_and_files	\
 			$(DIR_EXEC)/$(DIR_CLEX)/split_path					\
 			$(DIR_EXEC)/$(DIR_CLEX)/env_list_to_str_array		\
+			$(DIR_EXEC)/$(DIR_CLEX)/validate_path				\
 
 REDR	:=	$(DIR_EXEC)/$(DIR_REDR)/handle_redirect				\
 			$(DIR_EXEC)/$(DIR_REDR)/redirect_utils				\

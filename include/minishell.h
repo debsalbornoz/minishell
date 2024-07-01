@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/01 11:59:26 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/01 12:31:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include "env_list.h"
 # include "builtins.h"
 # include "../library/lib.h"
+# include <sys/types.h>
+# include <sys/stat.h>
 
 /* --- source/main --- */
 // program.c
@@ -187,17 +189,14 @@ t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 t_list	*initialize_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 void	find_path(t_list *tokens, t_list *exec, t_list *envp);
 
+//create_path.c
+char	*create_absolute_path(char **path_array,
+			char **command_table, t_node *exec);
+char	*concatenate_path(char *path, char *command);
+
 //env_list_to_str_array.c
 char	**env_list_to_str_array(t_list *lst_env);
 char	*build_env_var(char *s1, char *s2);
-
-//path.c
-char	*create_absolute_path(char **path_array, \
-		char **command_table, t_node *exec);
-char	*concatenate_path(char *path, char *command);
-char	*validate_path(char **command_table, t_node *exec, t_list *envp);
-int		is_absolute_path(char **command_table);
-int		is_executable(t_node *exec, char *path);
 
 //save_redirects_and_files.c
 void	save_redirects_and_files(t_list *exec, t_list *tokens);
@@ -210,6 +209,13 @@ int		count_paths(const char *value);
 char	*return_value(t_list *envp, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
+
+//validate_path.c
+void	find_path(t_list *tokens, t_list *exec, t_list *envp);
+char	*validate_path(char **command_table, t_node *exec, t_list *envp);
+int		check_command_validity(char *command, t_list *envp);
+int		is_executable(t_node *exec, char *path);
+int		is_absolute_path(char **command_table);
 
 /* --- source/execution/redirects--- */
 //handle_redirect.c
