@@ -69,12 +69,12 @@ void	wait_for_children(int *status, t_list *envp)
 	sts = NULL;
 	while (wait(status) > 0)
 		;
-	if (WIFEXITED(*status))
-	{
+	//if (WEXITSTATUS(*status))
+	//{
 		sts = ft_itoa(WEXITSTATUS(*status));
 		update_env_list(envp, "?", sts);
 		free(sts);
-	}
+	//}
 }
 
 void	restore_file_descriptors(int fd_in, int fd_out)
