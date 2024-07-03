@@ -56,6 +56,8 @@ void	create_multi_cmd_table(t_list *tokens, t_list *exec)
 	while (exec->node)
 	{
 		command_table = allocate_cmd_table(tokens->node);
+		if (!command_table)
+			return ;
 		command_table = fill_command_table(&tokens->node, command_table);
 		if (*command_table == NULL)
 			free(command_table);
