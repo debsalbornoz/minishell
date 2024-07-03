@@ -33,23 +33,10 @@ int	execute_simple_command(t_list *exec,
 	{
 		if (handle_redirect(exec->head, envp, ft_stdin, ft_stdout) == -1)
 			finish_process(exec, tokens, envp, input);
-		execute_and_update_envp(exec, envp);
+		handle_execution(exec->head, envp);
 		finish_process(exec, tokens, envp, input);
 	}
 	else
 		wait_for_children(&status, envp);
-	return (0);
-}
-
-int	execute_and_update_envp(t_list *exec, t_list *envp)
-{
-	handle_execution(exec->head, envp);
-	if (exec->node->data->exec->command_table
-		&& exec->node->data->exec->path == NULL
-		&& ft_strncmp("126", ft_get_env("?"), 3) != 0)
-	{
-		update_env_list(envp, "?", "127");
-		ft_putstr_fd("command not found\n", 2);
-	}
 	return (0);
 }

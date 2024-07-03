@@ -32,6 +32,7 @@ int	execute_multiple_commands(t_list *exec, t_list *tokens,
 		finish_process(exec, tokens, envp, input);
 	restore_file_descriptors(fd_in, fd_out);
 	wait_for_children(&status, envp);
+	free_pipes(pipes);
 	return (0);
 }
 
@@ -47,7 +48,8 @@ int	handle_multi_exec(t_list *exec, int num_pipes, int **pipes)
 	node = exec->head;
 	while (node != NULL)
 	{
-		fork_and_execute_command(ft_stdin, ft_stdout, pipes, node);
+		if (fork_and_execute_command(ft_stdin, ft_stdout, pipes, node) == -1)
+			return (-1);
 		node = node->next;
 	}
 	return (0);
@@ -68,7 +70,8 @@ int	fork_and_execute_command(int ft_stdin, int ft_stdout,
 		setup_pipes(node->data->exec->index, ft_stdin, ft_stdout, pipes);
 		if (handle_redirect(node, envp, ft_stdin, ft_stdout) == -1)
 			return (-1);
-		handle_execution(node, envp);
+		if (handle_execution(node, envp) == -1)
+			return (-1);
 		restore_file_descriptors(ft_stdin, ft_stdout);
 	}
 	else

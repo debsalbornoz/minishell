@@ -37,6 +37,7 @@ t_list	*process_heredoc_tokens(t_list *tokens)
 			i++;
 		token = token->next;
 	}
+	handle_signal();
 	return (tokens);
 }
 

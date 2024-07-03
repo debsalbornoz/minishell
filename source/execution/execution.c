@@ -51,6 +51,14 @@ int	handle_execution(t_node *exec, t_list *envp)
 				exec->data->exec->envp) == -1)
 			return (-1);
 	}
+	if (exec->data->exec->command_table
+		&& exec->data->exec->path == NULL
+	&& ft_strncmp("126", ft_get_env("?"), 3) != 0)
+	{
+		update_env_list(envp, "?", "127");
+		ft_putstr_fd("command not found\n", 2);
+		return (-1);
+	}
 	return (0);
 }
 

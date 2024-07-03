@@ -23,18 +23,19 @@ int	handle_redirect(t_node *exec, t_list *envp, int fd_in, int fd_out)
 	i = 0;
 	if (!exec->data->exec->redir_and_files)
 		return (0);
-	restore_file_descriptors(fd_in, fd_out);
 	while (exec->data->exec->redir_and_files[i])
 	{
 		if (find_output(exec->data->exec->redir_and_files[i])
 			|| find_append(exec->data->exec->redir_and_files[i]))
 		{
+			dup2(fd_out, 1);
 			if (open_file(exec->data->exec->redir_and_files, i, 1, envp) == -1)
 				return (-1);
 		}
 		if (find_input(exec->data->exec->redir_and_files[i])
 			|| find_heredoc(exec->data->exec->redir_and_files[i]))
 		{
+			dup2(fd_in, 0);
 			if (open_file(exec->data->exec->redir_and_files, i, 0, envp) == -1)
 				return (-1);
 		}
