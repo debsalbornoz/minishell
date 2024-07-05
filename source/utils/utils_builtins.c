@@ -21,3 +21,17 @@ int	is_builtins(int type)
 {
 	return (type >= ECHO && type <= EXIT);
 }
+
+
+int	is_valid_first_char(char chr)
+{
+	return ((chr >= 'A' && chr <= 'Z')
+		|| (chr >= 'a' && chr <= 'z') || (chr == '_'));
+}
+
+
+int	is_valid_char(char chr)
+{
+	return (is_valid_first_char(chr)
+		|| (chr >= '0' && chr <= '9') || (chr == '.'));
+}

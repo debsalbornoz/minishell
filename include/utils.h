@@ -38,6 +38,8 @@ int		is_append(char chr, char next_chr);
 // utils_builtins.c
 int		is_command(int type);
 int		is_builtins(int type);
+int		is_valid_first_char(char chr);
+int		is_valid_char(char chr);
 
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
