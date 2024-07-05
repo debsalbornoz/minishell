@@ -28,13 +28,14 @@ int	mini_export(char **exec, t_list *envp)
 	env = ft_calloc(1, sizeof(t_env));
 	while (++iterator, exec[iterator])
 	{
+		if (!is_valid_first_char(*exec[iterator]))
+			return (1);
 		env = get_env(env, exec[iterator]);
 		if (ft_str_exist(env->name) && check_name(env->name))
 			return (1);
 		update_env_list(envp, env->name, env->value);
-		free_env(env);
 	}
-	return (0);
+	return (free_env(env), 0);
 }
 
 static t_node	*print_for_export(t_node *nde)
@@ -60,11 +61,12 @@ static t_env	*get_env(t_env *env, char *string)
 
 static void	free_env(t_env *env)
 {
-	if (env->name && *env->name)
+	if (ft_str_exist(env->name))
 		free(env->name);
-	if (env->value && *env->value)
+	if (ft_str_exist(env->value))
 		free(env->value);
-	free(env);
+	if (env)
+		free(env);
 }
 
 static int	check_name(char *name)

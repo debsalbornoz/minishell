@@ -71,9 +71,9 @@ void	wait_for_children(int *status, t_list *envp)
 		;
 	//if (WEXITSTATUS(*status))
 	//{
-		sts = ft_itoa(WEXITSTATUS(*status));
-		update_env_list(envp, "?", sts);
-		free(sts);
+	sts = ft_itoa(WEXITSTATUS(*status));
+	update_env_list(envp, "?", sts);
+	free(sts);
 	//}
 }
 
