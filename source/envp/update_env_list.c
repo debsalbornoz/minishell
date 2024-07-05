@@ -90,7 +90,11 @@ int	exist_var(t_list *envp, char *name)
 	envp->node = envp->head;
 	while (envp->node)
 	{
-		if (!ft_strcmp(envp->node->data->env->name, name))
+		if (envp->node == envp->head
+			&& !ft_strcmp(envp->node->data->env->name, name))
+			return (1);
+		if (envp->node->next
+			&& !ft_strcmp(envp->node->next->data->env->name, name))
 			return (1);
 		if (envp->node->next)
 			envp->node = envp->node->next;
