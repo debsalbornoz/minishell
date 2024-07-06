@@ -26,7 +26,7 @@ int		mini_echo(char **exec);
 int		mini_unset(char **exec, t_list *envp);
 void	mini_env(t_list *envp);
 int		mini_export(char **exec, t_list *envp);
-int		mini_exit(void);
+int		mini_exit(char **exec, t_list *envp);
 
 union u_func
 {

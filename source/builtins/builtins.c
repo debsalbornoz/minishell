@@ -16,23 +16,6 @@
 static void	hadle_redir(t_list *exec, t_list *envp, int ftype, union u_func f);
 static int	select_func(t_list *exec, t_list *envp, int ftype, union u_func f);
 
-/*
-	- [x] Obs.: implementar verificação de erros atualizando a variavel
-		de ambiente '?'.
-	- [x] implementar 'cd'.
-		- [ ] Obs.: verificar a atualização da variável de ambiente
-			'OLDPWD' e 'PWD'.
-	- [x] implementar pwd;
-	- [x] implementar 'echo'
-	- [x] implementar 'exit'
-		- [ ] Obs.: Em 'exit' falta implementar parâmetro numérico.
-	- [ ] implementar 'unset'
-	- [x] implementar 'export'
-		- [ ] Obs.: Em 'export' falta implementar alterações de variáveis.
-	- [x] implementar 'env'
-		- [ ] Obs.: Em 'env' falta implementar alterações de variáveis.
-*/
-
 int	builtins(t_list *exec, t_list *envp)
 {
 	char	**cmd_table;
@@ -50,7 +33,7 @@ int	builtins(t_list *exec, t_list *envp)
 		return (mini_env(envp), 0);
 	else if (!ft_strcmp(*cmd_table, "export"))
 		return (hadle_redir(exec, envp, 1, (union u_func)mini_export), 0);
-	return (mini_exit());
+	return (mini_exit(cmd_table, envp));
 }
 
 static void	hadle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
