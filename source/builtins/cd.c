@@ -23,7 +23,7 @@ int	mini_cd(char **exec)
 	if (!ft_str_exist(*(copy_exec + 1)))
 		return (change_directory(cwd, getenv("HOME")));
 	else if (++copy_exec, ft_str_exist(*(copy_exec + 1)))
-		return (printf("cd: too many args for command\n"), 1);
+		return (printf(" too many arguments\n"), 1);
 	return (change_directory(cwd, *copy_exec));
 }
 
