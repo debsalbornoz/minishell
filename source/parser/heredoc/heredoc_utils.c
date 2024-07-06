@@ -3,34 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/01 18:15:48 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 18:16:41 by dlamark-         ###   ########.fr       */
+/*   Created: 2024/06/10 13:55:37 by codespace         #+#    #+#             */
+/*   Updated: 2024/07/01 11:44:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-char	**allocate_eof(t_node *exec)
+int	is_quoted(char *eof)
 {
-	int		counter;
-	t_node	*aux;
-	char	**eof;
-	int		i;
+	int	i;
 
 	i = 0;
-	aux = exec;
-	counter = 0;
-	eof = NULL;
-	while (aux->data->exec->redir_and_files[i])
+	while (eof[i])
 	{
-		if (find_heredoc(aux->data->exec->redir_and_files[i])
-			&& aux->data->exec->redir_and_files[i + 1])
-			counter++;
+		if (eof[i] == '\'' || eof[i] == '\"')
+			return (1);
 		i++;
 	}
-	if (counter > 0)
-		eof = ft_calloc(counter + 1, sizeof(char *));
-	return (eof);
+	return (0);
+}
+
+int	get_var_len(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] != ' ' && input[i] != '$' && input[i] != '\0')
+		i++;
+	return (i);
+}
+
+int	get_substr_len(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] != '$' && input[i] != '\0')
+		i++;
+	return (i);
 }

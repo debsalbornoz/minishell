@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:53:28 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 19:47:40 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/07 23:28:20 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ int		is_redirect_output(char chr);
 int		is_heredoc(char chr, char next_chr);
 int		is_append(char chr, char next_chr);
 
-// utils_tokens.c
-t_node	*print_lst_tokens(t_node *node);
-
 // utils_builtins.c
 int		is_command(int type);
 int		is_builtins(int type);
+int		is_valid_first_char(char chr);
+int		is_valid_char(char chr);
 
 // utils_ft.c
 int		ft_strcmp(char	*str1, char *str2);
 char	*ft_chrjoin(char *dest, char src);
 char	*ft_rmchr(char *input, char *position);
+int		ft_str_exist(char *sting);
 
 #endif

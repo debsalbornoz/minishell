@@ -3,39 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 20:34:23 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/08 15:41:33 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
-/*
-	- [ ] Falta implementar '~' e '/'
-	- [ ] Está com falha de segmentação quando tento expandir alguma variável
-*/
+static int	change_directory(char *cwd, char *path);
 
-int	mini_cd(t_list *token)
+int	mini_cd(char **exec)
 {
 	char	cwd[2048];
+	char	**copy_exec;
 
-	if (token->node->next)
-		token->node = token->node->next;
-	else
-		return (chdir("~"), 0);
-	if (token->node->next && token->node->next->data->token->type != PIPE)
-	{
-		fprintf(stderr, "número excessivo de argumentos\n");
-		return (1);
-	}
-	if (chdir(token->node->data->token->value))
-	{
-		perror("chdir");
-		return (1);
-	}
-	if (!getcwd(cwd, sizeof(cwd)))
+	copy_exec = exec;
+	if (!ft_str_exist(*(copy_exec + 1)))
+		return (change_directory(cwd, getenv("HOME")));
+	else if (++copy_exec, ft_str_exist(*(copy_exec + 1)))
+		return (printf(" too many arguments\n"), 1);
+	return (change_directory(cwd, *copy_exec));
+}
+
+static int	change_directory(char *cwd, char *path)
+{
+	if (chdir(path))
+		return (perror("chdir"), 1);
+	if (!getcwd(cwd, sizeof(char) * 2048))
 		return (perror("getcwd"), 1);
 	return (0);
 }

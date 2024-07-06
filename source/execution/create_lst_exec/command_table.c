@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 18:28:20 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:17:21 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,6 @@ void	create_command_table(t_list *tokens, t_list *exec)
 		create_multi_cmd_table(tokens, exec);
 	tokens->node = tokens->head;
 	exec->node = exec->head;
-}
-
-char	**allocate_cmd_table(t_node *tokens)
-{
-	int		counter;
-	t_node	*aux;
-	char	**command_table;
-
-	aux = tokens;
-	command_table = NULL;
-	counter = 0;
-	while (aux)
-	{
-		if (!is_file_redirect_or_pipe(aux->data->token->type))
-			counter++;
-		if (aux->data->token->type == PIPE)
-			break ;
-		aux = aux->next;
-	}
-	if (counter > 0)
-		command_table = ft_calloc(counter + 1, sizeof(char *));
-	if (!command_table)
-		return (NULL);
-	return (command_table);
 }
 
 void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
@@ -80,6 +56,8 @@ void	create_multi_cmd_table(t_list *tokens, t_list *exec)
 	while (exec->node)
 	{
 		command_table = allocate_cmd_table(tokens->node);
+		if (!command_table)
+			return ;
 		command_table = fill_command_table(&tokens->node, command_table);
 		if (*command_table == NULL)
 			free(command_table);
@@ -114,5 +92,29 @@ char	**fill_command_table(t_node **tokens, char **command_table)
 	}
 	*tokens = current;
 	command_table[i] = NULL;
+	return (command_table);
+}
+
+char	**allocate_cmd_table(t_node *tokens)
+{
+	int		counter;
+	t_node	*aux;
+	char	**command_table;
+
+	aux = tokens;
+	command_table = NULL;
+	counter = 0;
+	while (aux)
+	{
+		if (!is_file_redirect_or_pipe(aux->data->token->type))
+			counter++;
+		if (aux->data->token->type == PIPE)
+			break ;
+		aux = aux->next;
+	}
+	if (counter > 0)
+		command_table = ft_calloc(counter + 1, sizeof(char *));
+	if (!command_table)
+		return (NULL);
 	return (command_table);
 }

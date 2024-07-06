@@ -6,31 +6,35 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:42 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 20:34:45 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/23 15:03:04 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
-void	mini_echo(t_list *token)
+int	mini_echo(char **exec)
 {
-	int	newline;
+	int		newline;
+	char	**copy_exec;
 
 	newline = 0;
-	token->node = token->node->next;
-	while (token->node && (token->node->data->token->type != PIPE))
+	copy_exec = exec;
+	if (!*(copy_exec + 1))
+		return (printf("\n"), 0);
+	while (++copy_exec, ft_str_exist(*copy_exec))
 	{
-		if (!ft_strcmp(token->node->data->token->value, "-n"))
+		if (!ft_strcmp(*copy_exec, "-n"))
 			newline++;
-		printf("%s", token->node->data->token->value);
-		if (token->node->next)
-		{
-			printf(" ");
-			token->node = token->node->next;
-		}
 		else
-			break ;
+		{
+			printf("%s", *copy_exec);
+			if (*(copy_exec + 1))
+				printf(" ");
+			else
+				break ;
+		}
 	}
 	if (!newline)
-		printf("\n");
+		return (printf("\n"), 0);
+	return (0);
 }

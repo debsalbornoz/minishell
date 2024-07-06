@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_quote.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:16:31 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/07 18:43:42 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/07 23:27:33 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/utils.h"
 
 int	is_quote(char chr)
 {

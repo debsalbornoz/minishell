@@ -3,27 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 14:59:33 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 18:28:37 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:35:10 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-#include <string.h>
 
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 {
 	exec = initialize_lst_exec(tokens, exec, envp);
-	if (exec->node)
-	{
-		create_command_table(tokens, exec);
-		find_path(tokens, exec, envp);
-		save_redirects_and_files(exec, tokens);
-		get_index(exec);
-	}
+	if (!exec->node)
+		return (NULL);
+	create_command_table(tokens, exec);
+	find_path(tokens, exec, envp);
+	save_redirects_and_files(exec, tokens);
+	get_index(exec);
 	envp->node = envp->head;
+	exec->node = exec->head;
 	return (exec);
 }
 
@@ -54,25 +53,17 @@ t_list	*initialize_lst_exec(t_list *tokens, t_list *exec, t_list *envp)
 	return (exec);
 }
 
-void	find_path(t_list *tokens, t_list *exec, t_list *envp)
+void	get_index(t_list *exec)
 {
-	char	*path;
+	t_node	*aux;
+	int		i;
 
-	envp->node = envp->head;
-	path = NULL;
-	if (!exec || !tokens || !envp)
-		return ;
-	while (exec->node)
+	aux = exec->head;
+	i = 0;
+	while (aux)
 	{
-		if (exec->node->data->exec->command_table)
-		{
-			path = validate_path(exec->node->data->exec->command_table,
-					exec->node, envp);
-			exec->node->data->exec->path = ft_strdup(path);
-			free(path);
-		}
-		exec->node = exec->node->next;
+		aux->data->exec->index = i;
+		aux = aux->next;
+		i++;
 	}
-	exec->node = exec->head;
-	tokens->node = tokens->head;
 }

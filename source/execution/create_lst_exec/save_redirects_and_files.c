@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_redirects_and_files.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 20:11:54 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/01 18:16:45 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:01:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,22 @@ void	save_redirects_and_files(t_list *exec, t_list *tokens)
 	while (exec->node)
 	{
 		redir_and_files = allocate_redir_and_files(tokens->node);
+		if (redir_and_files)
+		{
+			redir_and_files = get_redirects_and_files(&tokens->node,
+					redir_and_files);
+			exec->node->data->exec->redir_and_files = redir_and_files;
+			exec->node = exec->node->next;
+		}
 		if (!redir_and_files)
-			return ;
-		redir_and_files = get_redirects_and_files(&tokens->node,
-				redir_and_files);
-		exec->node->data->exec->redir_and_files = redir_and_files;
-		exec->node = exec->node->next;
+		{
+			while (tokens->node->data->token->type != PIPE
+				&& tokens->node->next)
+				tokens->node = tokens->node->next;
+			if (tokens->node->data->token->type == PIPE && tokens->node->next)
+				tokens->node = tokens->node->next;
+			exec->node = exec->node->next;
+		}
 	}
 	tokens->node = tokens->head;
 	exec->node = exec->head;

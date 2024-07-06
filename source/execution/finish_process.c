@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 18:22:10 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 18:23:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:45:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input)
 {
+	int		status;
+	char	*var;
+
+	var = ft_get_env("?");
+	status = ft_atoi(var);
 	free_list(exec, free_lst_exec);
 	free_list(tokens, free_lst_tokens);
 	free_list(envp, free_lst_env);
 	free(input);
 	close_fds();
-	exit(2);
+	exit(status);
 }
 
 void	free_matrix(char **matrix)
@@ -47,4 +52,17 @@ void	close_fds(void)
 		close(fd);
 		fd++;
 	}
+}
+
+void	free_pipes(int **pipes)
+{
+	int	i;
+
+	i = 0;
+	while (pipes[i] != NULL)
+	{
+		free(pipes[i]);
+		i++;
+	}
+	free(pipes);
 }

@@ -1,6 +1,6 @@
 NAME	:=	minishell
 
-CFLAGS	:=	-Wall -Wextra -Werror -g3 -Ofast
+CFLAGS	:=	-Wall -Wextra -Werror -g3
 
 CRST	:=	"\033[0m"
 CGRN	:=	"\033[32m"
@@ -18,6 +18,7 @@ DIR_LEXR	:=	lexer
 DIR_TYPE	:=	type_assignment
 DIR_UTLS	:=	utils
 DIR_PARS	:=	parser
+DIR_HEREDOC	:=	heredoc
 DIR_CLEX	:=	create_lst_exec
 DIR_REDR	:=	redirects
 DIR_EXEC	:=	execution
@@ -36,6 +37,7 @@ DIR_PARS	:=	parser
 DIR_EXEC	:=	execution
 DIR_BUIL	:=	builtins
 DIR_UTLS	:=	utils
+DIR_HEREDOC	:=	heredoc
 
 MAIN 	:=	$(DIR_MAIN)/main									\
 			$(DIR_MAIN)/program									\
@@ -54,6 +56,12 @@ LEXR	:=	$(DIR_LEXR)/lexer									\
 			$(DIR_LEXR)/process_word							\
 			$(DIR_LEXR)/process_delimiter						\
 
+HEREDOC	:=	$(DIR_PARS)/$(DIR_HEREDOC)/heredoc_signals			\
+			$(DIR_PARS)/$(DIR_HEREDOC)/handle_heredoc			\
+			$(DIR_PARS)/$(DIR_HEREDOC)/heredoc_utils			\
+			$(DIR_PARS)/$(DIR_HEREDOC)/open_here_prompt			\
+			$(DIR_PARS)/$(DIR_HEREDOC)/heredoc_expansion		\
+
 TYPE	:=	$(DIR_PARS)/$(DIR_TYPE)/files						\
 			$(DIR_PARS)/$(DIR_TYPE)/path						\
 			$(DIR_PARS)/$(DIR_TYPE)/builtins					\
@@ -69,28 +77,28 @@ PARS	:=	$(DIR_PARS)/parser									\
 
 CLEX	:=	$(DIR_EXEC)/$(DIR_CLEX)/create_lst_exec				\
 			$(DIR_EXEC)/$(DIR_CLEX)/command_table				\
-			$(DIR_EXEC)/$(DIR_CLEX)/path						\
+			$(DIR_EXEC)/$(DIR_CLEX)/create_path					\
 			$(DIR_EXEC)/$(DIR_CLEX)/save_redirects_and_files	\
 			$(DIR_EXEC)/$(DIR_CLEX)/split_path					\
 			$(DIR_EXEC)/$(DIR_CLEX)/env_list_to_str_array		\
+			$(DIR_EXEC)/$(DIR_CLEX)/validate_path				\
 
 REDR	:=	$(DIR_EXEC)/$(DIR_REDR)/handle_redirect				\
 			$(DIR_EXEC)/$(DIR_REDR)/redirect_utils				\
-			$(DIR_EXEC)/$(DIR_REDR)/heredoc						\
-			$(DIR_EXEC)/$(DIR_REDR)/heredoc_utils				\
 
 
 EXEC	:=	$(DIR_EXEC)/execution								\
 			$(DIR_EXEC)/exec_utils								\
 			$(DIR_EXEC)/execute_simple_command					\
 			$(DIR_EXEC)/finish_process							\
+			$(DIR_EXEC)/execute_multiple_commands				\
+			$(DIR_EXEC)/pipe									\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft								\
 			$(DIR_UTLS)/utils_quote								\
-			$(DIR_UTLS)/utils_tokens							\
 			$(DIR_UTLS)/utils_redirect							\
 			$(DIR_UTLS)/utils_delimiter							\
-#			$(DIR_UTLS)/utils_builtins							\
+			$(DIR_UTLS)/utils_builtins							\
 
 BUIL	:=	$(DIR_BUIL)/cd										\
 			$(DIR_BUIL)/pwd										\
@@ -107,6 +115,7 @@ SRCS	:=	${MAIN}												\
 			${EXPD}												\
 			${LEXR}												\
 			${TYPE}												\
+			$(HEREDOC)											\
 			$(PARS)												\
 			${CLEX}												\
 			$(REDR)												\
@@ -140,6 +149,7 @@ $(DIR_OBJS):
 	mkdir -p $@/$(DIR_EXEC)
 	mkdir -p $@/$(DIR_UTLS)
 	mkdir -p $@/$(DIR_BUIL)
+	mkdir -p $@/$(DIR_PARS)/$(DIR_HEREDOC)
 
 $(NAME): make_libft $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(INCS) -o $(NAME)

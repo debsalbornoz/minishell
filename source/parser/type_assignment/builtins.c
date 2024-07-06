@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:12:07 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/20 12:14:18 by codespace        ###   ########.fr       */
+/*   Updated: 2024/06/07 23:38:23 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
+
+static int	classify_builtin_type(int type);
 
 t_node	*is_builtin(t_node *node)
 {
@@ -32,9 +34,10 @@ t_node	*is_builtin(t_node *node)
 	builtins[7] = NULL;
 	while (builtins[i] != NULL)
 	{
-		if (identify_builtin(token, builtins[i++], token_len)
-			&& node->data->token->type == WORD)
-			node->data->token->type = BUILTIN;
+		if (identify_builtin(token, builtins[i], token_len)
+			&& node->data->token->type == COMMAND)
+			node->data->token->type = classify_builtin_type(i);
+		i++;
 	}
 	return (node);
 }
@@ -85,4 +88,21 @@ int	compare_quoted_strings(char *token, char *builtin)
 		}
 	}
 	return (0);
+}
+
+static int	classify_builtin_type(int type)
+{
+	if (type == 0)
+		return (ECHO);
+	else if (type == 1)
+		return (CD);
+	else if (type == 2)
+		return (PWD);
+	else if (type == 3)
+		return (EXPORT);
+	else if (type == 4)
+		return (UNSET);
+	else if (type == 5)
+		return (ENV);
+	return (EXIT);
 }

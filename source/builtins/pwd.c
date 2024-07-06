@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:36:01 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 20:36:34 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:09:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
-void	mini_pwd(void)
+int	mini_pwd(char **exec)
 {
-	char	*path;
+	char	path[2048];
 
-	path = getcwd(NULL, 0);
-	printf("%s\n", path);
-	free(path);
+	(void)exec;
+	if (!getcwd(path, sizeof(path)))
+		return (perror("getcwd"), 1);
+	return (printf("%s\n", path), 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/02 17:11:00 by jraupp           ###   ########.fr       */
+/*   Updated: 2024/07/01 13:45:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 # define MINISHELL_H
 
 # include "utils.h"
+# include "structs.h"
+# include <limits.h>
+# include "env_list.h"
 # include "builtins.h"
 # include "../library/lib.h"
-# include "structs.h"
-#include <limits.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 
 /* --- source/main --- */
 // program.c
@@ -33,23 +36,6 @@ void	handle_signal(void);
 t_list	*add_node(t_list *list);
 t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
 int		count_nodes(t_list *lst);
-
-// free.c
-void	free_list(t_list *list, void (f)(t_list *));
-void	free_lst_tokens(t_list *tokens);
-void	free_lst_env(t_list *envp);
-void	free_lst_exec(t_list *exec);
-void	release_memory(t_list *tokens, t_list *exec, char *input);
-
-/* --- source/envp/ --- */
-//create_env_list.c
-t_list	*data_env_addr(void);
-t_list	*create_env_list(char **envp, t_list *env_lst);
-char	*get_envp_name(char *envp);
-char	*get_envp_value(char *envp);
-
-//update_env_list.c
-void	update_env_list(t_list *envp, char *name, char *value);
 
 /* --- source/expander/ --- */
 // expand_part1.c
@@ -113,6 +99,36 @@ int		syntax_error(t_list *tokens, t_list	*lst_env, char *input);
 int		redirect_error(t_list	*tokens);
 int		dot_error(t_list	*tokens);
 
+/* --- source/parser/heredoc --- */
+
+//handle_heredoc.c
+t_list	*process_heredoc_tokens(t_list *tokens);
+char	*handle_heredoc(t_node *token, char *eof, char *filename);
+int		setup_heredoc_env(char *filename);
+char	*remove_eof_quotes(char *eof);
+char	*get_filename(int i);
+
+//heredoc_signals.c
+void	handle_heredoc_signals(void);
+void	handle_ctrlc_heredoc(int signal);
+int		check_signals(char *input, char *filename, int fd_in);
+
+//heredoc_utils.c
+int		is_quoted(char *eof);
+int		get_substr_len(char *input);
+int		get_var_len(char *input);
+char	*extract_var_value(int counter, char *input);
+
+//open_here_prompt.c
+int		open_prompt(char *eof, int flag, int fd, char *filename);
+void	write_in_file(char *input, int fd, int flag);
+int		open_here_file(char *filename);
+
+//heredoc_expansion.c
+char	*expand_input(char *input, int i, int counter);
+char	*extract_substr(int *i, int counter, char *input);
+char	*ft_strjoin_free(char *s1, char *s2);
+
 /* --- source/parser/type_assignment --- */
 //builtins.c
 t_node	*is_builtin(t_node *node);
@@ -140,22 +156,40 @@ t_list	*type_assignment(t_list *tokens);
 int		find_file(int type);
 int		is_file_redirect_or_pipe(int type);
 int		validate_command(t_node *exec);
-void	get_index(t_list *exec);
 int		is_simple_command(t_list *tokens);
+
+//execute_multiple_commands.c
+int		execute_multiple_commands(t_list *exec, t_list *tokens,
+			t_list *envp, char *input);
+int		handle_multi_exec(t_list *exec, int num_pipes, int **pipes);
+int		fork_and_execute_command(int ft_stdin, int ft_stdout,
+			int **pipes, t_node *node);
 
 //execute_simple_command.c
 int		execute_simple_command(t_list *exec,
 			t_list *tokens, t_list *envp, char *input);
-int		redirect_and_execute(t_node *exec, t_list *envp);
+int		execute_and_update_envp(t_list *exec, t_list *envp);
 
 //execution.c
-t_list	*execute(t_list *lst_tokens, t_list *lst_exec,
+int		execute(t_list *lst_tokens, t_list *lst_exec,
 			t_list *lst_env, char *input);
+int		handle_execution(t_node *exec, t_list *envp);
+void	wait_for_children(int *status, t_list *envp);
+void	restore_file_descriptors(int fd_in, int fd_out);
 
 //finish_proccess.c
 void	finish_process(t_list *exec, t_list *tokens, t_list *envp, char *input);
 void	free_matrix(char **matrix);
 void	close_fds(void);
+void	free_pipes(int **pipes);
+
+//pipe.c
+void	setup_pipes(int command_index, int fd_in,
+			int fd_out, int **pipes);
+int		count_pipes(t_list *exec);
+int		**create_pipes(int num_pipes);
+void	close_pipes(int command_index, int **pipes, int num_pipes);
+int		count_pipes2(int **pipes);
 
 /* --- source/execution/create lst exec--- */
 
@@ -171,19 +205,16 @@ char	**fill_command_table(t_node **tokens, char **command_table);
 //create_lst_exec.c
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
 t_list	*initialize_lst_exec(t_list *tokens, t_list *exec, t_list *envp);
-void	find_path(t_list *tokens, t_list *exec, t_list *envp);
+void	get_index(t_list *exec);
+
+//create_path.c
+char	*create_absolute_path(char **path_array,
+			char **command_table, t_node *exec);
+char	*concatenate_path(char *path, char *command);
 
 //env_list_to_str_array.c
 char	**env_list_to_str_array(t_list *lst_env);
 char	*build_env_var(char *s1, char *s2);
-
-//path.c
-char	*create_absolute_path(char **path_array, \
-		char **command_table, t_node *exec);
-char	*concatenate_path(char *path, char *command);
-char	*validate_path(char **command_table, t_node *exec, t_list *envp);
-int		is_absolute_path(char **command_table);
-int		is_executable(t_node *exec, char *path);
 
 //save_redirects_and_files.c
 void	save_redirects_and_files(t_list *exec, t_list *tokens);
@@ -197,26 +228,25 @@ char	*return_value(t_list *envp, char *name);
 char	*get_path(char *value, int i, int len, int j);
 int		get_len(char *value);
 
+//validate_path.c
+void	find_path(t_list *tokens, t_list *exec, t_list *envp);
+char	*validate_path(char **command_table, t_node *exec, t_list *envp);
+int		check_command_validity(char *command, t_list *envp);
+int		is_executable(t_node *exec, char *path);
+int		is_absolute_path(char **command_table);
+
 /* --- source/execution/redirects--- */
 //handle_redirect.c
-int		handle_redirect(t_node *exec, t_list *envp);
-int		open_file(t_node *exec, int i, int flag, t_list *envp);
+int		handle_redirect(t_node *exec, t_list *envp, int fd_in, int fd_out);
+int		open_file(char **redir_and_files, int i, int flag, t_list *envp);
 int		set_flag(char *redirect);
-
-//heredoc_utils.c
-char	**allocate_eof(t_node *exec);
-
-//heredoc.c
-void	handle_heredoc(t_node *exec);
-char	*create_heredoc_file(t_node *exec, int j);
-char	*get_filename(int i);
-void	open_heredoc_file(int fd, char *eof, char *filename);
-int		heredoc_flags(int signal);
 
 //redirect_utils.c
 int		find_output(char *str);
 int		find_append(char *str);
 int		find_input(char *str);
 int		find_heredoc(char *str);
+void	handle_heresignals(void);
+char	*ft_get_env(char *name);
 
 #endif

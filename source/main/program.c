@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/25 15:56:43 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:35:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	program(t_list *envp)
 	input = readline("¯\\_(ツ)_/¯: ");
 	if (!input)
 	{
-		printf("\n");
+		printf("exit\n");
+		update_env_list(envp, "?", "131");
 		return (FALSE);
 	}
-	input = trim_start_spaces(input);
 	if (!*input)
 		return (TRUE);
 	input = expand(envp, input);
@@ -36,7 +36,7 @@ int	program(t_list *envp)
 	if (!parser(&tokens, envp, input))
 		return (TRUE);
 	tokens.node = tokens.head;
-	exec = *execute(&tokens, &exec, envp, input);
-	release_memory(&tokens, &exec, input);
+	if (execute(&tokens, &exec, envp, input))
+		return (FALSE);
 	return (TRUE);
 }
