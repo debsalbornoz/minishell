@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_multiple_commands.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 11:32:29 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/01 13:46:48 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/07 16:27:24 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int	fork_and_execute_command(int ft_stdin, int ft_stdout,
 		if (handle_redirect(node, envp, ft_stdin, ft_stdout) == -1)
 			return (-1);
 		if (handle_execution(node, envp) == -1)
+		{
+			printf("?\n");
 			return (-1);
+		}
 		restore_file_descriptors(ft_stdin, ft_stdout);
 	}
 	else

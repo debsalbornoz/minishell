@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:29:20 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/01 12:31:14 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/07 16:15:13 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 	envp->node = envp->head;
 	if (is_absolute_path(command_table))
 	{
-		if (check_command_validity(command_table[0], envp) == -1)
+		if (check_command_validity(command_table[0], envp, command_table) == -1)
 			return (NULL);
 		absolute_path = ft_strdup(command_table[0]);
 		free_matrix(path_array);
@@ -57,7 +57,7 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 	return (absolute_path);
 }
 
-int	check_command_validity(char *command, t_list *envp)
+int	check_command_validity(char *command, t_list *envp, char **command_table)
 {
 	struct stat	st;
 
@@ -69,7 +69,7 @@ int	check_command_validity(char *command, t_list *envp)
 		ft_putstr_fd("Permission denied", 2);
 		return (-1);
 	}
-	if (stat(command, &st) == 0)
+	if (stat(command, &st) == 0 && !is_absolute_path(command_table))
 	{
 		update_env_list(envp, "?", "126");
 		ft_putstr_fd("Is a diretory", 2);

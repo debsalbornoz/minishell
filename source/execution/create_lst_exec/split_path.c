@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:16:13 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/06 13:16:24 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/07 15:26:26 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	**split_path(t_list *lst_env)
 	if (!lst_env)
 		return (NULL);
 	value = return_value(lst_env, "PATH");
+	if (!value)
+		return (NULL);
 	size = count_paths(value);
 	path = ft_calloc((size + 1), sizeof(char *));
 	while (i < size)

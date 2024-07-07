@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:15:08 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/20 18:09:06 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/07 16:54:33 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	handle_ctrlc_heredoc(int signal)
 	t_list	*envp;
 
 	(void)signal;
+	write(2, "heredoc\n", 8);
 	envp = data_env_addr();
 	close(STDIN_FILENO);
 	update_env_list(envp, "?", "130");

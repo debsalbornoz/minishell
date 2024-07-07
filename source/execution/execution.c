@@ -3,17 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 13:47:09 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/07 17:08:33 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <signal.h>
 
 void	print_matrix(char **matrix);
 void	print_exec_node(t_list *exec);
+
+void	handle_sigint_exec(int signal)
+{
+	t_list	*lst_env;
+
+	(void)signal;
+	write(2, "exec\n", 5);
+	lst_env = data_env_addr();
+	set_error(lst_env);
+	exit (130);
+}
 
 int	execute(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env, char *input)
@@ -44,12 +56,18 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 int	handle_execution(t_node *exec, t_list *envp)
 {
 	(void)envp;
+	printf("chegou aqui?\n");
 	if (validate_command(exec))
 	{
+		printf("e aqui?\n");
+		signal(SIGINT, SIG_DFL);
 		if (execve(exec->data->exec->path,
 				exec->data->exec->command_table,
 				exec->data->exec->envp) == -1)
+		{
+			//disable_signal(SIGINT);
 			return (-1);
+		}
 	}
 	if (exec->data->exec->command_table
 		&& exec->data->exec->path == NULL
@@ -67,7 +85,7 @@ void	wait_for_children(int *status, t_list *envp)
 	char	*sts;
 
 	sts = NULL;
-	while (wait(status) > 0)
+	while (waitpid(-1, status, 0) > 0)
 		;
 	sts = ft_itoa(WEXITSTATUS(*status));
 	update_env_list(envp, "?", sts);
