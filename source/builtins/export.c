@@ -29,10 +29,14 @@ int	mini_export(char **exec, t_list *envp)
 	while (++iterator, exec[iterator])
 	{
 		if (!is_valid_first_char(*exec[iterator]))
-			return (1);
+			return (
+				printf("export: '%s': not a valid identifier\n",
+					exec[iterator]), free_env(env), 1);
 		env = get_env(env, exec[iterator]);
 		if (ft_str_exist(env->name) && check_name(env->name))
-			return (1);
+			return (
+				printf("export: '%s': not a valid identifier\n",
+					exec[iterator]), free_env(env), 1);
 		update_env_list(envp, env->name, env->value);
 	}
 	return (free_env(env), 0);
@@ -40,12 +44,14 @@ int	mini_export(char **exec, t_list *envp)
 
 static t_node	*print_for_export(t_node *nde)
 {
-	if (nde->data->env->value)
+	if (nde->data->env->value && is_not_ocult_var(nde->data->env->name))
 	{
-		return (printf("declare -x %s=%s\n",
+		return (printf("declare -x %s=\"%s\"\n",
 				nde->data->env->name, nde->data->env->value), nde);
 	}
-	return (printf("declare -x %s\n", nde->data->env->name), nde);
+	else if (is_not_ocult_var(nde->data->env->name))
+		printf("declare -x %s\n", nde->data->env->name);
+	return (nde);
 }
 
 static t_env	*get_env(t_env *env, char *string)

@@ -23,7 +23,7 @@ char	*process_heredoc(t_exp *exp)
 {
 	exp->temp++;
 	exp->temp++;
-	while (ft_str_exist(exp->temp) && !is_space(*exp->temp))
+	while (ft_str_exist(exp->temp) && is_space(*exp->temp))
 		exp->temp++;
 	if (*exp->temp == '$' && is_quote(*(exp->temp + 1)))
 		exp->temp = process_dollar(exp);
