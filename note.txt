@@ -11,7 +11,7 @@
 - [ ] espaço
 - [ ] close fds
 - [ ] expr $? + $?
-- [ ] export 123
+- [x] export 123
 - [ ] Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
 - [ ] < $nãoexiste cat
 - [ ] < file_without_permission <infile cat >out >out
