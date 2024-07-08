@@ -6,11 +6,12 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/29 17:20:47 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/07 16:27:28 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <signal.h>
 
 int	execute_simple_command(t_list *exec,
 	t_list *tokens, t_list *envp, char *input)

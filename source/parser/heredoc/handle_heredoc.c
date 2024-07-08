@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 11:52:41 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/07 16:31:50 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_list	*process_heredoc_tokens(t_list *tokens)
 			i++;
 		token = token->next;
 	}
-	handle_signal();
 	return (tokens);
 }
 
@@ -85,8 +84,9 @@ int	setup_heredoc_env(char *filename)
 	t_list	*envp;
 	int		fd;
 
+	(void)envp;
 	envp = data_env_addr();
-	update_env_list(envp, "?", "0");
+	//update_env_list(envp, "?", "0");
 	fd = open_here_file(filename);
 	handle_heredoc_signals();
 	return (fd);

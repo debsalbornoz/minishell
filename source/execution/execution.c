@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 13:47:09 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/07 17:08:33 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <signal.h>
 
 void	print_matrix(char **matrix);
 void	print_exec_node(t_list *exec);
@@ -46,6 +47,8 @@ int	handle_execution(t_node *exec, t_list *envp)
 	(void)envp;
 	if (validate_command(exec))
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (execve(exec->data->exec->path,
 				exec->data->exec->command_table,
 				exec->data->exec->envp) == -1)
@@ -65,11 +68,20 @@ int	handle_execution(t_node *exec, t_list *envp)
 void	wait_for_children(int *status, t_list *envp)
 {
 	char	*sts;
+	int		sig;
 
 	sts = NULL;
+	sig = 0;
 	while (wait(status) > 0)
 		;
-	sts = ft_itoa(WEXITSTATUS(*status));
+	if (WIFEXITED(*status))
+		sts = ft_itoa(WEXITSTATUS(*status));
+	else if (WIFSIGNALED(*status))
+	{
+		sig = WTERMSIG(*status);
+		if (sig == SIGINT)
+			sts = ft_strdup("130");
+	}
 	update_env_list(envp, "?", sts);
 	free(sts);
 }

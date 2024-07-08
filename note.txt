@@ -8,7 +8,7 @@
 - [ ] echo $asdsa '$asdasdas' '|' "|"  -> qualquer coisa que vem depois de uma expação de variable que não existe
 
 **valgrind**
-- [ ] espaço
+- [x ] espaço
 - [ ] close fds
 - [ ] expr $? + $?
 - [x] export 123
