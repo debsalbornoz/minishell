@@ -31,5 +31,5 @@ int	is_valid_first_char(char chr)
 int	is_valid_char(char chr)
 {
 	return (is_valid_first_char(chr)
-		|| (chr >= '0' && chr <= '9') || (chr == '.'));
+		|| (chr >= '0' && chr <= '9'));
 }

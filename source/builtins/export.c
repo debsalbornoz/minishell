@@ -29,10 +29,14 @@ int	mini_export(char **exec, t_list *envp)
 	while (++iterator, exec[iterator])
 	{
 		if (!is_valid_first_char(*exec[iterator]))
-			return (1);
+			return (
+				printf("export: '%s': not a valid identifier\n",
+					exec[iterator]), 1);
 		env = get_env(env, exec[iterator]);
 		if (ft_str_exist(env->name) && check_name(env->name))
-			return (1);
+			return (
+				printf("export: '%s': not a valid identifier\n",
+					exec[iterator]), 1);
 		update_env_list(envp, env->name, env->value);
 	}
 	return (free_env(env), 0);

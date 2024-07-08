@@ -231,7 +231,8 @@ int		get_len(char *value);
 //validate_path.c
 void	find_path(t_list *tokens, t_list *exec, t_list *envp);
 char	*validate_path(char **command_table, t_node *exec, t_list *envp);
-int		check_command_validity(char *command, t_list *envp, char **command_table);
+int		check_command_validity(char *command,
+			t_list *envp, char **command_table);
 int		is_executable(t_node *exec, char *path);
 int		is_absolute_path(char **command_table);
 

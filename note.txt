@@ -2,8 +2,8 @@
 - [x] (env) ?=0
 - [x] (export) _=
 - [ ] export a= b= c
-- [ ] export "abc"
-- [ ] export 123
+- [x] export "abc"
+- [x] export 123
 - [ ] echo "'$HOME'"''"" "$HOME" '' '"$HOME"' "$asdsad"
 - [ ] echo $asdsa '$asdasdas' '|' "|"  -> qualquer coisa que vem depois de uma expação de variable que não existe
 
