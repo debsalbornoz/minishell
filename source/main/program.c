@@ -33,6 +33,9 @@ int	program(t_list *envp)
 	}
 	if (!*input)
 		return (TRUE);
+	input = trim_start_spaces(input);
+	if (!input)
+		return (TRUE);
 	input = expand(envp, input);
 	if (!is_closed(input, envp))
 		return (TRUE);

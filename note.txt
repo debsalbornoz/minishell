@@ -1,0 +1,24 @@
+- [X] echo -nnnnn
+- [x] (env) ?=0
+- [x] (export) _=
+- [ ] export a= b= c
+- [x] export "abc"
+- [x] export 123
+- [ ] echo "'$HOME'"''"" "$HOME" '' '"$HOME"' "$asdsad"
+- [ ] echo $asdsa '$asdasdas' '|' "|"  -> qualquer coisa que vem depois de uma expação de variable que não existe
+
+**valgrind**
+- [x ] espaço
+- [ ] close fds
+- [ ] expr $? + $?
+- [x] export 123
+- [ ] Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
+- [ ] < $nãoexiste cat
+- [ ] < file_without_permission <infile cat >out >out
+
+go crazy
+- [ ] export var="echo hello | hi"
+- [ ] echo $var
+- [ ] export var="$HOME | $USER"
+- [ ]  export var="echo hello | hi"
+- [ ] < $var cat

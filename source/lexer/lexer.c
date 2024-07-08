@@ -47,15 +47,20 @@ char	*trim_start_spaces(char *input)
 	int		len;
 
 	len = ft_strlen(input);
+	if (len <= 0)
+		return (NULL);
 	trimmed_input = NULL;
 	i = 0;
 	while (input[i] == ' ' || input[i] == '	')
 		i++;
-	if (i > 0 && len - i >= 0)
+	if (len - i == 0)
+		return (NULL);
+	if (i > 0 && len - i > 0)
 	{
 		trimmed_input = ft_calloc((len - i + 1), sizeof(char));
 		len = len - i + 1;
 		ft_strlcpy(trimmed_input, &input[i], len);
+		free(input);
 		return (trimmed_input);
 	}
 	return (input);
