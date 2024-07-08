@@ -1,4 +1,4 @@
-- [ ] echo -nnnnn
+- [X] echo -nnnnn
 - [x] (env) ?=0
 - [x] (export) _=
 - [ ] export a= b= c
