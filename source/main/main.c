@@ -24,7 +24,6 @@ int	main(int argc, char **argv, char **envp)
 	res = 0;
 	env_lst = data_env_addr();
 	env_lst = create_env_list(envp, env_lst);
-	update_env_list(env_lst, "?", "0");
 	handle_signal();
 	while (program(env_lst))
 		;

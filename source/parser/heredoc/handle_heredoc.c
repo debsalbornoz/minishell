@@ -84,8 +84,9 @@ int	setup_heredoc_env(char *filename)
 	t_list	*envp;
 	int		fd;
 
+	(void)envp;
 	envp = data_env_addr();
-	update_env_list(envp, "?", "0");
+	//update_env_list(envp, "?", "0");
 	fd = open_here_file(filename);
 	handle_heredoc_signals();
 	return (fd);

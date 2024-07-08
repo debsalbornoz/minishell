@@ -21,7 +21,6 @@ int	parser(t_list *tokens, t_list *envp, char *input)
 		return (0);
 	tokens = process_heredoc_tokens(tokens);
 	handle_signal();
-	//disable_signal(SIGINT);
 	if (!tokens)
 		return (0);
 	tokens = remove_quotes(tokens);
