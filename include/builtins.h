@@ -28,6 +28,8 @@ void	mini_env(t_list *envp);
 int		mini_export(char **exec, t_list *envp);
 int		mini_exit(char **exec, t_list *envp);
 
+int		is_not_ocult_var(char *name);
+
 union u_func
 {
 	int	(*f_cmd_table)(char **);

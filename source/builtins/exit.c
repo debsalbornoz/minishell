@@ -39,7 +39,6 @@ int	mini_exit(char **exec, t_list *envp)
 	else
 		return (value = ft_itoa(nbr),
 			update_env_list(envp, "?", value), free(value), 1);
-
 }
 
 static int	is_sig(char chr)

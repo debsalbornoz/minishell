@@ -19,7 +19,14 @@ void	mini_env(t_list *envp)
 	runs_on_list(envp, print_for_env);
 }
 
-static t_node	*print_for_env(t_node *no)
+static t_node	*print_for_env(t_node *node)
 {
-	return (printf("%s=%s\n", no->data->env->name, no->data->env->value), no);
+	if (is_not_ocult_var(node->data->env->name))
+		printf("%s=%s\n", node->data->env->name, node->data->env->value);
+	return (node);
+}
+
+int	is_not_ocult_var(char *name)
+{
+	return (ft_strcmp(name, "?") && ft_strcmp(name, "_"));
 }

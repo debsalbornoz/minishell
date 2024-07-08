@@ -12,6 +12,8 @@
 
 #include "../../include/builtins.h"
 
+static int	valid_arg_newline(char *arg);
+
 int	mini_echo(char **exec)
 {
 	int		newline;
@@ -23,7 +25,7 @@ int	mini_echo(char **exec)
 		return (printf("\n"), 0);
 	while (++copy_exec, ft_str_exist(*copy_exec))
 	{
-		if (!ft_strcmp(*copy_exec, "-n"))
+		if (!valid_arg_newline(*copy_exec))
 			newline++;
 		else
 		{
@@ -36,5 +38,23 @@ int	mini_echo(char **exec)
 	}
 	if (!newline)
 		return (printf("\n"), 0);
+	return (0);
+}
+
+static int	valid_arg_newline(char *arg)
+{
+	char	*arg_tmp;
+	int		iterator;
+
+	iterator = -1;
+	arg_tmp = arg;
+	while (++iterator, *arg_tmp)
+	{
+		if (!iterator && *(arg_tmp) != '-')
+			return (1);
+		else if (iterator && *(arg_tmp) != 'n')
+			return (1);
+		arg_tmp++;
+	}
 	return (0);
 }
