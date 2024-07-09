@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/09 15:58:31 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:19:44 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	process_word(t_list *lst_tokens, int signal, char *input, int i)
 	empty_quotes = 0;
 	if (input[i + is_empty_quotes(signal, &input[i])] != '\0')
 		i = i + empty_quotes;
-	token_len = get_token_len(&input[i], signal);
+	token_len = get_token_len(&input[i], signal, 0);
 	if (token_len > 0)
 	{
 		word = ft_calloc((token_len + 1), sizeof(char));
@@ -38,19 +38,17 @@ int	process_word(t_list *lst_tokens, int signal, char *input, int i)
 	return (token_len);
 }
 
-int	get_token_len(char *input, int signal)
+int	get_token_len(char *input, int signal, int inside_quotes)
 {
 	int	i;
-	int	inside_quotes;
 
-	i = 0;
-	inside_quotes = 0;
+	i = -1;
 	if (signal)
 	{
 		i++;
 		inside_quotes = 1;
 	}
-	while (input[i] != '\0')
+	while (input[++i] != '\0')
 	{
 		if (is_quote(input[i]) && !signal)
 		{
@@ -64,7 +62,6 @@ int	get_token_len(char *input, int signal)
 		}
 		else if (!inside_quotes && is_delimiter(input[i]))
 			break ;
-		i++;
 	}
 	return (i);
 }

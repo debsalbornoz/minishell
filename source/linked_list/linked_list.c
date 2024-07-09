@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:51:10 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/31 20:37:43 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:00:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@ t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *))
 
 int	count_nodes(t_list *lst)
 {
-	int	i;
+	int		i;
+	t_node	*aux;
 
 	i = 0;
-	lst->node = lst->head;
-	while (lst->node)
+	aux = lst->head;
+	while (aux)
 	{
 		i++;
-		lst->node = lst->node->next;
+		aux = aux->next;
 	}
 	return (i);
 }

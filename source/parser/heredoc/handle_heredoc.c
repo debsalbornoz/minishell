@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/07 16:31:50 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/09 18:24:39 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	setup_heredoc_env(char *filename)
 
 	(void)envp;
 	envp = data_env_addr();
-	//update_env_list(envp, "?", "0");
 	fd = open_here_file(filename);
 	handle_heredoc_signals();
 	return (fd);
