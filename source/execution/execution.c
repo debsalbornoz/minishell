@@ -6,15 +6,12 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/09 18:56:02 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:24:01 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <signal.h>
-
-void	print_matrix(char **matrix);
-void	print_exec_node(t_list *exec);
 
 int	execute(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env, char *input)
@@ -63,71 +60,6 @@ int	handle_execution(t_node *exec, t_list *envp)
 		return (-1);
 	}
 	return (0);
-}
-
-/*void	wait_for_children(t_list *envp, int *pids)
-{
-	char	*sts;
-	int		sig;
-	int		i;
-	int		status;
-
-	i = 0;
-	sts = NULL;
-	sig = 0;
-	while (waitpid(pids[i], &status, 0) != -1)
-	{
-		if (WIFEXITED(status))
-			sts = ft_itoa(WEXITSTATUS(status));
-		else if (WIFSIGNALED(status))
-		{
-			sig = WTERMSIG(status);
-			if (sig == SIGINT)
-				sts = ft_strdup("130");
-		}
-		update_env_list(envp, "?", sts);
-	}
-}
-*/
-
-void	wait_for_children(t_list *envp, int *pids)
-{
-	char	*sts;
-	int		sig;
-	int		i;
-	int		status;
-
-	i = 0;
-	sts = NULL;
-	sig = 0;
-	while (waitpid(pids[i], &status, 0) != -1)
-	{
-		if (WIFEXITED(status))
-		{
-			if (sts)
-				free(sts);
-			sts = ft_itoa(WEXITSTATUS(status));
-		}
-		else if (WIFSIGNALED(status))
-		{
-			sig = WTERMSIG(status);
-			if (sig == SIGINT)
-			{
-				if (sts)
-					free(sts);
-				sts = ft_strdup("130");
-			}
-		}
-		else
-		{
-			if (sts)
-				free(sts);
-			sts = NULL;
-		}
-		update_env_list(envp, "?", sts);
-	}
-	if (sts)
-		free(sts);
 }
 
 void	restore_file_descriptors(int fd_in, int fd_out)
