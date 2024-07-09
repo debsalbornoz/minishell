@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/07 17:36:47 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:30:54 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,9 +163,9 @@ int		is_simple_command(t_list *tokens);
 //execute_multiple_commands.c
 int		execute_multiple_commands(t_list *exec, t_list *tokens,
 			t_list *envp, char *input);
-int		handle_multi_exec(t_list *exec, int num_pipes, int **pipes);
+int	handle_multi_exec(t_list *exec, int num_pipes, int **pipes, int *pids);
 int		fork_and_execute_command(int ft_stdin, int ft_stdout,
-			int **pipes, t_node *node);
+			int **pipes, t_node *node, int pid);
 
 //execute_simple_command.c
 int		execute_simple_command(t_list *exec,
@@ -176,7 +176,7 @@ int		execute_and_update_envp(t_list *exec, t_list *envp);
 int		execute(t_list *lst_tokens, t_list *lst_exec,
 			t_list *lst_env, char *input);
 int		handle_execution(t_node *exec, t_list *envp);
-void	wait_for_children(int *status, t_list *envp);
+void	wait_for_children(int *status, t_list *envp, int *pids);
 void	restore_file_descriptors(int fd_in, int fd_out);
 
 //finish_proccess.c

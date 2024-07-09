@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/07 16:27:28 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:35:39 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int	execute_simple_command(t_list *exec,
 		finish_process(exec, tokens, envp, input);
 	}
 	else
-		wait_for_children(&status, envp);
+		wait_for_children(&status, envp, &pid);
 	return (0);
 }

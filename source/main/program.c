@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/07 17:39:02 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:01:29 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	program(t_list *envp)
 	tokens.node = 0;
 	exec.node = 0;
 	readline_status(1);
+	//printf("%s", ft_get_env("?"));
 	input = readline("¯\\_(ツ)_/¯: ");
 	readline_status(0);
 	if (!input)

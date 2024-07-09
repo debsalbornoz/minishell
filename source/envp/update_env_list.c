@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   update_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 14:16:28 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/09 14:57:22 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/env_list.h"
 
-int	update_env_list(t_list *lst_env, char *name, char *value)
+t_list	*update_env_list(t_list *lst_env, char *name, char *value)
 {
 	int	result;
 
@@ -21,10 +21,10 @@ int	update_env_list(t_list *lst_env, char *name, char *value)
 		lst_env->node = lst_env->head;
 		result = update_existing_node(lst_env, name, value);
 		if (result == 0)
-			return (0);
-		add_new_node(lst_env, name, value);
+			return (lst_env);
+		lst_env = add_new_node(lst_env, name, value);
 	}
-	return (0);
+	return (lst_env);
 }
 
 int	update_existing_node(t_list *lst_env, char *name, char *value)
@@ -56,7 +56,7 @@ int	update_existing_node(t_list *lst_env, char *name, char *value)
 	return (-1);
 }
 
-void	add_new_node(t_list *lst_env, char *name, char *value)
+t_list	*add_new_node(t_list *lst_env, char *name, char *value)
 {
 	lst_env = add_node(lst_env);
 	lst_env->node->data = ft_calloc(1, sizeof(union u_data));
@@ -66,6 +66,7 @@ void	add_new_node(t_list *lst_env, char *name, char *value)
 		lst_env->node->data->env->value = ft_strdup(value);
 	else
 		lst_env->node->data->env->value = NULL;
+	return (lst_env);
 }
 
 char	*ft_get_env(char *name)

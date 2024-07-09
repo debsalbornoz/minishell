@@ -1,0 +1,19 @@
+echo '' -n
+echo "" "" "" -n -n -n -n
+export T=">>"
+$T lol
+cat << "$US"E"R"
+>> $HOME
+
+export T=ech
+echo $T"o"
+
+env | sort | grep -v SHLVL | grep -v ^ - precisa retirar a variavel "?"
+
+export GHOST=123 | env | grep GHOST - aparece como comando nao encontrado
+cd .. | echo "42" - aparece como comando nao encontrado
+
+/bin/env | grep "_="
+/bin/env | grep "SHLVL" - resultados diferentes
+
+unset TEST | cat -e

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_word.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:35:20 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/23 12:40:46 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/09 15:58:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	get_token_len(char *input, int signal)
 
 	i = 0;
 	inside_quotes = 0;
+	if (signal)
+	{
+		i++;
+		inside_quotes = 1;
+	}
 	while (input[i] != '\0')
 	{
 		if (is_quote(input[i]) && !signal)
