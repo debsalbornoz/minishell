@@ -18,9 +18,7 @@ int	execute_simple_command(t_list *exec,
 	int		pid;
 	int		ft_stdout;
 	int		ft_stdin;
-	int		status;
 
-	status = 0;
 	ft_stdout = dup(1);
 	ft_stdin = dup(0);
 	pid = fork();

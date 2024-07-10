@@ -64,10 +64,8 @@ int	handle_multi_exec(t_list *exec, int num_pipes, int **pipes, int *pids)
 int	fork_and_execute_command(int *std_fds,
 		int **pipes, t_node *node, int pid)
 {
-	int		i;
 	t_list	*envp;
 
-	i = 0;
 	pid = fork();
 	envp = data_env_addr();
 	if (pid == -1)

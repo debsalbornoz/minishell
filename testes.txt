@@ -3,7 +3,7 @@ echo "" "" "" -n -n -n -n
 export T=">>"
 $T lol
 cat << "$US"E"R"
->> $HOME
+>> $HOME (PRECISA DAR IS A DIRECTORY)
 
 export T=ech
 echo $T"o"
@@ -17,3 +17,6 @@ cd .. | echo "42" - aparece como comando nao encontrado
 /bin/env | grep "SHLVL" - resultados diferentes
 
 unset TEST | cat -e
+
+export T=n
+echo "-"$T$T
