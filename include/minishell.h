@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/07 17:36:47 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:33:41 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_list	*process_redirect_output(t_list *tokens, char *input, int i);
 
 // process_word.c
 int		process_word(t_list *tokens, int signal, char *input, int i);
-int		get_token_len(char *input, int signal);
+int		get_token_len(char *input, int signal, int inside_quotes);
 int		is_empty_quotes(char signal, char *input);
 
 /* --- source/parser/ --- */
@@ -163,9 +163,9 @@ int		is_simple_command(t_list *tokens);
 //execute_multiple_commands.c
 int		execute_multiple_commands(t_list *exec, t_list *tokens,
 			t_list *envp, char *input);
-int		handle_multi_exec(t_list *exec, int num_pipes, int **pipes);
-int		fork_and_execute_command(int ft_stdin, int ft_stdout,
-			int **pipes, t_node *node);
+int		handle_multi_exec(t_list *exec, int num_pipes, int **pipes, int *pids);
+int		fork_and_execute_command(int *std_fds, int **pipes,
+			t_node *node, int pid);
 
 //execute_simple_command.c
 int		execute_simple_command(t_list *exec,
@@ -176,7 +176,6 @@ int		execute_and_update_envp(t_list *exec, t_list *envp);
 int		execute(t_list *lst_tokens, t_list *lst_exec,
 			t_list *lst_env, char *input);
 int		handle_execution(t_node *exec, t_list *envp);
-void	wait_for_children(int *status, t_list *envp);
 void	restore_file_descriptors(int fd_in, int fd_out);
 
 //finish_proccess.c
@@ -185,6 +184,10 @@ void	free_matrix(char **matrix);
 void	close_fds(void);
 void	free_pipes(int **pipes);
 
+//handle_wait.c
+void	wait_for_children(t_list *envp, int *pids);
+char	*update_signal_sts(int status, char *sts);
+char	*update_sts(char *sts, int status);
 //pipe.c
 void	setup_pipes(int command_index, int fd_in,
 			int fd_out, int **pipes);

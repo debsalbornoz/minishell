@@ -1,0 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_wait.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/09 19:24:21 by dlamark-          #+#    #+#             */
+/*   Updated: 2024/07/09 19:26:55 by dlamark-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../include/minishell.h"
+
+void	wait_for_children(t_list *envp, int *pids)
+{
+	char	*sts;
+	int		status;
+	int		i;
+
+	i = 0;
+	sts = NULL;
+	while (waitpid(pids[i], &status, 0) != -1)
+	{
+		if (WIFEXITED(status))
+			sts = update_sts(sts, status);
+		else if (WIFSIGNALED(status))
+			sts = update_signal_sts(status, sts);
+		else
+		{
+			if (sts)
+				free(sts);
+			sts = NULL;
+		}
+		update_env_list(envp, "?", sts);
+		i++;
+	}
+	if (sts)
+		free(sts);
+}
+
+char	*update_sts(char *sts, int status)
+{
+	if (sts)
+		free(sts);
+	sts = ft_itoa(WEXITSTATUS(status));
+	return (sts);
+}
+
+char	*update_signal_sts(int status, char *sts)
+{
+	int	signal;
+
+	signal = WTERMSIG(status);
+	if (signal == SIGINT)
+	{
+		if (sts)
+			free(sts);
+		sts = ft_strdup("130");
+	}
+	return (sts);
+}

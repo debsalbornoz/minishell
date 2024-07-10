@@ -92,6 +92,7 @@ EXEC	:=	$(DIR_EXEC)/execution								\
 			$(DIR_EXEC)/execute_simple_command					\
 			$(DIR_EXEC)/finish_process							\
 			$(DIR_EXEC)/execute_multiple_commands				\
+			$(DIR_EXEC)/handle_wait								\
 			$(DIR_EXEC)/pipe									\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft								\

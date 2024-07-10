@@ -6,15 +6,12 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/07 17:08:33 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/09 19:24:01 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <signal.h>
-
-void	print_matrix(char **matrix);
-void	print_exec_node(t_list *exec);
 
 int	execute(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env, char *input)
@@ -63,27 +60,6 @@ int	handle_execution(t_node *exec, t_list *envp)
 		return (-1);
 	}
 	return (0);
-}
-
-void	wait_for_children(int *status, t_list *envp)
-{
-	char	*sts;
-	int		sig;
-
-	sts = NULL;
-	sig = 0;
-	while (wait(status) > 0)
-		;
-	if (WIFEXITED(*status))
-		sts = ft_itoa(WEXITSTATUS(*status));
-	else if (WIFSIGNALED(*status))
-	{
-		sig = WTERMSIG(*status);
-		if (sig == SIGINT)
-			sts = ft_strdup("130");
-	}
-	update_env_list(envp, "?", sts);
-	free(sts);
 }
 
 void	restore_file_descriptors(int fd_in, int fd_out)
