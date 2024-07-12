@@ -24,7 +24,7 @@ int		mini_cd(char **exec);
 int		mini_pwd(char **exec);
 int		mini_echo(char **exec);
 int		mini_unset(char **exec, t_list *envp);
-void	mini_env(t_list *envp);
+int		mini_env(t_list *envp);
 int		mini_export(char **exec, t_list *envp);
 int		mini_exit(char **exec, t_list *envp);
 
@@ -33,6 +33,7 @@ int		is_not_ocult_var(char *name);
 union u_func
 {
 	int	(*f_cmd_table)(char **);
+	int	(*f_env_list)(t_list *);
 	int	(*f_cmd_table_n_env_list)(char **, t_list *);
 };
 

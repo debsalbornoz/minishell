@@ -19,7 +19,6 @@ static int			valid_nbr(char *arg);
 
 int	mini_exit(char **exec, t_list *envp)
 {
-	char				*value;
 	unsigned long long	nbr;
 
 	nbr = 0;
@@ -34,11 +33,9 @@ int	mini_exit(char **exec, t_list *envp)
 			update_env_list(envp, "?", "2"), 0);
 	nbr = zatoi(*(exec + 1));
 	if (nbr > 255)
-		return (value = ft_itoa(nbr % 256),
-			update_env_list(envp, "?", value), free(value), 1);
+		return (nbr % 256);
 	else
-		return (value = ft_itoa(nbr),
-			update_env_list(envp, "?", value), free(value), 1);
+		return (nbr);
 }
 
 static int	is_sig(char chr)
