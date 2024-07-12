@@ -14,9 +14,9 @@
 
 static t_node	*print_for_env(t_node *no);
 
-void	mini_env(t_list *envp)
+int	mini_env(t_list *envp)
 {
-	runs_on_list(envp, print_for_env);
+	return (runs_on_list(envp, print_for_env), 0);
 }
 
 static t_node	*print_for_env(t_node *node)
