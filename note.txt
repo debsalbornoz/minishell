@@ -6,7 +6,7 @@
 - [x] export 123
 - [x] echo "'$HOME'"''"" "$HOME" '' '"$HOME"' "$asdsad"
 - [x] echo $asdsa '$asdasdas' '|' "|"  -> qualquer coisa que vem depois de uma expação de variable que não existe
-- [ ] incluir erro de redirect no echo
+- [x] incluir erro de redirect no echo
 - [x] adicionar aspas nos operadores na expanção das variáveis
 
 **valgrind**
