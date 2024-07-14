@@ -51,6 +51,7 @@ ENVP	:=	$(DIR_ENVP)/create_env_list							\
 
 EXPD	:=	$(DIR_EXPD)/expand_part1							\
 			$(DIR_EXPD)/expand_part2							\
+			$(DIR_EXPD)/expand_part3							\
 
 LEXR	:=	$(DIR_LEXR)/lexer									\
 			$(DIR_LEXR)/process_word							\
