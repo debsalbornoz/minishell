@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:35:44 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 20:37:54 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/14 09:38:03 by jackson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ int	mini_export(char **exec, t_list *envp)
 				printf("export: '%s': not a valid identifier\n",
 					exec[iterator]), free_env(env), 1);
 		update_env_list(envp, env->name, env->value);
+		if (ft_free_str(env->name))
+			env->name = 0;
+		if (ft_free_str(env->value))
+			env->value = 0;
 	}
 	return (free_env(env), 0);
 }
@@ -58,7 +62,12 @@ static t_env	*get_env(t_env *env, char *string)
 {
 	while (*string && *string != '=')
 		env->name = ft_chrjoin(env->name, *string++);
-	if (*string == '=')
+	if (*string == '=' && !*(string + 1))
+	{
+		env->value = ft_strdup("");
+		string++;
+	}
+	else if (*string == '=')
 		string++;
 	while (*string)
 		env->value = ft_chrjoin(env->value, *string++);
@@ -67,10 +76,10 @@ static t_env	*get_env(t_env *env, char *string)
 
 static void	free_env(t_env *env)
 {
-	if (ft_str_exist(env->name))
-		free(env->name);
-	if (ft_str_exist(env->value))
-		free(env->value);
+	if (ft_free_str(env->name))
+		env->name = 0;
+	if (ft_free_str(env->value))
+		env->value = 0;
 	if (env)
 		free(env);
 }

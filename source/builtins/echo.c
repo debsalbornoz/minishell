@@ -23,7 +23,7 @@ int	mini_echo(char **exec)
 	copy_exec = exec;
 	if (!*(copy_exec + 1))
 		return (printf("\n"), 0);
-	while (++copy_exec, ft_str_exist(*copy_exec))
+	while (++copy_exec, copy_exec && *copy_exec != 0)
 	{
 		if (!valid_arg_newline(*copy_exec))
 			newline++;
@@ -48,7 +48,7 @@ static int	valid_arg_newline(char *arg)
 
 	iterator = -1;
 	arg_tmp = arg;
-	while (++iterator, *arg_tmp)
+	while (++iterator, arg_tmp)
 	{
 		if (!iterator && *(arg_tmp) != '-')
 			return (1);

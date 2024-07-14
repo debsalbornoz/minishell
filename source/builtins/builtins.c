@@ -49,9 +49,14 @@ static int	handle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
 	fd_out = dup(STDOUT_FILENO);
 	if (fd_out == -1)
 		return (perror("dup stdout"), close(fd_in), -1);
-	handle_redirect(exec->head, envp, fd_in, fd_out);
-	value = ft_itoa(select_func(exec, envp, ftype, f));
-	update_env_list(envp, "?", value);
+	if (handle_redirect(exec->head, envp, fd_in, fd_out)
+		&& !ft_strcmp(ft_get_env("?"), "1"))
+		value = ft_itoa(select_func(exec, envp, ftype, f));
+	else
+	{
+		value = ft_itoa(select_func(exec, envp, ftype, f));
+		update_env_list(envp, "?", value);
+	}
 	free(value);
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 		perror("dup2 stdin");

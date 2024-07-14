@@ -35,10 +35,10 @@ int	update_existing_node(t_list *lst_env, char *name, char *value)
 		{
 			if (ft_str_exist(lst_env->node->data->env->value))
 				free(lst_env->node->data->env->value);
-			if (ft_str_exist(value))
+			if (value)
 				lst_env->node->data->env->value = ft_strdup(value);
 			else
-				lst_env->node->data->env->value = NULL;
+				lst_env->node->data->env->value = 0;
 			return (0);
 		}
 		lst_env->node = lst_env->node->next;
@@ -62,10 +62,10 @@ t_list	*add_new_node(t_list *lst_env, char *name, char *value)
 	lst_env->node->data = ft_calloc(1, sizeof(union u_data));
 	lst_env->node->data->env = ft_calloc(1, sizeof(t_env));
 	lst_env->node->data->env->name = ft_strdup(name);
-	if (ft_str_exist(value))
+	if (value)
 		lst_env->node->data->env->value = ft_strdup(value);
 	else
-		lst_env->node->data->env->value = NULL;
+		lst_env->node->data->env->value = 0;
 	return (lst_env);
 }
 
