@@ -68,7 +68,14 @@ char	*ft_rmchr(char *input, char *position)
 	return (result);
 }
 
-int	ft_str_exist(char *sting)
+int	ft_str_exist(char *str)
 {
-	return (sting && *sting);
+	return (str && *str);
+}
+
+int	ft_free_str(char *str)
+{
+	if (str)
+		return (free(str), 1);
+	return (0);
 }

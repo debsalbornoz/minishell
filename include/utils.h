@@ -46,5 +46,6 @@ int		ft_strcmp(char	*str1, char *str2);
 char	*ft_chrjoin(char *dest, char src);
 char	*ft_rmchr(char *input, char *position);
 int		ft_str_exist(char *sting);
+int		ft_free_str(char *str);
 
 #endif
