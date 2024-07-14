@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-#include <unistd.h>
 
 static int	check_access_input(char *redirect, char *file, t_list *envp);
 static int	check_access_output(char *redirect, char *file, t_list *envp);

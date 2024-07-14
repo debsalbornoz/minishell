@@ -12,6 +12,9 @@
 
 #include "../../include/minishell.h"
 
+static int	is_operator(char c);
+int	value_len(char *value);
+
 char	*process_dollar(t_exp *exp)
 {
 	exp->input = ft_rmchr(exp->input, exp->temp);
@@ -43,21 +46,29 @@ char	*process_doble_quote(t_list *lst_env, t_exp *exp)
 
 char	*var_expand(t_exp *cur, t_env *var)
 {
-	int		len;
 	char	*res;
 	t_exp	exp;
 	t_env	tmp;
 
 	tmp = *var;
 	exp = *cur;
-	len = ft_strlen(exp.input) - ft_strlen(tmp.name) + ft_strlen(tmp.value);
-	res = ft_calloc(1, len);
+	res = ft_calloc(1, ft_strlen(exp.input) - ft_strlen(tmp.name)
+			+ value_len(tmp.value));
 	exp.temp = res;
 	while (*&exp.input != *&cur->temp)
 		*exp.temp++ = *exp.input++;
 	exp.input++;
 	while (tmp.value && *tmp.value)
-		*exp.temp++ = *tmp.value++;
+	{
+		if (is_operator(*(tmp.value)))
+			{
+				*exp.temp++ = '\'';
+				*exp.temp++ = *tmp.value++;
+				*exp.temp++ = '\'';
+			}
+		else
+			*exp.temp++ = *tmp.value++;
+	}
 	while (*exp.input && *tmp.name && *exp.input == *tmp.name)
 	{
 		exp.input++;
@@ -65,9 +76,7 @@ char	*var_expand(t_exp *cur, t_env *var)
 	}
 	while (*exp.input)
 		*exp.temp++ = *exp.input++;
-	exp.temp = 0;
-	free(cur->input);
-	return (res);
+	return (free(cur->input), res);
 }
 
 char	*var_is_null(char *value, char sig)
@@ -75,4 +84,28 @@ char	*var_is_null(char *value, char sig)
 	if (!value && !is_double_quote(sig))
 		value = "\"\"";
 	return (value);
+}
+
+static int	is_operator(char c)
+{
+	return (c == '|' || c == '>' || c == '<');
+}
+
+int	value_len(char *value)
+{
+	char	sig_quote;
+	char	*tmp_value;
+	int		qty_operators;
+
+	sig_quote = 0;
+	tmp_value = value;
+	qty_operators = 0;
+	while(ft_str_exist(tmp_value))
+	{
+		sig_quote = process_quotes(sig_quote, *tmp_value);
+		if (!sig_quote && is_operator(*tmp_value))
+			qty_operators++;
+		tmp_value++;
+	}
+	return ((qty_operators * 2) + ft_strlen(value));
 }

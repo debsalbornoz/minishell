@@ -28,7 +28,6 @@ int	program(t_list *envp)
 	if (!input)
 	{
 		printf("exit\n");
-		update_env_list(envp, "?", "131");
 		return (FALSE);
 	}
 	if (!*input)

@@ -168,7 +168,7 @@ re: fclean all
 make_libft:
 	$(MAKE) -C $(L_FT)
 
-valgrind: re
+valgrind: all
 	valgrind \
 	--leak-check=full \
 	--suppressions=suppression.supp \

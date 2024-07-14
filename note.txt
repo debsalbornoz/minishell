@@ -7,9 +7,10 @@
 - [ ] echo "'$HOME'"''"" "$HOME" '' '"$HOME"' "$asdsad"
 - [ ] echo $asdsa '$asdasdas' '|' "|"  -> qualquer coisa que vem depois de uma expação de variable que não existe
 - [ ] incluir erro de redirect nas builtins
+- [ ] adicionar exeção dos operadores na expanção da variáveis
 
 **valgrind**
-- [x ] espaço
+- [x] espaço
 - [ ] close fds
 - [ ] expr $? + $?
 - [x] export 123
