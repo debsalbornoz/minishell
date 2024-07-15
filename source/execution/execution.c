@@ -44,12 +44,15 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 
 int	handle_execution(t_node *exec, t_list *envp)
 {
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	if (execute_builtins(exec, envp))
+		return (-1);
 	if (!execute_builtins(exec, envp))
 	{
 		if (validate_command(exec))
 		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
+
 			if (execve(exec->data->exec->path,
 					exec->data->exec->command_table,
 					exec->data->exec->envp) == -1)
