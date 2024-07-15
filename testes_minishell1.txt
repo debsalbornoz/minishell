@@ -6,7 +6,7 @@
 [x]>">" asd
 
 echo '' -n
-
+aaaa
 echo "" "" "" -n -n -n -n
 
 [x]cat << $USER
