@@ -6,11 +6,12 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/09 19:24:01 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:16:17 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <signal.h>
 
 static int	execute_builtins(t_node *exec, t_list *envp);
 static int	handle_builtins(char **cmd_table,
@@ -52,7 +53,6 @@ int	handle_execution(t_node *exec, t_list *envp)
 	{
 		if (validate_command(exec))
 		{
-
 			if (execve(exec->data->exec->path,
 					exec->data->exec->command_table,
 					exec->data->exec->envp) == -1)

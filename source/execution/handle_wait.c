@@ -6,13 +6,13 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:24:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/09 19:26:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:21:27 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	wait_for_children(t_list *envp, int *pids)
+/*void	wait_for_children(t_list *envp, int *pids)
 {
 	char	*sts;
 	int		status;
@@ -33,6 +33,40 @@ void	wait_for_children(t_list *envp, int *pids)
 			sts = NULL;
 		}
 		update_env_list(envp, "?", sts);
+		i++;
+	}
+	if (sts)
+		free(sts);
+}
+*/
+
+void	wait_for_children(t_list *envp, int *pids)
+{
+	char	*sts;
+	int		status;
+	int		i;
+
+	i = 0;
+	sts = NULL;
+	while (waitpid(pids[i], &status, 0) != -1)
+	{
+		if (WIFEXITED(status))
+			sts = update_sts(sts, status);
+		else if (WIFSIGNALED(status))
+		{
+			sts = update_signal_sts(status, sts);
+			if (WTERMSIG(status) == SIGQUIT)
+			{
+				update_env_list(envp, "?", "131");
+				ft_printf("Quit (core dumped)\n");
+			}
+		}
+		else
+		{
+			if (sts)
+				free(sts);
+			sts = NULL;
+		}
 		i++;
 	}
 	if (sts)
