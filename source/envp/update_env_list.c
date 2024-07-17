@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/09 14:57:22 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:41:21 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_list	*update_env_list(t_list *lst_env, char *name, char *value)
 			return (lst_env);
 		lst_env = add_new_node(lst_env, name, value);
 	}
+	lst_env->node = lst_env->head;
 	return (lst_env);
 }
 

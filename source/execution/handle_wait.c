@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:24:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/09 19:26:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:21:27 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	wait_for_children(t_list *envp, int *pids)
 		free(sts);
 }
 
+
 char	*update_sts(char *sts, int status)
 {
 	if (sts)
@@ -57,6 +58,11 @@ char	*update_signal_sts(int status, char *sts)
 		if (sts)
 			free(sts);
 		sts = ft_strdup("130");
+	}
+	else if (status == SIGQUIT)
+	{
+		sts = ft_strdup("131");
+		ft_printf("Quit (core dumped)\n");
 	}
 	return (sts);
 }

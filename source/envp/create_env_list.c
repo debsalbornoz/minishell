@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_env_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 14:21:12 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/06 14:47:49 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/16 19:38:32 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_list	*create_env_list(char **envp, t_list *env_lst)
 		env_lst->node->data->env->value = get_envp_value(*envp);
 		envp++;
 	}
+	env_lst->node = env_lst->head;
 	return (env_lst);
 }
 
