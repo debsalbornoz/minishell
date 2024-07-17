@@ -81,6 +81,8 @@ static int	execute_builtins(t_node *exec, t_list *envp)
 	char	**cmd_table;
 
 	cmd_table = exec->data->exec->command_table;
+	if (!cmd_table)
+		return (-1);
 	if (!ft_strcmp(*cmd_table, "cd"))
 		return (handle_builtins(cmd_table, envp, 0, (union u_func)mini_cd));
 	else if (!ft_strcmp(*cmd_table, "pwd"))

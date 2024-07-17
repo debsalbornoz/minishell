@@ -60,6 +60,7 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 int	check_command_validity(char *command, t_list *envp, char **command_table)
 {
 	struct stat	st;
+	(void) command_table;
 
 	if (access(command, F_OK) == -1)
 		return (-1);
@@ -69,12 +70,15 @@ int	check_command_validity(char *command, t_list *envp, char **command_table)
 		ft_putstr_fd("Permission denied", 2);
 		return (-1);
 	}
-	if (stat(command, &st) == 0 && !is_absolute_path(command_table))
+	else if (stat(command, &st) == 0)
 	{
-		update_env_list(envp, "?", "126");
-		ft_putstr_fd("Is a diretory", 2);
-		return (-1);
-	}
+		if ((st.st_mode & S_IFMT) == S_IFDIR)
+		{
+			update_env_list(envp, "?", "126");
+			ft_putstr_fd("Is a directory\n", 2);
+			return (-1);
+		}
+}
 	return (0);
 }
 

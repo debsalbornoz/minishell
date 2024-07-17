@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-/*void	wait_for_children(t_list *envp, int *pids)
+void	wait_for_children(t_list *envp, int *pids)
 {
 	char	*sts;
 	int		status;
@@ -38,40 +38,7 @@
 	if (sts)
 		free(sts);
 }
-*/
 
-void	wait_for_children(t_list *envp, int *pids)
-{
-	char	*sts;
-	int		status;
-	int		i;
-
-	i = 0;
-	sts = NULL;
-	while (waitpid(pids[i], &status, 0) != -1)
-	{
-		if (WIFEXITED(status))
-			sts = update_sts(sts, status);
-		else if (WIFSIGNALED(status))
-		{
-			sts = update_signal_sts(status, sts);
-			if (WTERMSIG(status) == SIGQUIT)
-			{
-				update_env_list(envp, "?", "131");
-				ft_printf("Quit (core dumped)\n");
-			}
-		}
-		else
-		{
-			if (sts)
-				free(sts);
-			sts = NULL;
-		}
-		i++;
-	}
-	if (sts)
-		free(sts);
-}
 
 char	*update_sts(char *sts, int status)
 {
@@ -91,6 +58,11 @@ char	*update_signal_sts(int status, char *sts)
 		if (sts)
 			free(sts);
 		sts = ft_strdup("130");
+	}
+	else if (status == SIGQUIT)
+	{
+		sts = ft_strdup("131");
+		ft_printf("Quit (core dumped)\n");
 	}
 	return (sts);
 }

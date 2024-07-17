@@ -24,3 +24,10 @@ go crazy
 - [x] export var="$HOME | $USER"
 - [x]  export var="echo hello | hi"
 - [ ] < $var cat
+
+
+- [ ] exit hello
+- [ ] exit 42 hello
+- [ ] unset PATH
+- [ ] $EMPTY
+- [ ] $EMPTY echo hi
