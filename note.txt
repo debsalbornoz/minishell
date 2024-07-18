@@ -31,3 +31,46 @@ go crazy
 - [ ] unset PATH
 - [ ] $EMPTY
 - [ ] $EMPTY echo hi
+- [ ] $USERoi
+- [ ] unset ""
+- [ ]  1 || 2 || 3 || 4 || echo 5
+- [ ] {
+- [ ] }
+- [ ] echo 42 || echo 21
+- [ ] ps -ef | grep apache | grep -v grep
+- [ ] echo '$USER' | grep $USER | echo 42
+- [ ] > file1 | echo 42 | cat < file1 | grep 1 > file2 | wc -l
+- [ ] >> file1 | echo 42
+- [ ] unset HELLO=
+- [ ] unset  A-
+- [ ] unset  HELLO A- WORLD
+- [ ] export UNO=1 DOS-2 TRES=3 || env | grep TRES
+- [ ] exit 9223372036854775807
+- [ ] exit 9223372036854775808
+- [ ] exit -9223372036854775807
+- [ ] exit -9223372036854775808
+- [ ] exit -9223372036854775809
+- [ ] echo hi >./test_files/invalid_permission | echo bye (nao atualiza o retorno do echo)
+- [ ] echo hi >./test_files/invalid_permission >./outfiles/outfile01 | echo bye (nao atualiza o retorno do echo)
+- [ ] echo hi >>./test_files/invalid_permission | echo bye ( nao atualiza o retorno do echo)
+- [ ] ../ (Is a directory)
+- [ ] cat valid_infile_1 | grep dream | wc -l | x (nao atualiza como comando nao encontrado)
+- [ ] echo $$
+- [ ] echo $$$
+- [ ] echo hello $NOT_A_VAR $NOT_A_VAR $NOT_A_VAR $USER (imprime espaços aleatorios)
+- [ ] ls | | cat  (broken pipe)
+- [ ] ls | exit abc 12
+- [ ] ls -l > x | exit | wc -l (output errado)
+- [ ] echo abcdefghijk > forbidden_file > outfile1 > outfile2  (echo imprime na tel)
+- [ ] echo -n hello world
+- [ ] > out | /bin/ls (ls nao aparece na tela)
+- [ ] /bin/ls | < infile
+- [ ] cat > .
+- [ ] echo hi > /usr/local/bin
+- [ ] $iodhuadhas
+- [ ] $USERoi
+- [ ] MINISHELL_PATH="../minishell"  (nao sei se precisa)
+- [ ] echo -n test1
+- [ ] echo -n -n -n -n -n test1
+- [ ] echo -n -nnnnnnn -n -nnn -nnnnn -n feel my pain
+**se possivel fazer tratamento para ambiguos redirect**
