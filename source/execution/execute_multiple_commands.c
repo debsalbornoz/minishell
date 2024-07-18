@@ -19,7 +19,7 @@ int	execute_multiple_commands(t_list *exec, t_list *tokens,
 	int			**pipes;
 	int			fd_in;
 	int			fd_out;
-	static int	*pids;
+	int			*pids;
 
 	num_pipes = count_pipes(exec);
 	pipes = create_pipes(num_pipes);
@@ -35,7 +35,7 @@ int	execute_multiple_commands(t_list *exec, t_list *tokens,
 		finish_process(exec, tokens, envp, input);
 	}
 	restore_file_descriptors(fd_in, fd_out);
-	wait_for_children(envp, pids);
+	wait_for_children(envp, pids, (num_pipes + 1));
 	free_pipes(pipes);
 	free(pids);
 	return (0);
@@ -56,7 +56,7 @@ int	handle_multi_exec(t_list *exec, int num_pipes, int **pipes, int *pids)
 	while (node != NULL)
 	{
 		if (fork_and_execute_command(std_fds, pipes,
-				node, pids[i]) == -1)
+				node, &pids[i]) == -1)
 		{
 			free(std_fds);
 			return (-1);
@@ -69,15 +69,15 @@ int	handle_multi_exec(t_list *exec, int num_pipes, int **pipes, int *pids)
 }
 
 int	fork_and_execute_command(int *std_fds,
-		int **pipes, t_node *node, int pid)
+		int **pipes, t_node *node, int *pid)
 {
 	t_list	*envp;
 
-	pid = fork();
+	*pid = fork();
 	envp = data_env_addr();
-	if (pid == -1)
+	if (*pid == -1)
 		exit(EXIT_FAILURE);
-	else if (pid == 0)
+	else if (*pid == 0)
 	{
 		setup_pipes(node->data->exec->index, std_fds[0], std_fds[1], pipes);
 		if (handle_redirect(node, envp, std_fds[0], std_fds[1]) == -1)
