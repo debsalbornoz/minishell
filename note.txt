@@ -1,3 +1,58 @@
+
+BUILTINS
+
+- [ ] exit hello
+- [ ] exit 42 hello
+- [ ] unset PATH
+- [ ] unset ""
+- [ ] >> file1 | echo 42 (output nao aparece na tela)
+- [ ] unset HELLO=
+- [ ] unset  A-
+- [ ] unset  HELLO A- WORLD
+- [ ] export UNO=1 DOS-2 TRES=3 || env | grep TRES
+- [ ] exit 9223372036854775807
+- [ ] exit 9223372036854775808
+- [ ] exit -9223372036854775807
+- [ ] exit -9223372036854775808
+- [ ] exit -9223372036854775809
+- [ ] echo $$
+- [ ] echo $$$
+- [ ] ls | exit abc 12 (saida de erro do exit errada)
+- [ ] echo abcdefghijk > forbidden_file > outfile1 > outfile2  (echo imprime na tela)
+- [ ] echo -n hello world
+- [ ] echo -n test1
+- [ ] echo -n -n -n -n -n test1
+- [ ] echo -n -nnnnnnn -n -nnn -nnnnn -n feel my pain
+- [ ] ls -l > x | exit | wc -l (output errado, provavelmente algo no exit porque com outros comandos funciona)
+
+VARIAVEIS DE AMBIENTE
+- [ ] $EMPTY
+- [ ] $EMPTY echo hi
+- [ ] $USERoi
+- [ ] echo hello $NOT_A_VAR $NOT_A_VAR $NOT_A_VAR $USER (imprime espaços aleatorios)
+- [ ] $iodhuadhas
+- [ ] $USERoi
+
+
+OUTROS
+- [ ] > file1 | echo 42 | cat < file1 | grep 1 > file2 | wc -l (output nao aparece na tela)
+- [ ] ../ (Is a directory)
+- [ ] > out | /bin/ls (ls nao aparece na tela)
+- [ ] /bin/ls | < infile (saida de erro diferente)
+- [ ] cat > . (loop infinito)
+- [ ] echo hi > /usr/local/bin (is a directory)
+- [ ] MINISHELL_PATH="../minishell"  (nao sei se precisa)
+**se possivel fazer tratamento para ambiguos redirect**
+- [ ] < $var cat
+
+
+VALGRIND
+- [ ] close fds
+- [ ] Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
+
+
+FEITOS
+
 - [X] echo -nnnnn
 - [x] (env) ?=0
 - [x] (export) _=
@@ -8,26 +63,26 @@
 - [x] echo $asdsa '$asdasdas' '|' "|"  -> qualquer coisa que vem depois de uma expação de variable que não existe
 - [x] incluir erro de redirect no echo
 - [x] adicionar aspas nos operadores na expanção das variáveis
+- [x] cat valid_infile_1 | grep dream | wc -l | x
+- [x] echo hi >>./test_files/invalid_permission | echo bye
+- [x] echo hi >./test_files/invalid_permission >./outfiles/outfile01
+- [x] ps -ef | grep apache | grep -v grep
+- [x] echo '$USER' | grep $USER | echo 42
+- [x] {
+- [x] }
+- [x]  1 || 2 || 3 || 4 || echo 5
+- [x] echo 42 || echo 21
+- [x] ls | | cat  (broken pipe)
 
 **valgrind**
 - [x] espaço
-- [ ] close fds
-- [ ] expr $? + $?
+- [x] expr $? + $?
 - [x] export 123
-- [ ] Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
-- [ ] < $naoexiste cat
-- [ ] < file_without_permission <infile cat >out >out
+- [x] < $naoexiste cat
+- [x] < file_without_permission <infile cat >out >out
 
 go crazy
 - [x] export var="echo hello | hi"
 - [x] echo $var
 - [x] export var="$HOME | $USER"
 - [x]  export var="echo hello | hi"
-- [ ] < $var cat
-
-
-- [ ] exit hello
-- [ ] exit 42 hello
-- [ ] unset PATH
-- [ ] $EMPTY
-- [ ] $EMPTY echo hi

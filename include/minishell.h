@@ -165,7 +165,7 @@ int		execute_multiple_commands(t_list *exec, t_list *tokens,
 			t_list *envp, char *input);
 int		handle_multi_exec(t_list *exec, int num_pipes, int **pipes, int *pids);
 int		fork_and_execute_command(int *std_fds, int **pipes,
-			t_node *node, int pid);
+			t_node *node, int *pid);
 
 //execute_simple_command.c
 int		execute_simple_command(t_list *exec,
@@ -185,7 +185,7 @@ void	close_fds(void);
 void	free_pipes(int **pipes);
 
 //handle_wait.c
-void	wait_for_children(t_list *envp, int *pids);
+void	wait_for_children(t_list *envp, int *pids, int num_process);
 char	*update_signal_sts(int status, char *sts);
 char	*update_sts(char *sts, int status);
 //pipe.c
