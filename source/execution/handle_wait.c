@@ -27,7 +27,9 @@ void	wait_for_children(t_list *envp, int *pids, int num_process)
 		if (WIFEXITED(status))
 		{
 			if (i == num_process - 1)
-				last_command = update_sts(last_command, status);
+			{
+				last_command = ft_itoa(WEXITSTATUS(status));
+			}
 			sts = update_sts(sts, status);
 		}
 		else if (WIFSIGNALED(status))
@@ -43,6 +45,8 @@ void	wait_for_children(t_list *envp, int *pids, int num_process)
 	update_env_list(envp, "?", last_command);
 	if (sts)
 		free(sts);
+	if (last_command)
+		free(last_command);
 }
 
 
