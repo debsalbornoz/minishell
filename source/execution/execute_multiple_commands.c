@@ -29,7 +29,11 @@ int	execute_multiple_commands(t_list *exec, t_list *tokens,
 	fd_in = dup(0);
 	fd_out = dup(1);
 	if (handle_multi_exec(exec, num_pipes, pipes, pids) == -1)
+	{
+		free_pipes(pipes);
+		free(pids);
 		finish_process(exec, tokens, envp, input);
+	}
 	restore_file_descriptors(fd_in, fd_out);
 	wait_for_children(envp, pids);
 	free_pipes(pipes);
@@ -53,7 +57,10 @@ int	handle_multi_exec(t_list *exec, int num_pipes, int **pipes, int *pids)
 	{
 		if (fork_and_execute_command(std_fds, pipes,
 				node, pids[i]) == -1)
+		{
+			free(std_fds);
 			return (-1);
+		}
 		node = node->next;
 		i++;
 	}
