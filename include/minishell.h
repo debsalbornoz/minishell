@@ -186,6 +186,7 @@ void	free_pipes(int **pipes);
 
 //handle_wait.c
 void	wait_for_children(t_list *envp, int *pids, int);
+
 char	*update_signal_sts(int status, char *sts);
 char	*update_sts(char *sts, int status);
 //pipe.c

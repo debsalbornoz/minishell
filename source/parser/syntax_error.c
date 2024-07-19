@@ -20,6 +20,7 @@ int	syntax_error(t_list *tokens, t_list	*envp, char *input)
 {
 	if (redirect_error(tokens) || pipe_error(tokens)
 		|| dot_error(tokens) || its_braces(tokens))
+
 	{
 		ft_putstr_fd("Syntax error\n", 2);
 		update_env_list(envp, "?", "2");
@@ -72,6 +73,7 @@ int	its_braces(t_list *tokens)
 				if(ft_strncmp("{", aux->data->token->value, ft_strlen(aux->data->token->value)) == 0
 					|| ft_strncmp("}", aux->data->token->value, ft_strlen(aux->data->token->value)) == 0)
 					return (1);
+
 			}
 			if (ft_strncmp("}", aux->data->token->value, ft_strlen(aux->data->token->value)) == 0)
 				return (1);

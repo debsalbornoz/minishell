@@ -1,6 +1,4 @@
-
 BUILTINS
-
 - [ ] exit hello
 - [ ] exit 42 hello
 - [ ] unset PATH
@@ -35,7 +33,6 @@ VARIAVEIS DE AMBIENTE
 
 
 OUTROS
-
 - [ ] /bin/ls | < infile (saida de erro diferente)
 - [ ] MINISHELL_PATH="../minishell"  (nao sei se precisa)
 **se possivel fazer tratamento para ambiguos redirect**
@@ -46,7 +43,6 @@ VALGRIND
 - [ ] Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
 
 FEITOS
-
 - [X] echo -nnnnn
 - [x] (env) ?=0
 - [x] (export) _=
@@ -72,6 +68,7 @@ FEITOS
 - [x] ../
 - [x] cat > .
 
+
 **valgrind**
 - [x] espaço
 - [x] expr $? + $?
@@ -79,6 +76,7 @@ FEITOS
 - [x] < $naoexiste cat
 - [x] < file_without_permission <infile cat >out >out
 - [x] >> file1 | echo 42
+
 
 go crazy
 - [x] export var="echo hello | hi"
