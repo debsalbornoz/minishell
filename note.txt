@@ -1,11 +1,8 @@
-
 BUILTINS
-
 - [ ] exit hello
 - [ ] exit 42 hello
 - [ ] unset PATH
 - [ ] unset ""
-- [ ] >> file1 | echo 42 (output nao aparece na tela)
 - [ ] unset HELLO=
 - [ ] unset  A-
 - [ ] unset  HELLO A- WORLD
@@ -24,6 +21,7 @@ BUILTINS
 - [ ] echo -n -n -n -n -n test1
 - [ ] echo -n -nnnnnnn -n -nnn -nnnnn -n feel my pain
 - [ ] ls -l > x | exit | wc -l (output errado, provavelmente algo no exit porque com outros comandos funciona)
+- [ ] echo hi > /usr/local/bin (echo aparece na tela)
 
 VARIAVEIS DE AMBIENTE
 - [ ] $EMPTY
@@ -35,24 +33,16 @@ VARIAVEIS DE AMBIENTE
 
 
 OUTROS
-- [ ] > file1 | echo 42 | cat < file1 | grep 1 > file2 | wc -l (output nao aparece na tela)
-- [ ] ../ (Is a directory)
-- [ ] > out | /bin/ls (ls nao aparece na tela)
 - [ ] /bin/ls | < infile (saida de erro diferente)
-- [ ] cat > . (loop infinito)
-- [ ] echo hi > /usr/local/bin (is a directory)
 - [ ] MINISHELL_PATH="../minishell"  (nao sei se precisa)
 **se possivel fazer tratamento para ambiguos redirect**
 - [ ] < $var cat
-
 
 VALGRIND
 - [ ] close fds
 - [ ] Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
 
-
 FEITOS
-
 - [X] echo -nnnnn
 - [x] (env) ?=0
 - [x] (export) _=
@@ -73,6 +63,11 @@ FEITOS
 - [x]  1 || 2 || 3 || 4 || echo 5
 - [x] echo 42 || echo 21
 - [x] ls | | cat  (broken pipe)
+- [x] > out | /bin/ls
+- [x] > file1 | echo 42 | cat < file1 | grep 1 > file2 | wc -l
+- [x] ../
+- [x] cat > .
+
 
 **valgrind**
 - [x] espaço
@@ -80,6 +75,8 @@ FEITOS
 - [x] export 123
 - [x] < $naoexiste cat
 - [x] < file_without_permission <infile cat >out >out
+- [x] >> file1 | echo 42
+
 
 go crazy
 - [x] export var="echo hello | hi"

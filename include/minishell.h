@@ -161,11 +161,11 @@ int		validate_command(t_node *exec);
 int		is_simple_command(t_list *tokens);
 
 //execute_multiple_commands.c
-int		execute_multiple_commands(t_list *exec, t_list *tokens,
+int	fork_and_execute_command(int *std_fds,
+		int **pipes, t_node *node, int *pid);
+int	handle_multi_exec(t_list *exec, int num_pipes, int **pipes, int *pids);
+int	execute_multiple_commands(t_list *exec, t_list *tokens,
 			t_list *envp, char *input);
-int		handle_multi_exec(t_list *exec, int num_pipes, int **pipes, int *pids);
-int		fork_and_execute_command(int *std_fds, int **pipes,
-			t_node *node, int *pid);
 
 //execute_simple_command.c
 int		execute_simple_command(t_list *exec,
@@ -185,7 +185,8 @@ void	close_fds(void);
 void	free_pipes(int **pipes);
 
 //handle_wait.c
-void	wait_for_children(t_list *envp, int *pids, int num_process);
+void	wait_for_children(t_list *envp, int *pids, int);
+
 char	*update_signal_sts(int status, char *sts);
 char	*update_sts(char *sts, int status);
 //pipe.c
@@ -203,9 +204,10 @@ int		count_pipes2(int **pipes);
 //command_table.c
 void	create_command_table(t_list *tokens, t_list *exec);
 char	**allocate_cmd_table(t_node *tokens);
+void	allocate_multi_cmd_table(t_list *tokens, t_list *exec);
 void	create_simple_cmd_table(t_list *tokens, t_list *exec);
 void	create_multi_cmd_table(t_list *tokens, t_list *exec);
-char	**fill_command_table(t_node **tokens, char **command_table);
+void	fill_command_table(t_list *tokens, t_list *exec);
 
 //create_lst_exec.c
 t_list	*create_lst_exec(t_list *tokens, t_list *exec, t_list *envp);

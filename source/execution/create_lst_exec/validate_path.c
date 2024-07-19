@@ -46,7 +46,10 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 	if (is_absolute_path(command_table))
 	{
 		if (check_command_validity(command_table[0], envp, command_table) == -1)
+		{
+			free_matrix(path_array);
 			return (NULL);
+		}
 		absolute_path = ft_strdup(command_table[0]);
 		free_matrix(path_array);
 		return (absolute_path);
@@ -100,7 +103,7 @@ int	is_executable(t_node *exec, char *path)
 int	is_absolute_path(char **command_table)
 {
 	if (!ft_strncmp(command_table[0], "/", 1)
-		|| !ft_strncmp(command_table[0], "./", 2))
+		|| !ft_strncmp(command_table[0], "./", 2) || !ft_strncmp(command_table[0], "../", 3))
 		return (1);
 	return (0);
 }

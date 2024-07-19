@@ -73,6 +73,8 @@ int	open_file(char **redir_and_files, int i, int flag, t_list *envp)
 
 static int	check_access_input(char *redirect, char *file, t_list *envp)
 {
+	struct stat st;
+
 	if (find_heredoc(redirect) || find_input(redirect))
 	{
 		if (access(file, F_OK) == -1)
@@ -81,18 +83,30 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 			ft_putstr_fd("No such file or directory\n", 2);
 			return (-1);
 		}
-		if (access(file, R_OK) == -1)
+		else if (stat(file, &st) == 0)
+		{
+			if ((st.st_mode & S_IFMT) == S_IFDIR)
+			{
+				update_env_list(envp, "?", "1");
+				ft_putstr_fd("Is a directory\n", 2);
+				return (-1);
+			}
+		}
+		else if (access(file, R_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
 			ft_putstr_fd("Permission denied\n", 2);
 			return (-1);
 		}
+
 	}
 	return (0);
 }
 
 static int	check_access_output(char *redirect, char *file, t_list *envp)
 {
+	struct stat st;
+
 	if (find_output(redirect) || find_append(redirect))
 	{
 		if (access(file, F_OK) == -1)
@@ -101,7 +115,16 @@ static int	check_access_output(char *redirect, char *file, t_list *envp)
 			ft_putstr_fd("No such file or directory\n", 2);
 			return (-1);
 		}
-		if (access(file, W_OK) == -1)
+		else if (stat(file, &st) == 0)
+		{
+			if ((st.st_mode & S_IFMT) == S_IFDIR)
+			{
+				update_env_list(envp, "?", "1");
+				ft_putstr_fd("Is a directory\n", 2);
+				return (-1);
+			}
+		}
+		else if (access(file, W_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
 			ft_putstr_fd("Permission denied\n", 2);

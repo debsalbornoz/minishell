@@ -33,7 +33,9 @@ int	validate_command(t_node *exec)
 	if (exec->data->exec->path != NULL
 		&& exec->data->exec->command_table != NULL
 		&& exec->data->exec->envp != NULL)
+	{
 		return (1);
+	}
 	return (0);
 }
 

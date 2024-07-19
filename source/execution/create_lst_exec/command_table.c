@@ -48,51 +48,65 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 	exec->node->data->exec->command_table = command_table;
 }
 
-void	create_multi_cmd_table(t_list *tokens, t_list *exec)
+void allocate_multi_cmd_table(t_list *tokens, t_list *exec)
 {
-	char	**command_table;
+	t_node	*aux_exec;
+	t_node	*aux_tokens;
+	int		counter;
 
-	command_table = NULL;
-	while (exec->node)
+	aux_exec = exec->head;
+	aux_tokens = tokens->head;
+	counter = 0;
+	while (aux_tokens)
 	{
-		command_table = allocate_cmd_table(tokens->node);
-		if (!command_table)
-			return ;
-		command_table = fill_command_table(&tokens->node, command_table);
-		if (*command_table == NULL)
-			free(command_table);
-		else
+		if (!is_file_redirect_or_pipe(aux_tokens->data->token->type))
+			counter++;
+		if (aux_tokens->data->token->type == PIPE && aux_exec->next)
 		{
-			exec->node->data->exec->command_table = command_table;
-			exec->node = exec->node->next;
+			if (counter > 0)
+			{
+				aux_exec->data->exec->command_table = ft_calloc(counter + 1, sizeof(char *));
+			}
+				aux_exec = aux_exec->next;
+				counter = 0;
 		}
+		aux_tokens = aux_tokens->next;
+	}
+	if (aux_exec->next == NULL)
+	{
+		if (counter > 0)
+			aux_exec->data->exec->command_table = ft_calloc(counter + 1, sizeof(char *));
 	}
 }
+void create_multi_cmd_table(t_list *tokens, t_list *exec)
+{
+	allocate_multi_cmd_table(tokens, exec);
+	fill_command_table(tokens, exec);
+}
 
-char	**fill_command_table(t_node **tokens, char **command_table)
+void fill_command_table(t_list *tokens, t_list *exec)
 {
 	int		i;
-	t_node	*current;
+	t_node	*aux_token;
+	t_node	*aux_exec;
 
 	i = 0;
-	current = *tokens;
-	while (current)
+	aux_token = tokens->head;
+	aux_exec = exec->head;
+	while (aux_token)
 	{
-		if (!is_file_redirect_or_pipe(current->data->token->type))
+		if (!is_file_redirect_or_pipe(aux_token->data->token->type))
 		{
-			command_table[i] = ft_strdup(current->data->token->value);
+			aux_exec->data->exec->command_table[i] = ft_strdup(aux_token->data->token->value);
 			i++;
 		}
-		else if (current->data->token->type == PIPE && current->next)
+		else if (aux_token->data->token->type == PIPE && aux_exec->next)
 		{
-			current = current->next;
-			break ;
+			aux_exec = aux_exec->next;
+			i = 0;
 		}
-		current = current->next;
+		aux_token = aux_token->next;
 	}
-	*tokens = current;
-	command_table[i] = NULL;
-	return (command_table);
 }
 
 char	**allocate_cmd_table(t_node *tokens)
