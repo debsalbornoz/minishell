@@ -23,6 +23,7 @@ BUILTINS
 - [ ] echo -n -n -n -n -n test1
 - [ ] echo -n -nnnnnnn -n -nnn -nnnnn -n feel my pain
 - [ ] ls -l > x | exit | wc -l (output errado, provavelmente algo no exit porque com outros comandos funciona)
+- [ ] echo hi > /usr/local/bin (echo aparece na tela)
 
 VARIAVEIS DE AMBIENTE
 - [ ] $EMPTY
@@ -34,19 +35,15 @@ VARIAVEIS DE AMBIENTE
 
 
 OUTROS
-- [ ] ../ (Is a directory)
+
 - [ ] /bin/ls | < infile (saida de erro diferente)
-- [ ] cat > . (loop infinito)
-- [ ] echo hi > /usr/local/bin (is a directory)
 - [ ] MINISHELL_PATH="../minishell"  (nao sei se precisa)
 **se possivel fazer tratamento para ambiguos redirect**
 - [ ] < $var cat
 
-
 VALGRIND
 - [ ] close fds
 - [ ] Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
-
 
 FEITOS
 
@@ -72,6 +69,8 @@ FEITOS
 - [x] ls | | cat  (broken pipe)
 - [x] > out | /bin/ls
 - [x] > file1 | echo 42 | cat < file1 | grep 1 > file2 | wc -l
+- [x] ../
+- [x] cat > .
 
 **valgrind**
 - [x] espaço
