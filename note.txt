@@ -38,6 +38,7 @@ OUTROS
 
 - [ ] /bin/ls | < infile (saida de erro diferente)
 - [ ] MINISHELL_PATH="../minishell"  (nao sei se precisa)
+
 **se possivel fazer tratamento para ambiguos redirect**
 - [ ] < $var cat
 
