@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <signal.h>
 
 static int	execute_builtins(t_node *exec, t_list *envp);
 static int	handle_builtins(char **cmd_table,
