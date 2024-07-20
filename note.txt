@@ -15,13 +15,11 @@ BUILTINS
 - [ ] echo $$
 - [ ] echo $$$
 - [ ] ls | exit abc 12 (saida de erro do exit errada)
-- [ ] echo abcdefghijk > forbidden_file > outfile1 > outfile2  (echo imprime na tela)
 - [ ] echo -n hello world
 - [ ] echo -n test1
 - [ ] echo -n -n -n -n -n test1
 - [ ] echo -n -nnnnnnn -n -nnn -nnnnn -n feel my pain
-- [ ] ls -l > x | exit | wc -l (output errado, provavelmente algo no exit porque com outros comandos funciona)
-- [ ] echo hi > /usr/local/bin (echo aparece na tela)
+
 
 VARIAVEIS DE AMBIENTE
 - [ ] $EMPTY
@@ -35,6 +33,7 @@ VARIAVEIS DE AMBIENTE
 OUTROS
 - [ ] /bin/ls | < infile (saida de erro diferente)
 - [ ] MINISHELL_PATH="../minishell"  (nao sei se precisa)
+
 **se possivel fazer tratamento para ambiguos redirect**
 - [ ] < $var cat
 
@@ -50,7 +49,7 @@ FEITOS
 - [x] export "abc"
 - [x] export 123
 - [x] echo "'$HOME'"''"" "$HOME" '' '"$HOME"' "$asdsad"
-- [x] echo $asdsa '$asdasdas' '|' "|"  -> qualquer coisa que vem depois de uma expação de variable que não existe
+- [x] echo $asdsa '$asdasdas' '|' "|"  -> qualquer coisa que vem depois de uma expansão de variable que não existe
 - [x] incluir erro de redirect no echo
 - [x] adicionar aspas nos operadores na expanção das variáveis
 - [x] cat valid_infile_1 | grep dream | wc -l | x
@@ -67,7 +66,8 @@ FEITOS
 - [x] > file1 | echo 42 | cat < file1 | grep 1 > file2 | wc -l
 - [x] ../
 - [x] cat > .
-
+- [x] echo abcdefghijk > forbidden_file > outfile1 > outfile2  (echo imprime na tela)
+- [x] echo hi > /usr/local/bin (echo aparece na tela)
 
 **valgrind**
 - [x] espaço
@@ -77,9 +77,11 @@ FEITOS
 - [x] < file_without_permission <infile cat >out >out
 - [x] >> file1 | echo 42
 
-
 go crazy
 - [x] export var="echo hello | hi"
 - [x] echo $var
 - [x] export var="$HOME | $USER"
 - [x]  export var="echo hello | hi"
+
+
+echo hi > / (aparece o hi na tela)

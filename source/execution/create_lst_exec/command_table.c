@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_table.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 12:17:21 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/20 14:35:03 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 	exec->node->data->exec->command_table = command_table;
 }
 
-void allocate_multi_cmd_table(t_list *tokens, t_list *exec)
+void	allocate_multi_cmd_table(t_list *tokens, t_list *exec)
 {
 	t_node	*aux_exec;
 	t_node	*aux_tokens;

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:33:53 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/29 16:32:36 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:35:57 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 static int	handle_redir(t_list *exec, t_list *envp, int ftype, union u_func f);
 static int	select_func(t_list *exec, t_list *envp, int ftype, union u_func f);
 
-int	builtins(t_list *exec, t_list *envp)
+int	builtins(t_list *exec, t_list *envp, int fd_in, int fd_out)
 {
 	char	**cmd_table;
+	int		return_value;
 
+	return_value = 0;
+	if (handle_redirect(exec->head, envp, fd_in, fd_out) == -1)
+		return (0);
 	cmd_table = exec->node->data->exec->command_table;
 	if (!ft_strcmp(*cmd_table, "cd"))
 		return (handle_redir(exec, envp, 0, (union u_func)mini_cd), 0);
@@ -38,19 +42,10 @@ int	builtins(t_list *exec, t_list *envp)
 
 static int	handle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
 {
-	int		fd_in;
-	int		fd_out;
 	char	*value;
 
 	value = NULL;
-	fd_in = dup(STDIN_FILENO);
-	if (fd_in == -1)
-		return (perror("dup stdin"), -1);
-	fd_out = dup(STDOUT_FILENO);
-	if (fd_out == -1)
-		return (perror("dup stdout"), close(fd_in), -1);
-	if (handle_redirect(exec->head, envp, fd_in, fd_out)
-		&& !ft_strcmp(ft_get_env("?"), "1"))
+	if (!ft_strcmp(ft_get_env("?"), "1"))
 		value = ft_itoa(select_func(exec, envp, ftype, f));
 	else
 	{
@@ -58,11 +53,7 @@ static int	handle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
 		update_env_list(envp, "?", value);
 	}
 	free(value);
-	if (dup2(fd_in, STDIN_FILENO) == -1)
-		perror("dup2 stdin");
-	if (dup2(fd_out, STDOUT_FILENO) == -1)
-		perror("dup2 stdout");
-	return (close(fd_in), close(fd_out), 0);
+	return (0);
 }
 
 static int	select_func(t_list *exec, t_list *envp, int ftype, union u_func f)
