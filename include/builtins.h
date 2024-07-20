@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 18:52:19 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 20:43:49 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:42:47 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "linked_list.h"
 # include "../library/lib.h"
 
-int		builtins(t_list *exec, t_list *envp);
+int		builtins(t_list *exec, t_list *envp, int fd_in, int fd_out);
 int		mini_cd(char **exec);
 int		mini_pwd(char **exec);
 int		mini_echo(char **exec);

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/06/29 16:07:20 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:21:54 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	open_file(char **redir_and_files, int i, int flag, t_list *envp)
 
 static int	check_access_input(char *redirect, char *file, t_list *envp)
 {
-	struct stat st;
+	struct	stat st;
 
 	if (find_heredoc(redirect) || find_input(redirect))
 	{
@@ -98,14 +98,13 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 			ft_putstr_fd("Permission denied\n", 2);
 			return (-1);
 		}
-
 	}
 	return (0);
 }
 
 static int	check_access_output(char *redirect, char *file, t_list *envp)
 {
-	struct stat st;
+	struct	stat st;
 
 	if (find_output(redirect) || find_append(redirect))
 	{
@@ -115,14 +114,11 @@ static int	check_access_output(char *redirect, char *file, t_list *envp)
 			ft_putstr_fd("No such file or directory\n", 2);
 			return (-1);
 		}
-		else if (stat(file, &st) == 0)
+		else if (stat(file, &st) == 0 && (st.st_mode & S_IFMT) == S_IFDIR)
 		{
-			if ((st.st_mode & S_IFMT) == S_IFDIR)
-			{
-				update_env_list(envp, "?", "1");
-				ft_putstr_fd("Is a directory\n", 2);
-				return (-1);
-			}
+			update_env_list(envp, "?", "1");
+			ft_putstr_fd("Is a directory\n", 2);
+			return (-1);
 		}
 		else if (access(file, W_OK) == -1)
 		{

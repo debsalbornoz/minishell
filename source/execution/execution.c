@@ -6,12 +6,13 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/16 19:16:17 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:28:31 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include <signal.h>
+#include <unistd.h>
 
 static int	execute_builtins(t_node *exec, t_list *envp);
 static int	handle_builtins(char **cmd_table,
@@ -21,7 +22,11 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 	t_list *lst_env, char *input)
 {
 	int	status;
+	int	fd_in;
+	int	fd_out;
 
+	fd_in = dup(STDIN_FILENO);
+	fd_out = dup(STDOUT_FILENO);
 	status = 0;
 	lst_exec = create_lst_exec(lst_tokens, lst_exec, lst_env);
 	if (!lst_exec)
@@ -29,7 +34,10 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 	if (is_simple_command(lst_tokens))
 	{
 		if (is_builtins(lst_tokens->node->data->token->type))
-			status = builtins(lst_exec, lst_env);
+		{
+			status = builtins(lst_exec, lst_env, fd_in, fd_out);
+			restore_file_descriptors(fd_in, fd_out);
+		}
 		else
 		{
 			execute_simple_command(lst_exec, lst_tokens, lst_env, input);
