@@ -86,3 +86,6 @@ go crazy
 - [x] echo $var
 - [x] export var="$HOME | $USER"
 - [x]  export var="echo hello | hi"
+
+
+echo hi > / (aparece o hi na tela)

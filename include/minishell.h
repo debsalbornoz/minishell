@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/09 19:33:41 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/20 14:51:49 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,11 @@ char	*build_env_var(char *s1, char *s2);
 void	save_redirects_and_files(t_list *exec, t_list *tokens);
 char	**allocate_redir_and_files(t_node *tokens);
 char	**get_redirects_and_files(t_node **tokens, char **redir_and_files);
+void	create_simple_redir_table(t_list	*tokens, t_list *exec);
+void	allocate_multi_redir_table(t_list *tokens, t_list *exec);
+void	create_multi_redir_table(t_list *tokens, t_list *exec);
+char	**allocate_redir_table(t_node *tokens);
+void	fill_redir_and_files(t_list *tokens, t_list *exec);
 
 //split_path.c
 char	**split_path(t_list *envp);
