@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 12:18:33 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/01 12:28:33 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/20 18:56:46 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*create_absolute_path(char **path_array,
 
 	i = 0;
 	absolute_path = NULL;
+	if (!path_array)
+		return (NULL);
 	while (path_array[i])
 	{
 		absolute_path = concatenate_path(path_array[i], command_table[0]);

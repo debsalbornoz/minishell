@@ -1,11 +1,6 @@
 BUILTINS
 - [ ] exit hello
 - [ ] exit 42 hello
-- [ ] unset PATH
-- [ ] unset ""
-- [ ] unset HELLO=
-- [ ] unset  A-
-- [ ] unset  HELLO A- WORLD
 - [ ] export UNO=1 DOS-2 TRES=3 || env | grep TRES
 - [ ] exit 9223372036854775807
 - [ ] exit 9223372036854775808
@@ -68,6 +63,10 @@ FEITOS
 - [x] cat > .
 - [x] echo abcdefghijk > forbidden_file > outfile1 > outfile2  (echo imprime na tela)
 - [x] echo hi > /usr/local/bin (echo aparece na tela)
+- [x] unset PATH
+- [x] unset ""
+- [x] unset HELLO=
+- [x] unset  A-
 
 **valgrind**
 - [x] espaço
@@ -82,6 +81,5 @@ go crazy
 - [x] echo $var
 - [x] export var="$HOME | $USER"
 - [x]  export var="echo hello | hi"
-
-
-echo hi > / (aparece o hi na tela)
+- [x] unset  HELLO A- WORLD
+- [x] echo hi > / (aparece o hi na tela)

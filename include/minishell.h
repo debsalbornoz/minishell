@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/20 14:51:49 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:14:17 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,4 +262,8 @@ int		find_heredoc(char *str);
 void	handle_heresignals(void);
 char	*ft_get_env(char *name);
 
+
+int		ft_isalphanum(char c);
+int		ft_is_alpha(char c);
+int		ft_is_digit(char c);
 #endif
