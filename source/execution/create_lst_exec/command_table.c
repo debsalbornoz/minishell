@@ -50,9 +50,9 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 
 void	allocate_multi_cmd_table(t_list *tokens, t_list *exec)
 {
+	int		counter;
 	t_node	*aux_exec;
 	t_node	*aux_tokens;
-	int		counter;
 
 	aux_exec = exec->head;
 	aux_tokens = tokens->head;
@@ -71,12 +71,9 @@ void	allocate_multi_cmd_table(t_list *tokens, t_list *exec)
 		}
 		aux_tokens = aux_tokens->next;
 	}
-	if (aux_exec->next == NULL)
-	{
-		if (counter > 0)
-			aux_exec->data->exec->command_table
-				= ft_calloc(counter + 1, sizeof(char *));
-	}
+	if (aux_exec->next == NULL && counter > 0)
+		aux_exec->data->exec->command_table
+			= ft_calloc(counter + 1, sizeof(char *));
 }
 
 void	create_multi_cmd_table(t_list *tokens, t_list *exec)
