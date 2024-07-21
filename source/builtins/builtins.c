@@ -19,9 +19,7 @@ static int	select_func(t_list *exec, t_list *envp, int ftype, union u_func f);
 int	builtins(t_list *exec, t_list *envp, int fd_in, int fd_out)
 {
 	char	**cmd_table;
-	int		return_value;
 
-	return_value = 0;
 	if (handle_redirect(exec->head, envp, fd_in, fd_out) == -1)
 		return (0);
 	cmd_table = exec->node->data->exec->command_table;
@@ -37,7 +35,10 @@ int	builtins(t_list *exec, t_list *envp, int fd_in, int fd_out)
 		return (handle_redir(exec, envp, 2, (union u_func)mini_env), 0);
 	else if (!ft_strcmp(*cmd_table, "export"))
 		return (handle_redir(exec, envp, 1, (union u_func)mini_export), 0);
-	return (handle_redir(exec, envp, 1, (union u_func)mini_exit), 1);
+	handle_redir(exec, envp, 1, (union u_func)mini_exit);
+	if (ft_strcmp(ft_get_env("?"), "1"))
+		return (1);
+	return (0);
 }
 
 static int	handle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
@@ -46,12 +47,9 @@ static int	handle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
 
 	value = NULL;
 	if (!ft_strcmp(ft_get_env("?"), "1"))
-		value = ft_itoa(select_func(exec, envp, ftype, f));
-	else
-	{
-		value = ft_itoa(select_func(exec, envp, ftype, f));
-		update_env_list(envp, "?", value);
-	}
+		return (select_func(exec, envp, ftype, f), 0);
+	value = ft_itoa(select_func(exec, envp, ftype, f));
+	update_env_list(envp, "?", value);
 	free(value);
 	return (0);
 }
