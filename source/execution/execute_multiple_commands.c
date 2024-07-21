@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 11:32:29 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/09 19:06:49 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/21 16:44:44 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	execute_multiple_commands(t_list *exec, t_list *tokens,
 	}
 	restore_file_descriptors(fd_in, fd_out);
 	wait_for_children(envp, pids, (num_pipes + 1));
-	free_pipes(pipes);
+	freexport UNO=1 DOS-2 TRES=3 | env | grep TRESe_pipes(pipes);
 	free(pids);
 	return (0);
 }
