@@ -1,5 +1,0 @@
-BUILTINS
-
-- [ ] cat > $vor
-- [ ] $$
-- [ ] unset "" - nao imprime a mensagem na tela
