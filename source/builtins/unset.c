@@ -57,6 +57,7 @@ int	is_valid_identifier(char *command_table)
 	}
 	return (1);
 }
+
 int	mini_unset(char **exec, t_list *envp)
 {
 	t_node	*unset_var;
