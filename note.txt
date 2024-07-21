@@ -1,4 +1,5 @@
 BUILTINS
+
 - [ ] exit hello
 - [ ] exit 42 hello
 - [ ] export UNO=1 DOS-2 TRES=3 | env | grep TRES
@@ -7,6 +8,21 @@ BUILTINS
 - [ ] exit -9223372036854775807
 - [ ] exit -9223372036854775808
 - [ ] exit -9223372036854775809
+- [x] exit hello
+- [x] exit 42 hello
+- [ ] unset PATH
+- [ ] unset ""
+- [ ] unset HELLO=
+- [ ] unset  A-
+- [ ] unset  HELLO A- WORLD
+- [ ] export UNO=1 DOS-2 TRES=3 || env | grep TRES
+- [x] exit 9223372036854775807
+- [x] exit 9223372036854775808
+- [x] exit -9223372036854775807
+- [x] exit -9223372036854775808
+- [x] exit -9223372036854775809
+- [ ] echo $$
+- [ ] echo $$$
 - [ ] ls | exit abc 12 (saida de erro do exit errada)
 
 
