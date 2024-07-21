@@ -1,19 +1,13 @@
 BUILTINS
 - [ ] exit hello
 - [ ] exit 42 hello
-- [ ] export UNO=1 DOS-2 TRES=3 || env | grep TRES
+- [ ] export UNO=1 DOS-2 TRES=3 | env | grep TRES
 - [ ] exit 9223372036854775807
 - [ ] exit 9223372036854775808
 - [ ] exit -9223372036854775807
 - [ ] exit -9223372036854775808
 - [ ] exit -9223372036854775809
-- [ ] echo $$
-- [ ] echo $$$
 - [ ] ls | exit abc 12 (saida de erro do exit errada)
-- [ ] echo -n hello world
-- [ ] echo -n test1
-- [ ] echo -n -n -n -n -n test1
-- [ ] echo -n -nnnnnnn -n -nnn -nnnnn -n feel my pain
 
 
 VARIAVEIS DE AMBIENTE
@@ -23,7 +17,6 @@ VARIAVEIS DE AMBIENTE
 - [ ] echo hello $NOT_A_VAR $NOT_A_VAR $NOT_A_VAR $USER (imprime espaços aleatorios)
 - [ ] $iodhuadhas
 - [ ] $USERoi
-
 
 OUTROS
 - [ ] /bin/ls | < infile (saida de erro diferente)
@@ -67,6 +60,10 @@ FEITOS
 - [x] unset ""
 - [x] unset HELLO=
 - [x] unset  A-
+- [x] echo -n hello world
+- [x] echo -n test1
+- [x] echo -n -n -n -n -n test1
+- [x] echo -n -nnnnnnn -n -nnn -nnnnn -n feel my pain
 
 **valgrind**
 - [x] espaço
