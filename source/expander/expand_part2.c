@@ -44,6 +44,6 @@ char	*process_doble_quote(t_list *lst_env, t_exp *exp)
 char	*var_is_null(char *value, char sig)
 {
 	if (!value && !is_double_quote(sig))
-		value = "\"\"";
+		value = "\0";
 	return (value);
 }
