@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/21 17:05:32 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:50:47 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	program(t_list *envp)
 	if (!input)
 		return (TRUE);
 	input = expand(envp, input);
-	if (!*input)
-		return (TRUE);
 	if (!is_closed(input, envp))
 		return (TRUE);
 	tokens = *lexer(&tokens, input);

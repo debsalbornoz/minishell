@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:59:57 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/15 22:55:21 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:50:24 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ char	*process_doble_quote(t_list *lst_env, t_exp *exp)
 char	*var_is_null(char *value, char sig)
 {
 	if (!value && !is_double_quote(sig))
-		value = "\0";
+		value = "\"\"";
 	return (value);
 }

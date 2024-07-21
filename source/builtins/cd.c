@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/08 15:41:33 by jackson          ###   ########.fr       */
+/*   Updated: 2024/07/21 18:09:02 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	mini_cd(char **exec)
 	if (!ft_str_exist(*(copy_exec + 1)))
 		return (change_directory(cwd, getenv("HOME")));
 	else if (++copy_exec, ft_str_exist(*(copy_exec + 1)))
-		return (printf(" too many arguments\n"), 1);
+		return (ft_putstr_fd(" too many arguments\n", 2), 1);
 	return (change_directory(cwd, *copy_exec));
 }
 
