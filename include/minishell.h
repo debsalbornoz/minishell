@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/20 20:14:17 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:24:44 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,9 @@ t_list	*type_assignment(t_list *tokens);
 
 /* --- execution --- */
 //builtins.c
-int	handle_builtins(char **cmd_table,
-				t_list *envp, int type, union u_func f);
-int	execute_builtins(t_node *exec, t_list *envp);
+int		handle_builtins(char **cmd_table,
+			t_list *envp, int type, union u_func f);
+int		execute_builtins(t_node *exec, t_list *envp);
 
 //exec_utils.c
 int		find_file(int type);
