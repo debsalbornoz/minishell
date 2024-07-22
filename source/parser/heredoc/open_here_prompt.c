@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_here_prompt.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 18:35:58 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/01 12:01:06 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/22 18:00:10 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	open_prompt(char *eof, int flag, int fd, char *filename)
 	fd_stdin = dup(STDIN_FILENO);
 	input = readline("> ");
 	result = check_signals(input, filename, fd_stdin);
-	if (input && ft_strncmp(input, eof, ft_strlen(input)))
+	if (input && ft_strncmp(input, eof, ft_strlen(eof)))
 	{
 		write_in_file(input, fd, flag);
 		result = 3;

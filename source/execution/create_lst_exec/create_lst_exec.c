@@ -67,3 +67,21 @@ void	get_index(t_list *exec)
 		i++;
 	}
 }
+
+void	create_multi_redir_table(t_list *tokens, t_list *exec)
+{
+	allocate_multi_redir_table(exec->head, tokens->node, 0);
+	fill_redir_and_files(tokens, exec);
+	tokens->node = tokens->head;
+	exec->node = exec->head;
+}
+
+void	create_command_table(t_list *tokens, t_list *exec)
+{
+	if (is_simple_command(tokens) && exec)
+		create_simple_cmd_table(tokens, exec);
+	else
+		create_multi_cmd_table(tokens, exec);
+	tokens->node = tokens->head;
+	exec->node = exec->head;
+}

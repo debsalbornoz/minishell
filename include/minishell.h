@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/20 20:14:17 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:24:44 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,13 @@ int		readline_status(int sts);
 /* --- source/main --- */
 // program.c
 int		program(t_list *lst_env);
+int		process_input(char *input, t_list *envp, t_list tokens, t_list exec);
+int		readline_status(int sts);
 
 //signals.c
 void	handle_sigint(int signal);
 void	set_error(t_list *lst_env);
 void	handle_signal(void);
-
-/* --- source/linked_list --- */
-//linked_list.c
-t_list	*add_node(t_list *list);
-t_list	*runs_on_list(t_list *list, t_node *(f)(t_node *));
-int		count_nodes(t_list *lst);
 
 /* --- source/expander/ --- */
 // expand_part1.c
@@ -100,15 +96,20 @@ int		find_new_len(const char *str, int len, int i, int counter);
 int		syntax_error(t_list *tokens, t_list	*lst_env, char *input);
 int		redirect_error(t_list	*tokens);
 int		dot_error(t_list	*tokens);
+int		its_braces(t_list *tokens);
 
 /* --- source/parser/heredoc --- */
-
 //handle_heredoc.c
 t_list	*process_heredoc_tokens(t_list *tokens);
 char	*handle_heredoc(t_node *token, char *eof, char *filename);
 int		setup_heredoc_env(char *filename);
 char	*remove_eof_quotes(char *eof);
 char	*get_filename(int i);
+
+//heredoc_expansion.c
+char	*expand_input(char *input, int i, int counter);
+char	*extract_substr(int *i, int counter, char *input);
+char	*ft_strjoin_free(char *s1, char *s2);
 
 //heredoc_signals.c
 void	handle_heredoc_signals(void);
@@ -125,11 +126,6 @@ char	*extract_var_value(int counter, char *input);
 int		open_prompt(char *eof, int flag, int fd, char *filename);
 void	write_in_file(char *input, int fd, int flag);
 int		open_here_file(char *filename);
-
-//heredoc_expansion.c
-char	*expand_input(char *input, int i, int counter);
-char	*extract_substr(int *i, int counter, char *input);
-char	*ft_strjoin_free(char *s1, char *s2);
 
 /* --- source/parser/type_assignment --- */
 //builtins.c
@@ -154,6 +150,11 @@ t_node	*is_path(t_node *node);
 t_list	*type_assignment(t_list *tokens);
 
 /* --- execution --- */
+//builtins.c
+int		handle_builtins(char **cmd_table,
+			t_list *envp, int type, union u_func f);
+int		execute_builtins(t_node *exec, t_list *envp);
+
 //exec_utils.c
 int		find_file(int type);
 int		is_file_redirect_or_pipe(int type);
@@ -170,7 +171,6 @@ int		execute_multiple_commands(t_list *exec, t_list *tokens,
 //execute_simple_command.c
 int		execute_simple_command(t_list *exec,
 			t_list *tokens, t_list *envp, char *input);
-int		execute_and_update_envp(t_list *exec, t_list *envp);
 
 //execution.c
 int		execute(t_list *lst_tokens, t_list *lst_exec,
@@ -186,9 +186,10 @@ void	free_pipes(int **pipes);
 
 //handle_wait.c
 void	wait_for_children(t_list *envp, int *pids, int num_process);
-
+void	free_strs(char *status, char *last_command, int flag);
 char	*update_signal_sts(int status, char *sts);
 char	*update_sts(char *sts, int status);
+
 //pipe.c
 void	setup_pipes(int command_index, int fd_in,
 			int fd_out, int **pipes);
@@ -228,7 +229,8 @@ void	save_redirects_and_files(t_list *exec, t_list *tokens);
 char	**allocate_redir_and_files(t_node *tokens);
 char	**get_redirects_and_files(t_node **tokens, char **redir_and_files);
 void	create_simple_redir_table(t_list	*tokens, t_list *exec);
-void	allocate_multi_redir_table(t_list *tokens, t_list *exec);
+void	allocate_multi_redir_table(t_node *aux_exec,
+			t_node *aux_tokens, int counter);
 void	create_multi_redir_table(t_list *tokens, t_list *exec);
 char	**allocate_redir_table(t_node *tokens);
 void	fill_redir_and_files(t_list *tokens, t_list *exec);
@@ -262,7 +264,4 @@ int		find_heredoc(char *str);
 void	handle_heresignals(void);
 char	*ft_get_env(char *name);
 
-int		ft_isalphanum(char c);
-int		ft_is_alpha(char c);
-int		ft_is_digit(char c);
 #endif

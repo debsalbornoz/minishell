@@ -35,6 +35,9 @@ int	execute_simple_command(t_list *exec,
 		finish_process(exec, tokens, envp, input);
 	}
 	else
+	{
 		wait_for_children(envp, &pid, 1);
+		close_fds();
+	}
 	return (0);
 }

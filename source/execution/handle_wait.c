@@ -19,7 +19,6 @@ void	wait_for_children(t_list *envp, int *pids, int num_process)
 	int		i;
 	char	*last_command;
 
-	(void)num_process;
 	i = 0;
 	sts = NULL;
 	last_command = NULL;
@@ -34,18 +33,28 @@ void	wait_for_children(t_list *envp, int *pids, int num_process)
 		else if (WIFSIGNALED(status))
 			sts = update_signal_sts(status, sts);
 		else
-		{
-			if (sts)
-				free(sts);
-			sts = NULL;
-		}
+			free_strs(sts, last_command, 0);
 		i++;
 	}
 	update_env_list(envp, "?", last_command);
-	if (sts)
-		free(sts);
-	if (last_command)
-		free(last_command);
+	free_strs(sts, last_command, 1);
+}
+
+void	free_strs(char *status, char *last_command, int flag)
+{
+	if (flag == 0)
+	{
+		if (status)
+			free(status);
+		status = NULL;
+	}
+	else if (flag == 1)
+	{
+		if (status)
+			free(status);
+		if (last_command)
+			free(last_command);
+	}
 }
 
 char	*update_sts(char *sts, int status)

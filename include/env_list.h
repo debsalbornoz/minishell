@@ -22,12 +22,13 @@ t_list	*data_env_addr(void);
 t_list	*create_env_list(char **envp, t_list *env_lst);
 char	*get_envp_name(char *envp);
 char	*get_envp_value(char *envp);
+t_list	*add_new_node(t_list *lst_env, char *name, char *value);
 
 //update_env_list.c
 t_list	*update_env_list(t_list *lst_env, char *name, char *value);
-t_list	*add_new_node(t_list *lst_env, char *name, char *value);
 int		update_existing_node(t_list *lst_env, char *name, char *value);
 char	*ft_get_env(char *name);
 int		exist_var(t_list *envp, char *name);
+int		get_env_error(t_list *envp);
 
 #endif

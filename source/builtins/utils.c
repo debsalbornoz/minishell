@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/01 20:07:44 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/22 17:54:57 by dlamark-         ###   ########.fr       */
+/*   Created: 2024/05/31 20:36:27 by dlamark-          #+#    #+#             */
+/*   Updated: 2024/07/21 18:07:07 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../include/builtins.h"
 
-int	parser(t_list *tokens, t_list *envp, char *input)
+int	ft_is_alpha(char c)
 {
-	(void)input;
-	(void)envp;
-	tokens = type_assignment(tokens);
-	if (syntax_error(tokens, envp, input))
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+		return (1);
+	else
 		return (0);
-	update_env_list(envp, "?", "0");
-	tokens = process_heredoc_tokens(tokens);
-	handle_signal();
-	if (!tokens)
+}
+
+int	ft_is_digit(char c)
+{
+	if (c >= '0' && c <= '9')
 		return (0);
-	tokens = remove_quotes(tokens);
-	return (1);
+	else
+		return (1);
+}
+
+int	ft_isalphanum(char c)
+{
+	if (ft_isdigit(c) || ft_isalpha(c))
+		return (1);
+	else
+		return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 20:09:07 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/09 18:24:39 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:54:20 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_list	*process_heredoc_tokens(t_list *tokens)
 			if (!handle_heredoc(token, token->next->data->token->value,
 					filename) || !filename)
 			{
+				free(filename);
 				free_list(tokens, free_lst_tokens);
 				return (NULL);
 			}
@@ -38,18 +39,6 @@ t_list	*process_heredoc_tokens(t_list *tokens)
 		token = token->next;
 	}
 	return (tokens);
-}
-
-char	*get_filename(int i)
-{
-	char	*filename;
-	char	*index;
-
-	filename = NULL;
-	index = ft_itoa(i);
-	filename = ft_strjoin("/tmp/", index);
-	free(index);
-	return (filename);
 }
 
 char	*handle_heredoc(t_node *token, char *eof, char *filename)
@@ -76,6 +65,18 @@ char	*handle_heredoc(t_node *token, char *eof, char *filename)
 	free (eof);
 	close(fd);
 	token->next->data->token->value = filename;
+	return (filename);
+}
+
+char	*get_filename(int i)
+{
+	char	*filename;
+	char	*index;
+
+	filename = NULL;
+	index = ft_itoa(i);
+	filename = ft_strjoin("/tmp/", index);
+	free(index);
 	return (filename);
 }
 

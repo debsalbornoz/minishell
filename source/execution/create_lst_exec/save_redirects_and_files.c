@@ -13,7 +13,6 @@
 #include "../../../include/minishell.h"
 
 void	create_simple_redir_table(t_list	*tokens, t_list *exec);
-void	allocate_multi_redir_table(t_list *tokens, t_list *exec);
 void	create_multi_redir_table(t_list *tokens, t_list *exec);
 char	**allocate_redir_table(t_node *tokens);
 void	fill_redir_and_files(t_list *tokens, t_list *exec);
@@ -54,15 +53,9 @@ void	create_simple_redir_table(t_list	*tokens, t_list *exec)
 	exec->node->data->exec->redir_and_files = redir_and_files;
 }
 
-void	allocate_multi_redir_table(t_list *tokens, t_list *exec)
+void	allocate_multi_redir_table(t_node *aux_exec,
+			t_node *aux_tokens, int counter)
 {
-	t_node	*aux_exec;
-	t_node	*aux_tokens;
-	int		counter;
-
-	aux_exec = exec->head;
-	aux_tokens = tokens->head;
-	counter = 0;
 	while (aux_tokens)
 	{
 		if (is_file_redirect_or_pipe(aux_tokens->data->token->type))
@@ -86,12 +79,6 @@ void	allocate_multi_redir_table(t_list *tokens, t_list *exec)
 			aux_exec->data->exec->redir_and_files
 				= ft_calloc(counter + 1, sizeof(char *));
 	}
-}
-
-void	create_multi_redir_table(t_list *tokens, t_list *exec)
-{
-	allocate_multi_redir_table(tokens, exec);
-	fill_redir_and_files(tokens, exec);
 }
 
 void	fill_redir_and_files(t_list *tokens, t_list *exec)
@@ -139,7 +126,7 @@ char	**allocate_redir_table(t_node *tokens)
 			if (aux->data->token->type != PIPE)
 				counter++;
 		}
-			counter++;
+		counter++;
 		if (aux->data->token->type == PIPE)
 			break ;
 		aux = aux->next;

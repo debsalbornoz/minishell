@@ -12,6 +12,12 @@
 
 #include "../../include/minishell.h"
 
+void	handle_signal(void)
+{
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 void	handle_sigint(int signal)
 {
 	t_list	*lst_env;
@@ -24,12 +30,6 @@ void	handle_sigint(int signal)
 	write(1, "\n", 1);
 	if (readline_status(-1))
 		rl_redisplay();
-}
-
-void	handle_signal(void)
-{
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
 }
 
 void	set_error(t_list *lst_env)

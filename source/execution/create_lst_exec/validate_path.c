@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 17:29:20 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/07 16:15:13 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:12:00 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_command_validity(char *command, t_list *envp, char **command_table)
 	if (access(command, X_OK) == -1)
 	{
 		update_env_list(envp, "?", "126");
-		ft_putstr_fd("Permission denied", 2);
+		ft_putstr_fd(" Permission denied", 2);
 		return (-1);
 	}
 	else if (stat(command, &st) == 0)
@@ -78,7 +78,7 @@ int	check_command_validity(char *command, t_list *envp, char **command_table)
 		if ((st.st_mode & S_IFMT) == S_IFDIR)
 		{
 			update_env_list(envp, "?", "126");
-			ft_putstr_fd("Is a directory\n", 2);
+			ft_putstr_fd(" Is a directory\n", 2);
 			return (-1);
 		}
 	}

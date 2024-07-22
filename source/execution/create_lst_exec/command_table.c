@@ -12,16 +12,6 @@
 
 #include "../../../include/minishell.h"
 
-void	create_command_table(t_list *tokens, t_list *exec)
-{
-	if (is_simple_command(tokens) && exec)
-		create_simple_cmd_table(tokens, exec);
-	else
-		create_multi_cmd_table(tokens, exec);
-	tokens->node = tokens->head;
-	exec->node = exec->head;
-}
-
 void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 {
 	t_node	*aux_tokens;

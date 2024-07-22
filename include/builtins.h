@@ -27,7 +27,9 @@ int		mini_unset(char **exec, t_list *envp);
 int		mini_env(t_list *envp);
 int		mini_export(char **exec, t_list *envp);
 int		mini_exit(char **exec, t_list *envp);
-
+int		ft_is_alpha(char c);
+int		ft_is_digit(char c);
+int		ft_isalphanum(char c);
 int		is_not_ocult_var(char *name);
 
 union u_func
