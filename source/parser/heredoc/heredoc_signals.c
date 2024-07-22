@@ -22,7 +22,6 @@ void	handle_ctrlc_heredoc(int signal)
 	t_list	*envp;
 
 	(void)signal;
-	write(2, "heredoc\n", 8);
 	envp = data_env_addr();
 	close(STDIN_FILENO);
 	update_env_list(envp, "?", "130");

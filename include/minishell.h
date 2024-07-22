@@ -228,7 +228,8 @@ void	save_redirects_and_files(t_list *exec, t_list *tokens);
 char	**allocate_redir_and_files(t_node *tokens);
 char	**get_redirects_and_files(t_node **tokens, char **redir_and_files);
 void	create_simple_redir_table(t_list	*tokens, t_list *exec);
-void	allocate_multi_redir_table(t_list *tokens, t_list *exec);
+void	allocate_multi_redir_table(t_node *aux_exec,
+			t_node *aux_tokens, int counter);
 void	create_multi_redir_table(t_list *tokens, t_list *exec);
 char	**allocate_redir_table(t_node *tokens);
 void	fill_redir_and_files(t_list *tokens, t_list *exec);

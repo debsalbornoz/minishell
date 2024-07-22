@@ -37,10 +37,7 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 			restore_file_descriptors(fd_in, fd_out);
 		}
 		else
-		{
 			execute_simple_command(lst_exec, lst_tokens, lst_env, input);
-			close_fds();
-		}
 	}
 	else
 		execute_multiple_commands(lst_exec, lst_tokens, lst_env, input);

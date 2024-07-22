@@ -110,6 +110,7 @@ BUIL	:=	$(DIR_BUIL)/cd										\
 			$(DIR_BUIL)/unset									\
 			$(DIR_BUIL)/export									\
 			$(DIR_BUIL)/builtins								\
+			$(DIR_BUIL)/utils									\
 
 SRCS	:=	${MAIN}												\
 			${LINK}												\

@@ -29,6 +29,7 @@ t_list	*process_heredoc_tokens(t_list *tokens)
 			if (!handle_heredoc(token, token->next->data->token->value,
 					filename) || !filename)
 			{
+				free(filename);
 				free_list(tokens, free_lst_tokens);
 				return (NULL);
 			}

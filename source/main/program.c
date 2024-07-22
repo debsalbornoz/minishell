@@ -13,6 +13,7 @@
 #include "../../include/minishell.h"
 
 int	readline_status(int sts);
+int	process_input(char *input, t_list *envp, t_list tokens, t_list exec);
 
 int	program(t_list *envp)
 {
@@ -30,8 +31,19 @@ int	program(t_list *envp)
 		printf("exit\n");
 		return (FALSE);
 	}
+	add_history(input);
+	if (!process_input(input, envp, tokens, exec))
+		return (FALSE);
+	return (TRUE);
+}
+
+int	process_input(char *input, t_list *envp, t_list tokens, t_list exec)
+{
 	if (!*input)
+	{
+		clear_history();
 		return (TRUE);
+	}
 	input = trim_start_spaces(input);
 	if (!input)
 		return (TRUE);
@@ -43,7 +55,10 @@ int	program(t_list *envp)
 		return (TRUE);
 	tokens.node = tokens.head;
 	if (execute(&tokens, &exec, envp, input))
+	{
+		clear_history();
 		return (FALSE);
+	}
 	return (TRUE);
 }
 
