@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   finish_process.c                                   :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 18:22:10 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 13:45:52 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/22 18:12:14 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	handle_execution(t_node *exec, t_list *envp)
 			&& ft_strncmp("126", ft_get_env("?"), 3) != 0)
 		{
 			update_env_list(envp, "?", "127");
-			ft_putstr_fd("command not found\n", 2);
+			ft_putstr_fd(" command not found\n", 2);
 			return (-1);
 		}
 	}

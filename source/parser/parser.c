@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 20:07:44 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/07 17:10:14 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:54:57 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	parser(t_list *tokens, t_list *envp, char *input)
 	tokens = type_assignment(tokens);
 	if (syntax_error(tokens, envp, input))
 		return (0);
+	update_env_list(envp, "?", "0");
 	tokens = process_heredoc_tokens(tokens);
 	handle_signal();
 	if (!tokens)

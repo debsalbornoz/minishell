@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/20 18:21:54 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:10:30 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 		if (access(file, F_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
-			ft_putstr_fd("No such file or directory\n", 2);
+			ft_putstr_fd(" No such file or directory\n", 2);
 			return (-1);
 		}
 		else if (stat(file, &st) == 0)
@@ -88,13 +88,13 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 			if ((st.st_mode & S_IFMT) == S_IFDIR)
 			{
 				update_env_list(envp, "?", "1");
-				ft_putstr_fd("Is a directory\n", 2);
+				ft_putstr_fd(" Is a directory\n", 2);
 				return (-1);
 			}
 		}
 		else if (access(file, R_OK) == -1)
 			return (update_env_list(envp, "?", "1"),
-				ft_putstr_fd("Permission denied\n", 2), -1);
+				ft_putstr_fd(" Permission denied\n", 2), -1);
 	}
 	return (0);
 }
@@ -108,19 +108,19 @@ static int	check_access_output(char *redirect, char *file, t_list *envp)
 		if (access(file, F_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
-			ft_putstr_fd("No such file or directory\n", 2);
+			ft_putstr_fd(" No such file or directory\n", 2);
 			return (-1);
 		}
 		else if (stat(file, &st) == 0 && (st.st_mode & S_IFMT) == S_IFDIR)
 		{
 			update_env_list(envp, "?", "1");
-			ft_putstr_fd("Is a directory\n", 2);
+			ft_putstr_fd(" Is a directory\n", 2);
 			return (-1);
 		}
 		else if (access(file, W_OK) == -1)
 		{
 			update_env_list(envp, "?", "1");
-			ft_putstr_fd("Permission denied\n", 2);
+			ft_putstr_fd(" Permission denied\n", 2);
 			return (-1);
 		}
 	}
