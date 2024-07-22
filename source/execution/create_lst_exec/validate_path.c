@@ -63,8 +63,8 @@ char	*validate_path(char **command_table, t_node *exec, t_list *envp)
 int	check_command_validity(char *command, t_list *envp, char **command_table)
 {
 	struct stat	st;
-	(void) command_table;
 
+	(void) command_table;
 	if (access(command, F_OK) == -1)
 		return (-1);
 	if (access(command, X_OK) == -1)
@@ -81,7 +81,7 @@ int	check_command_validity(char *command, t_list *envp, char **command_table)
 			ft_putstr_fd("Is a directory\n", 2);
 			return (-1);
 		}
-}
+	}
 	return (0);
 }
 
@@ -103,7 +103,8 @@ int	is_executable(t_node *exec, char *path)
 int	is_absolute_path(char **command_table)
 {
 	if (!ft_strncmp(command_table[0], "/", 1)
-		|| !ft_strncmp(command_table[0], "./", 2) || !ft_strncmp(command_table[0], "../", 3))
+		|| !ft_strncmp(command_table[0], "./", 2)
+		|| !ft_strncmp(command_table[0], "../", 3))
 		return (1);
 	return (0);
 }

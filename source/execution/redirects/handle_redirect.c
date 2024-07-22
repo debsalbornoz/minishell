@@ -73,7 +73,7 @@ int	open_file(char **redir_and_files, int i, int flag, t_list *envp)
 
 static int	check_access_input(char *redirect, char *file, t_list *envp)
 {
-	struct	stat st;
+	struct stat	st;
 
 	if (find_heredoc(redirect) || find_input(redirect))
 	{
@@ -93,18 +93,15 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 			}
 		}
 		else if (access(file, R_OK) == -1)
-		{
-			update_env_list(envp, "?", "1");
-			ft_putstr_fd("Permission denied\n", 2);
-			return (-1);
-		}
+			return (update_env_list(envp, "?", "1"),
+				ft_putstr_fd("Permission denied\n", 2), -1);
 	}
 	return (0);
 }
 
 static int	check_access_output(char *redirect, char *file, t_list *envp)
 {
-	struct	stat st;
+	struct stat	st;
 
 	if (find_output(redirect) || find_append(redirect))
 	{

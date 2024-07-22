@@ -29,10 +29,12 @@ int	mini_export(char **exec, t_list *envp)
 	while (++iterator, exec[iterator])
 	{
 		if (!is_valid_first_char(*exec[iterator]))
-			return ( ft_putstr_fd("not a valid identifier\n", 2), free_env(env), 1);
+			return (ft_putstr_fd("not a valid identifier\n", 2),
+				free_env(env), 1);
 		env = get_env(env, exec[iterator]);
 		if (ft_str_exist(env->name) && check_name(env->name))
-			return ( ft_putstr_fd("not a valid identifier\n", 2), free_env(env), 1);
+			return (ft_putstr_fd("not a valid identifier\n", 2),
+				free_env(env), 1);
 		update_env_list(envp, env->name, env->value);
 		if (ft_free_str(env->name))
 			env->name = 0;
