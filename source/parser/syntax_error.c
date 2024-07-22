@@ -12,8 +12,6 @@
 
 #include "../../include/minishell.h"
 
-int	its_braces(t_list *tokens);
-
 int	syntax_error(t_list *tokens, t_list	*envp, char *input)
 {
 	if (redirect_error(tokens) || pipe_error(tokens)

@@ -12,8 +12,6 @@
 
 #include "../../include/minishell.h"
 
-void	free_strs(char *sts, char *last_command, int flag);
-
 void	wait_for_children(t_list *envp, int *pids, int num_process)
 {
 	char	*sts;
@@ -42,18 +40,18 @@ void	wait_for_children(t_list *envp, int *pids, int num_process)
 	free_strs(sts, last_command, 1);
 }
 
-void	free_strs(char *sts, char *last_command, int flag)
+void	free_strs(char *status, char *last_command, int flag)
 {
 	if (flag == 0)
 	{
-		if (sts)
-			free(sts);
-		sts = NULL;
+		if (status)
+			free(status);
+		status = NULL;
 	}
 	else if (flag == 1)
 	{
-		if (sts)
-			free(sts);
+		if (status)
+			free(status);
 		if (last_command)
 			free(last_command);
 	}

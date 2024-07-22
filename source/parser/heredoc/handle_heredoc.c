@@ -41,18 +41,6 @@ t_list	*process_heredoc_tokens(t_list *tokens)
 	return (tokens);
 }
 
-char	*get_filename(int i)
-{
-	char	*filename;
-	char	*index;
-
-	filename = NULL;
-	index = ft_itoa(i);
-	filename = ft_strjoin("/tmp/", index);
-	free(index);
-	return (filename);
-}
-
 char	*handle_heredoc(t_node *token, char *eof, char *filename)
 {
 	int		expand;
@@ -77,6 +65,18 @@ char	*handle_heredoc(t_node *token, char *eof, char *filename)
 	free (eof);
 	close(fd);
 	token->next->data->token->value = filename;
+	return (filename);
+}
+
+char	*get_filename(int i)
+{
+	char	*filename;
+	char	*index;
+
+	filename = NULL;
+	index = ft_itoa(i);
+	filename = ft_strjoin("/tmp/", index);
+	free(index);
 	return (filename);
 }
 

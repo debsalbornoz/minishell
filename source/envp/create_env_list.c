@@ -22,6 +22,8 @@ t_list	*data_env_addr(void)
 
 t_list	*create_env_list(char **envp, t_list *env_lst)
 {
+	if (!envp || !*envp)
+		return (NULL);
 	while (*envp)
 	{
 		env_lst = add_node(env_lst);
@@ -46,8 +48,11 @@ char	*get_envp_name(char *envp)
 		return (NULL);
 	while (envp[i] != '=' && envp[i] != '\0')
 		i++;
-	name = ft_calloc((i + 1), sizeof(char));
-	ft_strlcpy(name, envp, i + 1);
+	if (i > 0)
+	{
+		name = ft_calloc((i + 1), sizeof(char));
+		ft_strlcpy(name, envp, i + 1);
+	}
 	return (name);
 }
 
@@ -71,4 +76,17 @@ char	*get_envp_value(char *envp)
 	value = ft_calloc((i - begin + 1), sizeof(char));
 	ft_strlcpy(value, &envp[begin], i - begin + 1);
 	return (value);
+}
+
+t_list	*add_new_node(t_list *lst_env, char *name, char *value)
+{
+	lst_env = add_node(lst_env);
+	lst_env->node->data = ft_calloc(1, sizeof(union u_data));
+	lst_env->node->data->env = ft_calloc(1, sizeof(t_env));
+	lst_env->node->data->env->name = ft_strdup(name);
+	if (value)
+		lst_env->node->data->env->value = ft_strdup(value);
+	else
+		lst_env->node->data->env->value = 0;
+	return (lst_env);
 }

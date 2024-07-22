@@ -95,6 +95,7 @@ EXEC	:=	$(DIR_EXEC)/execution								\
 			$(DIR_EXEC)/execute_multiple_commands				\
 			$(DIR_EXEC)/handle_wait								\
 			$(DIR_EXEC)/pipe									\
+			$(DIR_EXEC)/builtins								\
 
 UTLS	:=	$(DIR_UTLS)/utils_ft								\
 			$(DIR_UTLS)/utils_quote								\

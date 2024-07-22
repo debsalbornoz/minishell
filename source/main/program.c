@@ -12,9 +12,6 @@
 
 #include "../../include/minishell.h"
 
-int	readline_status(int sts);
-int	process_input(char *input, t_list *envp, t_list tokens, t_list exec);
-
 int	program(t_list *envp)
 {
 	char		*input;
@@ -26,19 +23,22 @@ int	program(t_list *envp)
 	readline_status(1);
 	input = readline("¯\\_(ツ)_/¯: ");
 	readline_status(0);
-	if (!input)
-	{
-		printf("exit\n");
-		return (FALSE);
-	}
 	add_history(input);
 	if (!process_input(input, envp, tokens, exec))
+	{
+		clear_history();
 		return (FALSE);
+	}
 	return (TRUE);
 }
 
 int	process_input(char *input, t_list *envp, t_list tokens, t_list exec)
 {
+	if (!input)
+	{
+		printf("exit\n");
+		return (FALSE);
+	}
 	if (!*input)
 	{
 		clear_history();
@@ -55,10 +55,7 @@ int	process_input(char *input, t_list *envp, t_list tokens, t_list exec)
 		return (TRUE);
 	tokens.node = tokens.head;
 	if (execute(&tokens, &exec, envp, input))
-	{
-		clear_history();
 		return (FALSE);
-	}
 	return (TRUE);
 }
 

@@ -12,8 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static int	get_env_error(t_list *envp);
-
 int	main(int argc, char **argv, char **envp)
 {
 	int		res;
@@ -31,19 +29,4 @@ int	main(int argc, char **argv, char **envp)
 	res = get_env_error(env_lst);
 	free_list(env_lst, free_lst_env);
 	return (res);
-}
-
-static int	get_env_error(t_list *envp)
-{
-	envp->node = envp->head;
-	while (envp->node)
-	{
-		if (!ft_strcmp(envp->node->data->env->name, "?"))
-			return (ft_atoi(envp->node->data->env->value));
-		if (envp->node->next)
-			envp->node = envp->node->next;
-		else
-			break ;
-	}
-	return (0);
 }
