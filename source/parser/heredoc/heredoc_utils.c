@@ -31,7 +31,7 @@ int	get_var_len(char *input)
 	int	i;
 
 	i = 0;
-	while (input[i] != ' ' && input[i] != '$' && input[i] != '\0')
+	while (input[i] != ' ' && input[i] != '$' && input[i] != '\0' && input[i] != '\"' && input[i] != '\'')
 		i++;
 	return (i);
 }
