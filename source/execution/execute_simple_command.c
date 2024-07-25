@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/15 19:23:58 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:31:12 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	execute_simple_command(t_list *exec,
 	else
 	{
 		wait_for_children(envp, &pid, 1);
+		restore_file_descriptors(ft_stdin, ft_stdout);
 		close_fds();
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/22 18:10:30 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:38:48 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,13 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 				return (-1);
 			}
 		}
-		else if (access(file, R_OK) == -1)
-			return (update_env_list(envp, "?", "1"),
-				ft_putstr_fd(" Permission denied\n", 2), -1);
+		if (access(file, R_OK) || access(file, W_OK) == -1)
+		{
+				update_env_list(envp, "?", "1");
+				ft_putstr_fd(" Permission denied\n", 2);
+				return (-1);
+		}
+
 	}
 	return (0);
 }
