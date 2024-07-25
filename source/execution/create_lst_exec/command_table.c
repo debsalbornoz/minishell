@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/20 14:35:03 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:14:54 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 	aux_tokens = tokens->head;
 	command_table = NULL;
 	i = 0;
+	if (ft_strcmp(aux_tokens->data->token->value, "\0") == 0 && aux_tokens->next)
+		aux_tokens = aux_tokens->next;
 	command_table = allocate_cmd_table(aux_tokens);
 	if (!command_table)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:42 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/21 16:02:31 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:37:10 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	valid_arg_newline(char *arg)
 
 	iterator = 0;
 	arg_tmp = arg;
+	if (*arg_tmp == '\0')
+		return (1);
 	while (*arg_tmp != '\0')
 	{
 		if (!iterator && *(arg_tmp) != '-')

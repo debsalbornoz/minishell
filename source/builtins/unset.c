@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:36:27 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:07:18 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:41:27 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	is_valid_identifier(char *command_table)
 	c = command_table[0];
 	if (!ft_is_alpha((int)c) && c != '_')
 	{
+		ft_putstr_fd("not a valid identifier\n", 2);
 		return (0);
 	}
 	while (command_table[i] != '\0')
@@ -41,14 +42,16 @@ int	mini_unset(char **exec, t_list *envp)
 {
 	t_node	*unset_var;
 	int		return_value;
+	int		i;
 
 	unset_var = envp->node;
 	return_value = 0;
-	while (++exec, ft_str_exist(*exec))
+	i = 1;
+	while (exec[i])
 	{
-		if (!is_valid_identifier(*exec))
+		if (!is_valid_identifier(exec[i]))
 			return_value = 1;
-		if (exist_var(envp, *exec))
+		if (exist_var(envp, exec[i]))
 		{
 			if (envp->node == envp->head)
 			{
@@ -62,6 +65,7 @@ int	mini_unset(char **exec, t_list *envp)
 				free_node_env(unset_var);
 			}
 		}
+		i++;
 	}
 	return (return_value);
 }
