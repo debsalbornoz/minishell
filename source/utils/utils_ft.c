@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:51:48 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/07 23:27:25 by jackson          ###   ########.fr       */
+/*   Updated: 2024/07/25 18:39:21 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	ft_strcmp(char	*str1, char *str2)
 {
+	if (!str1 || !str2)
+		return (1);
 	if ((*str1 && !*str2) || (!*str1 && *str2))
 		return (1);
 	while (*str1 || *str2)
