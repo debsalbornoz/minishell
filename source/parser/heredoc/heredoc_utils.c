@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 13:55:37 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/01 11:44:44 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/28 17:59:52 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	get_var_len(char *input)
 	int	i;
 
 	i = 0;
-	while (input[i] != ' ' && input[i] != '$' && input[i] != '\0' && input[i] != '\"' && input[i] != '\'')
+	while (input[i] != ' ' && input[i] != '$'
+		&& input[i] != '\0' && input[i] != '\"' && input[i] != '\'')
 		i++;
 	return (i);
 }

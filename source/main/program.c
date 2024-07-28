@@ -6,11 +6,12 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/22 17:46:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:32:06 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stdio.h>
 
 int	program(t_list *envp)
 {
@@ -21,6 +22,7 @@ int	program(t_list *envp)
 	tokens.node = 0;
 	exec.node = 0;
 	readline_status(1);
+	input = NULL;
 	input = readline("¯\\_(ツ)_/¯: ");
 	readline_status(0);
 	add_history(input);

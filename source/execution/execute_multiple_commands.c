@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 11:32:29 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/21 16:55:28 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/28 19:40:46 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	execute_multiple_commands(t_list *exec, t_list *tokens,
 		finish_process(exec, tokens, envp, input);
 	}
 	restore_file_descriptors(fd_in, fd_out);
-	wait_for_children(envp, pids, (num_pipes + 1));
+	wait_for_children(envp, pids, (num_pipes + 1), 0);
 	free_pipes(pipes);
 	free(pids);
 	return (0);

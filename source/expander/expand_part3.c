@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_part3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:23:49 by jackson           #+#    #+#             */
-/*   Updated: 2024/07/13 21:30:36 by jackson          ###   ########.fr       */
+/*   Updated: 2024/07/28 17:57:56 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*var_expand(t_exp *cur, t_env *var)
 	exp.input++;
 	while (tmp.value && *tmp.value)
 		expand_operator(&exp, &tmp);
-	while (*exp.input && *tmp.name && *exp.input == *tmp.name)
+	while (exp.input && *(exp.input)
+		&& tmp.name && *tmp.name && *exp.input == *tmp.name)
 	{
 		exp.input++;
 		tmp.name++;

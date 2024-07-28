@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:35:24 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/21 18:14:17 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:00:11 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ int	mini_exit(char **exec, t_list *envp)
 	if (!ft_str_exist(*(exec + 1)))
 		return (update_env_list(envp, "?", "0"), 1);
 	if (valid_nbr(*(exec + 1)))
-		return (ft_putstr_fd("exit: numeric argument required", 2), 2);
+		return (ft_putstr_fd("exit: numeric argument required\n", 2), 2);
 	nbr = latoi(*(exec + 1), &err);
 	if (err)
-		return (ft_putstr_fd("exit: numeric argument required", 2), 2);
+		return (ft_putstr_fd("exit: numeric argument required\n", 2), 2);
 	if (ft_str_exist(*(exec + 2)))
 		return (update_env_list(envp, "?",
-				"exit"), ft_putstr_fd("exit: numeric argument required", 2), 2);
+				"exit")
+			, ft_putstr_fd("exit: numeric argument required\n", 2), 2);
 	if (nbr > 255)
 		return (nbr % 256);
 	else

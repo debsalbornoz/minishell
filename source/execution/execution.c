@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 18:22:10 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:12:14 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/28 19:44:34 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	execute(t_list *lst_tokens, t_list *lst_exec,
 		return (0);
 	if (is_simple_command(lst_tokens))
 	{
-		if (is_builtins(lst_tokens->node->data->token->type))
+		if (is_builtin2(lst_tokens))
 		{
 			status = builtins(lst_exec, lst_env, fd_in, fd_out);
 			restore_file_descriptors(fd_in, fd_out);

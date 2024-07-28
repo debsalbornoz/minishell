@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/22 19:24:44 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/28 19:45:36 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "../library/lib.h"
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/types.h>
+# include <dirent.h>
 
 int		readline_status(int sts);
 
@@ -132,6 +134,7 @@ int		open_here_file(char *filename);
 t_node	*is_builtin(t_node *node);
 int		identify_builtin(char *token, char *builtin, int token_len);
 int		compare_quoted_strings(char *token, char *builtin);
+int		is_builtin2(t_list *tokens);
 
 //commands_and_arguments.c
 t_node	*is_command_part1(t_node *head);
@@ -185,7 +188,7 @@ void	close_fds(void);
 void	free_pipes(int **pipes);
 
 //handle_wait.c
-void	wait_for_children(t_list *envp, int *pids, int num_process);
+void	wait_for_children(t_list *envp, int *pids, int num_process, int i);
 void	free_strs(char *status, char *last_command, int flag);
 char	*update_signal_sts(int status, char *sts);
 char	*update_sts(char *sts, int status);
@@ -261,6 +264,7 @@ int		find_output(char *str);
 int		find_append(char *str);
 int		find_input(char *str);
 int		find_heredoc(char *str);
+int		update_lst_and_print_error(t_list *envp, int flag);
 void	handle_heresignals(void);
 char	*ft_get_env(char *name);
 
