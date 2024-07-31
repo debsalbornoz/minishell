@@ -75,9 +75,7 @@ int	open_file(char **redir_and_files, int i, int flag, t_list *envp)
 static int	check_access_input(char *redirect, char *file, t_list *envp)
 {
 	struct stat	st;
-	int			flag;
 
-	flag = 0;
 	if (find_heredoc(redirect) || find_input(redirect))
 	{
 		if (access(file, F_OK) == -1)
@@ -87,8 +85,10 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 			if ((st.st_mode & S_IFMT) == S_IFDIR)
 				return (update_lst_and_print_error(envp, 2));
 		}
-		if (access(file, R_OK) || access(file, W_OK) == -1)
-			update_env_list(envp, "?", "3");
+		if (access(file, R_OK) == -1)
+			return(update_lst_and_print_error(envp, 3));
+		else if (access(file, W_OK) == -1)
+			return(update_lst_and_print_error(envp, 3));
 	}
 	return (0);
 }
