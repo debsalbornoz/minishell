@@ -104,7 +104,7 @@ static int	check_access_output(char *redirect, char *file, t_list *envp)
 		else if (stat(file, &st) == 0 && (st.st_mode & S_IFMT) == S_IFDIR)
 			return (update_lst_and_print_error(envp, 2));
 		else if (access(file, W_OK) == -1)
-			return (update_lst_and_print_error(envp, 2));
+			return (update_lst_and_print_error(envp, 3));
 	}
 	return (0);
 }

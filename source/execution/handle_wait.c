@@ -31,7 +31,8 @@ void	wait_for_children(t_list *envp, int *pids, int num_process, int i)
 		else if (WIFSIGNALED(status))
 		{
 			sts = update_signal_sts(status, sts);
-			last_command = ft_strdup(sts);
+			if (ft_strcmp(sts, "130") == 0 ||ft_strcmp(sts, "131") == 0)
+				last_command = ft_strdup(sts);
 		}
 		else
 			free_strs(sts, last_command, 0);
@@ -71,14 +72,17 @@ char	*update_signal_sts(int status, char *sts)
 	int	signal;
 
 	signal = WTERMSIG(status);
-	if (sts)
-		free(sts);
-	if (signal == SIGINT)
-		sts = ft_strdup("130");
-	else if (signal == SIGQUIT)
+	if (signal == 130 || signal == 131)
 	{
-		sts = ft_strdup("131");
-		ft_printf("Quit (core dumped)\n");
+		if (sts)
+		free(sts);
+		if (signal == SIGINT)
+			sts = ft_strdup("130");
+		else if (signal == SIGQUIT)
+		{
+			sts = ft_strdup("131");
+			ft_printf("Quit (core dumped)\n");
+		}
 	}
 	return (sts);
 }
