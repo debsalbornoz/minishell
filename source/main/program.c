@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/08/01 22:58:48 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:57:54 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <stdio.h>
 
 void	print_matrix(char **matrix);
 
