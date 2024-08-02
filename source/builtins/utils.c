@@ -35,3 +35,17 @@ int	ft_isalphanum(char c)
 	else
 		return (0);
 }
+
+char	*allocate_env_var(char *name, char *value)
+{
+	int		len;
+	char	*env_var;
+
+	len = 0;
+	if (ft_strlen(value) == 0)
+		len = ft_strlen(name) + 1;
+	else
+		len = ft_strlen(name) + ft_strlen(value) + 4;
+	env_var = ft_calloc(len, sizeof(char));
+	return (env_var);
+}

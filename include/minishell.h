@@ -272,4 +272,5 @@ char	**handle_sort_envp(t_list *lst_env);
 char	**sort(char **envp);
 char	*build_env_var2(char *name, char *value);
 void	print_envp(char **envp);
+
 #endif

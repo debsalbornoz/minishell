@@ -48,18 +48,14 @@ char	*build_env_var(char *name, char *value)
 
 	i = 0;
 	j = 0;
-	if (ft_strlen(value) == 0)
-		len = ft_strlen(name) + ft_strlen(value) + 1;
-	else
-		len = ft_strlen(name) + ft_strlen(value) + 2;
+	len = ft_strlen(name) + ft_strlen(value) + 2;
 	env_var = ft_calloc(len, sizeof(char));
 	while (name[i] != '\0')
 	{
 		env_var[i] = name[i];
 		i++;
 	}
-	if (value && value[j] != '\0')
-		env_var[i] = '=';
+	env_var[i] = '=';
 	i++;
 	while (value && value[j] != '\0')
 	{
