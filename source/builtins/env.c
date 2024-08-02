@@ -22,7 +22,12 @@ int	mini_env(t_list *envp)
 static t_node	*print_for_env(t_node *node)
 {
 	if (is_not_ocult_var(node->data->env->name))
-		printf("%s=%s\n", node->data->env->name, node->data->env->value);
+	{
+		if (node->data->env->value == NULL)
+			printf("%s\n", node->data->env->name);
+		else
+			printf("%s=%s\n", node->data->env->name, node->data->env->value);
+	}
 	return (node);
 }
 
