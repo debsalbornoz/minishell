@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/06 17:15:57 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/06/01 18:41:25 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:53:09 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,18 @@ char	*build_env_var(char *name, char *value)
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(name) + ft_strlen(value) + 2;
+	if (ft_strlen(value) == 0)
+		len = ft_strlen(name) + ft_strlen(value) + 1;
+	else
+		len = ft_strlen(name) + ft_strlen(value) + 2;
 	env_var = ft_calloc(len, sizeof(char));
 	while (name[i] != '\0')
 	{
 		env_var[i] = name[i];
 		i++;
 	}
-	env_var[i] = '=';
+	if (value && value[j] != '\0')
+		env_var[i] = '=';
 	i++;
 	while (value && value[j] != '\0')
 	{

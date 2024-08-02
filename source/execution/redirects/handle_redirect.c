@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/28 19:44:53 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:21:08 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 				return (update_lst_and_print_error(envp, 2));
 		}
 		if (access(file, R_OK) == -1)
-			return(update_lst_and_print_error(envp, 3));
+			return (update_lst_and_print_error(envp, 3));
 		else if (access(file, W_OK) == -1)
-			return(update_lst_and_print_error(envp, 3));
+			return (update_lst_and_print_error(envp, 3));
 	}
 	return (0);
 }

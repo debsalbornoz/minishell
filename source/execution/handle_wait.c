@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:24:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/28 19:40:27 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:28:23 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	wait_for_children(t_list *envp, int *pids, int num_process, int i)
 
 	sts = NULL;
 	last_command = NULL;
-	while (waitpid(pids[i], &status, 0) != -1)
+	while (waitpid(pids[++i], &status, 0) != -1)
 	{
 		if (WIFEXITED(status))
 		{
@@ -31,12 +31,11 @@ void	wait_for_children(t_list *envp, int *pids, int num_process, int i)
 		else if (WIFSIGNALED(status))
 		{
 			sts = update_signal_sts(status, sts);
-			if (ft_strcmp(sts, "130") == 0 ||ft_strcmp(sts, "131") == 0)
+			if (ft_strcmp(sts, "130") == 0 || ft_strcmp(sts, "131") == 0)
 				last_command = ft_strdup(sts);
 		}
 		else
 			free_strs(sts, last_command, 0);
-		i++;
 	}
 	update_env_list(envp, "?", last_command);
 	free_strs(sts, last_command, 1);
@@ -75,7 +74,7 @@ char	*update_signal_sts(int status, char *sts)
 	if (signal == 130 || signal == 131)
 	{
 		if (sts)
-		free(sts);
+			free(sts);
 		if (signal == SIGINT)
 			sts = ft_strdup("130");
 		else if (signal == SIGQUIT)

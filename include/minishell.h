@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:46:24 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/28 19:45:36 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/01 22:45:03 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,4 +268,8 @@ int		update_lst_and_print_error(t_list *envp, int flag);
 void	handle_heresignals(void);
 char	*ft_get_env(char *name);
 
+char	**handle_sort_envp(t_list *lst_env);
+char	**sort(char **envp);
+char	*build_env_var2(char *name, char *value);
+void	print_envp(char **envp);
 #endif

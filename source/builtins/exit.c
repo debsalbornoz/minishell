@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:35:24 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/28 18:00:11 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:16:29 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,23 @@ static long long	latoi(const char *arg, int *err)
 
 static int	valid_nbr(char *arg)
 {
-	int		i;
-	char	*arg_tmp;
+	int			has_digits;
+	const char	*arg_tmp;
 
-	i = -1;
+	has_digits = 0;
 	arg_tmp = arg;
-	if (!ft_str_exist(arg_tmp))
+	if (!*arg_tmp)
 		return (1);
-	while (++i, *arg_tmp)
+	if (*arg_tmp == '+' || *arg_tmp == '-')
+		arg_tmp++;
+	if (!*arg_tmp)
+		return (1);
+	while (*arg_tmp)
 	{
-		if (!i && !(is_sig(*arg_tmp) || is_dig(*arg_tmp))
-			&& is_sig(*arg_tmp) && !*(arg_tmp + 1))
+		if (*arg_tmp < '0' || *arg_tmp > '9')
 			return (1);
-		else if (i && !is_dig(*arg_tmp))
-			return (1);
+		has_digits = 1;
 		arg_tmp++;
 	}
-	return (0);
+	return (!has_digits);
 }
