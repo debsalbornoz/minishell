@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 22:53:38 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/08/01 22:58:26 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/03 05:28:08 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*build_env_var2(char *name, char *value)
 	char	*env_var;
 
 	env_var = allocate_env_var(name, value);
-	if (ft_strlen(value) > 0)
+	if (value)
 		env_var = fill_env_name_value(name, value, env_var);
 	else
 		env_var = fill_env_name(name, env_var);
