@@ -26,14 +26,14 @@ int	mini_exit(char **exec, t_list *envp)
 	nbr = 0;
 	printf("exit\n");
 	if (!ft_str_exist(*(exec + 1)))
-		return (update_env_list(envp, "?", "0"), 1);
+		return (update_env_list(envp, "?", "normal_exit"), 1);
 	if (valid_nbr(*(exec + 1)))
 		return (ft_putstr_fd("exit: numeric argument required\n", 2), 2);
 	nbr = latoi(*(exec + 1), &err);
 	if (err)
 		return (ft_putstr_fd("exit: numeric argument required\n", 2), 2);
 	if (ft_str_exist(*(exec + 2)))
-		return (update_env_list(envp, "?", "exit")
+		return (update_env_list(envp, "?", "error_exit")
 			, ft_putstr_fd("exit: too many arguments\n", 2), 2);
 	if (nbr > 255)
 		return (nbr % 256);
