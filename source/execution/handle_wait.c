@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <stdio.h>
-#include <unistd.h>
 
 void	wait_for_children(t_list *envp, int *pids, int num_process, int i)
 {
