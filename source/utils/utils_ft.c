@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils_ft.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 14:51:48 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/25 18:39:21 by dlamark-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../include/utils.h"
 
@@ -72,7 +61,9 @@ char	*ft_rmchr(char *input, char *position)
 
 int	ft_str_exist(char *str)
 {
-	return (str && *str);
+	if (!str)
+		return (0);
+	return (1);
 }
 
 int	ft_free_str(char *str)

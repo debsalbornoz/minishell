@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:56:46 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/16 19:34:02 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:01:18 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ int	redirect_at_end(t_list *tokens)
 	while (aux)
 	{
 		if (aux->next == NULL && find_redirect(aux->data->token->type))
+		{
+			printf("chega aqui? \n");
 			return (1);
+		}
 		aux = aux->next;
 	}
 	return (0);

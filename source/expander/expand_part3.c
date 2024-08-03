@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expand_part3.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/13 21:23:49 by jackson           #+#    #+#             */
-/*   Updated: 2024/07/28 17:57:56 by dlamark-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
@@ -69,7 +58,7 @@ static int	value_len(char *value)
 	sig_quote = 0;
 	tmp_value = value;
 	qty_operators = 0;
-	while (ft_str_exist(tmp_value))
+	while (ft_str_exist(tmp_value) && *tmp_value)
 	{
 		sig_quote = process_quotes(sig_quote, *tmp_value);
 		if (!sig_quote && is_operator(*tmp_value))

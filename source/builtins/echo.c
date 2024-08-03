@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 20:34:42 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/28 17:55:23 by dlamark-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
@@ -21,8 +10,8 @@ int	mini_echo(char **exec)
 
 	newline = 0;
 	copy_exec = exec;
-	if (!*(copy_exec + 1))
-		return (printf("\n"), 0);
+	if (exec[1] && ft_strcmp(exec[1], "\0") == 0)
+		return(printf("\n"), 0);
 	while (++copy_exec, copy_exec && *copy_exec != 0)
 	{
 		if (!valid_arg_newline(*copy_exec))
