@@ -33,9 +33,8 @@ int	mini_exit(char **exec, t_list *envp)
 	if (err)
 		return (ft_putstr_fd("exit: numeric argument required\n", 2), 2);
 	if (ft_str_exist(*(exec + 2)))
-		return (update_env_list(envp, "?",
-				"exit")
-			, ft_putstr_fd("exit: numeric argument required\n", 2), 2);
+		return (update_env_list(envp, "?", "exit")
+			, ft_putstr_fd("exit: too many arguments\n", 2), 2);
 	if (nbr > 255)
 		return (nbr % 256);
 	else
