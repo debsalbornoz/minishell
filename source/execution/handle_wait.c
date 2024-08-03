@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stdio.h>
+#include <unistd.h>
 
 void	wait_for_children(t_list *envp, int *pids, int num_process, int i)
 {
@@ -71,7 +73,7 @@ char	*update_signal_sts(int status, char *sts)
 	int	signal;
 
 	signal = WTERMSIG(status);
-	if (signal == 130 || signal == 131)
+	if (status == 130 || status == 131)
 	{
 		if (sts)
 			free(sts);
@@ -80,7 +82,7 @@ char	*update_signal_sts(int status, char *sts)
 		else if (signal == SIGQUIT)
 		{
 			sts = ft_strdup("131");
-			ft_printf("Quit (core dumped)\n");
+			ft_putstr_fd("Quit (core dumped)\n", 2);
 		}
 	}
 	return (sts);
