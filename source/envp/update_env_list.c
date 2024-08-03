@@ -45,7 +45,7 @@ int	update_existing_node(t_list *lst_env, char *name, char *value)
 	}
 	if (ft_strncmp(lst_env->node->data->env->name, name, 1000) == 0)
 	{
-		if (ft_str_exist(lst_env->node->data->env->value))
+		if (lst_env->node->data->env->value)
 			free(lst_env->node->data->env->value);
 		if (ft_str_exist(value))
 			lst_env->node->data->env->value = ft_strdup(value);
