@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:07:45 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/22 18:10:30 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:21:08 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	check_access_input(char *redirect, char *file, t_list *envp);
 static int	check_access_output(char *redirect, char *file, t_list *envp);
+int			update_lst_and_print_error(t_list *envp, int flag);
 
 int	handle_redirect(t_node *exec, t_list *envp, int fd_in, int fd_out)
 {
@@ -78,23 +79,16 @@ static int	check_access_input(char *redirect, char *file, t_list *envp)
 	if (find_heredoc(redirect) || find_input(redirect))
 	{
 		if (access(file, F_OK) == -1)
-		{
-			update_env_list(envp, "?", "1");
-			ft_putstr_fd(" No such file or directory\n", 2);
-			return (-1);
-		}
+			return (update_lst_and_print_error(envp, 1));
 		else if (stat(file, &st) == 0)
 		{
 			if ((st.st_mode & S_IFMT) == S_IFDIR)
-			{
-				update_env_list(envp, "?", "1");
-				ft_putstr_fd(" Is a directory\n", 2);
-				return (-1);
-			}
+				return (update_lst_and_print_error(envp, 2));
 		}
-		else if (access(file, R_OK) == -1)
-			return (update_env_list(envp, "?", "1"),
-				ft_putstr_fd(" Permission denied\n", 2), -1);
+		if (access(file, R_OK) == -1)
+			return (update_lst_and_print_error(envp, 3));
+		else if (access(file, W_OK) == -1)
+			return (update_lst_and_print_error(envp, 3));
 	}
 	return (0);
 }
@@ -106,23 +100,11 @@ static int	check_access_output(char *redirect, char *file, t_list *envp)
 	if (find_output(redirect) || find_append(redirect))
 	{
 		if (access(file, F_OK) == -1)
-		{
-			update_env_list(envp, "?", "1");
-			ft_putstr_fd(" No such file or directory\n", 2);
-			return (-1);
-		}
+			return (update_lst_and_print_error(envp, 1));
 		else if (stat(file, &st) == 0 && (st.st_mode & S_IFMT) == S_IFDIR)
-		{
-			update_env_list(envp, "?", "1");
-			ft_putstr_fd(" Is a directory\n", 2);
-			return (-1);
-		}
+			return (update_lst_and_print_error(envp, 2));
 		else if (access(file, W_OK) == -1)
-		{
-			update_env_list(envp, "?", "1");
-			ft_putstr_fd(" Permission denied\n", 2);
-			return (-1);
-		}
+			return (update_lst_and_print_error(envp, 3));
 	}
 	return (0);
 }

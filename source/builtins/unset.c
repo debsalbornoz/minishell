@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 20:36:27 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/08/03 17:36:59 by dlamark-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "../../include/builtins.h"
 
@@ -23,6 +13,7 @@ int	is_valid_identifier(char *command_table)
 	c = command_table[0];
 	if (!ft_is_alpha((int)c) && c != '_')
 	{
+		ft_putstr_fd("not a valid identifier\n", 2);
 		return (0);
 	}
 	while (command_table[i] != '\0')
@@ -44,7 +35,7 @@ int	mini_unset(char **exec, t_list *envp)
 
 	unset_var = envp->node;
 	return_value = 0;
-	while (++exec, ft_str_exist(*exec))
+	while (exec++, *exec)
 	{
 		if (!is_valid_identifier(*exec))
 		{

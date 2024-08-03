@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expand_part3.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/13 21:23:49 by jackson           #+#    #+#             */
-/*   Updated: 2024/08/03 18:58:01 by dlamark-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
@@ -32,7 +21,8 @@ char	*var_expand(t_exp *cur, t_env *var)
 	exp.input++;
 	while (tmp.value && *tmp.value)
 		expand_operator(&exp, &tmp);
-	while (*exp.input && *tmp.name && *exp.input == *tmp.name)
+	while (exp.input && *(exp.input)
+		&& tmp.name && *tmp.name && *exp.input == *tmp.name)
 	{
 		exp.input++;
 		tmp.name++;

@@ -6,23 +6,21 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:24:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/16 19:21:27 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/01 20:28:23 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	wait_for_children(t_list *envp, int *pids, int num_process)
+void	wait_for_children(t_list *envp, int *pids, int num_process, int i)
 {
 	char	*sts;
 	int		status;
-	int		i;
 	char	*last_command;
 
-	i = 0;
 	sts = NULL;
 	last_command = NULL;
-	while (waitpid(pids[i], &status, 0) != -1)
+	while (waitpid(pids[++i], &status, 0) != -1)
 	{
 		if (WIFEXITED(status))
 		{
@@ -31,10 +29,13 @@ void	wait_for_children(t_list *envp, int *pids, int num_process)
 			sts = update_sts(sts, status);
 		}
 		else if (WIFSIGNALED(status))
+		{
 			sts = update_signal_sts(status, sts);
+			if (ft_strcmp(sts, "130") == 0 || ft_strcmp(sts, "131") == 0)
+				last_command = ft_strdup(sts);
+		}
 		else
 			free_strs(sts, last_command, 0);
-		i++;
 	}
 	update_env_list(envp, "?", last_command);
 	free_strs(sts, last_command, 1);
@@ -70,16 +71,17 @@ char	*update_signal_sts(int status, char *sts)
 	int	signal;
 
 	signal = WTERMSIG(status);
-	if (signal == SIGINT)
+	if (status == 130 || status == 131)
 	{
 		if (sts)
 			free(sts);
-		sts = ft_strdup("130");
-	}
-	else if (status == SIGQUIT)
-	{
-		sts = ft_strdup("131");
-		ft_printf("Quit (core dumped)\n");
+		if (signal == SIGINT)
+			sts = ft_strdup("130");
+		else if (signal == SIGQUIT)
+		{
+			sts = ft_strdup("131");
+			ft_putstr_fd("Quit (core dumped)\n", 2);
+		}
 	}
 	return (sts);
 }

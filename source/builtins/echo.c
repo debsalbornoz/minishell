@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 20:34:42 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/08/03 19:57:37 by dlamark-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
@@ -29,15 +18,15 @@ int	mini_echo(char **exec)
 			newline++;
 		else
 		{
-			printf("%s", *copy_exec);
+			ft_putstr_fd(*copy_exec, 1);
 			if (*(copy_exec + 1))
-				printf(" ");
+				ft_putstr_fd(" ", 1);
 			else
 				break ;
 		}
 	}
 	if (!newline)
-		return (printf("\n"), 0);
+		printf("\n");
 	return (0);
 }
 
@@ -48,6 +37,8 @@ static int	valid_arg_newline(char *arg)
 
 	iterator = 0;
 	arg_tmp = arg;
+	if (*arg_tmp == '\0')
+		return (1);
 	while (*arg_tmp != '\0')
 	{
 		if (!iterator && *(arg_tmp) != '-')

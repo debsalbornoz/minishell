@@ -20,8 +20,10 @@ char	*ft_strdup(const char *s)
 
 	if (!s)
 		return (NULL);
+	duplicate = NULL;
 	len = ft_strlen(s) + 1;
-	duplicate = (char *)malloc(len * sizeof(char));
+	if (len > 0)
+		duplicate = (char *)malloc(len * sizeof(char));
 	if (duplicate == NULL)
 		return (NULL);
 	*duplicate = '\0';

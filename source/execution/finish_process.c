@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 18:22:10 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/01 13:45:52 by codespace        ###   ########.fr       */
+/*   Updated: 2024/07/28 19:00:20 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,26 @@ void	free_matrix(char **matrix)
 
 void	close_fds(void)
 {
-	int	fd;
+	struct dirent	*file;
+	DIR				*directory;
+	int				fd;
 
-	fd = 3;
-	while (fd < 1024)
+	directory = opendir("/proc/self/fd/");
+	if (!directory)
 	{
-		close(fd);
-		fd++;
+		perror("Open dir");
+		exit(EXIT_FAILURE);
 	}
+	while (1)
+	{
+		file = readdir(directory);
+		if (!file)
+			break ;
+		fd = ft_atoi(file->d_name);
+		if (fd > 2 && fd < 1024)
+			close(ft_atoi(file->d_name));
+	}
+	closedir(directory);
 }
 
 void	free_pipes(int **pipes)

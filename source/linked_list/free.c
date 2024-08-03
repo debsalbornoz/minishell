@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 13:28:36 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/01 16:47:11 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/28 19:00:48 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	release_memory(t_list *tokens, t_list *exec, char *input)
 	free_list(exec, free_lst_exec);
 	free_list(tokens, free_lst_tokens);
 	free(input);
+	close_fds();
 }

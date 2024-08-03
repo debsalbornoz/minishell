@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:59 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/05/31 20:41:43 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/03 05:03:16 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	mini_env(t_list *envp)
 static t_node	*print_for_env(t_node *node)
 {
 	if (is_not_ocult_var(node->data->env->name))
-		printf("%s=%s\n", node->data->env->name, node->data->env->value);
+	{
+		if (node->data->env->value)
+			printf("%s=%s\n", node->data->env->name, node->data->env->value);
+	}
 	return (node);
 }
 
