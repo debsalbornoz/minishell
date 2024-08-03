@@ -31,6 +31,12 @@ int		ft_is_alpha(char c);
 int		ft_is_digit(char c);
 int		ft_isalphanum(char c);
 int		is_not_ocult_var(char *name);
+char	**handle_sort_envp(t_list *lst_env);
+char	**sort(char **envp);
+char	*build_env_var2(char *name, char *value);
+void	print_envp(char **envp);
+void	free_matrix(char **matrix);
+char	*allocate_env_var(char *name, char *value);
 
 union u_func
 {

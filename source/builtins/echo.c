@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:42 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/24 18:37:10 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:55:23 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int	mini_echo(char **exec)
 			newline++;
 		else
 		{
-			printf("%s", *copy_exec);
+			ft_putstr_fd(*copy_exec, 1);
 			if (*(copy_exec + 1))
-				printf(" ");
+				ft_putstr_fd(" ", 1);
 			else
 				break ;
 		}
 	}
 	if (!newline)
-		return (printf("\n"), 0);
+		printf("\n");
 	return (0);
 }
 

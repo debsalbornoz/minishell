@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   program.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:46:23 by jraupp            #+#    #+#             */
-/*   Updated: 2024/07/22 17:46:55 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:57:54 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	print_matrix(char **matrix);
 
 int	program(t_list *envp)
 {
@@ -21,6 +23,7 @@ int	program(t_list *envp)
 	tokens.node = 0;
 	exec.node = 0;
 	readline_status(1);
+	input = NULL;
 	input = readline("¯\\_(ツ)_/¯: ");
 	readline_status(0);
 	add_history(input);
@@ -66,4 +69,16 @@ int	readline_status(int sts)
 	if (sts != -1)
 		status = sts;
 	return (status);
+}
+
+void	print_matrix(char **matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		printf("%s\n", matrix[i]);
+		i++;
+	}
 }

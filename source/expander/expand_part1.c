@@ -42,8 +42,8 @@ char	*expand(t_list *lst_env, char *input)
 
 static char	*process_single_quote(t_exp *exp)
 {
-	while (*exp->temp++ && is_single_quote(exp->sig_quote))
-		exp->sig_quote = process_quotes(exp->sig_quote, *exp->temp);
+	while (*exp->temp && is_single_quote(exp->sig_quote))
+		exp->sig_quote = process_quotes(exp->sig_quote, *++exp->temp);
 	return (exp->temp);
 }
 

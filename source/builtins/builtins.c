@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:33:53 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/20 19:20:06 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:03:36 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	builtins(t_list *exec, t_list *envp, int fd_in, int fd_out)
 	else if (!ft_strcmp(*cmd_table, "export"))
 		return (handle_redir(exec, envp, 1, (union u_func)mini_export), 0);
 	handle_redir(exec, envp, 1, (union u_func)mini_exit);
-	if (!ft_strcmp(ft_get_env("?"), "exit"))
+	if (!ft_strcmp(ft_get_env("?"), "error_exit"))
 		return (update_env_list(envp, "?", "1"), 0);
 	return (1);
 }
@@ -49,7 +49,9 @@ static int	handle_redir(t_list *exec, t_list *envp, int ftype, union u_func f)
 	if (!ft_strcmp(ft_get_env("?"), "1"))
 		return (select_func(exec, envp, ftype, f), 0);
 	value = ft_itoa(select_func(exec, envp, ftype, f));
-	if (ft_strcmp(ft_get_env("?"), "exit"))
+	if (!ft_strcmp(ft_get_env("?"), "normal_exit"))
+		update_env_list(envp, "?", "0");
+	else if (ft_strcmp(ft_get_env("?"), "error_exit"))
 		update_env_list(envp, "?", value);
 	free(value);
 	return (0);

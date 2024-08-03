@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:36:27 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/24 18:41:27 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/07/28 19:06:15 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,14 @@ int	mini_unset(char **exec, t_list *envp)
 {
 	t_node	*unset_var;
 	int		return_value;
-	int		i;
 
 	unset_var = envp->node;
 	return_value = 0;
-	i = 1;
-	while (exec[i])
+	while (exec++, *exec)
 	{
-		if (!is_valid_identifier(exec[i]))
+		if (!is_valid_identifier(*exec))
 			return_value = 1;
-		if (exist_var(envp, exec[i]))
+		if (exist_var(envp, *exec))
 		{
 			if (envp->node == envp->head)
 			{
@@ -65,7 +63,6 @@ int	mini_unset(char **exec, t_list *envp)
 				free_node_env(unset_var);
 			}
 		}
-		i++;
 	}
 	return (return_value);
 }

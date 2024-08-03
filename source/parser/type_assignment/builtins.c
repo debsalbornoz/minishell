@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:12:07 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/07 23:38:23 by jackson          ###   ########.fr       */
+/*   Updated: 2024/07/28 19:44:17 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,18 @@ static int	classify_builtin_type(int type)
 	else if (type == 5)
 		return (ENV);
 	return (EXIT);
+}
+
+int	is_builtin2(t_list *tokens)
+{
+	t_node	*aux;
+
+	aux = tokens->head;
+	while (aux)
+	{
+		if (is_builtins(aux->data->token->type))
+			return (1);
+		aux = aux->next;
+	}
+	return (0);
 }

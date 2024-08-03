@@ -110,6 +110,7 @@ BUIL	:=	$(DIR_BUIL)/cd										\
 			$(DIR_BUIL)/exit									\
 			$(DIR_BUIL)/unset									\
 			$(DIR_BUIL)/export									\
+			$(DIR_BUIL)/export_utils							\
 			$(DIR_BUIL)/builtins								\
 			$(DIR_BUIL)/utils									\
 

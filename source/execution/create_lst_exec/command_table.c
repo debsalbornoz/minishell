@@ -21,7 +21,7 @@ void	create_simple_cmd_table(t_list	*tokens, t_list *exec)
 	aux_tokens = tokens->head;
 	command_table = NULL;
 	i = 0;
-	if (ft_strcmp(aux_tokens->data->token->value, "\0") == 0 && aux_tokens->next)
+	if (!ft_strcmp(aux_tokens->data->token->value, "\0") && aux_tokens->next)
 		aux_tokens = aux_tokens->next;
 	command_table = allocate_cmd_table(aux_tokens);
 	if (!command_table)

@@ -45,7 +45,6 @@ FILES	:=					\
 	ft_putstr				\
 	ft_unsigned				\
 	get_next_line
-# 	get_next_line_utils
 
 SRC	:=	$(addprefix source/, $(addsuffix .c, $(FILES)))
 OBJ	:=	$(addprefix objects/, $(addsuffix .o, $(FILES)))
