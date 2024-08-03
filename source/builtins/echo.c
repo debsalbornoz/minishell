@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:42 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/21 16:02:31 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:57:37 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	mini_echo(char **exec)
 
 	newline = 0;
 	copy_exec = exec;
-	if (!*(copy_exec + 1))
-		return (printf("\n"), 0);
+	if (exec[1] && ft_strcmp(exec[1], "\0") == 0)
+		return(printf("\n"), 0);
 	while (++copy_exec, copy_exec && *copy_exec != 0)
 	{
 		if (!valid_arg_newline(*copy_exec))

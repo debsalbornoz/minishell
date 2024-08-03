@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:36:27 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:07:18 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:36:59 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int	mini_unset(char **exec, t_list *envp)
 	while (++exec, ft_str_exist(*exec))
 	{
 		if (!is_valid_identifier(*exec))
+		{
+			ft_putstr_fd("unset: not a valid identifier\n", 2);
 			return_value = 1;
+		}
 		if (exist_var(envp, *exec))
 		{
 			if (envp->node == envp->head)

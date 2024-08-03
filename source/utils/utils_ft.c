@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_ft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jackson <jackson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 14:51:48 by jraupp            #+#    #+#             */
-/*   Updated: 2024/06/07 23:27:25 by jackson          ###   ########.fr       */
+/*   Updated: 2024/08/03 17:34:07 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ char	*ft_rmchr(char *input, char *position)
 
 int	ft_str_exist(char *str)
 {
-	return (str && *str);
+	if (!str)
+		return (0);
+	return (1);
 }
 
 int	ft_free_str(char *str)

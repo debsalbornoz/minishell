@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:59:18 by codespace         #+#    #+#             */
-/*   Updated: 2024/07/21 18:59:03 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:12:12 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	is_file_redirect_or_pipe(int type)
 
 int	validate_command(t_node *exec)
 {
-	if (exec->data->exec->command_table[0][0] == '\0')
-		return (1);
+	//if (exec->data->exec->command_table[0][0] == '\0')
+	//	return (1);
 	if (exec->data->exec->path != NULL
 		&& exec->data->exec->command_table != NULL
 		&& exec->data->exec->envp != NULL)
