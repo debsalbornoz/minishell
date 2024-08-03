@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:24:21 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/08/01 20:28:23 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/03 20:52:25 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*update_signal_sts(int status, char *sts)
 	int	signal;
 
 	signal = WTERMSIG(status);
-	if (signal == 130 || signal == 131)
+	if (signal == 2 || signal == 3)
 	{
 		if (sts)
 			free(sts);
@@ -80,7 +80,7 @@ char	*update_signal_sts(int status, char *sts)
 		else if (signal == SIGQUIT)
 		{
 			sts = ft_strdup("131");
-			ft_printf("Quit (core dumped)\n");
+			ft_putstr_fd("Quit (core dumped)\n", 2);
 		}
 	}
 	return (sts);
