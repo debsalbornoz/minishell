@@ -172,14 +172,6 @@ re: fclean all
 make_libft:
 	$(MAKE) -C $(L_FT)
 
-valgrind: all
-	valgrind \
-	--leak-check=full \
-	--suppressions=suppression.supp \
-	--show-leak-kinds=all \
-	--trace-children=yes --track-fds=yes \
-	./$(NAME)
-
 .PHONY:	all clean fclean re make_libft valgrind
 
 .SILENT:
