@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:59:18 by codespace         #+#    #+#             */
-/*   Updated: 2024/08/03 21:08:44 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/04 10:38:39 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	is_file_redirect_or_pipe(int type)
 
 int	validate_command(t_node *exec)
 {
-	//if (exec->data->exec->command_table[0][0] == '\0')
-	//	return (1);
 	if (exec->data->exec->path != NULL
 		&& exec->data->exec->command_table != NULL
 		&& exec->data->exec->envp != NULL)

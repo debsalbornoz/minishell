@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:36:27 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/08/03 21:08:22 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/04 10:42:19 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/builtins.h"
 
 static void	free_node_env(t_node *envp);
+static void	unset_next_node(t_node	*unset_var, t_list *envp);
 
 int	is_valid_identifier(char *command_table)
 {
@@ -60,14 +61,17 @@ int	mini_unset(char **exec, t_list *envp)
 				free_node_env(envp->node);
 			}
 			else
-			{
-				unset_var = envp->node->next;
-				envp->node->next = envp->node->next->next;
-				free_node_env(unset_var);
-			}
+				unset_next_node(unset_var, envp);
 		}
 	}
 	return (return_value);
+}
+
+static void	unset_next_node(t_node	*unset_var, t_list *envp)
+{
+	unset_var = envp->node->next;
+	envp->node->next = envp->node->next->next;
+	free_node_env(unset_var);
 }
 
 static void	free_node_env(t_node *envp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jraupp <jraupp@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 20:34:42 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/08/03 21:15:33 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/04 10:44:27 by jraupp           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	mini_echo(char **exec)
 	newline = 0;
 	copy_exec = exec;
 	if (exec[1] && ft_strcmp(exec[1], "\0") == 0 && exec[2] == NULL)
-		return(printf("\n"), 0);
+		return (printf("\n"), 0);
 	while (++copy_exec, copy_exec && *copy_exec != 0)
 	{
 		if (!valid_arg_newline(*copy_exec))
