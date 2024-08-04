@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_part1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 08:30:03 by jraupp            #+#    #+#             */
-/*   Updated: 2024/05/06 15:02:09 by codespace        ###   ########.fr       */
+/*   Updated: 2024/08/03 21:03:45 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ char	*expand(t_list *lst_env, char *input)
 
 static char	*process_single_quote(t_exp *exp)
 {
-	while (*exp->temp++ && is_single_quote(exp->sig_quote))
-		exp->sig_quote = process_quotes(exp->sig_quote, *exp->temp);
+	while (*exp->temp && is_single_quote(exp->sig_quote))
+		exp->sig_quote = process_quotes(exp->sig_quote, *++exp->temp);
 	return (exp->temp);
 }
 

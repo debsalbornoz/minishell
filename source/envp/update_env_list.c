@@ -6,7 +6,7 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/07/16 19:41:21 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/03 21:02:16 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	update_existing_node(t_list *lst_env, char *name, char *value)
 	}
 	if (ft_strncmp(lst_env->node->data->env->name, name, 1000) == 0)
 	{
-		if (ft_str_exist(lst_env->node->data->env->value))
+		if (lst_env->node->data->env->value)
 			free(lst_env->node->data->env->value);
 		if (ft_str_exist(value))
 			lst_env->node->data->env->value = ft_strdup(value);
