@@ -6,13 +6,13 @@
 /*   By: dlamark- <dlamark-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:22:11 by dlamark-          #+#    #+#             */
-/*   Updated: 2024/08/03 21:02:16 by dlamark-         ###   ########.fr       */
+/*   Updated: 2024/08/03 21:32:22 by dlamark-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/env_list.h"
 
-t_list	*update_env_list(t_list *lst_env, char *name, char *value)
+/*t_list	*update_env_list(t_list *lst_env, char *name, char *value)
 {
 	int	result;
 
@@ -48,6 +48,55 @@ int	update_existing_node(t_list *lst_env, char *name, char *value)
 		if (lst_env->node->data->env->value)
 			free(lst_env->node->data->env->value);
 		if (ft_str_exist(value))
+			lst_env->node->data->env->value = ft_strdup(value);
+		else
+			lst_env->node->data->env->value = NULL;
+		return (0);
+	}
+	return (-1);
+}
+*/
+
+t_list *update_env_list(t_list *lst_env, char *name, char *value)
+{
+	int result;
+
+	if (!lst_env)
+		return (NULL);
+
+	lst_env->node = lst_env->head;
+	result = update_existing_node(lst_env, name, value);
+		
+	if (result == 0)
+		return (lst_env);
+	lst_env = add_new_node(lst_env, name, value);
+	if (!lst_env)
+		return (NULL);
+	lst_env->node = lst_env->head;
+	return (lst_env);
+}
+
+int update_existing_node(t_list *lst_env, char *name, char *value)
+{
+	while (lst_env->node->next)
+	{
+		if (ft_strncmp(lst_env->node->data->env->name, name, 1000) == 0)
+		{
+			if (lst_env->node->data->env->value)
+				free(lst_env->node->data->env->value);
+			if (value)
+				lst_env->node->data->env->value = ft_strdup(value);
+			else
+				lst_env->node->data->env->value = NULL;
+			return (0);
+		}
+		lst_env->node = lst_env->node->next;
+	}
+	if (ft_strncmp(lst_env->node->data->env->name, name, 1000) == 0)
+	{
+		if (lst_env->node->data->env->value)
+			free(lst_env->node->data->env->value);
+		if (value)
 			lst_env->node->data->env->value = ft_strdup(value);
 		else
 			lst_env->node->data->env->value = NULL;
