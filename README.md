@@ -1,46 +1,64 @@
+<h1 align="center">Minishell</h1>
 
-## Minishell 
+<div align="center">
+<img alt="Static Badge" src="https://img.shields.io/badge/Status-Finished-green">
+<img alt="Static Badge" src="https://img.shields.io/badge/42-Project-blue">
+<img alt="Static Badge" src="https://img.shields.io/badge/Language-C-lightgrey">
+</div>
+
+## Demo
 
 [minishell.webm](https://github.com/user-attachments/assets/1d2f7bdd-3ab1-4b3c-8155-7191f02d140b)
 
+## About
 
-# Sobre
+**Minishell** is a simple shell developed in C, built to simulate a basic command-line environment similar to Bash. This project provides hands-on understanding of the fundamental principles behind how a shell works, including command execution, process management, environment variable handling, and interaction with the operating system.
 
-Minishell é um shell simples desenvolvido em C, criado com o objetivo de simular um ambiente de linha de comando básico semelhante ao Bash. Este projeto proporciona uma compreensão prática dos princípios fundamentais que regem o funcionamento de um shell, incluindo a execução de comandos, o gerenciamento de processos, a manipulação de variáveis de ambiente e a interação com o sistema operacional.
+Minishell lets users run system commands, change directories, and manage data input/output, offering an environment that mimics the experience of a real shell. Throughout development, a range of programming techniques were explored, including string manipulation, system calls for process management, and error handling — all aimed at ensuring robustness and reliability.
 
-O Minishell permite que os usuários executem comandos do sistema, mudem de diretórios, e gerenciem a entrada e saída de dados, oferecendo um ambiente que simula a experiência de um shell real. Durante o desenvolvimento deste projeto, foram exploradas diversas técnicas de programação, incluindo a manipulação de strings, o uso de funções do sistema para gerenciamento de processos e o tratamento de erros, garantindo robustez e confiabilidade.
+## Features
 
-## Funcionalidades
+Minishell offers several features that make the experience interactive and practical:
 
-O Minishell oferece várias funcionalidades que tornam a experiência de uso interativa e prática:
+- **Command execution** — run both simple commands and system binaries.
+- **Builtins** — support for built-in commands such as `cd` (change directory) and `exit` (terminate the shell).
+- **Environment variable handling** — allows viewing and setting environment variables, essential for configuring the execution environment.
+- **Input/output redirection** — redirect command output to files, and read input from files.
+- **Pipes** — chain commands together using pipes, so the output of one command becomes the input of another.
+- **Error handling** — critical operations include error checking, providing a more stable and predictable experience.
 
-- **Execução de Comandos:** Os usuários podem executar comandos simples e comandos do sistema operacional.
-- **Builtins:** Suporte a builtins, como `cd` para mudança de diretório e `exit` para encerrar o shell.
-- **Manipulação de Variáveis de Ambiente:** Permite a visualização e definição de variáveis de ambiente, essencial para a configuração do ambiente de execução.
-- **Redirecionamento de Entrada e Saída:** Os usuários podem redirecionar a saída de comandos para arquivos e também ler entradas a partir de arquivos.
-- **Pipes:** É possível encadear comandos usando pipes, permitindo que a saída de um comando seja utilizada como entrada para outro.
-- **Tratamento de Erros:** Implementação de verificação de erros em operações críticas, proporcionando uma experiência mais estável e previsível.
+## Table of Contents
 
-## Instalação
+- [Installation](#installation)
 
-Para instalar o Minishell, você precisará do compilador GCC e do utilitário Make em seu sistema. Abaixo estão os passos para configurar o ambiente:
+## Installation
 
-1. Clone o repositório:
+To install Minishell, you'll need the GCC compiler and the Make utility installed on your system. Follow the steps below to set up the environment:
 
-   ```
-    git@github.com:debsalbornoz/minishell.git
-   ```
+1. Clone the repository:
 
-2. Navegue até o diretório do projeto:
-   ```
-   cd minishell
-   ```
-3. Compile o projeto
-   ```
-   make
-   ```
+    ```bash
+    git clone git@github.com:debsalbornoz/minishell.git
+    ```
 
-   Para iniciar o Minishell, execute o seguinte comando no terminal:
-      ```
-   ./minishell
-   ```
+2. Navigate to the project directory:
+
+    ```bash
+    cd minishell
+    ```
+
+3. Build the project:
+
+    ```bash
+    make
+    ```
+
+4. Start Minishell by running the following command in your terminal:
+
+    ```bash
+    ./minishell
+    ```
+
+---
+
+<p align="center">Built as part of the 42 curriculum 🖥️</p>
